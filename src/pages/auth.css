@@ -1,0 +1,103 @@
+.auth {
+  &__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  &__form,
+  &__registration_form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 340px;
+    height: 460px;
+    border-radius: 12px;
+    box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.5);
+    padding: 50px 30px;
+    &__title {
+      width: auto;
+      height: 20px;
+      color: #1e1e1e;
+    }
+    &__login,
+    &__email,
+    &__first_name,
+    &__second_name,
+    &__phone {
+      color: #999999;
+      margin-top: 33px;
+      font-size: 9;
+      height: auto;
+      &__input {
+        border-width: 0px 0px 1px 0px;
+        border-bottom-color: #3369f3;
+        height: 28px;
+        font-size: 13;
+      }
+      &__input:focus {
+        outline: none;
+      }
+      &__error {
+        font-size: 8;
+        margin-top: 7px;
+        color: #ff2f2f;
+      }
+    }
+    &__password,
+    &__password_repeat {
+      color: #999999;
+      margin-top: 16px;
+      font-size: 9;
+      height: auto;
+      &__input {
+        border-width: 0px 0px 1px 0px;
+        border-bottom-color: #3369f3;
+        height: 28px;
+        font-size: 13;
+      }
+      &__input:focus {
+        outline: none;
+      }
+      &__error {
+        font-size: 8;
+        margin-top: 7px;
+        color: #ff2f2f;
+      }
+    }
+    &__buttonContainer {
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 154px;
+    }
+  }
+  &__registration_form {
+    height: 615px;
+    &__buttonContainer {
+      margin-top: 48px;
+    }
+  }
+  &__noaccount {
+    display: flex;
+    justify-content: center;
+    margin-top: 14px;
+    font-size: 11;
+    color: #3369f3;
+    height: auto;
+  }
+}
+
+.buttonAuth {
+  width: 280px;
+  height: 37px;
+  background-color: #3369f3;
+  color: white;
+  border-radius: 8px;
+  border-color: #3369f3;
+  font-size: 13;
+  cursor: pointer;
+}

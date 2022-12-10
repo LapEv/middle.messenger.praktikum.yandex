@@ -1,0 +1,41 @@
+{{!< auth}}
+
+<form class='auth__registration_form'>
+  <h2 class='auth__registration_form__title'>Регистрация</h2>
+  <div class='auth__registration_form__email'>
+    Почта
+    <input class='auth__registration_form__email__input' type='text' value="" onChange="console.log(this.value)">
+  </div>
+  <div class='auth__registration_form__login'>
+    Логин
+    <input class='auth__registration_form__login__input' type='text' value="" onChange="console.log(this.value)">
+  </div>
+  <div class='auth__registration_form__first_name'>
+    Имя
+    <input class='auth__registration_form__first_name__input' type='text' value="" onChange="console.log(this.value)">
+  </div>
+  <div class='auth__registration_form__second_name'>
+    Фамилия
+    <input class='auth__registration_form__second_name__input' type='text' value="" onChange="console.log(this.value)">
+  </div>
+  <div class='auth__registration_form__phone'>
+    Телефон
+    <input class='auth__registration_form__phone__input' type='text' value="" onChange="console.log(this.value)">
+  </div>
+  <div class='auth__registration_form__password'>
+    Пароль
+    <input class='auth__registration_form__password__input' type='text' value="" onChange="console.log(this.value)" />
+  </div>
+    <div class='auth__registration_form__password_repeat'>
+    Пароль (еще раз)
+    <input class='auth__registration_form__password_repeat__input' type='text' value="" onChange="console.log(this.value)" />
+    <div class='auth__registration_form__password_repeat__error'>
+      Error
+    </div>
+  </div>
+  <footer class="auth__registration_form__buttonContainer">
+    {{>buttonAuth title="Зарегистрироваться"}}
+   <a class='auth__noaccount' href='./index.hbs'>Войти</a>
+  </footer>
+  
+</form>

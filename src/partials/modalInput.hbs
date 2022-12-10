@@ -1,0 +1,15 @@
+<div class='modal'>
+  <div class='modal__background'></div>
+  <div class='modal__container'>
+    <div class="modal__title">
+      {{modalMessageInput.title}}
+    </div>
+    <div  class='modal__login'>
+      {{modalMessageInput.login}}
+      <input class='modal__login__input' type='text' value={{modalMessageInput.text}}/>
+    </div>
+    <div class='modal__button'>
+      {{>buttonAuth title="Добавить"}}
+    </div>
+  </div>
+</div>

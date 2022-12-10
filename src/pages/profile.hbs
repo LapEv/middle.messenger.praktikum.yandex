@@ -1,0 +1,44 @@
+{{!< profile}}
+
+<div class='profile'>
+  <div class='profile__buttonBack'>
+    <a href='./chat.hbs' class='profile__buttonBack__img'>
+      <img src='../static/img/arrowBack.png' />
+    </a>
+
+  </div>
+  <div class='profile__container'>
+    <div class='profile__avatar'>
+      <img
+        src='../static/img/profile_avatar.png'
+        class='profile__avatar__img'
+      />
+      <div class='profile__avatar__change'>Поменять аватар</div>
+    </div>
+    <div class='profile__title'>
+      Ivan
+    </div>
+    <div class='profile__data__container'>
+      {{#each profileData}}
+        <div class='profile__data'>
+          <div class='profile__data__title'>
+            {{title}}
+          </div>
+          <div class='profile__data__data'>
+            {{data}}
+          </div>
+        </div>
+        <div class='profile__line'></div>
+      {{/each}}
+    </div>
+    <a class='profile__changeData'>
+      Изменить данные
+    </a>
+    <div class='profile__line2'></div>
+    <a href='./profileChangePassword.hbs' class='profile__password'>
+      Изменить пароль
+    </a>
+    <div class='profile__line2'></div>
+    <a href='./index.hbs' class='profile__exit'>Выйти</div>
+  </div>
+</div>

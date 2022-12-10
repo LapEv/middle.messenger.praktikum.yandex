@@ -1,0 +1,26 @@
+<div class='chat__list'>
+  <div class='chat__list__profileLink'>
+    Профиль
+    <a href='./profile.hbs' class='chat__list__profileLink__icon'>{{>chat/arrowRight}}</a>
+  </div>
+  <input
+    class='chat__list__input'
+    type='text'
+    id='chatSearch'
+    placeholder='Поиск'
+    name='chatSearch'
+  />
+    {{#each data}}
+      <div class='chat__list__message__container'>
+        <div class="chat__list__message__circle">
+          {{!-- <img class='chat__message__userImg' /> --}}
+        </div>
+        <div class='chat__list__message__text'>
+          <span class='chat__list__message__title'>{{username}}</span>
+          <span class='chat__list__message__last'>{{lastMessage}}</span>
+        </div>
+        <div class='chat__list__message__lastDate'>{{lastMessageDate}}</div>
+      </div>
+    {{/each}}
+
+</div>

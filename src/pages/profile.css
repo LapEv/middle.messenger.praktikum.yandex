@@ -1,0 +1,128 @@
+.profile {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  &__buttonBack {
+    width: 64px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: #fbfbfb;
+    &__img {
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
+    }
+  }
+  &__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  &__avatar {
+    margin-top: 60px;
+    width: 130px;
+    height: 130px;
+    min-height: 130px;
+    background: #efefef;
+    border-radius: 50%;
+    border-width: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    &__img {
+      width: 40px;
+      height: 40px;
+    }
+    &__change {
+      position: absolute;
+      background-color: #000000;
+      opacity: 0;
+      border-radius: 50%;
+      width: 130px;
+      height: 130px;
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    &__change:hover {
+      opacity: 0.5;
+    }
+  }
+  &__title {
+    width: auto;
+    height: auto;
+    margin-top: 21px;
+    font-size: 16;
+    font-weight: bold;
+  }
+  &__data {
+    display: flex;
+    flex-direction: row;
+    height: 23px;
+    margin-top: 10px;
+
+    &__container {
+      width: 510px;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      margin-top: 50px;
+    }
+    &__title {
+      font-size: 13;
+      font-weight: bold;
+    }
+    &__data {
+      color: #999999;
+      font-size: 13;
+      text-align: end;
+      margin-bottom: 10px;
+      border: 0;
+    }
+    &__data:focus {
+      outline: none;
+    }
+  }
+  &__line,
+  &__line2 {
+    height: 1px;
+    background-color: #eaeaea;
+    width: 510px;
+  }
+  &__changeData {
+    width: 510px;
+    margin-top: 60px;
+    height: auto;
+    color: #3369f3;
+    font-size: 13;
+  }
+  &__password {
+    width: 510px;
+    margin-top: 10px;
+    height: auto;
+    color: #3369f3;
+    font-size: 13;
+  }
+  &__line2 {
+    margin-top: 10px;
+  }
+  &__exit {
+    margin-top: 10px;
+    width: 510px;
+    color: #ff0000;
+    font-size: 13;
+  }
+  &__button {
+    display: flex;
+    justify-content: center;
+    width: 510px;
+    margin-top: 162px;
+  }
+}
