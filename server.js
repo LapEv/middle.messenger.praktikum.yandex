@@ -4,6 +4,11 @@ const app = express();
 const exphbs = require('express-handlebars');
 
 const PORT = 3000;
+const changePasswordData = require('./src/data/changePasswordData');
+const data = require('./src/data/data');
+const error = require('./src/data/error');
+const profileData = require('./src/data/profileData');
+const route = require('./src/data/routeForNode');
 
 app.engine(
   'hbs',
@@ -19,15 +24,31 @@ app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, '/src/pages/'));
 
 app.get('/', (req, res) => {
-  res.render('index.hbs');
+  res.render('index.hbs', route);
 });
 
-app.get('/index', (req, res) => {
-  res.render('index.hbs');
+app.get(route.route.index, (req, res) => {
+  res.render('index.hbs', route);
 });
 
-app.get('/registration', (req, res) => {
-  res.render('registration.hbs');
+app.get(route.route.registration, (req, res) => {
+  res.render('registration.hbs', route);
+});
+
+app.get(route.route.chat, (req, res) => {
+  res.render('chat.hbs', data);
+});
+
+app.get(route.route.profile, (req, res) => {
+  res.render('profile.hbs', profileData);
+});
+
+app.get(route.route.changePassword, (req, res) => {
+  res.render('profileChangePassword.hbs', changePasswordData);
+});
+
+app.get(route.route.error, (req, res) => {
+  res.render('error', error);
 });
 
 app.listen(PORT, () => {

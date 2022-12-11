@@ -2,7 +2,7 @@
 
 <div class='profile'>
   <div class='profile__buttonBack'>
-    <a href='./chat.hbs' class='profile__buttonBack__img'>
+    <a href={{route.chat}} class='profile__buttonBack__img'>
       <img src='../static/img/arrowBack.png' />
     </a>
 
@@ -35,10 +35,10 @@
       Изменить данные
     </a>
     <div class='profile__line2'></div>
-    <a href='./profileChangePassword.hbs' class='profile__password'>
+    <a href={{route.changePassword}} class='profile__password'>
       Изменить пароль
     </a>
     <div class='profile__line2'></div>
-    <a href='./index.hbs' class='profile__exit'>Выйти</div>
+    <a href={{route.index}} class='profile__exit'>Выйти</div>
   </div>
 </div>

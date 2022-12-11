@@ -1,8 +1,4 @@
-const error = {
-  error: {
-    title: '404',
-    message: 'Не туда попали',
-  },
+const route = {
   route: {
     index: '/index',
     registration: '/registration',
@@ -13,4 +9,4 @@ const error = {
   },
 };
 
-module.exports = error;
+module.exports = route;

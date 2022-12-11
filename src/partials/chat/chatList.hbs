@@ -1,7 +1,6 @@
 <div class='chat__list'>
   <div class='chat__list__profileLink'>
-    Профиль
-    <a href='./profile.hbs' class='chat__list__profileLink__icon'>{{>chat/arrowRight}}</a>
+    <a href={{route.profile}} class='chat__list__profileLink__icon'>Профиль{{>chat/arrowRight}}</a>
   </div>
   <input
     class='chat__list__input'
@@ -13,7 +12,6 @@
     {{#each data}}
       <div class='chat__list__message__container'>
         <div class="chat__list__message__circle">
-          {{!-- <img class='chat__message__userImg' /> --}}
         </div>
         <div class='chat__list__message__text'>
           <span class='chat__list__message__title'>{{username}}</span>
