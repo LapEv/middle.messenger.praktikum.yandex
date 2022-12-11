@@ -4,20 +4,30 @@
   <h2 class='auth__form__title'>Вход</h2>
   <div class='auth__form__login'>
     Логин
-    <input class='auth__form__login__input' type='text' value="" onChange="console.log(this.value)">
+    <input
+      class='auth__form__login__input'
+      type='text'
+      value=''
+      onChange='console.log(this.value)'
+    />
     <div class='auth__form__login__error'>
       Error
     </div>
   </div>
   <div class='auth__form__password'>
     Пароль
-    <input class='auth__form__password__input' type='text' value="" onChange="console.log(this.value)" />
+    <input
+      class='auth__form__password__input'
+      type='text'
+      value=''
+      onChange='console.log(this.value)'
+    />
     <div class='auth__form__password__error'>
       Error
     </div>
   </div>
-  <footer class="auth__form__buttonContainer">
+  <footer class='auth__form__buttonContainer'>
     {{>buttonAuth title="Войти"}}
-   <a class='auth__noaccount' href='./registration.hbs'>Нет аккаунта?</a>
- </footer>
+    <a class='auth__noaccount' href='./registration.hbs'>Нет аккаунта?</a>
+  </footer>
 </form>

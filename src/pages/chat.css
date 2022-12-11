@@ -28,7 +28,7 @@
       margin-bottom: 14px;
       border-radius: 5px;
       border-width: 0px;
-      background: url('./src/static/img/search_icon.png') no-repeat 35% #efefef;
+      background: url('./static/img/search_icon.png') no-repeat 35% #efefef;
       padding: 10px;
     }
     &__input:focus {

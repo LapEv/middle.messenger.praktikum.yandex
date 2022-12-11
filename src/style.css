@@ -1,0 +1,12 @@
+@import './pages/auth.css';
+@import './pages/chat.css';
+@import './pages/profile.css';
+@import './pages/error.css';
+@import './partials/buttonAuth.css';
+@import './partials/modal.css';
+
+* {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
