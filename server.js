@@ -9,7 +9,9 @@ const data = require('./src/data/data');
 const error = require('./src/data/error');
 const profileData = require('./src/data/profileData');
 const route = require('./src/data/routeForNode');
+const chatMessages = require('./src/data/chatMessages');
 
+console.log('data = ', { changePasswordData, ...route });
 app.engine(
   'hbs',
   exphbs.engine({
@@ -36,19 +38,23 @@ app.get(route.route.registration, (req, res) => {
 });
 
 app.get(route.route.chat, (req, res) => {
-  res.render('chat.hbs', data);
+  res.render('chat.hbs', {
+    data,
+    chatMessages: { ...chatMessages },
+    ...route,
+  });
 });
 
 app.get(route.route.profile, (req, res) => {
-  res.render('profile.hbs', profileData);
+  res.render('profile.hbs', { profileData, ...route });
 });
 
 app.get(route.route.changePassword, (req, res) => {
-  res.render('profileChangePassword.hbs', changePasswordData);
+  res.render('profileChangePassword.hbs', { changePasswordData, ...route });
 });
 
 app.get(route.route.error, (req, res) => {
-  res.render('error', error);
+  res.render('error', { error, ...route });
 });
 
 app.listen(PORT, () => {

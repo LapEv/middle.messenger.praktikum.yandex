@@ -13,4 +13,4 @@
 * npm run build — сборка рабочей версии
 
 ## Netlify
-
+https://cerulean-fudge-b72381.netlify.app
