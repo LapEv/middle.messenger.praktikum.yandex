@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "parcel src/pages/index.hbs --no-cache",
-    "build": "parcel build src/pages/index.hbs && node ./server.js"
+    "build": "parcel build src/pages/index.hbs"
   },
   "keywords": [],
   "author": "",
