@@ -3,28 +3,32 @@
 <form class='auth__form'>
   <h2 class='auth__form__title'>Вход</h2>
   <div class='auth__form__login'>
-    Логин
+    <label for="loginInput">Логин</label>
     <input
+      name='loginInput'
+      id='loginInput'
       class='auth__form__login__input'
       type='text'
       value=''
       onChange='console.log(this.value)'
     />
-    <div class='auth__form__login__error'>
+    <span class='auth__form__login__error'>
       Error
-    </div>
+    </span>
   </div>
   <div class='auth__form__password'>
-    Пароль
+    <label for="passwordInput">Пароль</label>
     <input
+      name='passwordInput'
+      id='passwordInput'
       class='auth__form__password__input'
       type='text'
       value=''
       onChange='console.log(this.value)'
     />
-    <div class='auth__form__password__error'>
+    <span class='auth__form__password__error'>
       Error
-    </div>
+    </span>
   </div>
   <footer class='auth__form__buttonContainer'>
     {{>buttonAuth title="Войти"}}

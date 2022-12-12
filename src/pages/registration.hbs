@@ -3,35 +3,35 @@
 <form class='auth__registration_form'>
   <h2 class='auth__registration_form__title'>Регистрация</h2>
   <div class='auth__registration_form__email'>
-    Почта
-    <input class='auth__registration_form__email__input' type='text' value="" onChange="console.log(this.value)">
+    <label for="emailInput">Почта</label>
+    <input id='emailInput' name='emailInput' class='auth__registration_form__email__input' type='text' value="" onChange="console.log(this.value)">
   </div>
   <div class='auth__registration_form__login'>
-    Логин
-    <input class='auth__registration_form__login__input' type='text' value="" onChange="console.log(this.value)">
+    <label for="loginInput">Логин</label>
+    <input id='loginInput' name='loginInput' class='auth__registration_form__login__input' type='text' value="" onChange="console.log(this.value)">
   </div>
   <div class='auth__registration_form__first_name'>
-    Имя
-    <input class='auth__registration_form__first_name__input' type='text' value="" onChange="console.log(this.value)">
+    <label for="firstNameInput">Логин</label>
+    <input id='firstNameInput' name='firstNameInput' class='auth__registration_form__first_name__input' type='text' value="" onChange="console.log(this.value)">
   </div>
   <div class='auth__registration_form__second_name'>
-    Фамилия
-    <input class='auth__registration_form__second_name__input' type='text' value="" onChange="console.log(this.value)">
+    <label for="secondNameInput">Фамилия</label>
+    <input id='secondNameInput' name='secondNameInput' class='auth__registration_form__second_name__input' type='text' value="" onChange="console.log(this.value)">
   </div>
   <div class='auth__registration_form__phone'>
-    Телефон
-    <input class='auth__registration_form__phone__input' type='text' value="" onChange="console.log(this.value)">
+    <label for="telephoneInput">Телефон</label>
+    <input id='telephoneInput' name='telephoneInput' class='auth__registration_form__phone__input' type='text' value="" onChange="console.log(this.value)">
   </div>
   <div class='auth__registration_form__password'>
-    Пароль
-    <input class='auth__registration_form__password__input' type='text' value="" onChange="console.log(this.value)" />
+    <label for="passwordInput">Пароль</label>
+    <input id='passwordInput' name='passwordInput' class='auth__registration_form__password__input' type='text' value="" onChange="console.log(this.value)" />
   </div>
     <div class='auth__registration_form__password_repeat'>
-    Пароль (еще раз)
-    <input class='auth__registration_form__password_repeat__input' type='text' value="" onChange="console.log(this.value)" />
-    <div class='auth__registration_form__password_repeat__error'>
+    <label for="passwordCheckInput">Пароль (еще раз)</label>
+    <input id='passwordCheckInput' name='passwordCheckInput' class='auth__registration_form__password_repeat__input' type='text' value="" onChange="console.log(this.value)" />
+    <p class='auth__registration_form__password_repeat__error'>
       Error
-    </div>
+    </p>
   </div>
   <footer class="auth__registration_form__buttonContainer">
     {{>buttonAuth title="Зарегистрироваться"}}

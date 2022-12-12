@@ -1,0 +1,57 @@
+<div class='chat__body'>
+  <div class='chat__body__title'>
+    <div class='chat__body__title__circle'></div>
+    <span class='chat__body__title__user'>
+      {{chatMessages.user}}
+    </span>
+    <img
+      alt='menu'
+      src='../static/img/menu.png'
+      class='chat__body__title__img'
+    />
+  </div>
+  <div class='chat__body__line'></div>
+  <span class='chat__body__date'>{{chatMessages.date}}</span>
+  <div class='chat__body__message__container'>
+    <span class='chat__body__message'>
+      {{chatMessages.text1}}
+    </span>
+    <span class='chat__body__message__time'>
+      {{chatMessages.time1}}
+    </span>
+  </div>
+  <img alt='camera' src='../static/img/camera.png' class='chat__body__img' />
+  <div class='chat__body__you__container'>
+    <span class='chat__body__you'>
+      {{chatMessages.text2}}
+    </span>
+    <span class='chat__body__you__time'>
+      {{chatMessages.time2}}
+    </span>
+  </div>
+
+  <footer class='chat__body__footer'>
+    <div class='chat__body__line'></div>
+    <div class='chat__body__footer__container'>
+      <img
+        alt='attach'
+        src='../static/img/attach.png'
+        class='chat__body__footer__img'
+      />
+      <label for='enterMessageInput' style='width: 0'></label>
+      <input
+        id='enterMessageInput'
+        name='enterMessageInput'
+        class='chat__body__footer__input'
+        placeholder='Сообщение'
+      />
+      <img
+        alt='send'
+        src='../static/img/send.png'
+        class='chat__body__footer__imgSend'
+      />
+
+    </div>
+
+  </footer>
+</div>

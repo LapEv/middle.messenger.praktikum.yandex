@@ -1,32 +1,33 @@
 {{!< profile}}
 
-<div class='profile'>
+<main class='profile'>
   <div class='profile__buttonBack'>
     <a href={{route.chat}} class='profile__buttonBack__img'>
-      <img src='../static/img/arrowBack.png' />
+      <img alt='arrowBack' src='../static/img/arrowBack.png' />
     </a>
 
   </div>
   <div class='profile__container'>
     <div class='profile__avatar'>
       <img
+        alt='profile avatar'
         src='../static/img/profile_avatar.png'
         class='profile__avatar__img'
       />
-      <div class='profile__avatar__change'>Поменять аватар</div>
+      <span class='profile__avatar__change'>Поменять аватар</span>
     </div>
-    <div class='profile__title'>
+    <p class='profile__title'>
       Ivan
-    </div>
+    </p>
     <div class='profile__data__container'>
       {{#each profileData}}
         <div class='profile__data'>
-          <div class='profile__data__title'>
+          <p class='profile__data__title'>
             {{title}}
-          </div>
-          <div class='profile__data__data'>
+          </p>
+          <span class='profile__data__data'>
             {{data}}
-          </div>
+          </span>
         </div>
         <div class='profile__line'></div>
       {{/each}}
@@ -41,4 +42,4 @@
     <div class='profile__line2'></div>
     <a href={{route.index}} class='profile__exit'>Выйти</div>
   </div>
-</div>
+</main>

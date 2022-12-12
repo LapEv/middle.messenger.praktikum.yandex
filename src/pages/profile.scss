@@ -8,7 +8,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    background-color: #fbfbfb;
+    background-color: $color-background-light2;
     &__img {
       width: 28px;
       height: 28px;
@@ -26,7 +26,7 @@
     width: 130px;
     height: 130px;
     min-height: 130px;
-    background: #efefef;
+    background: $color-background-light;
     border-radius: 50%;
     border-width: 0px;
     display: flex;
@@ -39,12 +39,12 @@
     }
     &__change {
       position: absolute;
-      background-color: #000000;
+      background-color: $color-black;
       opacity: 0;
       border-radius: 50%;
       width: 130px;
       height: 130px;
-      color: #ffffff;
+      color: $color-white;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -80,7 +80,7 @@
       font-weight: bold;
     }
     &__data {
-      color: #999999;
+      color: $color-text-background;
       font-size: 13;
       text-align: end;
       margin-bottom: 10px;
@@ -93,21 +93,21 @@
   &__line,
   &__line2 {
     height: 1px;
-    background-color: #eaeaea;
+    background-color: $color-background;
     width: 510px;
   }
   &__changeData {
     width: 510px;
     margin-top: 60px;
     height: auto;
-    color: #3369f3;
+    color: $color-button-background;
     font-size: 13;
   }
   &__password {
     width: 510px;
     margin-top: 10px;
     height: auto;
-    color: #3369f3;
+    color: $color-button-background;
     font-size: 13;
   }
   &__line2 {
@@ -116,7 +116,7 @@
   &__exit {
     margin-top: 10px;
     width: 510px;
-    color: #ff0000;
+    color: $color-danger;
     font-size: 13;
   }
   &__button {

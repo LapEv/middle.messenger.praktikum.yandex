@@ -2,7 +2,9 @@
   <div class='chat__list__profileLink'>
     <a href={{route.profile}} class='chat__list__profileLink__icon'>Профиль{{>chat/arrowRight}}</a>
   </div>
+  <label for='chatSearch'></label>
   <input
+    name='chatSearch'
     class='chat__list__input'
     type='text'
     id='chatSearch'
@@ -17,7 +19,7 @@
           <span class='chat__list__message__title'>{{username}}</span>
           <span class='chat__list__message__last'>{{lastMessage}}</span>
         </div>
-        <div class='chat__list__message__lastDate'>{{lastMessageDate}}</div>
+        <span class='chat__list__message__lastDate'>{{lastMessageDate}}</span>
       </div>
     {{/each}}
 
