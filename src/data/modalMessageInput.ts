@@ -23,4 +23,4 @@ const modalMessageInput = {
   ],
 };
 
-module.exports = modalMessageInput;
+export default modalMessageInput;

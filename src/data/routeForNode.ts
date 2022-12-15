@@ -9,4 +9,4 @@ const route = {
   },
 };
 
-module.exports = route;
+export default route;

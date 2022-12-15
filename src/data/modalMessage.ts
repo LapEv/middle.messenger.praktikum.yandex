@@ -23,4 +23,4 @@ const modalMessage = {
   ],
 };
 
-module.exports = modalMessage;
+export default modalMessage;

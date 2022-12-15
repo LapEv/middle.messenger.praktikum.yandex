@@ -8,4 +8,4 @@ const chatMessages = {
   text2: 'Круто!',
 };
 
-module.exports = chatMessages;
+export default chatMessages;

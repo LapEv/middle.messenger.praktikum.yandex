@@ -6,4 +6,4 @@ const route = {
   changePassword: './profileChangePassword.hbs',
 };
 
-module.exports = route;
+export default route;

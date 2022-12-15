@@ -16,4 +16,4 @@ const changePasswordData = [
   },
 ];
 
-module.exports = changePasswordData;
+export default changePasswordData;

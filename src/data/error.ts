@@ -3,4 +3,4 @@ const error = {
   message: 'Не туда попали',
 };
 
-module.exports = error;
+export default error;

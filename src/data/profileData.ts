@@ -31,4 +31,4 @@ const profileData = [
   },
 ];
 
-module.exports = profileData;
+export default profileData;
