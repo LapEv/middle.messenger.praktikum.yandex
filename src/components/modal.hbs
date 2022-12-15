@@ -1,0 +1,19 @@
+<div class='modal'>
+  <div class='modal__background'></div>
+  <div class='modal__container'>
+    <span class="modal__title">
+      {{modalMessage.title}}
+    </span>
+    <div  class='modal__choose'>
+      <a href=''>
+        {{modalMessage.text}}
+      </a>
+    </div>
+    <div class='modal__button'>
+      {{>buttonAuth title="Поменять"}}
+    </div>
+    <span class='modal__error'>
+      {{modalMessage.error}}
+    </span>
+  </div>
+</div>

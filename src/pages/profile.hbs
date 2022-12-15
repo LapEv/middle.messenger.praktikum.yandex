@@ -1,0 +1,52 @@
+{{!< profile}}
+
+<main class='profile'>
+  <div class='profile__buttonBack'>
+    <a href={{route.chat}} class='profile__buttonBack__img'>
+      <img alt='arrowBack' src='../static/img/arrowBack.png' />
+    </a>
+
+  </div>
+  <div class='profile__container'>
+    <div class='profile__avatar'>
+      <img
+        alt='profile avatar'
+        src='../static/img/profile_avatar.png'
+        class='profile__avatar__img'
+      />
+      <label for='avatar' style='display: none'></label>
+      <input
+        name='avatar'
+        type='file'
+        id='avatar'
+        style='display: none'
+
+      />
+      <span class='profile__avatar__change'>Поменять аватар</span>
+    </div>
+    <p class='profile__title'>
+      Ivan
+    </p>
+    <div class='profile__data__container'>
+      {{#each profileData}}
+        <div class='profile__data'>
+          <p class='profile__data__title'>
+            {{title}}
+          </p>
+          <label for={{name}} style="width: 0px"></label>
+          <input id={{name}} name={{name}} type='text' class='profile__data__data' value={{data}}/>
+        </div>
+        <div class='profile__line'></div>
+      {{/each}}
+    </div>
+    <a class='profile__changeData'>
+      Изменить данные
+    </a>
+    <div class='profile__line2'></div>
+    <a href={{route.changePassword}} class='profile__password'>
+      Изменить пароль
+    </a>
+    <div class='profile__line2'></div>
+    <a href={{route.index}} class='profile__exit'>Выйти</div>
+  </div>
+</main>

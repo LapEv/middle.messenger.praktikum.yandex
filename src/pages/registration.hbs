@@ -1,0 +1,41 @@
+{{!< auth}}
+
+<form class='auth__registration_form'>
+  <h2 class='auth__registration_form__title'>Регистрация</h2>
+  <div class='auth__registration_form__email'>
+    <label for="email">Почта</label>
+    <input id='email' name='email' class='auth__registration_form__email__input' type='text' value="" onChange="console.log(this.value)">
+  </div>
+  <div class='auth__registration_form__login'>
+    <label for="login">Логин</label>
+    <input id='login' name='login' class='auth__registration_form__login__input' type='text' value="" onChange="console.log(this.value)">
+  </div>
+  <div class='auth__registration_form__first_name'>
+    <label for="first_name">Имя</label>
+    <input id='first_name' name='first_name' class='auth__registration_form__first_name__input' type='text' value="" onChange="console.log(this.value)">
+  </div>
+  <div class='auth__registration_form__second_name'>
+    <label for="second_name">Фамилия</label>
+    <input id='second_name' name='second_name' class='auth__registration_form__second_name__input' type='text' value="" onChange="console.log(this.value)">
+  </div>
+  <div class='auth__registration_form__phone'>
+    <label for="phone">Телефон</label>
+    <input id='phone' name='phone' class='auth__registration_form__phone__input' type='text' value="" onChange="console.log(this.value)">
+  </div>
+  <div class='auth__registration_form__password'>
+    <label for="password">Пароль</label>
+    <input id='password' name='password' class='auth__registration_form__password__input' type='text' value="" onChange="console.log(this.value)" />
+  </div>
+    <div class='auth__registration_form__password_repeat'>
+    <label for="passwordCheck">Пароль (еще раз)</label>
+    <input id='passwordCheck' name='passwordCheck' class='auth__registration_form__password_repeat__input' type='text' value="" onChange="console.log(this.value)" />
+    <p class='auth__registration_form__password_repeat__error'>
+      Error
+    </p>
+  </div>
+  <footer class="auth__registration_form__buttonContainer">
+    {{>buttonAuth title="Зарегистрироваться"}}
+   <a class='auth__noaccount' href={{route.index}}>Войти</a>
+  </footer>
+  
+</form>
