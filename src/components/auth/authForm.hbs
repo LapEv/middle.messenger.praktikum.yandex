@@ -1,0 +1,24 @@
+{{!< auth}}
+
+<form class='auth__form'>
+  <h2 class='auth__form__title'>Вход</h2>
+  <div class='auth__form__login' data-component-name='form' data-redirect-url={{redirectUrl}}>
+    {{#each fields}}
+      <label for={{name}} class='form__field-wrapper'>
+        <input
+            class='form__field'
+            id={{name}}
+            type={{type}}
+            placeholder={{placeholder}}
+            name={{name}}
+            data-field
+        />
+      </label>
+    {{/each}}
+    {{!-- <button class='form__submit-button' type='submit'>{{submitButton.text}}</button> --}}
+  <footer class='auth__form__buttonContainer'>
+    {{>buttonAuth title="{{submitButton.text}}" type="submit" }}
+    <a class='auth__noaccount' href={{route.registration}}>Нет аккаунта?</a>
+  </footer>
+  </div>
+</form>

@@ -121,6 +121,10 @@ export default class Block<P = any> {
     return '';
   }
 
+  public getOuterElement(): HTMLElement {
+    return this.element;
+  }
+
   getContent(): HTMLElement {
     // Хак, чтобы вызвать CDM только после добавления в DOM
     if (this.element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
