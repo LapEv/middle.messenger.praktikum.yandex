@@ -1,11 +1,14 @@
 import { Block } from '../../core/Block';
+import Handlebars from 'handlebars/dist/handlebars.runtime';
 import { Validate } from '../../core/validator';
-import compiledTemplate from './authForm.hbs';
+import authFormTemplate from './authForm.hbs';
 import {
   getDefaultListenersForValidation,
   getListenerForFormSubmit,
 } from '../../helpers/validateHelpers';
-import './form.scss';
+import './authForm.scss';
+
+Handlebars.registerPartial({ authForm: authFormTemplate });
 
 export type Props = {
   title: string;
@@ -28,7 +31,7 @@ type ValidatorProps = {
   validator: Validate;
 };
 
-export default class Form extends Block {
+export default class AuthForm extends Block {
   constructor(props: Props & ValidatorProps) {
     const { validator, ...restProps } = props;
     super({
@@ -50,7 +53,8 @@ export default class Form extends Block {
   }
 
   render() {
-    const context = this.createCompileContext();
-    return compiledTemplate(context);
+    // const context = this.createCompileContext();
+    // return authFormTemplate(authFormTemplate);
+    return '<div>Login</div>';
   }
 }

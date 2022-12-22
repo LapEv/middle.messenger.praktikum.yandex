@@ -142,13 +142,13 @@
       this[globalName] = mainExports;
     }
   }
-})({"kdEgC":[function(require,module,exports) {
+})({"kyMba":[function(require,module,exports) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = 1234;
 var HMR_SECURE = false;
-var HMR_ENV_HASH = "42036d7a98ade5a7";
-module.bundle.HMR_BUNDLE_ID = "58de823e55681b18";
+var HMR_ENV_HASH = "d6ea1d42532a7575";
+module.bundle.HMR_BUNDLE_ID = "cbd47a4a0868aa41";
 "use strict";
 /* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, chrome, browser, globalThis, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
 import type {
@@ -531,12 +531,12 @@ function hmrAcceptRun(bundle, id) {
     acceptedAssets[id] = true;
 }
 
-},{}],"d4kgo":[function(require,module,exports) {
+},{}],"dCEbf":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _block = require("../../core/Block");
-var _loginHbs = require("./login.hbs");
-var _loginHbsDefault = parcelHelpers.interopDefault(_loginHbs);
+var _loginTemplate = require("./loginTemplate");
+var _loginTemplateDefault = parcelHelpers.interopDefault(_loginTemplate);
 var _handlebarsHelpers = require("../../helpers/handlebarsHelpers");
 var _validator = require("../../core/validator");
 var _validatorDefault = parcelHelpers.interopDefault(_validator);
@@ -583,8 +583,8 @@ class Login extends (0, _block.Block) {
         console.log("render Login ");
         const context = this.createCompileContext();
         console.log("render Login context ", context);
-        console.log("render Login loginTemplate ", (0, _loginHbsDefault.default)());
-        return "<div>Login</div>";
+        console.log("render Login loginTemplate ", (0, _loginTemplateDefault.default));
+        return 0, _loginTemplateDefault.default;
     // return loginTemplate();
     }
 }
@@ -594,7 +594,7 @@ console.log("render Login = ", login);
 const app = document.getElementById("app");
 app.append(login.getOuterElement());
 
-},{"../../core/Block":"aWH7T","../../helpers/handlebarsHelpers":"3Mjgu","../../core/validator":"5y9wM","../../components/auth/authForm":"iH9ME","./loginData":"2zZb0","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh","./login.hbs":"kBUxt"}],"aWH7T":[function(require,module,exports) {
+},{"../../core/Block":"6bVZU","./login.hbs":"bfQ6F","../../helpers/handlebarsHelpers":"i0bvx","../../core/validator":"lTljz","../../components/auth/authForm":"jH6Jk","./loginData":"4Pgai","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6bVZU":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Block", ()=>Block);
@@ -855,7 +855,7 @@ class Block {
     }
 }
 
-},{"./EventBus":"ezQjQ","nanoid":"7nJpF","./converterToHtml":"gdx44","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"ezQjQ":[function(require,module,exports) {
+},{"./EventBus":"ahUTd","nanoid":"2ifus","./converterToHtml":"cu6Hw","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ahUTd":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "EventBus", ()=>EventBus);
@@ -879,7 +879,7 @@ class EventBus {
     }
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"j7FRh":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -909,7 +909,7 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"7nJpF":[function(require,module,exports) {
+},{}],"2ifus":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "urlAlphabet", ()=>(0, _indexJs.urlAlphabet));
@@ -944,7 +944,7 @@ let nanoid = (size = 21)=>crypto.getRandomValues(new Uint8Array(size)).reduce((i
         return id;
     }, "");
 
-},{"./url-alphabet/index.js":false,"@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"gdx44":[function(require,module,exports) {
+},{"./url-alphabet/index.js":false,"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cu6Hw":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "converterToHtml", ()=>converterToHtml);
@@ -955,7 +955,44 @@ function converterToHtml(html) {
     return template.content;
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"3Mjgu":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bfQ6F":[function(require,module,exports) {
+module.exports = require("66f24964f02ec8dd").getBundleURL("huYTN") + "login.38c4e456.html" + "?" + Date.now();
+
+},{"66f24964f02ec8dd":"lgJ39"}],"lgJ39":[function(require,module,exports) {
+"use strict";
+var bundleURL = {};
+function getBundleURLCached(id) {
+    var value = bundleURL[id];
+    if (!value) {
+        value = getBundleURL();
+        bundleURL[id] = value;
+    }
+    return value;
+}
+function getBundleURL() {
+    try {
+        throw new Error();
+    } catch (err) {
+        var matches = ("" + err.stack).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^)\n]+/g);
+        if (matches) // The first two stack frames will be this function and getBundleURLCached.
+        // Use the 3rd one, which will be a runtime in the original bundle.
+        return getBaseURL(matches[2]);
+    }
+    return "/";
+}
+function getBaseURL(url) {
+    return ("" + url).replace(/^((?:https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/.+)\/[^/]+$/, "$1") + "/";
+} // TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
+function getOrigin(url) {
+    var matches = ("" + url).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^/]+/);
+    if (!matches) throw new Error("Origin not found");
+    return matches[0];
+}
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+exports.getOrigin = getOrigin;
+
+},{}],"i0bvx":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
 var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
@@ -968,7 +1005,7 @@ var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime)
     return new (0, _handlebarsRuntimeDefault.default).SafeString(`<div data-replace-id=${id}></div>`);
 });
 
-},{"handlebars/dist/handlebars.runtime":"68Cq8","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"68Cq8":[function(require,module,exports) {
+},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"b7ZpO":[function(require,module,exports) {
 /**!
 
  @license
@@ -2183,7 +2220,7 @@ THE SOFTWARE.
     ]);
 });
 
-},{}],"5y9wM":[function(require,module,exports) {
+},{}],"lTljz":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 class Validator {
@@ -2207,7 +2244,7 @@ class Validator {
 }
 exports.default = Validator;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"iH9ME":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jH6Jk":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _block = require("../../core/Block");
@@ -2239,44 +2276,10 @@ class AuthForm extends (0, _block.Block) {
 }
 exports.default = AuthForm;
 
-},{"../../core/Block":"aWH7T","handlebars/dist/handlebars.runtime":"68Cq8","./authForm.hbs":"3LX46","../../helpers/validateHelpers":"grUnz","./authForm.scss":"kOmMF","@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"3LX46":[function(require,module,exports) {
-module.exports = require("ccd2f4dc6ecfdad4").getBundleURL("7D30y") + "authForm.62860335.html" + "?" + Date.now();
+},{"../../core/Block":"6bVZU","handlebars/dist/handlebars.runtime":"b7ZpO","./authForm.hbs":"ewIZi","../../helpers/validateHelpers":"01B3w","./authForm.scss":"4YMys","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ewIZi":[function(require,module,exports) {
+module.exports = require("72b085b8c4d8cfd6").getBundleURL("huYTN") + "authForm.668d2af5.html" + "?" + Date.now();
 
-},{"ccd2f4dc6ecfdad4":"hPpBg"}],"hPpBg":[function(require,module,exports) {
-"use strict";
-var bundleURL = {};
-function getBundleURLCached(id) {
-    var value = bundleURL[id];
-    if (!value) {
-        value = getBundleURL();
-        bundleURL[id] = value;
-    }
-    return value;
-}
-function getBundleURL() {
-    try {
-        throw new Error();
-    } catch (err) {
-        var matches = ("" + err.stack).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^)\n]+/g);
-        if (matches) // The first two stack frames will be this function and getBundleURLCached.
-        // Use the 3rd one, which will be a runtime in the original bundle.
-        return getBaseURL(matches[2]);
-    }
-    return "/";
-}
-function getBaseURL(url) {
-    return ("" + url).replace(/^((?:https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/.+)\/[^/]+$/, "$1") + "/";
-} // TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
-function getOrigin(url) {
-    var matches = ("" + url).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^/]+/);
-    if (!matches) throw new Error("Origin not found");
-    return matches[0];
-}
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-exports.getOrigin = getOrigin;
-
-},{}],"grUnz":[function(require,module,exports) {
+},{"72b085b8c4d8cfd6":"lgJ39"}],"01B3w":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "setErrorAttributes", ()=>setErrorAttributes);
@@ -2341,7 +2344,7 @@ function getListenerForFormSubmit(validator, target, selectorField, errorClassNa
     };
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"kOmMF":[function() {},{}],"2zZb0":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4YMys":[function() {},{}],"4Pgai":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 const loginData = {
@@ -2371,8 +2374,6 @@ const loginData = {
 };
 exports.default = loginData;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"j7FRh"}],"kBUxt":[function(require,module,exports) {
-module.exports = require("ada84679379d92bb").getBundleURL("7D30y") + "login.b3130e8b.html" + "?" + Date.now();
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["kyMba","dCEbf"], "dCEbf", "parcelRequire25d8")
 
-},{"ada84679379d92bb":"hPpBg"}]},["kdEgC","d4kgo"], "d4kgo", "parcelRequire25d8")
-
+//# sourceMappingURL=index.0868aa41.js.map

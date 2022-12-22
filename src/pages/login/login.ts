@@ -1,7 +1,8 @@
-import Block from '../../core/Block';
-import compiledTemplate from './login.hbs';
+import { Block } from '../../core/Block';
+import loginTemplate from './loginTemplate';
+import '../../helpers/handlebarsHelpers';
 import Validator, { ValidateRules } from '../../core/validator';
-import Form, { Props as FormProps } from '../../components/auth/authForm';
+import AuthForm, { Props as FormProps } from '../../components/auth/authForm';
 import loginData from './loginData';
 // import './login.scss';
 
@@ -34,25 +35,30 @@ const validateRules: ValidateRules = {
 
 const validator: Validator = new Validator(validateRules);
 
-class Login extends Block {
+export default class Login extends Block {
   constructor(props: Props) {
     super(props, {
       authForm: {
-        component: Form,
-        getProps: (props: Props) => ({ ...props.form, validator }),
+        component: AuthForm,
+        getProps: (props: Props) => ({ ...props.authForm, validator }),
       },
     });
   }
 
   render() {
+    console.log('render Login ');
+
     const context = this.createCompileContext();
-    return compiledTemplate(context);
+
+    console.log('render Login context ', context);
+    console.log('render Login loginTemplate ', loginTemplate);
+    return loginTemplate;
+    // return loginTemplate();
   }
 }
 
 const login = new Login(loginData);
+console.log('render Login = ', login);
 
 const app = document.getElementById('app') as HTMLElement;
 app.append(login.getOuterElement());
-
-export default Login;

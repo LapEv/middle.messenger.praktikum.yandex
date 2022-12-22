@@ -1,20 +1,6 @@
-require('babel-core/register');
-import { Block, renderDOM, registerComponent } from './core';
-import Login from './pages/login/login';
-import './style.scss';
-
-// import Button from './components/button';
-// import Link from './components/link';
-// import Input from './components/input';
-// import Layout from './components/layout';
-
-// registerComponent(Button);
-// registerComponent(Link);
-// registerComponent(Input);
-// registerComponent(Layout);
-
-// TODO: // Добавить MyComponent
+import { MainPage } from 'core/renderDOM';
+import { NavigationPage } from 'pages';
 
 document.addEventListener('DOMContentLoaded', () => {
-  renderDOM(Login);
+  MainPage.component = new NavigationPage();
 });
