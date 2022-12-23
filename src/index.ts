@@ -1,6 +1,6 @@
-import { MainPage } from 'core/renderDOM';
-import { NavigationPage } from 'pages';
+import { MainPage } from './core/renderDOM';
+import { LoginPage } from './pages/login/login';
 
 document.addEventListener('DOMContentLoaded', () => {
-  MainPage.component = new NavigationPage();
+  MainPage.component = new LoginPage();
 });

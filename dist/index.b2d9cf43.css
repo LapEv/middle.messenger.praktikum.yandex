@@ -17,6 +17,11 @@
   box-shadow: 0 0 10px 3px #00000080;
 }
 
+.auth__form__label, .auth__registration_form__label {
+  margin-left: 3px;
+  font-size: 12px;
+}
+
 .auth__form__title, .auth__registration_form__title {
   width: auto;
   height: 20px;
@@ -28,6 +33,11 @@
   height: auto;
   margin-top: 33px;
   font-size: 9px;
+}
+
+.auth__form__login__label, .auth__form__email__label, .auth__form__first_name__label, .auth__form__second_name__label, .auth__form__phone__label, .auth__registration_form__login__label, .auth__registration_form__email__label, .auth__registration_form__first_name__label, .auth__registration_form__second_name__label, .auth__registration_form__phone__label {
+  margin-left: 3px;
+  font-size: 12px;
 }
 
 .auth__form__login__input, .auth__form__email__input, .auth__form__first_name__input, .auth__form__second_name__input, .auth__form__phone__input, .auth__registration_form__login__input, .auth__registration_form__email__input, .auth__registration_form__first_name__input, .auth__registration_form__second_name__input, .auth__registration_form__phone__input {
@@ -44,31 +54,32 @@
 .auth__form__login__error, .auth__form__email__error, .auth__form__first_name__error, .auth__form__second_name__error, .auth__form__phone__error, .auth__registration_form__login__error, .auth__registration_form__email__error, .auth__registration_form__first_name__error, .auth__registration_form__second_name__error, .auth__registration_form__phone__error {
   color: #ff2f2f;
   margin-top: 7px;
-  font-size: 8px;
+  margin-left: 3px;
+  font-size: 11px;
 }
 
-.auth__form__password, .auth__form__password_repeat, .auth__registration_form__password, .auth__registration_form__password_repeat {
+.auth__form__password, .auth__form__passwordCheck, .auth__registration_form__password, .auth__registration_form__passwordCheck {
   color: #999;
   height: auto;
   margin-top: 16px;
   font-size: 9px;
 }
 
-.auth__form__password__input, .auth__form__password_repeat__input, .auth__registration_form__password__input, .auth__registration_form__password_repeat__input {
+.auth__form__password__input, .auth__form__passwordCheck__input, .auth__registration_form__password__input, .auth__registration_form__passwordCheck__input {
   height: 28px;
   border-width: 0 0 1px;
   border-bottom-color: #3369f3;
   font-size: 13px;
 }
 
-.auth__form__password__input:focus, .auth__form__password_repeat__input:focus, .auth__registration_form__password__input:focus, .auth__registration_form__password_repeat__input:focus {
+.auth__form__password__input:focus, .auth__form__passwordCheck__input:focus, .auth__registration_form__password__input:focus, .auth__registration_form__passwordCheck__input:focus {
   outline: none;
 }
 
-.auth__form__password__error, .auth__form__password_repeat__error, .auth__registration_form__password__error, .auth__registration_form__password_repeat__error {
+.auth__form__password__error, .auth__form__passwordCheck__error, .auth__registration_form__password__error, .auth__registration_form__passwordCheck__error {
   color: #ff2f2f;
-  margin-top: 7px;
-  font-size: 8px;
+  margin-left: 3px;
+  font-size: 11px;
 }
 
 .auth__form__buttonContainer, .auth__registration_form__buttonContainer {
@@ -80,12 +91,25 @@
   display: flex;
 }
 
+.auth__form__login {
+  margin-top: 90px;
+}
+
+.auth__form__password {
+  margin-top: 33px;
+}
+
 .auth__registration_form {
   height: 615px;
 }
 
 .auth__registration_form__buttonContainer {
   margin-top: 48px;
+}
+
+.auth__registration_form__login, .auth__registration_form__email, .auth__registration_form__first_name, .auth__registration_form__second_name, .auth__registration_form__phone, .auth__registration_form__password, .auth__registration_form__passwordCheck {
+  height: 46px;
+  margin-top: 20px;
 }
 
 .auth__noaccount {

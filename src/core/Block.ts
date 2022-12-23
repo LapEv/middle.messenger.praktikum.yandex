@@ -1,370 +1,256 @@
-import { EventBus } from './EventBus';
+import Handlebars from 'handlebars';
 import { nanoid } from 'nanoid';
-import { converterToHtml } from './converterToHtml';
+import BlockBase from './block-base';
 
-// interface BlockMeta<P = any> {
-//   props: P;
-// }
+export default class Block extends BlockBase {
+  private wasRendered: Boolean = false;
 
-type CompileContext = {
-  [key: string]: any;
-};
+  protected state: ComponentState;
 
-type EventMeta = {
-  eventName: string;
-  listener: (event: Event) => void;
-};
+  protected children: ComponentChildren;
 
-export type ConsturctEvents = ({ selector: string } & EventMeta)[];
+  public refs: ComponentRefs;
 
-type AddedEvents = ({ target: Element } & EventMeta)[];
+  private htmlWrapper: Nullable<ComponentWrapper>;
 
-type Props = {
-  [prop: string]: any;
-  events?: ConsturctEvents;
-};
+  private htmlWrapped: boolean;
 
-// type Events = Values<typeof Block.EVENTS>;
+  private wrappedId: string = nanoid(5);
 
-export type ChildrenProps = {
-  [name: string]: {
-    component: new (props: Props) => Block;
-    getProps: (props: Props) => Props;
-  };
-};
+  constructor({
+    props = {},
+    children = {},
+    refs = {},
+    state = {},
+  }: {
+    props?: ComponentProps;
+    children?: ComponentChildren;
+    refs?: ComponentRefs;
+    state?: ComponentState;
+  } = {}) {
+    super();
 
-type Children = {
-  [name: string]: {
-    component: Block;
-    getProps: (props: Props) => Props;
-  };
-};
+    this.props = props;
+    this.props.events = this.props.events ?? {};
 
-export abstract class Block {
-  static EVENTS = {
-    INIT: 'init',
-    FLOW_CDM: 'flow:component-did-mount',
-    FLOW_CDU: 'flow:component-did-update',
-    FLOW_RENDER: 'flow:render',
-  };
+    this.children = children;
+    this.refs = refs;
+    this.state = state;
 
-  public id = nanoid(6);
-  // private readonly _meta: BlockMeta;
+    this.htmlWrapper = props.htmlWrapper as ComponentWrapper;
+    this.htmlWrapped = !!this.htmlWrapper;
+    delete this.props.htmlWrapper;
 
-  protected _element: HTMLElement;
-  private eventBus: EventBus;
-  // protected readonly props: P;
-  protected children: Children = {};
-  // private _id: string;
-  private events: AddedEvents = [];
+    this.componentName = (props.componentName ?? 'Not Named Block') as string;
 
-  // eventBus: () => EventBus<Events>;
+    this._preProxyHook();
+    this.props = this._makePropsProxy(this.props);
 
-  // protected state: any = {};
-  // protected refs: { [key: string]: HTMLElement } = {};
-
-  constructor(protected props: Props = {}, children: ChildrenProps = {}) {
-    const eventBus = new EventBus();
-    this.eventBus = eventBus;
-    this._initChildren(children, props);
-    this.props = this._makePropsProxy(props);
-    // this._id = makeUUID();
-    this._registerEvents(eventBus);
-    eventBus.emit(Block.EVENTS.INIT);
+    this._registerEvents();
+    this._preInitHook();
+    this.eventBus.emit(Block.EVENTS.INIT);
+    this._postInitHook();
   }
 
-  private _initChildren(children: ChildrenProps, props: Props): void {
-    Object.entries(children).forEach(([name, meta]) => {
-      const { component, getProps } = meta;
-      const childProps: Props = getProps(props);
-      this.children[name] = {
-        component: new component(childProps),
-        getProps,
-      };
+  private _init() {
+    this.eventBus.emit(BlockBase.EVENTS.FLOW_RENDER);
+    this.wasRendered = true;
+  }
+
+  protected _makePropsProxy(props: ComponentProps) {
+    const self = this;
+
+    return new Proxy(props, {
+      get(target, prop: string) {
+        const value = target[prop];
+        return value;
+      },
+      set(target, prop: string, value) {
+        const oldValue = target[prop];
+        target[prop] = value;
+
+        self.eventBus.emit(BlockBase.EVENTS.FLOW_CDU, oldValue, value);
+        return true;
+      },
+      deleteProperty() {
+        throw new Error('Нет доступа');
+      },
     });
   }
 
-  private _registerEvents(eventBus: EventBus): void {
-    eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
-    eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
-    eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
-    eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
-  }
-
-  private _createResources(): void {
-    const tagName = 'div';
-    this._element = this._createDocumentElement(tagName);
-    this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
-  }
-
-  // protected getStateFromProps(props: any): void {
-  //   this.state = {};
-  // }
-
-  private init(): void {
-    this._createResources();
-    this.eventBus.emit(Block.EVENTS.FLOW_CDM);
-  }
-
-  private _componentDidMount(): void {
-    this.componentDidMount();
-  }
-
-  protected componentDidMount(): void {}
-
-  private _componentDidUpdate(oldProps: Props, newProps: Props): void {
-    const response = this.componentDidUpdate(oldProps, newProps);
-    if (!response) {
-      return;
-    }
-    for (const { component, getProps } of Object.values(this.children)) {
-      component.setProps(getProps(newProps));
-    }
-    this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
-  }
-
-  protected componentDidUpdate(_oldProps: Props, _newProps: Props): boolean {
-    return true;
-  }
-
-  public setProps = (nextProps: Props): void => {
-    if (!nextProps) {
-      return;
-    }
-    Object.assign(this.props, nextProps);
-  };
-
-  get element(): HTMLElement {
-    return this._element;
-  }
-
-  private _replaceChildrenBlocks(block: DocumentFragment): void {
-    const replaceBlocks = block.querySelectorAll('[data-replace-id]');
-
-    Array.from(replaceBlocks).forEach((replaceBlock: HTMLElement) => {
-      const id = replaceBlock.dataset.replaceId as string;
-      const parentBlock = replaceBlock.parentElement as HTMLElement;
-      const child = this.getChildElementById(id) as Block;
-      parentBlock.replaceChild(child.getInnerElement(), replaceBlock);
+  private _assertChildrenArray(children: unknown[]) {
+    children.forEach((child) => {
+      if (!(child instanceof Block)) {
+        throw new Error(
+          `${
+            this.componentName
+          }, making stubs: children array wrong element ${child} of type ${typeof child}`
+        );
+      }
     });
   }
 
-  _render() {
-    console.log('_render');
-    console.log('_render this render = ', this.render());
+  private _registerEvents() {
+    const { eventBus } = this;
+    eventBus.on(BlockBase.EVENTS.INIT, this._init.bind(this));
+    eventBus.on(BlockBase.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
+    eventBus.on(BlockBase.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
+    eventBus.on(BlockBase.EVENTS.FLOW_RENDER, this._render.bind(this));
+  }
 
-    const block = converterToHtml(this.render());
-    console.log('_render block = ', block);
-    this._replaceChildrenBlocks(block);
+  private _makeStubs(): Record<string, string | string[]> {
+    const stubs: Record<string, string> = {};
+    Object.entries(this.children).forEach(([name, child]) => {
+      if (Array.isArray(child)) {
+        stubs[name] = child
+          .map((ch) => `<div data-id="${ch.id}"></div>`)
+          .join('');
+      } else {
+        stubs[name] = `<div data-id="${child.id}"></div>`;
+      }
+    });
 
-    this._removeEvent();
+    return stubs;
+  }
 
-    this._element.firstElementChild
-      ? this._element.replaceChild(block, this._element.firstElementChild)
-      : this._element.append(block);
+  private _replaceStub(
+    fragment: HTMLTemplateElement,
+    stubID: string,
+    element: HTMLElement
+  ) {
+    const stub = fragment.content.querySelector(`[data-id="${stubID}"]`);
 
-    this._addEvents();
+    if (!stub) {
+      throw new Error(
+        `${this.componentName}: No stub with id "${stubID}" to replace with element ${element}`
+      );
+    }
+    stub.replaceWith(element);
+  }
+
+  private _replaceStubs(fragment: HTMLTemplateElement) {
+    Object.keys(this.children).forEach((key) => {
+      const child = this.children[key];
+      if (Array.isArray(child)) {
+        this._assertChildrenArray(child);
+
+        child.forEach((ch) => {
+          const childElement = ch.getElement();
+          if (!childElement) {
+            throw new Error(
+              `${this.componentName}: replacing stub with id ${
+                ch.id
+              } to wrong element ${childElement} of type ${typeof childElement}`
+            );
+          }
+
+          this._replaceStub(fragment, ch.id, childElement);
+        });
+      } else {
+        const childElement = child.getElement();
+        if (!childElement) {
+          throw new Error(
+            `${this.componentName}: replacing stub with id ${
+              child.id
+            } to wrong element ${childElement} of type ${typeof childElement}`
+          );
+        }
+        this._replaceStub(fragment, child.id, childElement);
+      }
+    });
+  }
+
+  private _render(): void {
+    if (!Block.isHTMLElement(this._element)) {
+      if (!(this._element === null && !this.wasRendered)) {
+        throw new Error(
+          `${this.componentName}: wrong element ${
+            this._element
+          } of type ${typeof this._element} to first render`
+        );
+      } else if (this.wasRendered) {
+        throw new Error(
+          `${this.componentName}: wrong element ${
+            this._element
+          } of type ${typeof this._element} to rerender`
+        );
+      }
+    }
+
+    const fragment = this._compile();
+    const newElement = fragment.firstElementChild as HTMLElement;
+
+    let eventsTargerElement = newElement;
+
+    if (this.htmlWrapped) {
+      const wrappedElement = newElement.querySelector(
+        `[wrapped-id="${this.wrappedId}"]`
+      ) as HTMLElement;
+
+      if (!wrappedElement) {
+        throw new Error(
+          `${this.componentName}: whereas htmlWrapper provided, no wrapped element created`
+        );
+      }
+
+      eventsTargerElement = wrappedElement;
+    }
+
+    this._addEvents(eventsTargerElement);
+    eventsTargerElement.removeAttribute('wrapped-id');
+
+    if (this.wasRendered) {
+      this._element!.replaceWith(newElement);
+    }
+
+    this._element = newElement;
+  }
+
+  private _compile(): DocumentFragment {
+    const fragment = Block._createDocumentElement(
+      'template'
+    ) as HTMLTemplateElement;
+
+    const childrenStubs = this._makeStubs();
+
+    let templateString = this.render();
+
+    if (this.htmlWrapped) {
+      const htmlWrapper = this.htmlWrapper as ComponentWrapper;
+      templateString = Handlebars.compile(htmlWrapper.htmlWrapperTemplate)({
+        [`${htmlWrapper.componentAlias}`]: templateString,
+      });
+    }
+
+    const context = {
+      ...this.props,
+      ...this.state,
+      ...childrenStubs,
+      wrappedId: this.htmlWrapped ? this.wrappedId : null,
+    };
+
+    const htmlString = Handlebars.compile(templateString)(context);
+
+    fragment.innerHTML = htmlString;
+
+    this._replaceStubs(fragment);
+
+    return fragment.content;
   }
 
   protected render(): string {
     return '';
   }
 
-  public getOuterElement(): HTMLElement {
-    return this.element;
+  getComponentName() {
+    return this.componentName;
   }
 
-  public getInnerElement(): HTMLElement {
-    return this.element.firstElementChild as HTMLElement;
+  protected _preProxyHook() {
+    this._bindEventListeners();
   }
 
-  public getChildContent(name: string) {
-    const child = this.children[name];
-    if (!child) {
-      return null;
-    }
-    return child.component.getInnerElement();
-  }
+  protected _preInitHook() {}
 
-  public getChildId(name: string): string | null {
-    const child = this.children[name];
-    if (!child) {
-      return null;
-    }
-    return child.component.id;
-  }
-
-  public getChildElementById(id: string): Block | null {
-    const child = Object.values(this.children).find(
-      (child) => child.component.id === id
-    );
-    if (!child) {
-      return null;
-    }
-    return child.component;
-  }
-
-  // getContent(): HTMLElement {
-  //   // Хак, чтобы вызвать CDM только после добавления в DOM
-  //   if (this.element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
-  //     setTimeout(() => {
-  //       if (
-  //         this.element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE
-  //       ) {
-  //         this.eventBus().emit(Block.EVENTS.FLOW_CDM);
-  //       }
-  //     }, 100);
-  //   }
-
-  //   return this.element!;
-  // }
-
-  protected _makePropsProxy(props: Props): Props {
-    const self = this;
-
-    const propsProxy = new Proxy(props, {
-      get(target, prop: string) {
-        const value = target[prop];
-        return typeof value === 'function' ? value.bind(target) : value;
-      },
-      set(target, prop: string, value) {
-        if (target[prop] === value) {
-          return true;
-        }
-        const oldProps = { ...target };
-        target[prop] = value;
-        self.eventBus.emit(Block.EVENTS.FLOW_CDU, oldProps, target);
-        return true;
-      },
-      deleteProperty(_target, _prop) {
-        throw new Error('Нет доступа');
-      },
-    });
-
-    return propsProxy;
-  }
-
-  protected _createDocumentElement(tagName: string): HTMLElement {
-    return document.createElement(tagName);
-  }
-
-  private _removeEvent(): void {
-    this.events.forEach(({ eventName, target, listener }) => {
-      target.removeEventListener(eventName, listener);
-    });
-    this.events = [];
-  }
-
-  private _addEvents(): void {
-    const { events = [] } = this.props;
-
-    events.forEach(({ selector, eventName, listener }) => {
-      const targets = this._element.querySelectorAll(selector);
-      Array.from(targets).forEach((target) => {
-        target.addEventListener(eventName, listener);
-        this.events.push({ target, eventName, listener });
-      });
-    });
-  }
-
-  // _compile(): DocumentFragment {
-  //   const fragment = document.createElement('template');
-
-  //   /**
-  //    * Рендерим шаблон
-  //    */
-  //   const template = Handlebars.compile(this.render());
-  //   fragment.innerHTML = template({
-  //     ...this.state,
-  //     ...this.props,
-  //     children: this.children,
-  //     refs: this.refs,
-  //   });
-
-  //   /**
-  //    * Заменяем заглушки на компоненты
-  //    */
-  //   Object.entries(this.children).forEach(([id, component]) => {
-  //     /**
-  //      * Ищем заглушку по id
-  //      */
-  //     const stub = fragment.content.querySelector(`[data-id="${id}"]`);
-
-  //     if (!stub) {
-  //       return;
-  //     }
-
-  //     const stubChilds = stub.childNodes.length ? stub.childNodes : [];
-
-  //     /**
-  //      * Заменяем заглушку на component._element
-  //      */
-  //     const content = component.getContent();
-  //     stub.replaceWith(content);
-
-  //     /**
-  //      * Ищем элемент layout-а, куда вставлять детей
-  //      */
-  //     const layoutContent = content.querySelector('[data-layout="1"]');
-
-  //     if (layoutContent && stubChilds.length) {
-  //       layoutContent.append(...stubChilds);
-  //     }
-  //   });
-
-  //   /**
-  //    * Возвращаем фрагмент
-  //    */
-  //   return fragment.content;
-  // }
-
-  public createCompileContext(
-    customContext: CompileContext = {}
-  ): CompileContext {
-    const context = { ...this.props };
-    console.log('createCompileContext context =  ', context);
-
-    if (context.events) {
-      delete context.events;
-    }
-    context.components = Object.entries(this.children).reduce<{
-      [name: string]: string;
-    }>((acc, [name, child]) => {
-      acc[name] = child.component.id;
-      return acc;
-    }, {});
-
-    const { components: customComponents, ...restCustomContext } =
-      customContext;
-    if (customComponents) {
-      context.components = { ...context.components, ...customComponents };
-    }
-    console.log('createCompileContext context final =  ', {
-      ...context,
-      ...restCustomContext,
-    });
-    return { ...context, ...restCustomContext };
-  }
-
-  public createComponentsList(
-    list: any[],
-    prefix: string
-  ): { [name: string]: string } {
-    return list.reduce((acc, _: any, index: number) => {
-      const id = this.getChildId(`${prefix}${index}`);
-      if (!id) {
-        return acc;
-      }
-      acc[index] = id;
-      return acc;
-    }, {});
-  }
-
-  show() {
-    this.getInnerElement().style.display = 'block';
-  }
-
-  hide() {
-    this.getInnerElement().style.display = 'none';
-  }
+  protected _postInitHook() {}
 }

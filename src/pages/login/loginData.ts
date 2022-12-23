@@ -1,27 +1,26 @@
 const loginData = {
-  authForm: {
-    title: 'Вход',
-    redirectUrl: '/chat.html',
-    fields: [
-      {
-        name: 'login',
-        type: 'text',
-        placeholder: 'Логин',
-      },
-      {
-        name: 'password',
-        type: 'password',
-        placeholder: 'Пароль',
-      },
-    ],
-    submitButton: {
-      text: 'Авторизоваться',
+  page: 'Login Page',
+  inputFields: [
+    {
+      type: 'text',
+      name: 'login',
+      placeholder: 'Введите логин',
+      label: 'Логин',
     },
-    altLink: {
-      link: '/registration.html',
-      text: 'Нет аккаунта?',
+    {
+      type: 'password',
+      name: 'password',
+      placeholder: 'Введите пароль',
+      label: 'Пароль',
     },
+  ],
+  pageTitle: 'Вход',
+  link: {
+    name: 'Нет аккаунта?',
+    htmlName: 'Registration',
   },
+  submitButtonLabel: 'Авторизоваться',
+  errorLabel: ['errorLogin', 'errorPassword'],
 };
 
 export default loginData;

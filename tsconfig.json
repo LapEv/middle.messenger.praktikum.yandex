@@ -1,14 +1,21 @@
 {
   "compileOnSave": false,
+  "include": ["./src/**/*.ts"],
+  "exclude": ["node_modules"],
   "compilerOptions": {
-    "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
-    "declaration": false,
+    "module": "commonjs",
+    "lib": ["es2022", "dom"],
+    "target": "es2019",
+    "rootDir": "./src/",
+    "baseUrl": "./src/",
+    "typeRoots": ["src/typings"],
+    "esModuleInterop": true,
     "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "target": "es2017",
-    "typeRoots": ["node_modules/@types"],
-    "lib": ["es2017", "dom"]
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "skipLibCheck": true
   }
 }
