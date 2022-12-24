@@ -4,10 +4,11 @@ import { chatTemplate } from './chatTemplate';
 import menuImage from '../../static/img/menu.png';
 import attachImage from '../../static/img/attach.png';
 import sendImage from '../../static/img/send.png';
+import photoImage from '../../static/img/camera.png';
 import ChatList from './chatList';
 import { chatList, chatData, chatMessages } from './chatData';
 import { MainPage } from '../../core/renderDOM';
-import { RegistrationPage } from '../registration/registration';
+import { ProfilePage } from '../profile/profile';
 
 export class ChatPage extends Block {
   constructor() {
@@ -59,7 +60,7 @@ export class ChatPage extends Block {
         events: {
           click: [
             () => {
-              MainPage.component = new RegistrationPage();
+              MainPage.component = new ProfilePage();
             },
           ],
         },
@@ -123,6 +124,15 @@ export class ChatPage extends Block {
         text: chatMessages.time1,
         htmlClass: 'chat__body__message__time',
         componentName: 'Chat Component Message',
+      },
+    });
+
+    children.imagePhoto = new ImageElement({
+      props: {
+        src: photoImage,
+        htmlClass: 'chat__body__img',
+        alt: 'photo',
+        componentName: 'Photo Image',
       },
     });
 

@@ -17,6 +17,7 @@ export const chatTemplate = `
       {{{chatMessage1}}}
       {{{chatTime1}}}
     </div>
+    {{{imagePhoto}}}
     <div class='chat__body__you__container'>
       {{{chatMessage2}}}
       {{{chatTime2}}}

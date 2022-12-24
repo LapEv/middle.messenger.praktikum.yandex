@@ -12631,14 +12631,16 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "LoginPage", ()=>(0, _login.LoginPage));
 parcelHelpers.export(exports, "RegistrationPage", ()=>(0, _registration.RegistrationPage));
-parcelHelpers.export(exports, "ChatPage", ()=>(0, _chat.ChatPage)) // export { ProfilePage } from './profile/page';
- // export { NavigationPage } from './navigation/page';
-;
+parcelHelpers.export(exports, "ChatPage", ()=>(0, _chat.ChatPage));
+parcelHelpers.export(exports, "ProfilePage", ()=>(0, _profile.ProfilePage));
+parcelHelpers.export(exports, "ChangePasswordPage", ()=>(0, _changePassword.ChangePasswordPage));
 var _login = require("./login/login");
 var _registration = require("./registration/registration");
 var _chat = require("./chat/chat");
+var _profile = require("./profile/profile");
+var _changePassword = require("./profile/changePassword/changePassword");
 
-},{"./login/login":"dCEbf","./registration/registration":"ipn4T","./chat/chat":"9muaU","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ipn4T":[function(require,module,exports) {
+},{"./login/login":"dCEbf","./registration/registration":"ipn4T","./chat/chat":"9muaU","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./profile/profile":"atqZr","./profile/changePassword/changePassword":"dxpTD"}],"ipn4T":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "RegistrationPage", ()=>RegistrationPage);
@@ -12981,11 +12983,13 @@ var _attachPng = require("../../static/img/attach.png");
 var _attachPngDefault = parcelHelpers.interopDefault(_attachPng);
 var _sendPng = require("../../static/img/send.png");
 var _sendPngDefault = parcelHelpers.interopDefault(_sendPng);
+var _cameraPng = require("../../static/img/camera.png");
+var _cameraPngDefault = parcelHelpers.interopDefault(_cameraPng);
 var _chatList = require("./chatList");
 var _chatListDefault = parcelHelpers.interopDefault(_chatList);
 var _chatData = require("./chatData");
 var _renderDOM = require("../../core/renderDOM");
-var _registration = require("../registration/registration");
+var _profile = require("../profile/profile");
 class ChatPage extends (0, _blockDefault.default) {
     constructor(){
         const children = {
@@ -13025,7 +13029,7 @@ class ChatPage extends (0, _blockDefault.default) {
                 events: {
                     click: [
                         ()=>{
-                            (0, _renderDOM.MainPage).component = new (0, _registration.RegistrationPage)();
+                            (0, _renderDOM.MainPage).component = new (0, _profile.ProfilePage)();
                         }
                     ]
                 }
@@ -13083,6 +13087,14 @@ class ChatPage extends (0, _blockDefault.default) {
                 text: (0, _chatData.chatMessages).time1,
                 htmlClass: "chat__body__message__time",
                 componentName: "Chat Component Message"
+            }
+        });
+        children.imagePhoto = new (0, _index.ImageElement)({
+            props: {
+                src: (0, _cameraPngDefault.default),
+                htmlClass: "chat__body__img",
+                alt: "photo",
+                componentName: "Photo Image"
             }
         });
         children.chatMessage2 = new (0, _index.TextElement)({
@@ -13145,7 +13157,7 @@ class ChatPage extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../core/block":"axMnM","./chatTemplate":"bKpsa","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./chatList":"iEv8H","./chatData":"42lLR","../../components/index":"dHnah","../../core/renderDOM":"ePGhw","../registration/registration":"ipn4T","../../static/img/menu.png":"1MGTQ","../../static/img/attach.png":"hTNQO","../../static/img/send.png":"ceWHr"}],"bKpsa":[function(require,module,exports) {
+},{"../../core/block":"axMnM","./chatTemplate":"bKpsa","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./chatList":"iEv8H","./chatData":"42lLR","../../components/index":"dHnah","../../core/renderDOM":"ePGhw","../../static/img/menu.png":"1MGTQ","../../static/img/attach.png":"hTNQO","../../static/img/send.png":"ceWHr","../profile/profile":"atqZr","../../static/img/camera.png":"hBYjR"}],"bKpsa":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "chatTemplate", ()=>chatTemplate);
@@ -13168,6 +13180,7 @@ const chatTemplate = `
       {{{chatMessage1}}}
       {{{chatTime1}}}
     </div>
+    {{{imagePhoto}}}
     <div class='chat__body__you__container'>
       {{{chatMessage2}}}
       {{{chatTime2}}}
@@ -13337,7 +13350,430 @@ module.exports = require("84866f3f39f43634").getBundleURL("7UhFu") + "attach.a25
 },{"84866f3f39f43634":"lgJ39"}],"ceWHr":[function(require,module,exports) {
 module.exports = require("94d6124511703da").getBundleURL("7UhFu") + "send.e0d50340.png" + "?" + Date.now();
 
-},{"94d6124511703da":"lgJ39"}],"4Pgai":[function(require,module,exports) {
+},{"94d6124511703da":"lgJ39"}],"atqZr":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ProfilePage", ()=>ProfilePage);
+var _chat = require("./../chat/chat");
+var _block = require("../../core/block");
+var _blockDefault = parcelHelpers.interopDefault(_block);
+var _renderDOM = require("../../core/renderDOM");
+var _index = require("../../components/index");
+var _profileTemplate = require("./profileTemplate");
+var _profileData = require("./profileData");
+var _profileAvatarPng = require("../../static/img/profile_avatar.png");
+var _profileAvatarPngDefault = parcelHelpers.interopDefault(_profileAvatarPng);
+var _arrowBackPng = require("../../static/img/arrowBack.png");
+var _arrowBackPngDefault = parcelHelpers.interopDefault(_arrowBackPng);
+var _login = require("../login/login");
+var _changePassword = require("./changePassword/changePassword");
+class ProfilePage extends (0, _blockDefault.default) {
+    constructor(){
+        const children = {};
+        children.arrowBackImage = new (0, _index.ImageElement)({
+            props: {
+                src: (0, _arrowBackPngDefault.default),
+                alt: (0, _profileData.profileData).backLink.alt,
+                htmlClass: (0, _profileData.profileData).backLink.class,
+                componentName: "Arrow Back Image",
+                htmlWrapper: {
+                    componentAlias: "wrappedProfileLink",
+                    htmlWrapperTemplate: `
+              <div class='profile__buttonBack'>
+                {{{wrappedProfileLink}}}
+              </div>
+            `
+                },
+                events: {
+                    click: [
+                        ()=>{
+                            (0, _renderDOM.MainPage).component = new (0, _chat.ChatPage)();
+                        }
+                    ]
+                }
+            }
+        });
+        children.avatarImage = new (0, _index.ImageElement)({
+            props: {
+                src: (0, _profileAvatarPngDefault.default),
+                alt: (0, _profileData.profileData).avatar.alt,
+                htmlClass: (0, _profileData.profileData).avatar.class,
+                componentName: "Profile avatar image"
+            }
+        });
+        children.username = new (0, _index.TextElement)({
+            props: {
+                text: (0, _profileData.profileData).username,
+                htmlClass: "profile__title",
+                componentName: "Profile Component Message"
+            }
+        });
+        (0, _profileData.profileFieldsData).forEach(({ name , title , data , placeholder  })=>{
+            const inputField = new (0, _index.Input)({
+                props: {
+                    placeholder,
+                    type: "text",
+                    htmlName: name,
+                    value: data,
+                    htmlClass: "profile__data__data",
+                    componentName: `${name} profile`,
+                    htmlWrapper: {
+                        componentAlias: "wrappedProfileInput",
+                        htmlWrapperTemplate: `
+              <div class='profile__data'>
+                <p class='profile__data__title'>
+                  ${title}
+                </p>
+                <label for={{name}} style="width: 0px"></label>
+                {{{wrappedProfileInput}}}
+              </div>
+              <div class='profile__line'></div>
+              `
+                    }
+                }
+            });
+            children[`${name}Field`] = inputField;
+        });
+        children.changeDataLink = new (0, _index.Link)({
+            props: {
+                label: (0, _profileData.profileData).changeData.link,
+                htmlName: (0, _profileData.profileData).changeData.htmlName,
+                htmlClass: (0, _profileData.profileData).changeData.class
+            }
+        });
+        children.changePasswordLink = new (0, _index.Link)({
+            props: {
+                label: (0, _profileData.profileData).changePassword.link,
+                htmlName: (0, _profileData.profileData).changePassword.htmlName,
+                htmlClass: (0, _profileData.profileData).changePassword.class,
+                events: {
+                    click: [
+                        ()=>{
+                            (0, _renderDOM.MainPage).component = new (0, _changePassword.ChangePasswordPage)();
+                        }
+                    ]
+                }
+            }
+        });
+        children.exitLink = new (0, _index.Link)({
+            props: {
+                label: (0, _profileData.profileData).exitProfile.link,
+                htmlName: (0, _profileData.profileData).exitProfile.htmlName,
+                htmlClass: (0, _profileData.profileData).exitProfile.class,
+                events: {
+                    click: [
+                        ()=>{
+                            (0, _renderDOM.MainPage).component = new (0, _login.LoginPage)();
+                        }
+                    ]
+                }
+            }
+        });
+        super({
+            children
+        });
+    }
+    render() {
+        return 0, _profileTemplate.profileTemplate;
+    }
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../core/block":"axMnM","./profileTemplate":"5ySyV","../../components/index":"dHnah","../../static/img/arrowBack.png":"P7Wev","./profileData":"hNHYd","../../static/img/profile_avatar.png":"j6gct","./../chat/chat":"9muaU","../../core/renderDOM":"ePGhw","../login/login":"dCEbf","./changePassword/changePassword":"dxpTD"}],"5ySyV":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "profileTemplate", ()=>profileTemplate);
+parcelHelpers.export(exports, "imageBackTemplate", ()=>imageBackTemplate);
+var _profileData = require("./profileData");
+const profileTemplate = `
+<main class='profile'>
+  {{{arrowBackImage}}}
+  <div class='profile__container'>
+    <div class='profile__avatar'>
+      {{{avatarImage}}}
+      <label for='avatar' style='display: none'></label>
+      <input
+        name='avatar'
+        type='file'
+        id='avatar'
+        style='display: none'
+      />
+      <span class='profile__avatar__change'>${(0, _profileData.profileData).changeAvatar}</span>
+    </div>
+    {{{username}}}
+    <div class='profile__data__container'>
+      {{{emailField}}}
+      {{{loginField}}}
+      {{{first_nameField}}}
+      {{{second_nameField}}}
+      {{{display_nameField}}}
+      {{{phoneField}}}
+    </div>
+    {{{changeDataLink}}}
+    <div class='profile__line2'></div>
+    {{{changePasswordLink}}}
+    <div class='profile__line2'></div>
+    {{{exitLink}}}
+</main>
+`;
+const imageBackTemplate = `
+  {{{arrowBackImage}}}
+`;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./profileData":"hNHYd"}],"hNHYd":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "profileFieldsData", ()=>profileFieldsData);
+parcelHelpers.export(exports, "profileData", ()=>profileData);
+const profileFieldsData = [
+    {
+        name: "email",
+        title: "Почта",
+        data: "pochta@yandex.ru",
+        placeholder: "Введите email"
+    },
+    {
+        name: "login",
+        title: "Логин",
+        data: "ivanivanov",
+        placeholder: "Введите логин"
+    },
+    {
+        name: "first_name",
+        title: "Имя",
+        data: "Иван",
+        placeholder: "Введите Имя"
+    },
+    {
+        name: "second_name",
+        title: "Фамилия",
+        data: "Иванов",
+        placeholder: "Введите фамилию"
+    },
+    {
+        name: "display_name",
+        title: "Имя в чате",
+        data: "Иван",
+        placeholder: "Введите имя в чате"
+    },
+    {
+        name: "phone",
+        title: "Телефон",
+        data: "+7 909 967 30 30",
+        placeholder: "Введите пароль"
+    }
+];
+const profileData = {
+    username: "Ivan",
+    changeAvatar: "Поменять аватар",
+    backLink: {
+        class: "profile__buttonBack__img",
+        name: "",
+        alt: "arrowBack",
+        htmlName: "backLink"
+    },
+    avatar: {
+        alt: "profileAvatar",
+        class: "profile__buttonBack__img"
+    },
+    changeData: {
+        link: "Изменить данные",
+        class: "profile__changeData",
+        htmlName: "changeData"
+    },
+    changePassword: {
+        link: "Изменить пароль",
+        class: "profile__password",
+        htmlName: "changePassword"
+    },
+    exitProfile: {
+        link: "Выйти",
+        class: "profile__exit",
+        htmlName: "exitProfile"
+    }
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"P7Wev":[function(require,module,exports) {
+module.exports = require("266cec9c28fdb89").getBundleURL("7UhFu") + "arrowBack.b3aade7f.png" + "?" + Date.now();
+
+},{"266cec9c28fdb89":"lgJ39"}],"j6gct":[function(require,module,exports) {
+module.exports = require("49cc8f1abcba409b").getBundleURL("7UhFu") + "profile_avatar.558a0e16.png" + "?" + Date.now();
+
+},{"49cc8f1abcba409b":"lgJ39"}],"dxpTD":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ChangePasswordPage", ()=>ChangePasswordPage);
+var _block = require("../../../core/block");
+var _blockDefault = parcelHelpers.interopDefault(_block);
+var _renderDOM = require("../../../core/renderDOM");
+var _index = require("../../../components/index");
+var _changePasswordTemplate = require("./changePasswordTemplate");
+// import { changePasswordData } from './changePasswordData';
+var _profileData = require("../profileData");
+var _profileAvatarPng = require("../../../static/img/profile_avatar.png");
+var _profileAvatarPngDefault = parcelHelpers.interopDefault(_profileAvatarPng);
+var _arrowBackPng = require("../../../static/img/arrowBack.png");
+var _arrowBackPngDefault = parcelHelpers.interopDefault(_arrowBackPng);
+var _profile = require("../profile");
+var _changePasswordData = require("./changePasswordData");
+class ChangePasswordPage extends (0, _blockDefault.default) {
+    constructor(){
+        const children = {};
+        children.arrowBackImage = new (0, _index.ImageElement)({
+            props: {
+                src: (0, _arrowBackPngDefault.default),
+                alt: (0, _profileData.profileData).backLink.alt,
+                htmlClass: (0, _profileData.profileData).backLink.class,
+                componentName: "Arrow Back Image",
+                htmlWrapper: {
+                    componentAlias: "wrappedProfileLink",
+                    htmlWrapperTemplate: `
+              <div class='profile__buttonBack'>
+                {{{wrappedProfileLink}}}
+              </div>
+            `
+                },
+                events: {
+                    click: [
+                        ()=>{
+                            (0, _renderDOM.MainPage).component = new (0, _profile.ProfilePage)();
+                        }
+                    ]
+                }
+            }
+        });
+        children.avatarImage = new (0, _index.ImageElement)({
+            props: {
+                src: (0, _profileAvatarPngDefault.default),
+                alt: (0, _profileData.profileData).avatar.alt,
+                htmlClass: (0, _profileData.profileData).avatar.class,
+                componentName: "Profile avatar image"
+            }
+        });
+        children.username = new (0, _index.TextElement)({
+            props: {
+                text: (0, _profileData.profileData).username,
+                htmlClass: "profile__title",
+                componentName: "Profile Component Message"
+            }
+        });
+        (0, _changePasswordData.changePasswordData).forEach(({ name , title , data , placeholder  })=>{
+            const inputField = new (0, _index.Input)({
+                props: {
+                    placeholder,
+                    type: "password",
+                    htmlName: name,
+                    value: data,
+                    htmlClass: "profile__data__data",
+                    componentName: `${name} profile`,
+                    htmlWrapper: {
+                        componentAlias: "wrappedChangePasswordInput",
+                        htmlWrapperTemplate: `
+              <div class='profile__data'>
+                <p class='profile__data__title'>
+                  ${title}
+                </p>
+                <label for={{name}} style="width: 0px"></label>
+                {{{wrappedChangePasswordInput}}}
+              </div>
+              <div class='profile__line'></div>
+              `
+                    }
+                }
+            });
+            children[`${name}Field`] = inputField;
+        });
+        children.button = new (0, _index.Button)({
+            props: {
+                type: "button",
+                label: (0, _changePasswordData.changePassword).button,
+                htmlClass: "buttonAuth",
+                events: {
+                    click: [
+                        ()=>{
+                            (0, _renderDOM.MainPage).component = new (0, _profile.ProfilePage)();
+                        }
+                    ]
+                }
+            }
+        });
+        super({
+            children
+        });
+    }
+    render() {
+        return 0, _changePasswordTemplate.profileTemplate;
+    }
+}
+
+},{"../../../core/block":"axMnM","../../../core/renderDOM":"ePGhw","../../../components/index":"dHnah","./changePasswordTemplate":"3FKbA","../profileData":"hNHYd","../../../static/img/profile_avatar.png":"j6gct","../../../static/img/arrowBack.png":"P7Wev","../profile":"atqZr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./changePasswordData":"jABZa"}],"3FKbA":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "profileTemplate", ()=>profileTemplate);
+parcelHelpers.export(exports, "imageBackTemplate", ()=>imageBackTemplate);
+var _profileData = require("../profileData");
+const profileTemplate = `
+<main class='profile'>
+  {{{arrowBackImage}}}
+  <div class='profile__container'>
+    <div class='profile__avatar'>
+      {{{avatarImage}}}
+      <label for='avatar' style='display: none'></label>
+      <input
+        name='avatar'
+        type='file'
+        id='avatar'
+        style='display: none'
+      />
+      <span class='profile__avatar__change'>${(0, _profileData.profileData).changeAvatar}</span>
+    </div>
+    {{{username}}}
+    <div class='profile__data__container'>
+      {{{oldPasswordField}}}
+      {{{newPasswordField}}}
+      {{{newPasswordCheckField}}}
+    </div>
+    <div class="profile__button">
+      {{{button}}}
+    </div>
+</main>
+`;
+const imageBackTemplate = `
+  {{{arrowBackImage}}}
+`;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../profileData":"hNHYd"}],"jABZa":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "changePasswordData", ()=>changePasswordData);
+parcelHelpers.export(exports, "changePassword", ()=>changePassword);
+const changePasswordData = [
+    {
+        name: "oldPassword",
+        title: "Старый пароль",
+        data: "*********",
+        placeholder: "Введите старый пароль"
+    },
+    {
+        name: "newPassword",
+        title: "Новый пароль",
+        data: "*********",
+        placeholder: "Введите пароль"
+    },
+    {
+        name: "newPasswordCheck",
+        title: "Подтвердите новый пароль",
+        data: "*********",
+        placeholder: "Введите пароль повторно"
+    }
+];
+const changePassword = {
+    button: "Сохранить"
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hBYjR":[function(require,module,exports) {
+module.exports = require("5414f57f6c9aaea1").getBundleURL("7UhFu") + "camera.5b58f8e0.png" + "?" + Date.now();
+
+},{"5414f57f6c9aaea1":"lgJ39"}],"4Pgai":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 const loginData = {
