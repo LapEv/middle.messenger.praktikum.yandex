@@ -698,7 +698,10 @@ class LoginPage extends (0, _blockDefault.default) {
                                 });
                             });
                             if (!isError) this.routeTo();
-                        }).bind(this)
+                        }).bind(this),
+                        ()=>{
+                            (0, _renderDOM.MainPage).component = new (0, _index1.ChatPage)();
+                        }
                     ]
                 }
             }
@@ -12340,19 +12343,19 @@ exports.default = EventBus;
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dHnah":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "Button", ()=>(0, _component.Button));
-parcelHelpers.export(exports, "Link", ()=>(0, _component1.Link));
-parcelHelpers.export(exports, "Input", ()=>(0, _component2.Input));
-parcelHelpers.export(exports, "InputValidator", ()=>(0, _component2.InputValidator));
-parcelHelpers.export(exports, "TextElement", ()=>(0, _component3.TextElement));
-parcelHelpers.export(exports, "ImageElement", ()=>(0, _component4.ImageElement));
-var _component = require("./button/component");
-var _component1 = require("./link/component");
-var _component2 = require("./input/component");
-var _component3 = require("./text-element/component");
-var _component4 = require("./image/component");
+parcelHelpers.export(exports, "Button", ()=>(0, _button.Button));
+parcelHelpers.export(exports, "Link", ()=>(0, _link.Link));
+parcelHelpers.export(exports, "Input", ()=>(0, _input.Input));
+parcelHelpers.export(exports, "InputValidator", ()=>(0, _input.InputValidator));
+parcelHelpers.export(exports, "TextElement", ()=>(0, _text.TextElement));
+parcelHelpers.export(exports, "ImageElement", ()=>(0, _image.ImageElement));
+var _button = require("./button/button");
+var _link = require("./link/link");
+var _input = require("./input/input");
+var _text = require("./text/text");
+var _image = require("./image/image");
 
-},{"./button/component":"7RAPG","./link/component":"3rKQe","./input/component":"cbTbz","./text-element/component":"frra9","./image/component":"goGrU","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7RAPG":[function(require,module,exports) {
+},{"./button/button":"9lSjy","./link/link":"9UCyh","./input/input":"fIx3g","./text/text":"h13bq","./image/image":"i2q4l","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9lSjy":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Button", ()=>Button);
@@ -12431,7 +12434,7 @@ function getTemplate({ tag , attributes =null , content =null , isSelfClosingTag
 }
 exports.default = getTemplate;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3rKQe":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9UCyh":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Link", ()=>Link);
@@ -12472,7 +12475,7 @@ exports.default = (0, _componentTemplateGeneratorDefault.default)({
     content
 });
 
-},{"../../utils/componentTemplateGenerator":"dlIFZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cbTbz":[function(require,module,exports) {
+},{"../../utils/componentTemplateGenerator":"dlIFZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fIx3g":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Input", ()=>Input);
@@ -12547,7 +12550,7 @@ exports.default = (0, _componentTemplateGeneratorDefault.default)({
     attributes
 });
 
-},{"../../utils/componentTemplateGenerator":"dlIFZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"frra9":[function(require,module,exports) {
+},{"../../utils/componentTemplateGenerator":"dlIFZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"h13bq":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "TextElement", ()=>TextElement);
@@ -12568,15 +12571,12 @@ class TextElement extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../core/block":"axMnM","./template":"4F5t7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4F5t7":[function(require,module,exports) {
+},{"../../core/block":"axMnM","./template":"T8CXS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"T8CXS":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _componentTemplateGenerator = require("../../utils/componentTemplateGenerator");
 var _componentTemplateGeneratorDefault = parcelHelpers.interopDefault(_componentTemplateGenerator);
 const content = `
-{{#if htmlClass}} 
-  class="{{htmlClass}}" 
-{{/if}}
 
 {{#if text}}
   {{ text }}
@@ -12589,7 +12589,7 @@ exports.default = (tag)=>(0, _componentTemplateGeneratorDefault.default)({
         content
     });
 
-},{"../../utils/componentTemplateGenerator":"dlIFZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"goGrU":[function(require,module,exports) {
+},{"../../utils/componentTemplateGenerator":"dlIFZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"i2q4l":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ImageElement", ()=>ImageElement);
@@ -12630,14 +12630,15 @@ exports.default = (0, _componentTemplateGeneratorDefault.default)({
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "LoginPage", ()=>(0, _login.LoginPage));
-parcelHelpers.export(exports, "RegistrationPage", ()=>(0, _registration.RegistrationPage)) // export { ChatsPage } from './chats/page';
- // export { ProfilePage } from './profile/page';
+parcelHelpers.export(exports, "RegistrationPage", ()=>(0, _registration.RegistrationPage));
+parcelHelpers.export(exports, "ChatPage", ()=>(0, _chat.ChatPage)) // export { ProfilePage } from './profile/page';
  // export { NavigationPage } from './navigation/page';
 ;
 var _login = require("./login/login");
 var _registration = require("./registration/registration");
+var _chat = require("./chat/chat");
 
-},{"./login/login":"dCEbf","./registration/registration":"ipn4T","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ipn4T":[function(require,module,exports) {
+},{"./login/login":"dCEbf","./registration/registration":"ipn4T","./chat/chat":"9muaU","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ipn4T":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "RegistrationPage", ()=>RegistrationPage);
@@ -12706,7 +12707,7 @@ class RegistrationPage extends (0, _blockDefault.default) {
         return 0, _registrationTemplateDefault.default;
     }
     routeTo() {
-        (0, _renderDOM.MainPage).component = new (0, _index1.LoginPage)();
+        (0, _renderDOM.MainPage).component = new (0, _index1.ChatPage)();
     }
     _preInitHook() {
         Object.values(this.refs).forEach((inputField)=>{
@@ -12771,10 +12772,7 @@ function validateLoginRegex(value) {
     return "";
 }
 function validatePasswordRegex(value) {
-    if (value.length < 8) {
-        console.log("Value = ", value);
-        return "Длина должна состовлять не менее 8 символов";
-    }
+    if (value.length < 8) return "Длина должна состовлять не менее 8 символов";
     if (!value.match("[A-Z]+")) return "Пароль должен сожержать хотя бы одну заглавную букву";
     if (!value.match("[0-9]+")) return "Пароль должен сожержать хотя бы одну цифру";
     if (value.length > 40) return "Длина логина состовлять не более 40 символов";
@@ -12969,7 +12967,377 @@ const regData = {
 };
 exports.default = regData;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4Pgai":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9muaU":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ChatPage", ()=>ChatPage);
+var _block = require("../../core/block");
+var _blockDefault = parcelHelpers.interopDefault(_block);
+var _index = require("../../components/index");
+var _chatTemplate = require("./chatTemplate");
+var _menuPng = require("../../static/img/menu.png");
+var _menuPngDefault = parcelHelpers.interopDefault(_menuPng);
+var _attachPng = require("../../static/img/attach.png");
+var _attachPngDefault = parcelHelpers.interopDefault(_attachPng);
+var _sendPng = require("../../static/img/send.png");
+var _sendPngDefault = parcelHelpers.interopDefault(_sendPng);
+var _chatList = require("./chatList");
+var _chatListDefault = parcelHelpers.interopDefault(_chatList);
+var _chatData = require("./chatData");
+var _renderDOM = require("../../core/renderDOM");
+var _registration = require("../registration/registration");
+class ChatPage extends (0, _blockDefault.default) {
+    constructor(){
+        const children = {
+            chats: []
+        };
+        (0, _chatData.chatList).map(({ username , userImg , lastMessage , lastMessageDate  })=>{
+            children.chats.push(new (0, _chatListDefault.default)({
+                username,
+                userImg,
+                lastMessage,
+                lastMessageDate
+            }));
+        });
+        children.profileLink = new (0, _index.Link)({
+            props: {
+                label: (0, _chatData.chatData).link.name,
+                htmlName: (0, _chatData.chatData).link.htmlName,
+                htmlClass: "chat__list__profileLink__icon",
+                htmlWrapper: {
+                    componentAlias: "wrappedLink",
+                    htmlWrapperTemplate: `
+              <div class='chat__list__profileLink'>
+                {{{wrappedLink}}} 
+                <svg
+                  class='chat__list__profileLink__svg'
+                  width='6'
+                  height='10'
+                  viewBox='0 0 6 10'
+                  fill='none'
+                  xmlns='http://www.w3.org/2000/svg'
+                >
+                  <path d='M1 9L5 5L1 1' stroke='#999999'></path>
+                </svg>
+              </div>
+            `
+                },
+                events: {
+                    click: [
+                        ()=>{
+                            (0, _renderDOM.MainPage).component = new (0, _registration.RegistrationPage)();
+                        }
+                    ]
+                }
+            }
+        });
+        children.inputFind = new (0, _index.Input)({
+            props: {
+                placeholder: (0, _chatData.chatData).inputFindUser.placeholder,
+                type: (0, _chatData.chatData).inputFindUser.type,
+                htmlName: (0, _chatData.chatData).inputFindUser.name,
+                htmlClass: (0, _chatData.chatData).inputFindUser.class,
+                componentName: `${(0, _chatData.chatData).inputFindUser.name} input`,
+                htmlWrapper: {
+                    componentAlias: "wrappedInputFind",
+                    htmlWrapperTemplate: `
+            <div style='height: auto'>
+              <label for='chatSearch'></label>
+              {{{wrappedInputFind}}}
+            </div>
+            `
+                }
+            }
+        });
+        children.chatWith = new (0, _index.TextElement)({
+            props: {
+                text: (0, _chatData.chatMessages).user,
+                htmlClass: "chat__body__title__user",
+                componentName: "Chat Component Message"
+            }
+        });
+        children.menuImage = new (0, _index.ImageElement)({
+            props: {
+                src: (0, _menuPngDefault.default),
+                htmlClass: "chat__body__title__img",
+                alt: "menu",
+                componentName: "Menu Image"
+            }
+        });
+        children.chatDate = new (0, _index.TextElement)({
+            props: {
+                text: (0, _chatData.chatMessages).date,
+                htmlClass: "chat__body__date",
+                componentName: "Chat Component Message"
+            }
+        });
+        children.chatMessage1 = new (0, _index.TextElement)({
+            props: {
+                text: (0, _chatData.chatMessages).message1,
+                htmlClass: "chat__body__message",
+                componentName: "Chat Component Message"
+            }
+        });
+        children.chatTime1 = new (0, _index.TextElement)({
+            props: {
+                text: (0, _chatData.chatMessages).time1,
+                htmlClass: "chat__body__message__time",
+                componentName: "Chat Component Message"
+            }
+        });
+        children.chatMessage2 = new (0, _index.TextElement)({
+            props: {
+                text: (0, _chatData.chatMessages).message2,
+                htmlClass: "chat__body__you",
+                componentName: "Chat Component Message"
+            }
+        });
+        children.chatTime2 = new (0, _index.TextElement)({
+            props: {
+                text: (0, _chatData.chatMessages).time2,
+                htmlClass: "chat__body__you__time",
+                componentName: "Chat Component Message"
+            }
+        });
+        children.inputMessage = new (0, _index.Input)({
+            props: {
+                placeholder: (0, _chatData.chatData).inputMessage.placeholder,
+                type: (0, _chatData.chatData).inputMessage.type,
+                htmlName: (0, _chatData.chatData).inputMessage.name,
+                htmlClass: (0, _chatData.chatData).inputMessage.class,
+                componentName: `${(0, _chatData.chatData).inputMessage.name} input`,
+                htmlWrapper: {
+                    componentAlias: "wrappedInputMessage",
+                    htmlWrapperTemplate: `
+            <div style='height: auto'>
+              <label for='message' style='width: 0'></label>
+              {{{wrappedInputMessage}}}
+            </div>
+            `
+                }
+            }
+        });
+        children.attachImage = new (0, _index.ImageElement)({
+            props: {
+                src: (0, _attachPngDefault.default),
+                htmlClass: "chat__body__footer__img",
+                alt: "attach",
+                componentName: "Attach Image"
+            }
+        });
+        children.sendImage = new (0, _index.ImageElement)({
+            props: {
+                src: (0, _sendPngDefault.default),
+                htmlClass: "chat__body__footer__imgSend",
+                alt: "send",
+                componentName: "Send Image"
+            }
+        });
+        super({
+            children,
+            props: {
+                componentName: "Chats Page"
+            }
+        });
+    }
+    render() {
+        return 0, _chatTemplate.chatTemplate;
+    }
+}
+
+},{"../../core/block":"axMnM","./chatTemplate":"bKpsa","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./chatList":"iEv8H","./chatData":"42lLR","../../components/index":"dHnah","../../core/renderDOM":"ePGhw","../registration/registration":"ipn4T","../../static/img/menu.png":"1MGTQ","../../static/img/attach.png":"hTNQO","../../static/img/send.png":"ceWHr"}],"bKpsa":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "chatTemplate", ()=>chatTemplate);
+const chatTemplate = `
+<main class='chat__container'>
+  <div class='chat__list'>
+    {{{profileLink}}}
+    {{{inputFind}}}
+    {{{ chats }}}
+  </div>
+  <div class='chat__body'>
+    <div class='chat__body__title'>
+      <div class='chat__body__title__circle'></div>
+      {{{chatWith}}}
+      {{{menuImage}}}
+    </div>
+    <div class='chat__body__line'></div>
+      {{{chatDate}}}
+    <div class='chat__body__message__container'>
+      {{{chatMessage1}}}
+      {{{chatTime1}}}
+    </div>
+    <div class='chat__body__you__container'>
+      {{{chatMessage2}}}
+      {{{chatTime2}}}
+    </div>
+    <footer class='chat__body__footer'>
+      <div class='chat__body__line'></div>
+      <div class='chat__body__footer__container'>
+        {{{attachImage}}}
+        {{{inputMessage}}}
+        {{{sendImage}}}
+      </div>
+    </footer>
+  </div>
+</main>
+`;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iEv8H":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _block = require("../../core/block");
+var _blockDefault = parcelHelpers.interopDefault(_block);
+var _index = require("../../components/index");
+var _chatListTemplate = require("./chatListTemplate");
+class ChatList extends (0, _blockDefault.default) {
+    constructor({ username , userImg , lastMessage , lastMessageDate  }){
+        const children = {};
+        const messageElement = new (0, _index.TextElement)({
+            props: {
+                text: lastMessage,
+                componentName: "Chat Component Message",
+                htmlClass: "chat__list__message__last",
+                htmlWrapper: {
+                    componentAlias: "wrapped",
+                    htmlWrapperTemplate: `
+                <div class='chat__list__message__container'>
+                  <div class="chat__list__message__circle">
+                    ${userImg}
+                  </div>
+                  <div class='chat__list__message__text'>
+                    <span class='chat__list__message__title'>${username}</span>
+                    {{{wrapped}}}
+                  </div>
+                  <span class='chat__list__message__lastDate'>${lastMessageDate}</span>
+                </div>
+              `
+                }
+            }
+        });
+        children.message = messageElement;
+        super({
+            children
+        });
+    }
+    render() {
+        return 0, _chatListTemplate.chatListTemplate;
+    }
+}
+exports.default = ChatList;
+
+},{"../../core/block":"axMnM","./chatListTemplate":"dc6W1","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../components/index":"dHnah"}],"dc6W1":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "chatListTemplate", ()=>chatListTemplate);
+const chatListTemplate = `
+    {{{message}}}
+`;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"42lLR":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "chatList", ()=>chatList);
+parcelHelpers.export(exports, "chatData", ()=>chatData);
+parcelHelpers.export(exports, "chatMessages", ()=>chatMessages);
+const chatList = [
+    {
+        username: "Петя",
+        userImg: "",
+        lastMessage: "Test",
+        lastMessageDate: "16:54"
+    },
+    {
+        username: "Ваня",
+        userImg: "",
+        lastMessage: "Test Test",
+        lastMessageDate: "10:54"
+    },
+    {
+        username: "Коля",
+        userImg: "",
+        lastMessage: "Тестовое сообщение",
+        lastMessageDate: "Вт"
+    },
+    {
+        username: "Дима",
+        userImg: "",
+        lastMessage: "Тестовое сообщение, чтобы посмотреть как работает ограничение",
+        lastMessageDate: "2 Дек 2022"
+    }
+];
+const chatData = {
+    link: {
+        name: "Профиль",
+        htmlName: "Profile"
+    },
+    inputFindUser: {
+        placeholder: "Поиск",
+        type: "text",
+        name: "chatSearch",
+        class: "chat__list__input"
+    },
+    inputMessage: {
+        placeholder: "Сообщение",
+        type: "text",
+        name: "message",
+        class: "chat__body__footer__input"
+    }
+};
+const chatMessages = {
+    user: "Вадим",
+    date: "19 июня",
+    time1: "11:56",
+    message1: "Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой./n Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и не попали. Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.",
+    time2: "12:00",
+    message2: "Круто!"
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1MGTQ":[function(require,module,exports) {
+module.exports = require("662ada06709a3352").getBundleURL("7UhFu") + "menu.a1c33c79.png" + "?" + Date.now();
+
+},{"662ada06709a3352":"lgJ39"}],"lgJ39":[function(require,module,exports) {
+"use strict";
+var bundleURL = {};
+function getBundleURLCached(id) {
+    var value = bundleURL[id];
+    if (!value) {
+        value = getBundleURL();
+        bundleURL[id] = value;
+    }
+    return value;
+}
+function getBundleURL() {
+    try {
+        throw new Error();
+    } catch (err) {
+        var matches = ("" + err.stack).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^)\n]+/g);
+        if (matches) // The first two stack frames will be this function and getBundleURLCached.
+        // Use the 3rd one, which will be a runtime in the original bundle.
+        return getBaseURL(matches[2]);
+    }
+    return "/";
+}
+function getBaseURL(url) {
+    return ("" + url).replace(/^((?:https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/.+)\/[^/]+$/, "$1") + "/";
+} // TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
+function getOrigin(url) {
+    var matches = ("" + url).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^/]+/);
+    if (!matches) throw new Error("Origin not found");
+    return matches[0];
+}
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+exports.getOrigin = getOrigin;
+
+},{}],"hTNQO":[function(require,module,exports) {
+module.exports = require("84866f3f39f43634").getBundleURL("7UhFu") + "attach.a2507276.png" + "?" + Date.now();
+
+},{"84866f3f39f43634":"lgJ39"}],"ceWHr":[function(require,module,exports) {
+module.exports = require("94d6124511703da").getBundleURL("7UhFu") + "send.e0d50340.png" + "?" + Date.now();
+
+},{"94d6124511703da":"lgJ39"}],"4Pgai":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 const loginData = {

@@ -66,7 +66,6 @@ function validateLoginRegex(value: string): string {
 
 function validatePasswordRegex(value: string): string {
   if (value.length < 8) {
-    console.log('Value = ', value);
     return 'Длина должна состовлять не менее 8 символов';
   }
   if (!value.match('[A-Z]+')) {

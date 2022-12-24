@@ -160,14 +160,21 @@
   display: flex;
 }
 
+.chat__list__profileLink__svg {
+  width: 10px;
+  height: 20px;
+}
+
 .chat__list__input {
   height: 32px;
+  width: 94%;
   background: #efefef url("search_icon.d3529251.png") 35% no-repeat;
   border-width: 0;
   border-radius: 5px;
   margin-top: 23px;
   margin-bottom: 14px;
-  padding: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .chat__list__input:focus {
@@ -401,7 +408,7 @@
   width: 28px;
   height: 28px;
   cursor: pointer;
-  margin-left: 10px;
+  margin-left: 20px;
 }
 
 .chat__body__footer__input {

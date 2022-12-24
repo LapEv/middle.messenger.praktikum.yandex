@@ -1,7 +1,7 @@
 import Block from '../../core/block';
 import { Link, Input, InputValidator, Button } from '../../components/index';
 import { MainPage } from '../../core/renderDOM';
-import { RegistrationPage } from '../index';
+import { ChatPage, RegistrationPage } from '../index';
 import { InputValidators } from '../../utils/inputValidators';
 import loginData from './loginData';
 import template from './loginTemplate';
@@ -101,6 +101,9 @@ export class LoginPage extends Block {
                 this.routeTo();
               }
             }.bind(this),
+            () => {
+              MainPage.component = new ChatPage();
+            },
           ],
         },
       },

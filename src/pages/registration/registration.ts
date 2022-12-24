@@ -2,7 +2,7 @@ import Block from '../../core/block';
 import { Link, Input, Button, InputValidator } from '../../components/index';
 import { InputValidators } from '../../utils/inputValidators';
 import { MainPage } from '../../core/renderDOM';
-import { LoginPage } from '../index';
+import { ChatPage, LoginPage } from '../index';
 import template from './registrationTemplate';
 import regData from './registrationData';
 
@@ -61,7 +61,7 @@ export class RegistrationPage extends Block {
   }
 
   routeTo() {
-    MainPage.component = new LoginPage();
+    MainPage.component = new ChatPage();
   }
 
   protected _preInitHook(): void {
