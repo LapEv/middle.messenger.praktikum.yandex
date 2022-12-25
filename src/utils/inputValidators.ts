@@ -114,6 +114,10 @@ export const InputValidators: Record<string, InputValidator> = [
   ['second_name', [validateNameRegex]],
   ['phone', [validatePhoneRegex]],
   ['email', [validateEmailRegex]],
+  ['display_name', [validateNameRegex]],
+  ['oldPassword', [validateLoginRegex]],
+  ['newPassword', [validatePasswordRegex]],
+  ['newPasswordCheck', [validatePasswordRegex]],
 ].reduce(
   (acc, [fieldName, validatorsList]: [string, SingleInputValidator[]]) => {
     acc[fieldName] = makeValidator({

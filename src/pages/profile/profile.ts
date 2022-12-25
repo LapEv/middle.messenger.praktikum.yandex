@@ -1,11 +1,18 @@
 import { ChatPage } from 'pages/chat/chat';
 import Block from 'core/block';
 import { MainPage } from 'core/renderDOM';
-import { ImageElement, Input, Link, TextElement } from 'components/index';
+import {
+  Button,
+  ImageElement,
+  Input,
+  InputValidator,
+  TextElement,
+} from 'components/index';
 import { profileTemplate } from './profileTemplate';
 import { profileFieldsData, profileData } from './profileData';
 import profileAvatar from 'static/img/profile_avatar.png';
 import arrowBackImage from 'static/img/arrowBack.png';
+import { InputValidators } from 'utils/inputValidators';
 import { LoginPage } from '../login/login';
 import { ChangePasswordPage } from './changePassword/changePassword';
 import { Modal } from 'components/modal/modal';
@@ -14,6 +21,7 @@ import { modalMessage } from 'components/modal/modalMessage';
 export class ProfilePage extends Block {
   constructor() {
     const children: ComponentChildren = {};
+    const refModal: ComponentRefs = {};
     const refs: ComponentRefs = {};
 
     children.arrowBackImage = new ImageElement({
@@ -67,7 +75,7 @@ export class ProfilePage extends Block {
       },
     });
 
-    refs['modalField'] = children.modal;
+    refModal['modalField'] = children.modal;
 
     children.changeAvatar = new TextElement({
       props: {
@@ -77,7 +85,7 @@ export class ProfilePage extends Block {
         events: {
           click: [
             () => {
-              refs.modalField.showModal({
+              refModal.modalField.showModal({
                 title: modalMessage.LoadFile.title,
                 link: modalMessage.LoadFile.link,
                 value: modalMessage.LoadFile.value,
@@ -105,9 +113,10 @@ export class ProfilePage extends Block {
           type: 'text',
           htmlName: name,
           value: data,
-          htmlClass: 'profile__data__data',
+          htmlClass: profileData.inputFileds.class,
           htmlId: name,
           componentName: `${name} profile`,
+          disabledAttr: true,
           htmlWrapper: {
             componentAlias: 'wrappedProfileInput',
             htmlWrapperTemplate: `
@@ -121,21 +130,17 @@ export class ProfilePage extends Block {
               <div class='profile__line'></div>
               `,
           },
+          validators: {
+            blur: InputValidators[name],
+          },
         },
       });
 
       children[`${name}Field`] = inputField;
+      refs[`${name}Field`] = inputField;
     });
 
-    children.changeDataLink = new Link({
-      props: {
-        label: profileData.changeData.link,
-        htmlName: profileData.changeData.htmlName,
-        htmlClass: profileData.changeData.class,
-      },
-    });
-
-    children.changePasswordLink = new Link({
+    children.changePasswordLink = new Button({
       props: {
         label: profileData.changePassword.link,
         htmlName: profileData.changePassword.htmlName,
@@ -150,7 +155,7 @@ export class ProfilePage extends Block {
       },
     });
 
-    children.exitLink = new Link({
+    children.exitLink = new Button({
       props: {
         label: profileData.exitProfile.link,
         htmlName: profileData.exitProfile.htmlName,
@@ -165,10 +170,71 @@ export class ProfilePage extends Block {
       },
     });
 
-    super({ children });
+    super({ children, props: { componentName: 'Profile Page' }, refs });
   }
 
   protected render(): string {
     return profileTemplate;
+  }
+
+  protected _preInitHook(): void {
+    Object.values(this.refs).forEach((inputField: Input) => {
+      inputField.refs.Form = this;
+    });
+
+    profileData.errorLabel.forEach((stateErrorName) => {
+      this.state[stateErrorName] = '';
+    });
+
+    const button = new Button({
+      state: {
+        mode: 'save',
+      },
+      props: {
+        label: profileData.changeData.change,
+        htmlName: profileData.changeData.htmlName,
+        htmlClass: profileData.changeData.class,
+        componentName: 'Profile button',
+        events: {
+          click: [
+            function checkList() {
+              let isError = false;
+              const formRefs = this.refs as ComponentRefs;
+              Object.values(formRefs).forEach((inputField: any) => {
+                const inputProps = inputField.props;
+                if (inputProps.componentName === 'Profile button') {
+                  if (this.state.mode === 'save' || !this.state.mode) {
+                    inputProps.label = profileData.changeData.save;
+                    this.state.mode = 'change';
+                    inputProps.htmlClass = profileData.changeData.classActive;
+                  } else {
+                    inputProps.label = profileData.changeData.change;
+                    this.state.mode = 'save';
+                    inputProps.htmlClass = profileData.changeData.class;
+                  }
+                } else {
+                  inputProps.disabledAttr = !inputProps.disabledAttr;
+                  this.state.mode !== 'save'
+                    ? (inputProps.htmlClass = profileData.inputFileds.class)
+                    : (inputProps.htmlClass =
+                        profileData.inputFileds.classActive);
+                  Object.values(inputField.validators).forEach(
+                    (validator: InputValidator) => {
+                      const error = validator();
+                      if (error) {
+                        isError = true;
+                      }
+                    }
+                  );
+                }
+              });
+            }.bind(this),
+          ],
+        },
+      },
+    });
+
+    this.children.changeDataLink = button;
+    this.refs['Button'] = button;
   }
 }

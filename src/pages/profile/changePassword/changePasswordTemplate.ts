@@ -18,8 +18,17 @@ export const profileTemplate = `
     {{{username}}}
     <div class='profile__data__container'>
       {{{oldPasswordField}}}
+      <span class='profile__error'>
+        {{{ oldPasswordError }}}
+      </span>
       {{{newPasswordField}}}
+      <span class='profile__error'>
+        {{{ newPasswordError }}}
+      </span>
       {{{newPasswordCheckField}}}
+      <span class='profile__error'>
+        {{{ newPasswordCheckError }}}
+      </span>
     </div>
     <div class="profile__button">
       {{{button}}}

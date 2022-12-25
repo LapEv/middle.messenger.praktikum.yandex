@@ -106,7 +106,7 @@ export class LoginPage extends Block {
   }
 
   routeTo() {
-    MainPage.component = new RegistrationPage();
+    MainPage.component = new ChatPage();
   }
 
   protected _preInitHook(): void {
@@ -142,9 +142,6 @@ export class LoginPage extends Block {
                 this.routeTo();
               }
             }.bind(this),
-            () => {
-              MainPage.component = new ChatPage();
-            },
           ],
         },
       },

@@ -32,7 +32,7 @@ export const profileFieldsData = [
   {
     name: 'phone',
     title: 'Телефон',
-    data: '+7 909 967 30 30',
+    data: '79099673030',
     placeholder: 'Введите пароль',
   },
 ];
@@ -51,18 +51,33 @@ export const profileData = {
     class: 'profile__buttonBack__img',
   },
   changeData: {
-    link: 'Изменить данные',
-    class: 'profile__changeData',
+    change: 'Изменить данные',
+    save: 'Сохранить данные',
+    class: 'profile__saveButton',
+    classActive: 'profile__saveButton__active',
     htmlName: 'changeData',
   },
   changePassword: {
     link: 'Изменить пароль',
-    class: 'profile__password',
+    class: 'profile__changePasswordButton',
     htmlName: 'changePassword',
   },
   exitProfile: {
     link: 'Выйти',
-    class: 'profile__exit',
+    class: 'profile__exitButton',
     htmlName: 'exitProfile',
   },
+  inputFileds: {
+    class: 'profile__data__data',
+    classActive: 'profile__data__data__active',
+  },
+  errorLabel: [
+    'errorEmail',
+    'errorLogin',
+    'errorFirstName',
+    'errorSecondName',
+    'errorPhone',
+    'errorPassword',
+    'errorPasswordCheck',
+  ],
 };

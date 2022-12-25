@@ -4,20 +4,21 @@ import {
   Button,
   ImageElement,
   Input,
-  Link,
+  InputValidator,
   TextElement,
 } from 'components/index';
 import { profileTemplate } from './changePasswordTemplate';
-// import { changePasswordData } from './changePasswordData';
 import { profileData } from '../profileData';
 import profileAvatar from 'static/img/profile_avatar.png';
 import arrowBackImage from 'static/img/arrowBack.png';
 import { ProfilePage } from '../profile';
 import { changePasswordData, changePassword } from './changePasswordData';
+import { InputValidators } from '../../../utils/inputValidators';
 
 export class ChangePasswordPage extends Block {
   constructor() {
     const children: ComponentChildren = {};
+    const refs: ComponentRefs = {};
 
     children.arrowBackImage = new ImageElement({
       props: {
@@ -82,30 +83,74 @@ export class ChangePasswordPage extends Block {
               <div class='profile__line'></div>
               `,
           },
+          validators: {
+            blur: InputValidators[name],
+          },
         },
       });
 
       children[`${name}Field`] = inputField;
+      refs[`${name}Field`] = inputField;
     });
 
-    children.button = new Button({
-      props: {
-        type: 'button',
-        label: changePassword.button,
-        htmlClass: 'buttonAuth',
-        events: {
-          click: [
-            () => {
-              MainPage.component = new ProfilePage();
-            },
-          ],
-        },
-      },
+    super({
+      children,
+      props: { componentName: 'Change Password Page' },
+      refs,
     });
-    super({ children });
   }
 
   protected render(): string {
     return profileTemplate;
+  }
+
+  routeTo() {
+    MainPage.component = new ProfilePage();
+  }
+
+  protected _preInitHook(): void {
+    Object.values(this.refs).forEach((inputField: Input) => {
+      inputField.refs.Form = this;
+    });
+
+    changePassword.errorLabel.forEach((stateErrorName) => {
+      this.state[stateErrorName] = '';
+    });
+
+    const button = new Button({
+      props: {
+        label: profileData.changeData.change,
+        htmlName: profileData.changeData.htmlName,
+        htmlClass: profileData.changeData.class,
+        componentName: 'ChangePassword button',
+        events: {
+          click: [
+            function checkPassword() {
+              let isError = false;
+              const formRefs = this.refs as ComponentRefs;
+              Object.values(formRefs).forEach((inputField: any) => {
+                const inputProps = inputField.props;
+                if (inputProps.componentName !== 'ChangePassword button') {
+                  Object.values(inputField.validators).forEach(
+                    (validator: InputValidator) => {
+                      const error = validator();
+                      if (error) {
+                        isError = true;
+                      }
+                    }
+                  );
+                }
+              });
+              if (!isError) {
+                this.routeTo();
+              }
+            }.bind(this),
+          ],
+        },
+      },
+    });
+
+    this.children.button = button;
+    this.refs['Button'] = button;
   }
 }

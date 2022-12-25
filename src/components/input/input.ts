@@ -15,7 +15,7 @@ export type InputProps = Omit<InputInitProps, 'validators'> &
   ComponentCommonProps;
 
 export class Input extends Block {
-  protected props: InputProps;
+  public props: InputProps;
 
   public validators: Record<string, InputValidator>;
 

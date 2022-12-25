@@ -573,7 +573,15 @@
   display: none;
 }
 
-.profile__data__data:focus {
+.profile__data__data__active {
+  color: #000;
+  text-align: end;
+  border: 0;
+  margin-bottom: 10px;
+  font-size: 13px;
+}
+
+.profile__data__data__active:focus, .profile__data__data:focus {
   outline: none;
 }
 
@@ -581,6 +589,41 @@
   height: 1px;
   width: 510px;
   background-color: #eaeaea;
+}
+
+.profile__saveButton, .profile__changePasswordButton, .profile__exitButton {
+  height: 37px;
+  width: 200px;
+  color: #000;
+  cursor: pointer;
+  background-color: #e4edfd;
+  border-color: #3369f3;
+  border-radius: 8px;
+  margin-top: 25px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.profile__saveButton__active {
+  height: 37px;
+  width: 200px;
+  color: #fff;
+  cursor: pointer;
+  background-color: #3369f3;
+  border-color: #3369f3;
+  border-radius: 8px;
+  margin-top: 25px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.profile__changePasswordButton, .profile__exitButton {
+  margin-top: 10px;
+}
+
+.profile__exitButton {
+  color: red;
+  border-color: red;
 }
 
 .profile__changeData {
@@ -615,6 +658,22 @@
   justify-content: center;
   margin-top: 162px;
   display: flex;
+}
+
+.profile__button__container {
+  width: 510px;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+  display: flex;
+}
+
+.profile__error {
+  color: #ff2f2f;
+  height: 5px;
+  margin-top: 7px;
+  margin-left: 3px;
+  font-size: 11px;
 }
 
 .buttonAuth {

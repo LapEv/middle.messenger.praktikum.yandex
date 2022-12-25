@@ -12,12 +12,14 @@ export class Link extends Block {
   constructor({
     props,
     refs = {},
+    state = {},
   }: {
     props: LinkProps;
     refs?: ComponentRefs;
+    state?: ComponentState;
   }) {
     props.componentName = props.componentName ?? 'Link';
-    super({ props, refs });
+    super({ props, refs, state });
   }
 
   protected render(): string {
