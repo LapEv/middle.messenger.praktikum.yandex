@@ -16,9 +16,13 @@ export default `
         {{{ passwordError }}}
       </span>
     </div>
-    <footer class='auth__form__buttonContainer'>
+    <div class='auth__form__buttonContainer'>
       {{{ button }}}
       {{{ registration }}}
-    </footer>
+    </div>
   </form>
+  <footer class='auth__error__container'>
+    {{{error404}}}
+    {{{error505}}}
+  </footer>
 </main>`;

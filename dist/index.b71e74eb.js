@@ -617,6 +617,7 @@ var _loginData = require("./loginData");
 var _loginDataDefault = parcelHelpers.interopDefault(_loginData);
 var _loginTemplate = require("./loginTemplate");
 var _loginTemplateDefault = parcelHelpers.interopDefault(_loginTemplate);
+var _errorData = require("pages/error/errorData");
 class LoginPage extends (0, _blockDefault.default) {
     constructor(){
         const children = {};
@@ -625,7 +626,7 @@ class LoginPage extends (0, _blockDefault.default) {
             props: {
                 label: (0, _loginDataDefault.default).link.name,
                 htmlName: (0, _loginDataDefault.default).link.htmlName,
-                htmlClass: "auth__noaccount",
+                htmlClass: (0, _loginDataDefault.default).link.class,
                 events: {
                     click: [
                         ()=>{
@@ -659,6 +660,44 @@ class LoginPage extends (0, _blockDefault.default) {
             });
             children[`${name}Field`] = inputField;
             refs[`${name}Field`] = inputField;
+        });
+        children.error404 = new (0, _index.Link)({
+            props: {
+                label: (0, _loginDataDefault.default).errorLink[404].name,
+                htmlName: (0, _loginDataDefault.default).errorLink[404].htmlName,
+                htmlClass: (0, _loginDataDefault.default).errorLink[404].class,
+                events: {
+                    click: [
+                        ()=>{
+                            (0, _renderDOM.MainPage).component = new (0, _index1.ErrorPage)({
+                                props: {
+                                    title: (0, _errorData.errorData)[404].title,
+                                    message: (0, _errorData.errorData)[404].message
+                                }
+                            });
+                        }
+                    ]
+                }
+            }
+        });
+        children.error505 = new (0, _index.Link)({
+            props: {
+                label: (0, _loginDataDefault.default).errorLink[505].name,
+                htmlName: (0, _loginDataDefault.default).errorLink[505].htmlName,
+                htmlClass: (0, _loginDataDefault.default).errorLink[505].class,
+                events: {
+                    click: [
+                        ()=>{
+                            (0, _renderDOM.MainPage).component = new (0, _index1.ErrorPage)({
+                                props: {
+                                    title: (0, _errorData.errorData)[505].title,
+                                    message: (0, _errorData.errorData)[505].message
+                                }
+                            });
+                        }
+                    ]
+                }
+            }
         });
         super({
             children,
@@ -709,7 +748,7 @@ class LoginPage extends (0, _blockDefault.default) {
     }
 }
 
-},{"core/block":"axMnM","components/index":"dHnah","core/renderDOM":"ePGhw","../index":"kIGWd","utils/inputValidators":"k5lIn","./loginData":"4Pgai","./loginTemplate":"1P9m9","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"axMnM":[function(require,module,exports) {
+},{"core/block":"axMnM","components/index":"dHnah","core/renderDOM":"ePGhw","../index":"kIGWd","utils/inputValidators":"k5lIn","./loginData":"4Pgai","./loginTemplate":"1P9m9","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","pages/error/errorData":"2R9xq"}],"axMnM":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebars = require("handlebars");
@@ -12658,13 +12697,15 @@ parcelHelpers.export(exports, "RegistrationPage", ()=>(0, _registration.Registra
 parcelHelpers.export(exports, "ChatPage", ()=>(0, _chat.ChatPage));
 parcelHelpers.export(exports, "ProfilePage", ()=>(0, _profile.ProfilePage));
 parcelHelpers.export(exports, "ChangePasswordPage", ()=>(0, _changePassword.ChangePasswordPage));
-var _login = require("./login/login");
-var _registration = require("./registration/registration");
-var _chat = require("./chat/chat");
-var _profile = require("./profile/profile");
-var _changePassword = require("./profile/changePassword/changePassword");
+parcelHelpers.export(exports, "ErrorPage", ()=>(0, _error.ErrorPage));
+var _login = require("pages/login/login");
+var _registration = require("pages/registration/registration");
+var _chat = require("pages/chat/chat");
+var _profile = require("pages/profile/profile");
+var _changePassword = require("pages/profile/changePassword/changePassword");
+var _error = require("pages/error/error");
 
-},{"./login/login":"dCEbf","./registration/registration":"ipn4T","./chat/chat":"9muaU","./profile/profile":"atqZr","./profile/changePassword/changePassword":"dxpTD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ipn4T":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","pages/login/login":"dCEbf","pages/registration/registration":"ipn4T","pages/chat/chat":"9muaU","pages/profile/profile":"atqZr","pages/profile/changePassword/changePassword":"dxpTD","pages/error/error":"kZohv"}],"ipn4T":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "RegistrationPage", ()=>RegistrationPage);
@@ -14043,6 +14084,89 @@ const modalTemplate = `
 </div>
 `;
 
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kZohv":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ErrorPage", ()=>ErrorPage);
+var _block = require("core/block");
+var _blockDefault = parcelHelpers.interopDefault(_block);
+var _index = require("components/index");
+var _renderDOM = require("core/renderDOM");
+var _index1 = require("../index");
+var _errorData = require("./errorData");
+var _errorTemplate = require("./errorTemplate");
+class ErrorPage extends (0, _blockDefault.default) {
+    constructor({ props ={
+        componentName: "Error"
+    }  }){
+        const children = {};
+        children.errorTitle = new (0, _index.TextElement)({
+            props: {
+                text: props.title,
+                htmlClass: "error__title",
+                componentName: "Error Component Message"
+            }
+        });
+        children.errorMessage = new (0, _index.TextElement)({
+            props: {
+                text: props.message,
+                htmlClass: "error__message",
+                componentName: "Error Component Message"
+            }
+        });
+        children.backLink = new (0, _index.Link)({
+            props: {
+                label: (0, _errorData.errorData).errorProps.link,
+                htmlClass: (0, _errorData.errorData).errorProps.class,
+                events: {
+                    click: [
+                        ()=>{
+                            (0, _renderDOM.MainPage).component = new (0, _index1.LoginPage)();
+                        }
+                    ]
+                }
+            }
+        });
+        super({
+            children
+        });
+    }
+    render() {
+        return 0, _errorTemplate.errorTemplate;
+    }
+}
+
+},{"core/block":"axMnM","components/index":"dHnah","./errorData":"2R9xq","./errorTemplate":"3LON2","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","core/renderDOM":"ePGhw","../index":"kIGWd"}],"2R9xq":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "errorData", ()=>errorData);
+const errorData = {
+    errorProps: {
+        link: "Назад",
+        class: "error__link"
+    },
+    404: {
+        title: "404",
+        message: "Не туда попали"
+    },
+    505: {
+        title: "505",
+        message: "Мы уже фиксим"
+    }
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3LON2":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "errorTemplate", ()=>errorTemplate);
+const errorTemplate = `
+  <main class='error__container'>
+    {{{errorTitle}}}
+    {{{errorMessage}}}
+    {{{backLink}}}
+  </main>
+`;
+
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4Pgai":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
@@ -14065,13 +14189,26 @@ const loginData = {
     pageTitle: "Вход",
     link: {
         name: "Нет аккаунта?",
-        htmlName: "Registration"
+        htmlName: "Registration",
+        class: "auth__noaccount"
     },
     submitButtonLabel: "Авторизоваться",
     errorLabel: [
         "errorLogin",
         "errorPassword"
-    ]
+    ],
+    errorLink: {
+        404: {
+            name: "error 404 page",
+            htmlName: "Error 404 page",
+            class: "auth__error"
+        },
+        505: {
+            name: "error 505 page",
+            htmlName: "Error 505 page",
+            class: "auth__error"
+        }
+    }
 };
 exports.default = loginData;
 
@@ -14096,11 +14233,15 @@ exports.default = `
         {{{ passwordError }}}
       </span>
     </div>
-    <footer class='auth__form__buttonContainer'>
+    <div class='auth__form__buttonContainer'>
       {{{ button }}}
       {{{ registration }}}
-    </footer>
+    </div>
   </form>
+  <footer class='auth__error__container'>
+    {{{error404}}}
+    {{{error505}}}
+  </footer>
 </main>`;
 
 },{"./loginData":"4Pgai","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["6Ictx","h7u1C"], "h7u1C", "parcelRequire25d8")

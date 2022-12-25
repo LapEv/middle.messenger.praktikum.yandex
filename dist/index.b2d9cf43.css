@@ -1,6 +1,6 @@
 .auth__container {
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   display: flex;
 }
@@ -118,6 +118,19 @@
   justify-content: center;
   margin-top: 14px;
   font-size: 11px;
+  display: flex;
+}
+
+.auth__error {
+  text-align: center;
+}
+
+.auth__error__container {
+  width: 90%;
+  height: 100px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   display: flex;
 }
 
@@ -451,7 +464,7 @@
   color: #3369f3;
   height: auto;
   margin-top: 69px;
-  font-size: 11px;
+  font-size: 14px;
 }
 
 .profile {

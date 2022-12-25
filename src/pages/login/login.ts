@@ -1,10 +1,11 @@
 import Block from 'core/block';
 import { Link, Input, InputValidator, Button } from 'components/index';
 import { MainPage } from 'core/renderDOM';
-import { ChatPage, RegistrationPage } from '../index';
+import { ChatPage, ErrorPage, RegistrationPage } from '../index';
 import { InputValidators } from 'utils/inputValidators';
 import loginData from './loginData';
 import template from './loginTemplate';
+import { errorData } from 'pages/error/errorData';
 
 export class LoginPage extends Block {
   constructor() {
@@ -15,7 +16,7 @@ export class LoginPage extends Block {
       props: {
         label: loginData.link.name,
         htmlName: loginData.link.htmlName,
-        htmlClass: 'auth__noaccount',
+        htmlClass: loginData.link.class,
         events: {
           click: [
             () => {
@@ -51,6 +52,46 @@ export class LoginPage extends Block {
 
       children[`${name}Field`] = inputField;
       refs[`${name}Field`] = inputField;
+    });
+
+    children.error404 = new Link({
+      props: {
+        label: loginData.errorLink[404].name,
+        htmlName: loginData.errorLink[404].htmlName,
+        htmlClass: loginData.errorLink[404].class,
+        events: {
+          click: [
+            () => {
+              MainPage.component = new ErrorPage({
+                props: {
+                  title: errorData[404].title,
+                  message: errorData[404].message,
+                },
+              });
+            },
+          ],
+        },
+      },
+    });
+
+    children.error505 = new Link({
+      props: {
+        label: loginData.errorLink[505].name,
+        htmlName: loginData.errorLink[505].htmlName,
+        htmlClass: loginData.errorLink[505].class,
+        events: {
+          click: [
+            () => {
+              MainPage.component = new ErrorPage({
+                props: {
+                  title: errorData[505].title,
+                  message: errorData[505].message,
+                },
+              });
+            },
+          ],
+        },
+      },
     });
 
     super({

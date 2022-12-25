@@ -1,3 +1,5 @@
+@import './variables.scss';
+
 .error {
   &__container {
     display: flex;
@@ -21,7 +23,7 @@
   }
   &__link {
     margin-top: 69px;
-    font-size: 11;
+    font-size: 14;
     color: $color-button-background;
     height: auto;
   }
