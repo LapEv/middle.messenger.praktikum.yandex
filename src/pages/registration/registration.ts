@@ -1,7 +1,7 @@
-import Block from '../../core/block';
-import { Link, Input, Button, InputValidator } from '../../components/index';
-import { InputValidators } from '../../utils/inputValidators';
-import { MainPage } from '../../core/renderDOM';
+import Block from 'core/block';
+import { Link, Input, Button, InputValidator } from 'components/index';
+import { InputValidators } from 'utils/inputValidators';
+import { MainPage } from 'core/renderDOM';
 import { ChatPage, LoginPage } from '../index';
 import template from './registrationTemplate';
 import regData from './registrationData';

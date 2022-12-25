@@ -1,5 +1,6 @@
 export const chatTemplate = `
 <main class='chat__container'>
+  {{{modal}}}
   <div class='chat__list'>
     {{{profileLink}}}
     {{{inputFind}}}

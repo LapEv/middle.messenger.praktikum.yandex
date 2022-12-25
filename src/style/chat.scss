@@ -146,9 +146,10 @@
         color: $color-black-light;
       }
       &__img {
-        width: 4px;
+        width: 6px;
         height: 20px;
         margin-right: 20px;
+        cursor: pointer;
       }
     }
     &__line {

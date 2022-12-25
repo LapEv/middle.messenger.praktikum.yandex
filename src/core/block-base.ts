@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import propsAreEqual from '../utils/objectCompare';
+import propsAreEqual from 'utils/objectCompare';
 import EventBus from './event-bus';
 
 export default class BlockBase {
@@ -131,6 +131,72 @@ export default class BlockBase {
     }
 
     element!.style.display = 'block';
+  }
+
+  public showModal({
+    title,
+    link,
+    value,
+    button,
+    error,
+  }: {
+    title: string;
+    link: string;
+    value: string;
+    button: string;
+    error: string;
+  }): void {
+    const element = this.getElement();
+
+    if (!BlockBase.isHTMLElement(element)) {
+      throw new Error(
+        `Wrong element ${element} of type ${typeof element} to show`
+      );
+    }
+    element!.style.display = 'flex';
+
+    const elTitle = element?.querySelector('.modal__title');
+    if (elTitle != undefined) {
+      elTitle.textContent = title;
+    }
+
+    const elLink = element?.querySelector('.modal__choose__text');
+    if (elLink != undefined) {
+      elLink.textContent = link;
+    }
+
+    const elInput = element?.querySelector(
+      '.modal__login__input'
+    ) as HTMLInputElement;
+    if (elInput != undefined) {
+      console.log(value);
+      console.log(elInput);
+
+      elInput.value = value;
+    }
+
+    const elButton = element?.querySelector('.modal__button');
+    if (elButton != undefined) {
+      elButton.textContent = button;
+    }
+
+    const elError = element?.querySelector('.modal__error');
+    if (elError != undefined) {
+      elError.textContent = error;
+    }
+  }
+
+  public setTextContent({ value }: { value: string }) {
+    const element = this.getElement();
+
+    if (!BlockBase.isHTMLElement(element)) {
+      throw new Error(
+        `Wrong element ${element} of type ${typeof element} to show`
+      );
+    }
+    if (element != undefined) {
+      element.textContent = value;
+    }
   }
 
   public hide(): void {

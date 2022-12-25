@@ -1,4 +1,4 @@
-import getTemplate from '../../utils/componentTemplateGenerator';
+import getTemplate from 'utils/templateGenerator';
 
 const tag = 'img';
 const attributes = `

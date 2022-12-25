@@ -1,20 +1,34 @@
-import Block from '../../core/block';
-import { ImageElement, Input, Link, TextElement } from '../../components/index';
+import Block from 'core/block';
+import { ImageElement, Input, Link, TextElement } from 'components/index';
 import { chatTemplate } from './chatTemplate';
-import menuImage from '../../static/img/menu.png';
-import attachImage from '../../static/img/attach.png';
-import sendImage from '../../static/img/send.png';
-import photoImage from '../../static/img/camera.png';
+import menuImage from 'static/img/menu.png';
+import attachImage from 'static/img/attach.png';
+import sendImage from 'static/img/send.png';
+import photoImage from 'static/img/camera.png';
 import ChatList from './chatList';
 import { chatList, chatData, chatMessages } from './chatData';
-import { MainPage } from '../../core/renderDOM';
-import { ProfilePage } from '../profile/profile';
+import { MainPage } from 'core/renderDOM';
+import { ProfilePage } from 'pages/profile/profile';
+import { Modal } from 'components/modal/modal';
+import { modalMessageUsers } from 'components/modal/modalMessage';
 
 export class ChatPage extends Block {
   constructor() {
     const children: { chats: ChatList[] } & ComponentChildren = {
       chats: [],
     };
+    const refs: ComponentRefs = {};
+
+    children.modal = new Modal({
+      props: {
+        title: '',
+        inputProps: modalMessageUsers.inputProps,
+        text: '',
+        error: '',
+      },
+    });
+
+    refs['modalField'] = children.modal;
 
     chatList.map(
       ({
@@ -100,6 +114,19 @@ export class ChatPage extends Block {
         htmlClass: 'chat__body__title__img',
         alt: 'menu',
         componentName: 'Menu Image',
+        events: {
+          click: [
+            () => {
+              refs.modalField.showModal({
+                title: modalMessageUsers.addUser.title,
+                link: modalMessageUsers.addUser.link,
+                value: modalMessageUsers.addUser.value,
+                button: modalMessageUsers.addUser.button,
+                error: modalMessageUsers.addUser.error,
+              });
+            },
+          ],
+        },
       },
     });
 

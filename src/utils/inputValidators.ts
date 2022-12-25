@@ -24,6 +24,7 @@ function makeValidator({
         }: wrong element ${element} of type ${typeof element} to validate input`
       );
     }
+
     const form = this.refs.Form;
 
     let error = '';

@@ -1,5 +1,5 @@
-import Block from '../../core/block';
-import { ImageElement, TextElement } from '../../components/index';
+import Block from 'core/block';
+import { ImageElement, TextElement } from 'components/index';
 import { chatListTemplate } from './chatListTemplate';
 
 export default class ChatList extends Block {

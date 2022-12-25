@@ -1,17 +1,20 @@
-import { ChatPage } from './../chat/chat';
-import Block from '../../core/block';
-import { MainPage } from '../../core/renderDOM';
-import { ImageElement, Input, Link, TextElement } from '../../components/index';
+import { ChatPage } from 'pages/chat/chat';
+import Block from 'core/block';
+import { MainPage } from 'core/renderDOM';
+import { ImageElement, Input, Link, TextElement } from 'components/index';
 import { profileTemplate } from './profileTemplate';
 import { profileFieldsData, profileData } from './profileData';
-import profileAvatar from '../../static/img/profile_avatar.png';
-import arrowBackImage from '../../static/img/arrowBack.png';
+import profileAvatar from 'static/img/profile_avatar.png';
+import arrowBackImage from 'static/img/arrowBack.png';
 import { LoginPage } from '../login/login';
 import { ChangePasswordPage } from './changePassword/changePassword';
+import { Modal } from 'components/modal/modal';
+import { modalMessage } from 'components/modal/modalMessage';
 
 export class ProfilePage extends Block {
   constructor() {
     const children: ComponentChildren = {};
+    const refs: ComponentRefs = {};
 
     children.arrowBackImage = new ImageElement({
       props: {
@@ -46,6 +49,47 @@ export class ProfilePage extends Block {
       },
     });
 
+    children.inputAvatarImage = new Input({
+      props: {
+        htmlName: 'avatar',
+        type: 'file',
+        htmlClass: 'profile__data__data__avatar',
+        componentName: `${name} profile`,
+      },
+    });
+
+    children.modal = new Modal({
+      props: {
+        title: '',
+        inputProps: modalMessage.inputProps,
+        text: '',
+        error: '',
+      },
+    });
+
+    refs['modalField'] = children.modal;
+
+    children.changeAvatar = new TextElement({
+      props: {
+        text: profileData.changeAvatar,
+        htmlClass: 'profile__avatar__change',
+        componentName: 'Profile Component Message',
+        events: {
+          click: [
+            () => {
+              refs.modalField.showModal({
+                title: modalMessage.LoadFile.title,
+                link: modalMessage.LoadFile.link,
+                value: modalMessage.LoadFile.value,
+                button: modalMessage.LoadFile.button,
+                error: modalMessage.LoadFile.error,
+              });
+            },
+          ],
+        },
+      },
+    });
+
     children.username = new TextElement({
       props: {
         text: profileData.username,
@@ -62,6 +106,7 @@ export class ProfilePage extends Block {
           htmlName: name,
           value: data,
           htmlClass: 'profile__data__data',
+          htmlId: name,
           componentName: `${name} profile`,
           htmlWrapper: {
             componentAlias: 'wrappedProfileInput',
@@ -70,7 +115,7 @@ export class ProfilePage extends Block {
                 <p class='profile__data__title'>
                   ${title}
                 </p>
-                <label for={{name}} style="width: 0px"></label>
+                <label for=${name} style="width: 0px"></label>
                 {{{wrappedProfileInput}}}
               </div>
               <div class='profile__line'></div>

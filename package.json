@@ -11,6 +11,13 @@
     "dev": "parcel src/index.html ",
     "build": "parcel build src/index.html --no-source-maps"
   },
+  "alias": {
+    "core": "./src/core",
+    "pages": "./src/pages",
+    "components": "./src/components",
+    "utils": "./src/utils",
+    "static": "./src/static"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

@@ -87,6 +87,9 @@
       text-align: end;
       margin-bottom: 10px;
       border: 0;
+      &__avatar {
+        display: none;
+      }
     }
     &__data:focus {
       outline: none;

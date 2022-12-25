@@ -1,3 +1,5 @@
+@import './variables.scss';
+
 .modal {
   position: fixed;
   display: flex;
@@ -30,20 +32,37 @@
     width: auto;
   }
   &__choose {
-    width: 122px;
+    width: 80%;
     height: 32px;
     margin-top: 43px;
     font-size: 16;
     color: $color-button-background;
     text-align: center;
+    &__text {
+      font-size: 16;
+      cursor: pointer;
+    }
+    &__input {
+      opacity: 0;
+      position: absolute;
+      z-index: -1;
+    }
   }
   &__button {
-    margin-top: 65px;
     width: 280px;
     height: 37px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background-color: $color-button-background;
+    color: white;
+    border-radius: 8px;
+    border-color: $color-button-background;
+    font-size: 13;
+    cursor: pointer;
+    &__container {
+      margin-top: 65px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
   &__error {
     margin-top: 14px;

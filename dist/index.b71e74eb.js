@@ -532,13 +532,13 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"h7u1C":[function(require,module,exports) {
-var _renderDOM = require("./core/renderDOM");
-var _login = require("./pages/login/login");
+var _renderDOM = require("core/renderDOM");
+var _login = require("pages/login/login");
 document.addEventListener("DOMContentLoaded", ()=>{
     (0, _renderDOM.MainPage).component = new (0, _login.LoginPage)();
 });
 
-},{"./core/renderDOM":"ePGhw","./pages/login/login":"dCEbf"}],"ePGhw":[function(require,module,exports) {
+},{"core/renderDOM":"ePGhw","pages/login/login":"dCEbf"}],"ePGhw":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "renderDOM", ()=>renderDOM);
@@ -607,12 +607,12 @@ exports.export = function(dest, destName, get) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "LoginPage", ()=>LoginPage);
-var _block = require("../../core/block");
+var _block = require("core/block");
 var _blockDefault = parcelHelpers.interopDefault(_block);
-var _index = require("../../components/index");
-var _renderDOM = require("../../core/renderDOM");
+var _index = require("components/index");
+var _renderDOM = require("core/renderDOM");
 var _index1 = require("../index");
-var _inputValidators = require("../../utils/inputValidators");
+var _inputValidators = require("utils/inputValidators");
 var _loginData = require("./loginData");
 var _loginDataDefault = parcelHelpers.interopDefault(_loginData);
 var _loginTemplate = require("./loginTemplate");
@@ -709,7 +709,7 @@ class LoginPage extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../core/block":"axMnM","../../components/index":"dHnah","../../core/renderDOM":"ePGhw","../index":"kIGWd","../../utils/inputValidators":"k5lIn","./loginData":"4Pgai","./loginTemplate":"1P9m9","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"axMnM":[function(require,module,exports) {
+},{"core/block":"axMnM","components/index":"dHnah","core/renderDOM":"ePGhw","../index":"kIGWd","utils/inputValidators":"k5lIn","./loginData":"4Pgai","./loginTemplate":"1P9m9","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"axMnM":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebars = require("handlebars");
@@ -12211,7 +12211,7 @@ let nanoid = (size = 21)=>crypto.getRandomValues(new Uint8Array(size)).reduce((i
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _nanoid = require("nanoid");
-var _objectCompare = require("../utils/objectCompare");
+var _objectCompare = require("utils/objectCompare");
 var _objectCompareDefault = parcelHelpers.interopDefault(_objectCompare);
 var _eventBus = require("./event-bus");
 var _eventBusDefault = parcelHelpers.interopDefault(_eventBus);
@@ -12289,6 +12289,30 @@ class BlockBase {
         if (!BlockBase.isHTMLElement(element)) throw new Error(`Wrong element ${element} of type ${typeof element} to show`);
         element.style.display = "block";
     }
+    showModal({ title , link , value , button , error  }) {
+        const element = this.getElement();
+        if (!BlockBase.isHTMLElement(element)) throw new Error(`Wrong element ${element} of type ${typeof element} to show`);
+        element.style.display = "flex";
+        const elTitle = element?.querySelector(".modal__title");
+        if (elTitle != undefined) elTitle.textContent = title;
+        const elLink = element?.querySelector(".modal__choose__text");
+        if (elLink != undefined) elLink.textContent = link;
+        const elInput = element?.querySelector(".modal__login__input");
+        if (elInput != undefined) {
+            console.log(value);
+            console.log(elInput);
+            elInput.value = value;
+        }
+        const elButton = element?.querySelector(".modal__button");
+        if (elButton != undefined) elButton.textContent = button;
+        const elError = element?.querySelector(".modal__error");
+        if (elError != undefined) elError.textContent = error;
+    }
+    setTextContent({ value  }) {
+        const element = this.getElement();
+        if (!BlockBase.isHTMLElement(element)) throw new Error(`Wrong element ${element} of type ${typeof element} to show`);
+        if (element != undefined) element.textContent = value;
+    }
     hide() {
         const element = this.getElement();
         if (!BlockBase.isHTMLElement(element)) throw new Error(`Wrong element ${element} of type ${typeof element} to hide`);
@@ -12297,7 +12321,7 @@ class BlockBase {
 }
 exports.default = BlockBase;
 
-},{"nanoid":"2ifus","../utils/objectCompare":"kq6pM","./event-bus":"eVSQQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kq6pM":[function(require,module,exports) {
+},{"nanoid":"2ifus","utils/objectCompare":"kq6pM","./event-bus":"eVSQQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kq6pM":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 function isObject(object) {
@@ -12359,7 +12383,7 @@ var _image = require("./image/image");
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Button", ()=>Button);
-var _block = require("../../core/block");
+var _block = require("core/block");
 var _blockDefault = parcelHelpers.interopDefault(_block);
 var _template = require("./template");
 var _templateDefault = parcelHelpers.interopDefault(_template);
@@ -12378,11 +12402,11 @@ class Button extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../core/block":"axMnM","./template":"eBOr4","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eBOr4":[function(require,module,exports) {
+},{"core/block":"axMnM","./template":"eBOr4","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eBOr4":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-var _componentTemplateGenerator = require("../../utils/componentTemplateGenerator");
-var _componentTemplateGeneratorDefault = parcelHelpers.interopDefault(_componentTemplateGenerator);
+var _templateGenerator = require("utils/templateGenerator");
+var _templateGeneratorDefault = parcelHelpers.interopDefault(_templateGenerator);
 const tag = "button";
 const attributes = `
   {{#if type}} 
@@ -12398,13 +12422,13 @@ const content = `
   ""
 {{/if}}
 `;
-exports.default = (0, _componentTemplateGeneratorDefault.default)({
+exports.default = (0, _templateGeneratorDefault.default)({
     tag,
     attributes,
     content
 });
 
-},{"../../utils/componentTemplateGenerator":"dlIFZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dlIFZ":[function(require,module,exports) {
+},{"utils/templateGenerator":"jyUdt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jyUdt":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 function getTemplate({ tag , attributes =null , content =null , isSelfClosingTag =false  }) {
@@ -12438,7 +12462,7 @@ exports.default = getTemplate;
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Link", ()=>Link);
-var _block = require("../../core/block");
+var _block = require("core/block");
 var _blockDefault = parcelHelpers.interopDefault(_block);
 var _template = require("./template");
 var _templateDefault = parcelHelpers.interopDefault(_template);
@@ -12455,11 +12479,11 @@ class Link extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../core/block":"axMnM","./template":"eTM71","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eTM71":[function(require,module,exports) {
+},{"core/block":"axMnM","./template":"eTM71","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eTM71":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-var _componentTemplateGenerator = require("../../utils/componentTemplateGenerator");
-var _componentTemplateGeneratorDefault = parcelHelpers.interopDefault(_componentTemplateGenerator);
+var _templateGenerator = require("utils/templateGenerator");
+var _templateGeneratorDefault = parcelHelpers.interopDefault(_templateGenerator);
 const tag = "a";
 const attributes = `
   {{#if href}} 
@@ -12469,17 +12493,17 @@ const attributes = `
   {{/if}}
 `;
 const content = "{{ label }}";
-exports.default = (0, _componentTemplateGeneratorDefault.default)({
+exports.default = (0, _templateGeneratorDefault.default)({
     tag,
     attributes,
     content
 });
 
-},{"../../utils/componentTemplateGenerator":"dlIFZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fIx3g":[function(require,module,exports) {
+},{"utils/templateGenerator":"jyUdt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fIx3g":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Input", ()=>Input);
-var _block = require("../../core/block");
+var _block = require("core/block");
 var _blockDefault = parcelHelpers.interopDefault(_block);
 var _template = require("./template");
 var _templateDefault = parcelHelpers.interopDefault(_template);
@@ -12520,11 +12544,11 @@ class Input extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../core/block":"axMnM","./template":"alVvI","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"alVvI":[function(require,module,exports) {
+},{"core/block":"axMnM","./template":"alVvI","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"alVvI":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-var _componentTemplateGenerator = require("../../utils/componentTemplateGenerator");
-var _componentTemplateGeneratorDefault = parcelHelpers.interopDefault(_componentTemplateGenerator);
+var _templateGenerator = require("utils/templateGenerator");
+var _templateGeneratorDefault = parcelHelpers.interopDefault(_templateGenerator);
 const tag = "input";
 const attributes = `
   {{#if type }}
@@ -12545,12 +12569,12 @@ const attributes = `
     disabled
   {{/if}}
 `;
-exports.default = (0, _componentTemplateGeneratorDefault.default)({
+exports.default = (0, _templateGeneratorDefault.default)({
     tag,
     attributes
 });
 
-},{"../../utils/componentTemplateGenerator":"dlIFZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"h13bq":[function(require,module,exports) {
+},{"utils/templateGenerator":"jyUdt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"h13bq":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "TextElement", ()=>TextElement);
@@ -12574,8 +12598,8 @@ class TextElement extends (0, _blockDefault.default) {
 },{"../../core/block":"axMnM","./template":"T8CXS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"T8CXS":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-var _componentTemplateGenerator = require("../../utils/componentTemplateGenerator");
-var _componentTemplateGeneratorDefault = parcelHelpers.interopDefault(_componentTemplateGenerator);
+var _templateGenerator = require("utils/templateGenerator");
+var _templateGeneratorDefault = parcelHelpers.interopDefault(_templateGenerator);
 const content = `
 
 {{#if text}}
@@ -12584,16 +12608,16 @@ const content = `
   ""
 {{/if}}
 `;
-exports.default = (tag)=>(0, _componentTemplateGeneratorDefault.default)({
+exports.default = (tag)=>(0, _templateGeneratorDefault.default)({
         tag,
         content
     });
 
-},{"../../utils/componentTemplateGenerator":"dlIFZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"i2q4l":[function(require,module,exports) {
+},{"utils/templateGenerator":"jyUdt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"i2q4l":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ImageElement", ()=>ImageElement);
-var _block = require("../../core/block");
+var _block = require("core/block");
 var _blockDefault = parcelHelpers.interopDefault(_block);
 var _template = require("./template");
 var _templateDefault = parcelHelpers.interopDefault(_template);
@@ -12610,23 +12634,23 @@ class ImageElement extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../core/block":"axMnM","./template":"lxdE4","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lxdE4":[function(require,module,exports) {
+},{"core/block":"axMnM","./template":"lxdE4","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lxdE4":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-var _componentTemplateGenerator = require("../../utils/componentTemplateGenerator");
-var _componentTemplateGeneratorDefault = parcelHelpers.interopDefault(_componentTemplateGenerator);
+var _templateGenerator = require("utils/templateGenerator");
+var _templateGeneratorDefault = parcelHelpers.interopDefault(_templateGenerator);
 const tag = "img";
 const attributes = `
   src="{{ src }}"
   alt="{{ alt }}"
 `;
-exports.default = (0, _componentTemplateGeneratorDefault.default)({
+exports.default = (0, _templateGeneratorDefault.default)({
     tag,
     attributes,
     isSelfClosingTag: true
 });
 
-},{"../../utils/componentTemplateGenerator":"dlIFZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kIGWd":[function(require,module,exports) {
+},{"utils/templateGenerator":"jyUdt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kIGWd":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "LoginPage", ()=>(0, _login.LoginPage));
@@ -12640,15 +12664,15 @@ var _chat = require("./chat/chat");
 var _profile = require("./profile/profile");
 var _changePassword = require("./profile/changePassword/changePassword");
 
-},{"./login/login":"dCEbf","./registration/registration":"ipn4T","./chat/chat":"9muaU","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./profile/profile":"atqZr","./profile/changePassword/changePassword":"dxpTD"}],"ipn4T":[function(require,module,exports) {
+},{"./login/login":"dCEbf","./registration/registration":"ipn4T","./chat/chat":"9muaU","./profile/profile":"atqZr","./profile/changePassword/changePassword":"dxpTD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ipn4T":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "RegistrationPage", ()=>RegistrationPage);
-var _block = require("../../core/block");
+var _block = require("core/block");
 var _blockDefault = parcelHelpers.interopDefault(_block);
-var _index = require("../../components/index");
-var _inputValidators = require("../../utils/inputValidators");
-var _renderDOM = require("../../core/renderDOM");
+var _index = require("components/index");
+var _inputValidators = require("utils/inputValidators");
+var _renderDOM = require("core/renderDOM");
 var _index1 = require("../index");
 var _registrationTemplate = require("./registrationTemplate");
 var _registrationTemplateDefault = parcelHelpers.interopDefault(_registrationTemplate);
@@ -12743,7 +12767,7 @@ class RegistrationPage extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../core/block":"axMnM","../../components/index":"dHnah","../../utils/inputValidators":"k5lIn","../../core/renderDOM":"ePGhw","../index":"kIGWd","./registrationTemplate":"7ZMRz","./registrationData":"5QT42","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"k5lIn":[function(require,module,exports) {
+},{"core/block":"axMnM","components/index":"dHnah","utils/inputValidators":"k5lIn","core/renderDOM":"ePGhw","../index":"kIGWd","./registrationTemplate":"7ZMRz","./registrationData":"5QT42","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"k5lIn":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "InputValidators", ()=>InputValidators);
@@ -12973,28 +12997,40 @@ exports.default = regData;
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ChatPage", ()=>ChatPage);
-var _block = require("../../core/block");
+var _block = require("core/block");
 var _blockDefault = parcelHelpers.interopDefault(_block);
-var _index = require("../../components/index");
+var _index = require("components/index");
 var _chatTemplate = require("./chatTemplate");
-var _menuPng = require("../../static/img/menu.png");
+var _menuPng = require("static/img/menu.png");
 var _menuPngDefault = parcelHelpers.interopDefault(_menuPng);
-var _attachPng = require("../../static/img/attach.png");
+var _attachPng = require("static/img/attach.png");
 var _attachPngDefault = parcelHelpers.interopDefault(_attachPng);
-var _sendPng = require("../../static/img/send.png");
+var _sendPng = require("static/img/send.png");
 var _sendPngDefault = parcelHelpers.interopDefault(_sendPng);
-var _cameraPng = require("../../static/img/camera.png");
+var _cameraPng = require("static/img/camera.png");
 var _cameraPngDefault = parcelHelpers.interopDefault(_cameraPng);
 var _chatList = require("./chatList");
 var _chatListDefault = parcelHelpers.interopDefault(_chatList);
 var _chatData = require("./chatData");
-var _renderDOM = require("../../core/renderDOM");
-var _profile = require("../profile/profile");
+var _renderDOM = require("core/renderDOM");
+var _profile = require("pages/profile/profile");
+var _modal = require("components/modal/modal");
+var _modalMessage = require("components/modal/modalMessage");
 class ChatPage extends (0, _blockDefault.default) {
     constructor(){
         const children = {
             chats: []
         };
+        const refs = {};
+        children.modal = new (0, _modal.Modal)({
+            props: {
+                title: "",
+                inputProps: (0, _modalMessage.modalMessageUsers).inputProps,
+                text: "",
+                error: ""
+            }
+        });
+        refs["modalField"] = children.modal;
         (0, _chatData.chatList).map(({ username , userImg , lastMessage , lastMessageDate  })=>{
             children.chats.push(new (0, _chatListDefault.default)({
                 username,
@@ -13065,7 +13101,20 @@ class ChatPage extends (0, _blockDefault.default) {
                 src: (0, _menuPngDefault.default),
                 htmlClass: "chat__body__title__img",
                 alt: "menu",
-                componentName: "Menu Image"
+                componentName: "Menu Image",
+                events: {
+                    click: [
+                        ()=>{
+                            refs.modalField.showModal({
+                                title: (0, _modalMessage.modalMessageUsers).addUser.title,
+                                link: (0, _modalMessage.modalMessageUsers).addUser.link,
+                                value: (0, _modalMessage.modalMessageUsers).addUser.value,
+                                button: (0, _modalMessage.modalMessageUsers).addUser.button,
+                                error: (0, _modalMessage.modalMessageUsers).addUser.error
+                            });
+                        }
+                    ]
+                }
             }
         });
         children.chatDate = new (0, _index.TextElement)({
@@ -13157,12 +13206,13 @@ class ChatPage extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../core/block":"axMnM","./chatTemplate":"bKpsa","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./chatList":"iEv8H","./chatData":"42lLR","../../components/index":"dHnah","../../core/renderDOM":"ePGhw","../../static/img/menu.png":"1MGTQ","../../static/img/attach.png":"hTNQO","../../static/img/send.png":"ceWHr","../profile/profile":"atqZr","../../static/img/camera.png":"hBYjR"}],"bKpsa":[function(require,module,exports) {
+},{"core/block":"axMnM","components/index":"dHnah","./chatTemplate":"bKpsa","static/img/menu.png":"1MGTQ","static/img/attach.png":"hTNQO","static/img/send.png":"ceWHr","static/img/camera.png":"hBYjR","./chatList":"iEv8H","./chatData":"42lLR","core/renderDOM":"ePGhw","pages/profile/profile":"atqZr","components/modal/modal":"eJ8TT","components/modal/modalMessage":"a3Xn3","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bKpsa":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "chatTemplate", ()=>chatTemplate);
 const chatTemplate = `
 <main class='chat__container'>
+  {{{modal}}}
   <div class='chat__list'>
     {{{profileLink}}}
     {{{inputFind}}}
@@ -13197,12 +13247,58 @@ const chatTemplate = `
 </main>
 `;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iEv8H":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1MGTQ":[function(require,module,exports) {
+module.exports = require("662ada06709a3352").getBundleURL("7UhFu") + "menu.a1c33c79.png" + "?" + Date.now();
+
+},{"662ada06709a3352":"lgJ39"}],"lgJ39":[function(require,module,exports) {
+"use strict";
+var bundleURL = {};
+function getBundleURLCached(id) {
+    var value = bundleURL[id];
+    if (!value) {
+        value = getBundleURL();
+        bundleURL[id] = value;
+    }
+    return value;
+}
+function getBundleURL() {
+    try {
+        throw new Error();
+    } catch (err) {
+        var matches = ("" + err.stack).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^)\n]+/g);
+        if (matches) // The first two stack frames will be this function and getBundleURLCached.
+        // Use the 3rd one, which will be a runtime in the original bundle.
+        return getBaseURL(matches[2]);
+    }
+    return "/";
+}
+function getBaseURL(url) {
+    return ("" + url).replace(/^((?:https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/.+)\/[^/]+$/, "$1") + "/";
+} // TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
+function getOrigin(url) {
+    var matches = ("" + url).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^/]+/);
+    if (!matches) throw new Error("Origin not found");
+    return matches[0];
+}
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+exports.getOrigin = getOrigin;
+
+},{}],"hTNQO":[function(require,module,exports) {
+module.exports = require("84866f3f39f43634").getBundleURL("7UhFu") + "attach.a2507276.png" + "?" + Date.now();
+
+},{"84866f3f39f43634":"lgJ39"}],"ceWHr":[function(require,module,exports) {
+module.exports = require("94d6124511703da").getBundleURL("7UhFu") + "send.e0d50340.png" + "?" + Date.now();
+
+},{"94d6124511703da":"lgJ39"}],"hBYjR":[function(require,module,exports) {
+module.exports = require("5414f57f6c9aaea1").getBundleURL("7UhFu") + "camera.5b58f8e0.png" + "?" + Date.now();
+
+},{"5414f57f6c9aaea1":"lgJ39"}],"iEv8H":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-var _block = require("../../core/block");
+var _block = require("core/block");
 var _blockDefault = parcelHelpers.interopDefault(_block);
-var _index = require("../../components/index");
+var _index = require("components/index");
 var _chatListTemplate = require("./chatListTemplate");
 class ChatList extends (0, _blockDefault.default) {
     constructor({ username , userImg , lastMessage , lastMessageDate  }){
@@ -13240,7 +13336,7 @@ class ChatList extends (0, _blockDefault.default) {
 }
 exports.default = ChatList;
 
-},{"../../core/block":"axMnM","./chatListTemplate":"dc6W1","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../components/index":"dHnah"}],"dc6W1":[function(require,module,exports) {
+},{"core/block":"axMnM","components/index":"dHnah","./chatListTemplate":"dc6W1","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dc6W1":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "chatListTemplate", ()=>chatListTemplate);
@@ -13307,69 +13403,29 @@ const chatMessages = {
     message2: "Круто!"
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1MGTQ":[function(require,module,exports) {
-module.exports = require("662ada06709a3352").getBundleURL("7UhFu") + "menu.a1c33c79.png" + "?" + Date.now();
-
-},{"662ada06709a3352":"lgJ39"}],"lgJ39":[function(require,module,exports) {
-"use strict";
-var bundleURL = {};
-function getBundleURLCached(id) {
-    var value = bundleURL[id];
-    if (!value) {
-        value = getBundleURL();
-        bundleURL[id] = value;
-    }
-    return value;
-}
-function getBundleURL() {
-    try {
-        throw new Error();
-    } catch (err) {
-        var matches = ("" + err.stack).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^)\n]+/g);
-        if (matches) // The first two stack frames will be this function and getBundleURLCached.
-        // Use the 3rd one, which will be a runtime in the original bundle.
-        return getBaseURL(matches[2]);
-    }
-    return "/";
-}
-function getBaseURL(url) {
-    return ("" + url).replace(/^((?:https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/.+)\/[^/]+$/, "$1") + "/";
-} // TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
-function getOrigin(url) {
-    var matches = ("" + url).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^/]+/);
-    if (!matches) throw new Error("Origin not found");
-    return matches[0];
-}
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-exports.getOrigin = getOrigin;
-
-},{}],"hTNQO":[function(require,module,exports) {
-module.exports = require("84866f3f39f43634").getBundleURL("7UhFu") + "attach.a2507276.png" + "?" + Date.now();
-
-},{"84866f3f39f43634":"lgJ39"}],"ceWHr":[function(require,module,exports) {
-module.exports = require("94d6124511703da").getBundleURL("7UhFu") + "send.e0d50340.png" + "?" + Date.now();
-
-},{"94d6124511703da":"lgJ39"}],"atqZr":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"atqZr":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ProfilePage", ()=>ProfilePage);
-var _chat = require("./../chat/chat");
-var _block = require("../../core/block");
+var _chat = require("pages/chat/chat");
+var _block = require("core/block");
 var _blockDefault = parcelHelpers.interopDefault(_block);
-var _renderDOM = require("../../core/renderDOM");
-var _index = require("../../components/index");
+var _renderDOM = require("core/renderDOM");
+var _index = require("components/index");
 var _profileTemplate = require("./profileTemplate");
 var _profileData = require("./profileData");
-var _profileAvatarPng = require("../../static/img/profile_avatar.png");
+var _profileAvatarPng = require("static/img/profile_avatar.png");
 var _profileAvatarPngDefault = parcelHelpers.interopDefault(_profileAvatarPng);
-var _arrowBackPng = require("../../static/img/arrowBack.png");
+var _arrowBackPng = require("static/img/arrowBack.png");
 var _arrowBackPngDefault = parcelHelpers.interopDefault(_arrowBackPng);
 var _login = require("../login/login");
 var _changePassword = require("./changePassword/changePassword");
+var _modal = require("components/modal/modal");
+var _modalMessage = require("components/modal/modalMessage");
 class ProfilePage extends (0, _blockDefault.default) {
     constructor(){
         const children = {};
+        const refs = {};
         children.arrowBackImage = new (0, _index.ImageElement)({
             props: {
                 src: (0, _arrowBackPngDefault.default),
@@ -13401,6 +13457,43 @@ class ProfilePage extends (0, _blockDefault.default) {
                 componentName: "Profile avatar image"
             }
         });
+        children.inputAvatarImage = new (0, _index.Input)({
+            props: {
+                htmlName: "avatar",
+                type: "file",
+                htmlClass: "profile__data__data__avatar",
+                componentName: `${name} profile`
+            }
+        });
+        children.modal = new (0, _modal.Modal)({
+            props: {
+                title: "",
+                inputProps: (0, _modalMessage.modalMessage).inputProps,
+                text: "",
+                error: ""
+            }
+        });
+        refs["modalField"] = children.modal;
+        children.changeAvatar = new (0, _index.TextElement)({
+            props: {
+                text: (0, _profileData.profileData).changeAvatar,
+                htmlClass: "profile__avatar__change",
+                componentName: "Profile Component Message",
+                events: {
+                    click: [
+                        ()=>{
+                            refs.modalField.showModal({
+                                title: (0, _modalMessage.modalMessage).LoadFile.title,
+                                link: (0, _modalMessage.modalMessage).LoadFile.link,
+                                value: (0, _modalMessage.modalMessage).LoadFile.value,
+                                button: (0, _modalMessage.modalMessage).LoadFile.button,
+                                error: (0, _modalMessage.modalMessage).LoadFile.error
+                            });
+                        }
+                    ]
+                }
+            }
+        });
         children.username = new (0, _index.TextElement)({
             props: {
                 text: (0, _profileData.profileData).username,
@@ -13408,15 +13501,16 @@ class ProfilePage extends (0, _blockDefault.default) {
                 componentName: "Profile Component Message"
             }
         });
-        (0, _profileData.profileFieldsData).forEach(({ name , title , data , placeholder  })=>{
+        (0, _profileData.profileFieldsData).forEach(({ name: name1 , title , data , placeholder  })=>{
             const inputField = new (0, _index.Input)({
                 props: {
                     placeholder,
                     type: "text",
-                    htmlName: name,
+                    htmlName: name1,
                     value: data,
                     htmlClass: "profile__data__data",
-                    componentName: `${name} profile`,
+                    htmlId: name1,
+                    componentName: `${name1} profile`,
                     htmlWrapper: {
                         componentAlias: "wrappedProfileInput",
                         htmlWrapperTemplate: `
@@ -13424,7 +13518,7 @@ class ProfilePage extends (0, _blockDefault.default) {
                 <p class='profile__data__title'>
                   ${title}
                 </p>
-                <label for={{name}} style="width: 0px"></label>
+                <label for=${name1} style="width: 0px"></label>
                 {{{wrappedProfileInput}}}
               </div>
               <div class='profile__line'></div>
@@ -13432,7 +13526,7 @@ class ProfilePage extends (0, _blockDefault.default) {
                     }
                 }
             });
-            children[`${name}Field`] = inputField;
+            children[`${name1}Field`] = inputField;
         });
         children.changeDataLink = new (0, _index.Link)({
             props: {
@@ -13478,26 +13572,21 @@ class ProfilePage extends (0, _blockDefault.default) {
     }
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../core/block":"axMnM","./profileTemplate":"5ySyV","../../components/index":"dHnah","../../static/img/arrowBack.png":"P7Wev","./profileData":"hNHYd","../../static/img/profile_avatar.png":"j6gct","./../chat/chat":"9muaU","../../core/renderDOM":"ePGhw","../login/login":"dCEbf","./changePassword/changePassword":"dxpTD"}],"5ySyV":[function(require,module,exports) {
+},{"pages/chat/chat":"9muaU","core/block":"axMnM","core/renderDOM":"ePGhw","components/index":"dHnah","./profileTemplate":"5ySyV","./profileData":"hNHYd","static/img/profile_avatar.png":"j6gct","static/img/arrowBack.png":"P7Wev","../login/login":"dCEbf","./changePassword/changePassword":"dxpTD","components/modal/modal":"eJ8TT","components/modal/modalMessage":"a3Xn3","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5ySyV":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "profileTemplate", ()=>profileTemplate);
 parcelHelpers.export(exports, "imageBackTemplate", ()=>imageBackTemplate);
-var _profileData = require("./profileData");
 const profileTemplate = `
 <main class='profile'>
+  {{{modal}}}
   {{{arrowBackImage}}}
   <div class='profile__container'>
     <div class='profile__avatar'>
       {{{avatarImage}}}
       <label for='avatar' style='display: none'></label>
-      <input
-        name='avatar'
-        type='file'
-        id='avatar'
-        style='display: none'
-      />
-      <span class='profile__avatar__change'>${(0, _profileData.profileData).changeAvatar}</span>
+      {{{inputAvatarImage}}}
+      {{{changeAvatar}}}
     </div>
     {{{username}}}
     <div class='profile__data__container'>
@@ -13519,7 +13608,7 @@ const imageBackTemplate = `
   {{{arrowBackImage}}}
 `;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./profileData":"hNHYd"}],"hNHYd":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hNHYd":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "profileFieldsData", ()=>profileFieldsData);
@@ -13592,26 +13681,26 @@ const profileData = {
     }
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"P7Wev":[function(require,module,exports) {
-module.exports = require("266cec9c28fdb89").getBundleURL("7UhFu") + "arrowBack.b3aade7f.png" + "?" + Date.now();
-
-},{"266cec9c28fdb89":"lgJ39"}],"j6gct":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"j6gct":[function(require,module,exports) {
 module.exports = require("49cc8f1abcba409b").getBundleURL("7UhFu") + "profile_avatar.558a0e16.png" + "?" + Date.now();
 
-},{"49cc8f1abcba409b":"lgJ39"}],"dxpTD":[function(require,module,exports) {
+},{"49cc8f1abcba409b":"lgJ39"}],"P7Wev":[function(require,module,exports) {
+module.exports = require("266cec9c28fdb89").getBundleURL("7UhFu") + "arrowBack.b3aade7f.png" + "?" + Date.now();
+
+},{"266cec9c28fdb89":"lgJ39"}],"dxpTD":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ChangePasswordPage", ()=>ChangePasswordPage);
-var _block = require("../../../core/block");
+var _block = require("core/block");
 var _blockDefault = parcelHelpers.interopDefault(_block);
-var _renderDOM = require("../../../core/renderDOM");
-var _index = require("../../../components/index");
+var _renderDOM = require("core/renderDOM");
+var _index = require("components/index");
 var _changePasswordTemplate = require("./changePasswordTemplate");
 // import { changePasswordData } from './changePasswordData';
 var _profileData = require("../profileData");
-var _profileAvatarPng = require("../../../static/img/profile_avatar.png");
+var _profileAvatarPng = require("static/img/profile_avatar.png");
 var _profileAvatarPngDefault = parcelHelpers.interopDefault(_profileAvatarPng);
-var _arrowBackPng = require("../../../static/img/arrowBack.png");
+var _arrowBackPng = require("static/img/arrowBack.png");
 var _arrowBackPngDefault = parcelHelpers.interopDefault(_arrowBackPng);
 var _profile = require("../profile");
 var _changePasswordData = require("./changePasswordData");
@@ -13705,7 +13794,7 @@ class ChangePasswordPage extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../../core/block":"axMnM","../../../core/renderDOM":"ePGhw","../../../components/index":"dHnah","./changePasswordTemplate":"3FKbA","../profileData":"hNHYd","../../../static/img/profile_avatar.png":"j6gct","../../../static/img/arrowBack.png":"P7Wev","../profile":"atqZr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./changePasswordData":"jABZa"}],"3FKbA":[function(require,module,exports) {
+},{"core/block":"axMnM","core/renderDOM":"ePGhw","components/index":"dHnah","./changePasswordTemplate":"3FKbA","../profileData":"hNHYd","static/img/profile_avatar.png":"j6gct","static/img/arrowBack.png":"P7Wev","../profile":"atqZr","./changePasswordData":"jABZa","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3FKbA":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "profileTemplate", ()=>profileTemplate);
@@ -13741,7 +13830,7 @@ const imageBackTemplate = `
   {{{arrowBackImage}}}
 `;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../profileData":"hNHYd"}],"jABZa":[function(require,module,exports) {
+},{"../profileData":"hNHYd","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jABZa":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "changePasswordData", ()=>changePasswordData);
@@ -13770,10 +13859,191 @@ const changePassword = {
     button: "Сохранить"
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hBYjR":[function(require,module,exports) {
-module.exports = require("5414f57f6c9aaea1").getBundleURL("7UhFu") + "camera.5b58f8e0.png" + "?" + Date.now();
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eJ8TT":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Modal", ()=>Modal);
+var _button = require("components/button/button");
+var _input = require("components/input/input");
+var _text = require("components/text/text");
+var _block = require("core/block");
+var _blockDefault = parcelHelpers.interopDefault(_block);
+var _renderDOM = require("core/renderDOM");
+var _pages = require("pages");
+var _modalMessage = require("./modalMessage");
+var _modalTemplate = require("./modalTemplate");
+class Modal extends (0, _blockDefault.default) {
+    constructor({ props ={
+        componentName: "Modal"
+    } , refs ={} , state ={}  }){
+        const children = {};
+        children.modalTitle = new (0, _text.TextElement)({
+            props: {
+                text: "",
+                htmlClass: "modal__title",
+                componentName: "Modal Component Message"
+            }
+        });
+        const ChooseFile = (event1)=>{
+            const fileName = event1.target.files[0].name;
+            if (fileName) {
+                refs.modalTitle.setTextContent({
+                    value: (0, _modalMessage.modalMessage).fileLoaded.title
+                });
+                refs.modalInputFile.setTextContent({
+                    value: fileName
+                });
+                refs.modalButton.setTextContent({
+                    value: (0, _modalMessage.modalMessage).fileLoaded.button
+                });
+                refs.modalError.setTextContent({
+                    value: (0, _modalMessage.modalMessage).fileLoaded.error
+                });
+            }
+        };
+        children.modalInputFile = new (0, _input.Input)({
+            props: {
+                type: props.inputProps.type,
+                htmlName: "modalInputFile",
+                htmlId: "modalInputFile",
+                htmlClass: props.inputProps.class,
+                componentName: "Modal input file",
+                htmlWrapper: {
+                    componentAlias: "wrapped",
+                    htmlWrapperTemplate: `
+            <div  class='modal__choose'>
+              <label for="modalInputFile" class="modal__choose__text">${props.inputProps.label}</label>
+              {{{ wrapped }}}
+            </div>
+            `
+                },
+                events: {
+                    change: [
+                        ()=>{
+                            ChooseFile(event);
+                        }
+                    ]
+                }
+            }
+        });
+        children.modalButton = new (0, _button.Button)({
+            props: {
+                type: "button",
+                label: "",
+                htmlClass: "modal__button",
+                events: {
+                    click: [
+                        ()=>{
+                            (0, _renderDOM.MainPage).component = props.inputProps.type === "file" ? new (0, _pages.ProfilePage)() : new (0, _pages.ChatPage)();
+                        }
+                    ]
+                }
+            }
+        });
+        children.modalError = new (0, _text.TextElement)({
+            props: {
+                text: "",
+                htmlClass: "modal__error",
+                componentName: "Modal Component Message"
+            }
+        });
+        refs["modalTitle"] = children.modalTitle;
+        refs["modalInputFile"] = children.modalInputFile;
+        refs["modalButton"] = children.modalButton;
+        refs["modalError"] = children.modalError;
+        super({
+            children,
+            props,
+            refs,
+            state
+        });
+    }
+    render() {
+        return 0, _modalTemplate.modalTemplate;
+    }
+}
 
-},{"5414f57f6c9aaea1":"lgJ39"}],"4Pgai":[function(require,module,exports) {
+},{"components/button/button":"9lSjy","components/input/input":"fIx3g","components/text/text":"h13bq","core/block":"axMnM","core/renderDOM":"ePGhw","pages":"kIGWd","./modalMessage":"a3Xn3","./modalTemplate":"bPdqV","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"a3Xn3":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "modalMessage", ()=>modalMessage);
+parcelHelpers.export(exports, "modalMessageUsers", ()=>modalMessageUsers);
+const modalMessage = {
+    inputProps: {
+        type: "file",
+        class: "modal__choose__input",
+        label: ""
+    },
+    LoadFile: {
+        title: "Загрузите файл",
+        link: "Выбрать файл на компьютере",
+        value: "",
+        button: "Поменять",
+        error: ""
+    },
+    fileLoaded: {
+        title: "Файл загружен",
+        link: "",
+        value: "",
+        button: "Поменять",
+        error: ""
+    },
+    errorFileLoaded: {
+        title: "Загрузите файл",
+        link: "Выбрать файл на компьютере",
+        value: "",
+        button: "Поменять",
+        error: "Нужно выбрать файл"
+    },
+    error: {
+        title: "Ошибка, попробуйте еще раз",
+        link: "Выбрать файл на компьютере",
+        value: "",
+        button: "Поменять",
+        error: ""
+    }
+};
+const modalMessageUsers = {
+    inputProps: {
+        type: "text",
+        class: "modal__login__input",
+        label: "Логин"
+    },
+    addUser: {
+        title: "Добавить пользователя",
+        link: "Логин",
+        value: "ivanivanov",
+        button: "Добавить",
+        error: ""
+    },
+    deleteUser: {
+        title: "Удалить пользователя",
+        link: "Логин",
+        value: "ivanivanov",
+        button: "Удалить",
+        error: ""
+    }
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bPdqV":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "modalTemplate", ()=>modalTemplate);
+const modalTemplate = `
+<div class='modal' style="display: none">
+  <div class='modal__background'></div>
+  <div class='modal__container'>
+    {{{modalTitle}}}
+    {{{modalInputFile}}}
+    <div class='modal__button__container'>
+       {{{modalButton}}} 
+    </div>
+    {{{modalError}}}
+  </div>
+</div>
+`;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4Pgai":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 const loginData = {

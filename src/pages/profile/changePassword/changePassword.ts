@@ -1,17 +1,17 @@
-import Block from '../../../core/block';
-import { MainPage } from '../../../core/renderDOM';
+import Block from 'core/block';
+import { MainPage } from 'core/renderDOM';
 import {
   Button,
   ImageElement,
   Input,
   Link,
   TextElement,
-} from '../../../components/index';
+} from 'components/index';
 import { profileTemplate } from './changePasswordTemplate';
 // import { changePasswordData } from './changePasswordData';
 import { profileData } from '../profileData';
-import profileAvatar from '../../../static/img/profile_avatar.png';
-import arrowBackImage from '../../../static/img/arrowBack.png';
+import profileAvatar from 'static/img/profile_avatar.png';
+import arrowBackImage from 'static/img/arrowBack.png';
 import { ProfilePage } from '../profile';
 import { changePasswordData, changePassword } from './changePasswordData';
 
