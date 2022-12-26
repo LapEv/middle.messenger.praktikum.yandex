@@ -1,5 +1,5 @@
 import { ChatPage } from 'pages/chat/chat';
-import Block from 'core/block';
+import Block from 'core/Block';
 import { MainPage } from 'core/renderDOM';
 import {
   Button,

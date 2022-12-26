@@ -1,5 +1,5 @@
-import { InputValidator } from "components";
-import Block from "core/block";
+import { InputValidator } from 'components';
+import Block from 'core/Block';
 
 declare global {
   export type ComponentEventListener = EventListener | InputValidator;

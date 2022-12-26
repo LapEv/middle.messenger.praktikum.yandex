@@ -1,4 +1,4 @@
-import Block from 'core/block';
+import Block from 'core/Block';
 import { ImageElement, Input, Link, TextElement } from 'components/index';
 import { chatTemplate } from './chatTemplate';
 import menuImage from 'static/img/menu.png';

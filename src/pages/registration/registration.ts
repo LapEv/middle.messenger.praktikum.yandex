@@ -1,4 +1,4 @@
-import Block from 'core/block';
+import Block from 'core/Block';
 import { Link, Input, Button, InputValidator } from 'components/index';
 import { InputValidators } from 'utils/inputValidators';
 import { MainPage } from 'core/renderDOM';

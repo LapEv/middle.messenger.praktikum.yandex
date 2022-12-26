@@ -1,4 +1,4 @@
-import Block from 'core/block';
+import Block from 'core/Block';
 import { Link, TextElement } from 'components/index';
 import { MainPage } from 'core/renderDOM';
 import { LoginPage } from '../index';

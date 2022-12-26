@@ -1,7 +1,7 @@
 import { Button } from 'components/button/button';
 import { Input } from 'components/input/input';
 import { TextElement } from 'components/text/text';
-import Block from 'core/block';
+import Block from 'core/Block';
 import { MainPage } from 'core/renderDOM';
 import { ChatPage, ProfilePage } from 'pages';
 import { modalMessage } from './modalMessage';
