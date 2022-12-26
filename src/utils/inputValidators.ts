@@ -86,6 +86,9 @@ function validateNameRegex(value: string): string {
   if (!value.match('^[а-яА-Яa-zA-Z]+$')) {
     return 'Только латиниские буквы или кирилицу, цифры';
   }
+  if (!value.match('^[А-ЯA-Z]')) {
+    return 'Должно начинаться с заглавной буквы';
+  }
   return '';
 }
 

@@ -105,6 +105,10 @@ export class LoginPage extends Block {
     return template;
   }
 
+  report(obj: any) {
+    console.log(obj);
+  }
+
   routeTo() {
     MainPage.component = new ChatPage();
   }
@@ -127,8 +131,13 @@ export class LoginPage extends Block {
           click: [
             function submitForm() {
               let isError = false;
+              let objValues = {};
               const formRefs = this.refs as ComponentRefs;
               Object.values(formRefs).forEach((inputField: Input) => {
+                const key = inputField.props.htmlName;
+                const value = inputField.getInputValue();
+                objValues = { ...objValues, ...{ [key as string]: value } };
+
                 Object.values(inputField.validators).forEach(
                   (validator: InputValidator) => {
                     const error = validator();
@@ -139,6 +148,7 @@ export class LoginPage extends Block {
                 );
               });
               if (!isError) {
+                this.report(objValues);
                 this.routeTo();
               }
             }.bind(this),

@@ -199,6 +199,15 @@ export default class BlockBase {
     }
   }
 
+  public getInputValue() {
+    const element = this.getElement();
+
+    const el = element?.getElementsByTagName('input')[0];
+    if (el != undefined) {
+      return el.value;
+    }
+  }
+
   public hide(): void {
     const element = this.getElement();
 

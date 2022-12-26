@@ -533,12 +533,12 @@ function hmrAcceptRun(bundle, id) {
 
 },{}],"h7u1C":[function(require,module,exports) {
 var _renderDOM = require("core/renderDOM");
-var _pages = require("pages");
+var _login = require("pages/login/login");
 document.addEventListener("DOMContentLoaded", ()=>{
-    (0, _renderDOM.MainPage).component = new (0, _pages.ProfilePage)();
+    (0, _renderDOM.MainPage).component = new (0, _login.LoginPage)();
 });
 
-},{"core/renderDOM":"ePGhw","pages":"kIGWd"}],"ePGhw":[function(require,module,exports) {
+},{"core/renderDOM":"ePGhw","pages/login/login":"dCEbf"}],"ePGhw":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "renderDOM", ()=>renderDOM);
@@ -603,23 +603,7 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"kIGWd":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "LoginPage", ()=>(0, _login.LoginPage));
-parcelHelpers.export(exports, "RegistrationPage", ()=>(0, _registration.RegistrationPage));
-parcelHelpers.export(exports, "ChatPage", ()=>(0, _chat.ChatPage));
-parcelHelpers.export(exports, "ProfilePage", ()=>(0, _profile.ProfilePage));
-parcelHelpers.export(exports, "ChangePasswordPage", ()=>(0, _changePassword.ChangePasswordPage));
-parcelHelpers.export(exports, "ErrorPage", ()=>(0, _error.ErrorPage));
-var _login = require("pages/login/login");
-var _registration = require("pages/registration/registration");
-var _chat = require("pages/chat/chat");
-var _profile = require("pages/profile/profile");
-var _changePassword = require("pages/profile/changePassword/changePassword");
-var _error = require("pages/error/error");
-
-},{"pages/login/login":"dCEbf","pages/registration/registration":"ipn4T","pages/chat/chat":"9muaU","pages/profile/profile":"atqZr","pages/profile/changePassword/changePassword":"dxpTD","pages/error/error":"kZohv","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dCEbf":[function(require,module,exports) {
+},{}],"dCEbf":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "LoginPage", ()=>LoginPage);
@@ -726,6 +710,9 @@ class LoginPage extends (0, _blockDefault.default) {
     render() {
         return 0, _loginTemplateDefault.default;
     }
+    report(obj) {
+        console.log(obj);
+    }
     routeTo() {
         (0, _renderDOM.MainPage).component = new (0, _index1.ChatPage)();
     }
@@ -745,14 +732,24 @@ class LoginPage extends (0, _blockDefault.default) {
                     click: [
                         (function submitForm() {
                             let isError = false;
+                            let objValues = {};
                             const formRefs = this.refs;
                             Object.values(formRefs).forEach((inputField)=>{
+                                const key = inputField.props.htmlName;
+                                const value = inputField.getInputValue();
+                                objValues = {
+                                    ...objValues,
+                                    [key]: value
+                                };
                                 Object.values(inputField.validators).forEach((validator)=>{
                                     const error = validator();
                                     if (error) isError = true;
                                 });
                             });
-                            if (!isError) this.routeTo();
+                            if (!isError) {
+                                this.report(objValues);
+                                this.routeTo();
+                            }
                         }).bind(this)
                     ]
                 }
@@ -12365,6 +12362,11 @@ class BlockBase {
         if (!BlockBase.isHTMLElement(element)) throw new Error(`Wrong element ${element} of type ${typeof element} to show`);
         if (element != undefined) element.textContent = value;
     }
+    getInputValue() {
+        const element = this.getElement();
+        const el = element?.getElementsByTagName("input")[0];
+        if (el != undefined) return el.value;
+    }
     hide() {
         const element = this.getElement();
         if (!BlockBase.isHTMLElement(element)) throw new Error(`Wrong element ${element} of type ${typeof element} to hide`);
@@ -12703,7 +12705,139 @@ exports.default = (0, _templateGeneratorDefault.default)({
     isSelfClosingTag: true
 });
 
-},{"utils/templateGenerator":"jyUdt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"k5lIn":[function(require,module,exports) {
+},{"utils/templateGenerator":"jyUdt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kIGWd":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "LoginPage", ()=>(0, _login.LoginPage));
+parcelHelpers.export(exports, "RegistrationPage", ()=>(0, _registration.RegistrationPage));
+parcelHelpers.export(exports, "ChatPage", ()=>(0, _chat.ChatPage));
+parcelHelpers.export(exports, "ProfilePage", ()=>(0, _profile.ProfilePage));
+parcelHelpers.export(exports, "ChangePasswordPage", ()=>(0, _changePassword.ChangePasswordPage));
+parcelHelpers.export(exports, "ErrorPage", ()=>(0, _error.ErrorPage));
+var _login = require("pages/login/login");
+var _registration = require("pages/registration/registration");
+var _chat = require("pages/chat/chat");
+var _profile = require("pages/profile/profile");
+var _changePassword = require("pages/profile/changePassword/changePassword");
+var _error = require("pages/error/error");
+
+},{"pages/login/login":"dCEbf","pages/registration/registration":"ipn4T","pages/chat/chat":"9muaU","pages/profile/profile":"atqZr","pages/profile/changePassword/changePassword":"dxpTD","pages/error/error":"kZohv","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ipn4T":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "RegistrationPage", ()=>RegistrationPage);
+var _block = require("core/block");
+var _blockDefault = parcelHelpers.interopDefault(_block);
+var _index = require("components/index");
+var _inputValidators = require("utils/inputValidators");
+var _renderDOM = require("core/renderDOM");
+var _index1 = require("../index");
+var _registrationTemplate = require("./registrationTemplate");
+var _registrationTemplateDefault = parcelHelpers.interopDefault(_registrationTemplate);
+var _registrationData = require("./registrationData");
+var _registrationDataDefault = parcelHelpers.interopDefault(_registrationData);
+class RegistrationPage extends (0, _blockDefault.default) {
+    constructor(){
+        const children = {};
+        const refs = {};
+        children.loginLink = new (0, _index.Link)({
+            props: {
+                label: "Войти",
+                htmlName: "Registration",
+                htmlClass: "auth__noaccount",
+                events: {
+                    click: [
+                        ()=>{
+                            (0, _renderDOM.MainPage).component = new (0, _index1.LoginPage)();
+                        }
+                    ]
+                }
+            }
+        });
+        (0, _registrationDataDefault.default).inputFields.forEach(({ type , name , placeholder , label  })=>{
+            const inputField = new (0, _index.Input)({
+                props: {
+                    placeholder,
+                    type: type,
+                    htmlName: name,
+                    htmlClass: `auth__registration_form__${name}__input`,
+                    componentName: `${name} input with validation`,
+                    htmlWrapper: {
+                        componentAlias: "wrapped",
+                        htmlWrapperTemplate: `
+            <div">
+              <label for="login" class="auth__registration_form__label">${label}</label>
+              {{{ wrapped }}}
+            </div>
+            `
+                    },
+                    validators: {
+                        blur: (0, _inputValidators.InputValidators)[name]
+                    }
+                }
+            });
+            children[`${name}Field`] = inputField;
+            refs[`${name}Field`] = inputField;
+        });
+        super({
+            children,
+            props: {
+                componentName: (0, _registrationDataDefault.default).page
+            },
+            refs
+        });
+    }
+    render() {
+        return 0, _registrationTemplateDefault.default;
+    }
+    report(obj) {
+        console.log(obj);
+    }
+    routeTo() {
+        (0, _renderDOM.MainPage).component = new (0, _index1.ChatPage)();
+    }
+    _preInitHook() {
+        Object.values(this.refs).forEach((inputField)=>{
+            inputField.refs.Form = this;
+        });
+        (0, _registrationDataDefault.default).errorLabel.forEach((stateErrorName)=>{
+            this.state[stateErrorName] = "";
+        });
+        this.children.button = new (0, _index.Button)({
+            props: {
+                type: "button",
+                label: (0, _registrationDataDefault.default).submitButtonLabel,
+                htmlClass: "buttonAuth",
+                events: {
+                    click: [
+                        (function submitForm() {
+                            let isError = false;
+                            let objValues = {};
+                            const formRefs = this.refs;
+                            Object.values(formRefs).forEach((inputField)=>{
+                                const key = inputField.props.htmlName;
+                                const value = inputField.getInputValue();
+                                objValues = {
+                                    ...objValues,
+                                    [key]: value
+                                };
+                                Object.values(inputField.validators).forEach((validator)=>{
+                                    const error = validator();
+                                    if (error) isError = true;
+                                });
+                            });
+                            if (!isError) {
+                                this.report(objValues);
+                                this.routeTo();
+                            }
+                        }).bind(this)
+                    ]
+                }
+            }
+        });
+    }
+}
+
+},{"core/block":"axMnM","components/index":"dHnah","utils/inputValidators":"k5lIn","core/renderDOM":"ePGhw","../index":"kIGWd","./registrationTemplate":"7ZMRz","./registrationData":"5QT42","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"k5lIn":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "InputValidators", ()=>InputValidators);
@@ -12742,6 +12876,7 @@ function validatePasswordRegex(value) {
 }
 function validateNameRegex(value) {
     if (!value.match("^[а-яА-Яa-zA-Z]+$")) return "Только латиниские буквы или кирилицу, цифры";
+    if (!value.match("^[А-ЯA-Z]")) return "Должно начинаться с заглавной буквы";
     return "";
 }
 function validatePhoneRegex(value) {
@@ -12828,206 +12963,7 @@ const InputValidators = [
     return acc;
 }, {});
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4Pgai":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-const loginData = {
-    page: "Login Page",
-    inputFields: [
-        {
-            type: "text",
-            name: "login",
-            placeholder: "Введите логин",
-            label: "Логин"
-        },
-        {
-            type: "password",
-            name: "password",
-            placeholder: "Введите пароль",
-            label: "Пароль"
-        }
-    ],
-    pageTitle: "Вход",
-    link: {
-        name: "Нет аккаунта?",
-        htmlName: "Registration",
-        class: "auth__noaccount"
-    },
-    submitButtonLabel: "Авторизоваться",
-    errorLabel: [
-        "errorLogin",
-        "errorPassword"
-    ],
-    errorLink: {
-        404: {
-            name: "error 404 page",
-            htmlName: "Error 404 page",
-            class: "auth__error"
-        },
-        505: {
-            name: "error 505 page",
-            htmlName: "Error 505 page",
-            class: "auth__error"
-        }
-    }
-};
-exports.default = loginData;
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1P9m9":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _loginData = require("./loginData");
-var _loginDataDefault = parcelHelpers.interopDefault(_loginData);
-exports.default = `
-<main class='auth__container'>
-  <form class='auth__form'>
-    <h2 class='auth__form__title'>${(0, _loginDataDefault.default).pageTitle}</h2>
-    <div class="auth__form__login">
-      {{{ loginField }}}
-      <span class='auth__form__login__error'>
-        {{{ loginError }}}
-      </span>
-    </div>
-    <div class="auth__form__password">
-      {{{ passwordField }}}
-      <span class='auth__form__password__error'>
-        {{{ passwordError }}}
-      </span>
-    </div>
-    <div class='auth__form__buttonContainer'>
-      {{{ button }}}
-      {{{ registration }}}
-    </div>
-  </form>
-  <footer class='auth__error__container'>
-    {{{error404}}}
-    {{{error505}}}
-  </footer>
-</main>`;
-
-},{"./loginData":"4Pgai","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2R9xq":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "errorData", ()=>errorData);
-const errorData = {
-    errorProps: {
-        link: "Назад",
-        class: "error__link"
-    },
-    404: {
-        title: "404",
-        message: "Не туда попали"
-    },
-    505: {
-        title: "505",
-        message: "Мы уже фиксим"
-    }
-};
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ipn4T":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "RegistrationPage", ()=>RegistrationPage);
-var _block = require("core/block");
-var _blockDefault = parcelHelpers.interopDefault(_block);
-var _index = require("components/index");
-var _inputValidators = require("utils/inputValidators");
-var _renderDOM = require("core/renderDOM");
-var _index1 = require("../index");
-var _registrationTemplate = require("./registrationTemplate");
-var _registrationTemplateDefault = parcelHelpers.interopDefault(_registrationTemplate);
-var _registrationData = require("./registrationData");
-var _registrationDataDefault = parcelHelpers.interopDefault(_registrationData);
-class RegistrationPage extends (0, _blockDefault.default) {
-    constructor(){
-        const children = {};
-        const refs = {};
-        children.loginLink = new (0, _index.Link)({
-            props: {
-                label: "Войти",
-                htmlName: "Registration",
-                htmlClass: "auth__noaccount",
-                events: {
-                    click: [
-                        ()=>{
-                            (0, _renderDOM.MainPage).component = new (0, _index1.LoginPage)();
-                        }
-                    ]
-                }
-            }
-        });
-        (0, _registrationDataDefault.default).inputFields.forEach(({ type , name , placeholder , label  })=>{
-            const inputField = new (0, _index.Input)({
-                props: {
-                    placeholder,
-                    type: type,
-                    htmlName: name,
-                    htmlClass: `auth__registration_form__${name}__input`,
-                    componentName: `${name} input with validation`,
-                    htmlWrapper: {
-                        componentAlias: "wrapped",
-                        htmlWrapperTemplate: `
-            <div">
-              <label for="login" class="auth__registration_form__label">${label}</label>
-              {{{ wrapped }}}
-            </div>
-            `
-                    },
-                    validators: {
-                        blur: (0, _inputValidators.InputValidators)[name]
-                    }
-                }
-            });
-            children[`${name}Field`] = inputField;
-            refs[`${name}Field`] = inputField;
-        });
-        super({
-            children,
-            props: {
-                componentName: (0, _registrationDataDefault.default).page
-            },
-            refs
-        });
-    }
-    render() {
-        return 0, _registrationTemplateDefault.default;
-    }
-    routeTo() {
-        (0, _renderDOM.MainPage).component = new (0, _index1.ChatPage)();
-    }
-    _preInitHook() {
-        Object.values(this.refs).forEach((inputField)=>{
-            inputField.refs.Form = this;
-        });
-        (0, _registrationDataDefault.default).errorLabel.forEach((stateErrorName)=>{
-            this.state[stateErrorName] = "";
-        });
-        this.children.button = new (0, _index.Button)({
-            props: {
-                type: "button",
-                label: (0, _registrationDataDefault.default).submitButtonLabel,
-                htmlClass: "buttonAuth",
-                events: {
-                    click: [
-                        (function submitForm() {
-                            let isError = false;
-                            const formRefs = this.refs;
-                            Object.values(formRefs).forEach((inputField)=>{
-                                Object.values(inputField.validators).forEach((validator)=>{
-                                    const error = validator();
-                                    if (error) isError = true;
-                                });
-                            });
-                            if (!isError) this.routeTo();
-                        }).bind(this)
-                    ]
-                }
-            }
-        });
-    }
-}
-
-},{"core/block":"axMnM","components/index":"dHnah","utils/inputValidators":"k5lIn","core/renderDOM":"ePGhw","../index":"kIGWd","./registrationTemplate":"7ZMRz","./registrationData":"5QT42","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7ZMRz":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7ZMRz":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _registrationData = require("./registrationData");
@@ -14074,7 +14010,7 @@ class ChangePasswordPage extends (0, _blockDefault.default) {
     }
 }
 
-},{"core/block":"axMnM","core/renderDOM":"ePGhw","components/index":"dHnah","./changePasswordTemplate":"3FKbA","../profileData":"hNHYd","static/img/profile_avatar.png":"j6gct","static/img/arrowBack.png":"P7Wev","../profile":"atqZr","./changePasswordData":"jABZa","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../utils/inputValidators":"k5lIn"}],"3FKbA":[function(require,module,exports) {
+},{"core/block":"axMnM","core/renderDOM":"ePGhw","components/index":"dHnah","./changePasswordTemplate":"3FKbA","../profileData":"hNHYd","static/img/profile_avatar.png":"j6gct","static/img/arrowBack.png":"P7Wev","../profile":"atqZr","./changePasswordData":"jABZa","../../../utils/inputValidators":"k5lIn","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3FKbA":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "profileTemplate", ()=>profileTemplate);
@@ -14389,7 +14325,26 @@ class ErrorPage extends (0, _blockDefault.default) {
     }
 }
 
-},{"core/block":"axMnM","components/index":"dHnah","core/renderDOM":"ePGhw","../index":"kIGWd","./errorData":"2R9xq","./errorTemplate":"3LON2","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3LON2":[function(require,module,exports) {
+},{"core/block":"axMnM","components/index":"dHnah","core/renderDOM":"ePGhw","../index":"kIGWd","./errorData":"2R9xq","./errorTemplate":"3LON2","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2R9xq":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "errorData", ()=>errorData);
+const errorData = {
+    errorProps: {
+        link: "Назад",
+        class: "error__link"
+    },
+    404: {
+        title: "404",
+        message: "Не туда попали"
+    },
+    505: {
+        title: "505",
+        message: "Мы уже фиксим"
+    }
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3LON2":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "errorTemplate", ()=>errorTemplate);
@@ -14401,6 +14356,83 @@ const errorTemplate = `
   </main>
 `;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["6Ictx","h7u1C"], "h7u1C", "parcelRequire25d8")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4Pgai":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+const loginData = {
+    page: "Login Page",
+    inputFields: [
+        {
+            type: "text",
+            name: "login",
+            placeholder: "Введите логин",
+            label: "Логин"
+        },
+        {
+            type: "password",
+            name: "password",
+            placeholder: "Введите пароль",
+            label: "Пароль"
+        }
+    ],
+    pageTitle: "Вход",
+    link: {
+        name: "Нет аккаунта?",
+        htmlName: "Registration",
+        class: "auth__noaccount"
+    },
+    submitButtonLabel: "Авторизоваться",
+    errorLabel: [
+        "errorLogin",
+        "errorPassword"
+    ],
+    errorLink: {
+        404: {
+            name: "error 404 page",
+            htmlName: "Error 404 page",
+            class: "auth__error"
+        },
+        505: {
+            name: "error 505 page",
+            htmlName: "Error 505 page",
+            class: "auth__error"
+        }
+    }
+};
+exports.default = loginData;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1P9m9":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _loginData = require("./loginData");
+var _loginDataDefault = parcelHelpers.interopDefault(_loginData);
+exports.default = `
+<main class='auth__container'>
+  <form class='auth__form'>
+    <h2 class='auth__form__title'>${(0, _loginDataDefault.default).pageTitle}</h2>
+    <div class="auth__form__login">
+      {{{ loginField }}}
+      <span class='auth__form__login__error'>
+        {{{ loginError }}}
+      </span>
+    </div>
+    <div class="auth__form__password">
+      {{{ passwordField }}}
+      <span class='auth__form__password__error'>
+        {{{ passwordError }}}
+      </span>
+    </div>
+    <div class='auth__form__buttonContainer'>
+      {{{ button }}}
+      {{{ registration }}}
+    </div>
+  </form>
+  <footer class='auth__error__container'>
+    {{{error404}}}
+    {{{error505}}}
+  </footer>
+</main>`;
+
+},{"./loginData":"4Pgai","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["6Ictx","h7u1C"], "h7u1C", "parcelRequire25d8")
 
 //# sourceMappingURL=index.b71e74eb.js.map
