@@ -16,4 +16,4 @@
 
 ## Netlify
 
-https://cerulean-fudge-b72381.netlify.app
+https://cozy-gecko-04fca7.netlify.app/#app
