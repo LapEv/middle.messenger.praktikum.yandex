@@ -124,12 +124,13 @@ export class LoginPage extends Block {
 
     this.children.button = new Button({
       props: {
-        type: 'button',
+        type: 'submit',
         label: loginData.submitButtonLabel,
         htmlClass: 'buttonAuth',
         events: {
           click: [
             function submitForm() {
+              console.log('submit');
               let isError = false;
               let objValues = {};
               const formRefs = this.refs as ComponentRefs;

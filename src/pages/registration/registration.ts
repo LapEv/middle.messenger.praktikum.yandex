@@ -79,7 +79,7 @@ export class RegistrationPage extends Block {
 
     this.children.button = new Button({
       props: {
-        type: 'button',
+        type: 'submit',
         label: regData.submitButtonLabel,
         htmlClass: 'buttonAuth',
         events: {
