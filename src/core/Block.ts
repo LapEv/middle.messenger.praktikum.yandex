@@ -92,6 +92,7 @@ export default class Block extends BlockBase {
 
   private _registerEvents() {
     const { eventBus } = this;
+
     eventBus.on(BlockBase.EVENTS.INIT, this._init.bind(this));
     eventBus.on(BlockBase.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(BlockBase.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
@@ -196,7 +197,10 @@ export default class Block extends BlockBase {
       eventsTargerElement = wrappedElement;
     }
 
+    this._removeEvents(eventsTargerElement);
+
     this._addEvents(eventsTargerElement);
+
     eventsTargerElement.removeAttribute('wrapped-id');
 
     if (this.wasRendered) {

@@ -77,6 +77,8 @@ export default class BlockBase {
 
   protected _addEvents(targetElement: Nullable<HTMLElement> = null): void {
     const element = targetElement ?? this.getElement();
+    console.log('element = ', element);
+
     if (!BlockBase.isHTMLElement(element)) {
       throw new Error(
         `${
@@ -86,6 +88,7 @@ export default class BlockBase {
     }
 
     const events = this.props.events as Record<string, EventListener[]>;
+    console.log('events = ', events);
 
     Object.entries(events).forEach(([event, listeners]) => {
       listeners.forEach((listener) => {
