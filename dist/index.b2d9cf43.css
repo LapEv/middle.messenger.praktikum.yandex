@@ -1,6 +1,6 @@
 .auth__container {
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   display: flex;
 }
@@ -17,6 +17,11 @@
   box-shadow: 0 0 10px 3px #00000080;
 }
 
+.auth__form__label, .auth__registration_form__label {
+  margin-left: 3px;
+  font-size: 12px;
+}
+
 .auth__form__title, .auth__registration_form__title {
   width: auto;
   height: 20px;
@@ -28,6 +33,11 @@
   height: auto;
   margin-top: 33px;
   font-size: 9px;
+}
+
+.auth__form__login__label, .auth__form__email__label, .auth__form__first_name__label, .auth__form__second_name__label, .auth__form__phone__label, .auth__registration_form__login__label, .auth__registration_form__email__label, .auth__registration_form__first_name__label, .auth__registration_form__second_name__label, .auth__registration_form__phone__label {
+  margin-left: 3px;
+  font-size: 12px;
 }
 
 .auth__form__login__input, .auth__form__email__input, .auth__form__first_name__input, .auth__form__second_name__input, .auth__form__phone__input, .auth__registration_form__login__input, .auth__registration_form__email__input, .auth__registration_form__first_name__input, .auth__registration_form__second_name__input, .auth__registration_form__phone__input {
@@ -44,31 +54,32 @@
 .auth__form__login__error, .auth__form__email__error, .auth__form__first_name__error, .auth__form__second_name__error, .auth__form__phone__error, .auth__registration_form__login__error, .auth__registration_form__email__error, .auth__registration_form__first_name__error, .auth__registration_form__second_name__error, .auth__registration_form__phone__error {
   color: #ff2f2f;
   margin-top: 7px;
-  font-size: 8px;
+  margin-left: 3px;
+  font-size: 11px;
 }
 
-.auth__form__password, .auth__form__password_repeat, .auth__registration_form__password, .auth__registration_form__password_repeat {
+.auth__form__password, .auth__form__passwordCheck, .auth__registration_form__password, .auth__registration_form__passwordCheck {
   color: #999;
   height: auto;
   margin-top: 16px;
   font-size: 9px;
 }
 
-.auth__form__password__input, .auth__form__password_repeat__input, .auth__registration_form__password__input, .auth__registration_form__password_repeat__input {
+.auth__form__password__input, .auth__form__passwordCheck__input, .auth__registration_form__password__input, .auth__registration_form__passwordCheck__input {
   height: 28px;
   border-width: 0 0 1px;
   border-bottom-color: #3369f3;
   font-size: 13px;
 }
 
-.auth__form__password__input:focus, .auth__form__password_repeat__input:focus, .auth__registration_form__password__input:focus, .auth__registration_form__password_repeat__input:focus {
+.auth__form__password__input:focus, .auth__form__passwordCheck__input:focus, .auth__registration_form__password__input:focus, .auth__registration_form__passwordCheck__input:focus {
   outline: none;
 }
 
-.auth__form__password__error, .auth__form__password_repeat__error, .auth__registration_form__password__error, .auth__registration_form__password_repeat__error {
+.auth__form__password__error, .auth__form__passwordCheck__error, .auth__registration_form__password__error, .auth__registration_form__passwordCheck__error {
   color: #ff2f2f;
-  margin-top: 7px;
-  font-size: 8px;
+  margin-left: 3px;
+  font-size: 11px;
 }
 
 .auth__form__buttonContainer, .auth__registration_form__buttonContainer {
@@ -80,6 +91,14 @@
   display: flex;
 }
 
+.auth__form__login {
+  margin-top: 90px;
+}
+
+.auth__form__password {
+  margin-top: 33px;
+}
+
 .auth__registration_form {
   height: 615px;
 }
@@ -88,12 +107,30 @@
   margin-top: 48px;
 }
 
+.auth__registration_form__login, .auth__registration_form__email, .auth__registration_form__first_name, .auth__registration_form__second_name, .auth__registration_form__phone, .auth__registration_form__password, .auth__registration_form__passwordCheck {
+  height: 46px;
+  margin-top: 20px;
+}
+
 .auth__noaccount {
   color: #3369f3;
   height: auto;
   justify-content: center;
   margin-top: 14px;
   font-size: 11px;
+  display: flex;
+}
+
+.auth__error {
+  text-align: center;
+}
+
+.auth__error__container {
+  width: 90%;
+  height: 100px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   display: flex;
 }
 
@@ -136,14 +173,21 @@
   display: flex;
 }
 
+.chat__list__profileLink__svg {
+  width: 10px;
+  height: 20px;
+}
+
 .chat__list__input {
   height: 32px;
+  width: 94%;
   background: #efefef url("search_icon.d3529251.png") 35% no-repeat;
   border-width: 0;
   border-radius: 5px;
   margin-top: 23px;
   margin-bottom: 14px;
-  padding: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .chat__list__input:focus {
@@ -262,8 +306,9 @@
 }
 
 .chat__body__title__img {
-  width: 4px;
+  width: 6px;
   height: 20px;
+  cursor: pointer;
   margin-right: 20px;
 }
 
@@ -377,7 +422,7 @@
   width: 28px;
   height: 28px;
   cursor: pointer;
-  margin-left: 10px;
+  margin-left: 20px;
 }
 
 .chat__body__footer__input {
@@ -419,7 +464,7 @@
   color: #3369f3;
   height: auto;
   margin-top: 69px;
-  font-size: 11px;
+  font-size: 14px;
 }
 
 .profile {
@@ -524,7 +569,19 @@
   font-size: 13px;
 }
 
-.profile__data__data:focus {
+.profile__data__data__avatar {
+  display: none;
+}
+
+.profile__data__data__active {
+  color: #000;
+  text-align: end;
+  border: 0;
+  margin-bottom: 10px;
+  font-size: 13px;
+}
+
+.profile__data__data__active:focus, .profile__data__data:focus {
   outline: none;
 }
 
@@ -532,6 +589,41 @@
   height: 1px;
   width: 510px;
   background-color: #eaeaea;
+}
+
+.profile__saveButton, .profile__changePasswordButton, .profile__exitButton {
+  height: 37px;
+  width: 200px;
+  color: #000;
+  cursor: pointer;
+  background-color: #e4edfd;
+  border-color: #3369f3;
+  border-radius: 8px;
+  margin-top: 25px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.profile__saveButton__active {
+  height: 37px;
+  width: 200px;
+  color: #fff;
+  cursor: pointer;
+  background-color: #3369f3;
+  border-color: #3369f3;
+  border-radius: 8px;
+  margin-top: 25px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.profile__changePasswordButton, .profile__exitButton {
+  margin-top: 10px;
+}
+
+.profile__exitButton {
+  color: red;
+  border-color: red;
 }
 
 .profile__changeData {
@@ -566,6 +658,22 @@
   justify-content: center;
   margin-top: 162px;
   display: flex;
+}
+
+.profile__button__container {
+  width: 510px;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+  display: flex;
+}
+
+.profile__error {
+  color: #ff2f2f;
+  height: 5px;
+  margin-top: 7px;
+  margin-left: 3px;
+  font-size: 11px;
 }
 
 .buttonAuth {
@@ -616,7 +724,7 @@
 }
 
 .modal__choose {
-  width: 122px;
+  width: 80%;
   height: 32px;
   color: #3369f3;
   text-align: center;
@@ -624,9 +732,29 @@
   font-size: 16px;
 }
 
+.modal__choose__text {
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.modal__choose__input {
+  opacity: 0;
+  z-index: -1;
+  position: absolute;
+}
+
 .modal__button {
   width: 280px;
   height: 37px;
+  color: #fff;
+  cursor: pointer;
+  background-color: #3369f3;
+  border-color: #3369f3;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.modal__button__container {
   justify-content: center;
   align-items: center;
   margin-top: 65px;

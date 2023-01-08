@@ -1,0 +1,88 @@
+@import './variables.scss';
+
+.modal {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &__background {
+    background-color: $color-black;
+    opacity: 0.5;
+    z-index: 9;
+  }
+  &__container {
+    position: fixed;
+    width: 340px;
+    height: 257px;
+    border-radius: 12px;
+    background-color: $color-white;
+    opacity: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 30px;
+    z-index: 99;
+  }
+  &__title {
+    font-size: 20;
+    font-weight: bold;
+    color: $color-black-light;
+    height: auto;
+    width: auto;
+  }
+  &__choose {
+    width: 80%;
+    height: 32px;
+    margin-top: 43px;
+    font-size: 16;
+    color: $color-button-background;
+    text-align: center;
+    &__text {
+      font-size: 16;
+      cursor: pointer;
+    }
+    &__input {
+      opacity: 0;
+      position: absolute;
+      z-index: -1;
+    }
+  }
+  &__button {
+    width: 280px;
+    height: 37px;
+    background-color: $color-button-background;
+    color: white;
+    border-radius: 8px;
+    border-color: $color-button-background;
+    font-size: 13;
+    cursor: pointer;
+    &__container {
+      margin-top: 65px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  &__error {
+    margin-top: 14px;
+    font-size: 11;
+    color: $color-danger-light;
+    text-align: center;
+  }
+  &__login {
+    color: $color-text-background;
+    margin-top: 50px;
+    font-size: 9;
+    height: auto;
+    &__input {
+      border-width: 0px 0px 1px 0px;
+      border-bottom-color: $color-button-background;
+      height: 28px;
+      font-size: 13;
+    }
+    &__input:focus {
+      outline: none;
+    }
+  }
+}
