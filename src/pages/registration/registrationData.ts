@@ -48,6 +48,7 @@ const regData = {
   link: {
     name: 'Войти',
     htmlName: 'Login',
+    class: 'auth__noaccount',
   },
   submitButtonLabel: 'Зарегистрироваться',
   errorLabel: [

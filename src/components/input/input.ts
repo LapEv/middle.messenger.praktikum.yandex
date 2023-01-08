@@ -1,4 +1,4 @@
-import Block from 'core/Block';
+import { Block } from 'core/dom';
 import template from './template';
 
 export type InputValidator = (isErrorRenderNeeded?: boolean) => boolean;
@@ -9,10 +9,10 @@ export type InputInitProps = {
   value?: string;
   validators?: Record<string, InputValidator>;
   disabledAttr?: boolean;
-} & ComponentCommonProps;
+} & TComponentCommonProps;
 
 export type InputProps = Omit<InputInitProps, 'validators'> &
-  ComponentCommonProps;
+  TComponentCommonProps;
 
 export class Input extends Block {
   public props: InputProps;
@@ -20,14 +20,16 @@ export class Input extends Block {
   public validators: Record<string, InputValidator>;
 
   constructor({
-    props = { componentName: 'Input' },
+    // props = { componentName: 'Input' },
+    props = {},
     refs = {},
   }: {
     props?: InputInitProps;
-    refs?: ComponentRefs;
+    refs?: TComponentRefs;
   }) {
     super({
-      props: { ...props, error: '' },
+      // props: { ...props, error: '' },
+      props: {},
       refs,
     });
   }
@@ -51,7 +53,7 @@ export class Input extends Block {
     Object.entries(this.validators).forEach(([event, validator]) => {
       const events = this.props.events as Record<
         string,
-        ComponentEventListener[]
+        TComponentEventListener[]
       >;
 
       if (!events[event]) {

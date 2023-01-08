@@ -1,5 +1,5 @@
 export { Button } from './button/button';
-export { Link } from './link/link';
+export { Link } from './link/component';
 export { Input, InputValidator } from './input/input';
-export { TextElement } from './text/text';
-export { ImageElement } from './image/image';
+export { TextComponent } from './text';
+export { ImageComponent } from './image';

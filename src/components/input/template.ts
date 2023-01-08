@@ -1,4 +1,4 @@
-import getTemplate from 'utils/templateGenerator';
+import getTemplate from 'utils/components/templateGenerator';
 
 const tag = 'input';
 const attributes = `

@@ -1,8 +1,7 @@
 import { Button } from 'components/button/button';
 import { Input } from 'components/input/input';
-import { TextElement } from 'components/text/text';
-import Block from 'core/Block';
-import { MainPage } from 'core/renderDOM';
+import { TextComponent } from 'components/text';
+import { Block } from 'core/Dom';
 import { ChatPage, ProfilePage } from 'pages';
 import { modalMessage } from './modalMessage';
 import { modalTemplate } from './modalTemplate';
@@ -12,7 +11,7 @@ export type ModalProps = {
   inputProps?: any;
   text?: string;
   error?: string;
-} & ComponentCommonProps;
+} & TComponentCommonProps;
 
 export class Modal extends Block {
   protected props: ModalProps;
@@ -23,12 +22,12 @@ export class Modal extends Block {
     state = {},
   }: {
     props?: ModalProps;
-    refs?: ComponentRefs;
-    state?: ComponentState;
+    refs?: TComponentRefs;
+    state?: TComponentState;
   }) {
-    const children: ComponentChildren = {};
+    const children: TComponentChildren = {};
 
-    children.modalTitle = new TextElement({
+    children.modalTitle = new TextComponent({
       props: {
         text: '',
         htmlClass: 'modal__title',

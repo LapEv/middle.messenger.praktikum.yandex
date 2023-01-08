@@ -1,22 +1,23 @@
-import Block from 'core/Block';
+import { Block } from 'core/dom';
 import template from './template';
 
 export type ButtonProps = {
   label?: string;
   type?: string;
-} & ComponentCommonProps;
+} & TComponentCommonProps;
 
 export class Button extends Block {
   protected props: ButtonProps;
 
   constructor({
-    props = { componentName: 'Button' },
+    // props = { componentName: 'Button' },
+    props = {},
     refs = {},
     state = {},
   }: {
     props?: ButtonProps;
-    refs?: ComponentRefs;
-    state?: ComponentState;
+    refs?: TComponentRefs;
+    state?: TComponentState;
   }) {
     super({ props, refs, state });
   }

@@ -1,5 +1,4 @@
-import Block from 'core/Block';
-import { MainPage } from 'core/renderDOM';
+import { Block } from 'core/dom';
 import {
   Button,
   ImageElement,
@@ -13,12 +12,12 @@ import profileAvatar from 'static/img/profile_avatar.png';
 import arrowBackImage from 'static/img/arrowBack.png';
 import { ProfilePage } from '../profile';
 import { changePasswordData, changePassword } from './changePasswordData';
-import { InputValidators } from '../../../utils/inputValidators';
+// import { InputValidators } from '../../../utils/inputValidators';
 
 export class ChangePasswordPage extends Block {
   constructor() {
-    const children: ComponentChildren = {};
-    const refs: ComponentRefs = {};
+    const children: TComponentChildren = {};
+    const refs: TComponentRefs = {};
 
     children.arrowBackImage = new ImageElement({
       props: {

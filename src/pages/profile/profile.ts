@@ -1,18 +1,17 @@
 import { ChatPage } from 'pages/chat/chat';
-import Block from 'core/Block';
-import { MainPage } from 'core/renderDOM';
-import {
-  Button,
-  ImageElement,
-  Input,
-  InputValidator,
-  TextElement,
-} from 'components/index';
+import { Block } from 'core/dom';
+// import {
+//   Button,
+//   ImageElement,
+//   Input,
+//   InputValidator,
+//   TextElement,
+// } from 'components/index';
 import { profileTemplate } from './profileTemplate';
 import { profileFieldsData, profileData } from './profileData';
 import profileAvatar from 'static/img/profile_avatar.png';
 import arrowBackImage from 'static/img/arrowBack.png';
-import { InputValidators } from 'utils/inputValidators';
+// import { InputValidators } from 'utils/inputValidators';
 import { LoginPage } from '../login/login';
 import { ChangePasswordPage } from './changePassword/changePassword';
 import { Modal } from 'components/modal/modal';
@@ -20,9 +19,9 @@ import { modalMessage } from 'components/modal/modalMessage';
 
 export class ProfilePage extends Block {
   constructor() {
-    const children: ComponentChildren = {};
-    const refModal: ComponentRefs = {};
-    const refs: ComponentRefs = {};
+    const children: TComponentChildren = {};
+    const refModal: TComponentRefs = {};
+    const refs: TComponentRefs = {};
 
     children.arrowBackImage = new ImageElement({
       props: {

@@ -1,7 +1,6 @@
-import getTemplate from 'utils/templateGenerator';
+import getComponentTemplate from 'utils/components/templateGenerator';
 
 const content = `
-
 {{#if text}}
   {{ text }}
 {{else}}
@@ -9,4 +8,4 @@ const content = `
 {{/if}}
 `;
 
-export default (tag: string) => getTemplate({ tag, content });
+export default (tag: string) => getComponentTemplate({ tag, content });

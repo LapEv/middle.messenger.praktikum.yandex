@@ -1,5 +1,5 @@
-import Block from 'core/Block';
-import { ImageElement, TextElement } from 'components/index';
+import { Block } from 'core/dom';
+// import { ImageElement, TextElement } from 'components/index';
 import { chatListTemplate } from './chatListTemplate';
 
 export default class ChatList extends Block {
@@ -14,7 +14,7 @@ export default class ChatList extends Block {
     lastMessage?: string;
     lastMessageDate?: string;
   }) {
-    const children: ComponentChildren = {};
+    const children: TComponentChildren = {};
 
     const messageElement = new TextElement({
       props: {

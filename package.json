@@ -17,7 +17,10 @@
     "pages": "./src/pages",
     "components": "./src/components",
     "utils": "./src/utils",
-    "static": "./src/static"
+    "static": "./src/static",
+    "hocs": "./src/hocs",
+    "services": "./src/services",
+    "api": "./src/api"
   },
   "keywords": [],
   "author": "",

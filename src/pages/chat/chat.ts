@@ -1,5 +1,5 @@
-import Block from 'core/Block';
-import { ImageElement, Input, Link, TextElement } from 'components/index';
+import { Block } from 'core/dom';
+// import { ImageElement, Input, Link, TextElement } from 'components/index';
 import { chatTemplate } from './chatTemplate';
 import menuImage from 'static/img/menu.png';
 import attachImage from 'static/img/attach.png';
@@ -7,17 +7,17 @@ import sendImage from 'static/img/send.png';
 import photoImage from 'static/img/camera.png';
 import ChatList from './chatList';
 import { chatList, chatData, chatMessages } from './chatData';
-import { MainPage } from 'core/renderDOM';
+// import { MainPage } from 'core/renderDOM';
 import { ProfilePage } from 'pages/profile/profile';
 import { Modal } from 'components/modal/modal';
 import { modalMessageUsers } from 'components/modal/modalMessage';
 
 export class ChatPage extends Block {
   constructor() {
-    const children: { chats: ChatList[] } & ComponentChildren = {
+    const children: { chats: ChatList[] } & TComponentChildren = {
       chats: [],
     };
-    const refs: ComponentRefs = {};
+    const refs: TComponentRefs = {};
 
     children.modal = new Modal({
       props: {

@@ -1,6 +1,5 @@
-import { MainPage } from 'core/renderDOM';
-import { LoginPage } from 'pages/login/login';
+import { initApp } from 'services/initApp';
 
 document.addEventListener('DOMContentLoaded', () => {
-  MainPage.component = new LoginPage();
+  initApp();
 });

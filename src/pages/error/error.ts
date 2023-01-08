@@ -1,19 +1,18 @@
-import Block from 'core/Block';
-import { Link, TextElement } from 'components/index';
-import { MainPage } from 'core/renderDOM';
-import { LoginPage } from '../index';
+import { Block } from 'core/dom';
+// import { Link, TextElement } from 'components/index';
+// import { LoginPage } from '../index';
 import { errorData } from './errorData';
 import { errorTemplate } from './errorTemplate';
 
 export type ErrorProps = {
   title?: string;
   message?: string;
-} & ComponentCommonProps;
+} & TComponentCommonProps;
 
 export class ErrorPage extends Block {
   protected props: ErrorProps;
   constructor({ props = { componentName: 'Error' } }: { props?: ErrorProps }) {
-    const children: ComponentChildren = {};
+    const children: TComponentChildren = {};
 
     children.errorTitle = new TextElement({
       props: {
