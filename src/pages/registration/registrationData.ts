@@ -1,5 +1,6 @@
 const regData = {
   page: 'Registration Page',
+  formClass: 'auth__registration_form',
   inputFields: [
     {
       type: 'text',

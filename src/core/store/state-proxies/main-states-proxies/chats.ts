@@ -1,9 +1,9 @@
-import { EnumAppPages } from "pages";
+import { AppPages } from 'pages/appPages';
 
 export function chatsSetter() {
   const { page } = this.state;
 
-  if (page !== EnumAppPages.Chats) {
+  if (page !== AppPages.Chat) {
     return;
   }
 

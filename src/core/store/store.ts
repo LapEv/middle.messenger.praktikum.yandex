@@ -1,21 +1,21 @@
-import { getPageComponent } from "utils/pages";
-import { EnumAppPages } from "pages";
-import { renderDOM } from "core/dom";
+import { getPageComponent } from 'utils/pages';
+import { AppPages } from 'pages/appPages';
+import { renderDOM } from 'core/dom';
 import {
   comparePropByPath,
   deepEqual,
   getPropByPath,
   isNullish,
   setPropByPath,
-} from "utils/objects-handle";
-import { type ChatMessagesHandler } from "services/sockets";
-import { EnumStoreEvents } from "./enum-store-events";
-import { EventBus } from "../event-bus";
-import * as StateProxies from "./state-proxies/main-states-proxies";
+} from 'utils/objects-handle';
+import { type ChatMessagesHandler } from 'services/sockets';
+import { EnumStoreEvents } from './enum-store-events';
+import { EventBus } from '../event-bus';
+import * as StateProxies from './state-proxies/main-states-proxies';
 import {
   stateByPathSetter,
   statePathRegex,
-} from "./state-proxies/by-path-proxies";
+} from './state-proxies/by-path-proxies';
 
 export const defaultState: TAppState = {
   page: null,
@@ -30,7 +30,7 @@ export const defaultState: TAppState = {
 type TStoreEvents = typeof EnumStoreEvents;
 
 type TStoreEventsHandlersArgs = {
-  [EnumStoreEvents.PageChanged]: [EnumAppPages];
+  [EnumStoreEvents.PageChanged]: [AppPages];
 };
 
 export class Store {
@@ -51,33 +51,33 @@ export class Store {
   }
 
   dispatch(nextStateOrAction: Partial<TAppState> | Function) {
-    if (typeof nextStateOrAction === "function") {
+    if (typeof nextStateOrAction === 'function') {
       nextStateOrAction();
     } else {
       this._setState(nextStateOrAction);
     }
   }
 
-  public getStateValueByPath(pathString: string = "", doLog: boolean = false) {
+  public getStateValueByPath(pathString: string = '', doLog: boolean = false) {
     return getPropByPath(this.state, pathString, doLog);
   }
 
-  public getUserDataByPath(pathString: string = "", doLog = false) {
-    const path = `user${pathString ? "." : ""}${pathString}`;
+  public getUserDataByPath(pathString: string = '', doLog = false) {
+    const path = `user${pathString ? '.' : ''}${pathString}`;
     return this.getStateValueByPath(path, doLog);
   }
 
   public getUserID() {
-    return this.getStateValueByPath("user.id");
+    return this.getStateValueByPath('user.id');
   }
 
-  public getChatsDataByPath(pathString: string = "", doLog = false) {
-    const path = `chats${pathString ? "." : ""}${pathString}`;
+  public getChatsDataByPath(pathString: string = '', doLog = false) {
+    const path = `chats${pathString ? '.' : ''}${pathString}`;
     return this.getStateValueByPath(path, doLog);
   }
 
   public getCurrentChatID() {
-    return this.getStateValueByPath("currentChatID");
+    return this.getStateValueByPath('currentChatID');
   }
 
   public getPageType(): Nullable<string> {
@@ -100,7 +100,7 @@ export class Store {
   init() {
     this.eventBus.on(
       EnumStoreEvents.PageChanged,
-      function (newPage: EnumAppPages) {
+      function (newPage: AppPages) {
         const PageComponent = getPageComponent(newPage);
         const page = new PageComponent();
         this.page = page;
@@ -139,16 +139,16 @@ export class Store {
         );
 
         switch (prop) {
-          case "page":
+          case 'page':
             StateProxies.pageSetter.call(this, newValue);
             break;
-          case "user":
+          case 'user':
             StateProxies.userSetter.call(this, oldValue, newValue);
             break;
-          case "chats":
+          case 'chats':
             StateProxies.chatsSetter.call(this, oldValue, newValue);
             break;
-          case "currentChatID":
+          case 'currentChatID':
             StateProxies.currentChatSetter.call(this, oldValue, newValue);
             break;
           default:

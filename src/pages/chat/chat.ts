@@ -9,8 +9,8 @@ import ChatList from './chatList';
 import { chatList, chatData, chatMessages } from './chatData';
 // import { MainPage } from 'core/renderDOM';
 import { ProfilePage } from 'pages/profile/profile';
-import { Modal } from 'components/modal/modal';
-import { modalMessageUsers } from 'components/modal/modalMessage';
+// import { Modal } from 'components/modal/modal';
+// import { modalMessageUsers } from 'components/modal/modalMessage';
 
 export class ChatPage extends Block {
   constructor() {
@@ -19,16 +19,16 @@ export class ChatPage extends Block {
     };
     const refs: TComponentRefs = {};
 
-    children.modal = new Modal({
-      props: {
-        title: '',
-        inputProps: modalMessageUsers.inputProps,
-        text: '',
-        error: '',
-      },
-    });
+    // children.modal = new Modal({
+    //   props: {
+    //     title: '',
+    //     inputProps: modalMessageUsers.inputProps,
+    //     text: '',
+    //     error: '',
+    //   },
+    // });
 
-    refs['modalField'] = children.modal;
+    // refs['modalField'] = children.modal;
 
     chatList.map(
       ({

@@ -14,8 +14,8 @@ import arrowBackImage from 'static/img/arrowBack.png';
 // import { InputValidators } from 'utils/inputValidators';
 import { LoginPage } from '../login/login';
 import { ChangePasswordPage } from './changePassword/changePassword';
-import { Modal } from 'components/modal/modal';
-import { modalMessage } from 'components/modal/modalMessage';
+// import { Modal } from 'components/modal/modal';
+// import { modalMessage } from 'components/modal/modalMessage';
 
 export class ProfilePage extends Block {
   constructor() {

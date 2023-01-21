@@ -573,7 +573,6 @@ async function initApp() {
     if (pathQuery) initPath = `/${pathQuery}`;
     const { route , path  } = router.matchRouteByPath(initPath);
     router.start(route, path);
-    console.log(`INIT APP COMPLETED`);
 }
 
 },{"core/store":"8EiUk","core/router":"6PhbH","services":"f5PO7","utils/api":"i2lTI","./initAppData":"8xDdB","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8EiUk":[function(require,module,exports) {
@@ -822,87 +821,16 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "LoginPage", ()=>LoginPage);
 var _dom = require("core/dom");
-var _index = require("components/index");
-// import { InputValidators } from 'utils/inputValidators';
 var _loginData = require("./loginData");
 var _loginDataDefault = parcelHelpers.interopDefault(_loginData);
 var _loginTemplate = require("./loginTemplate");
 var _loginTemplateDefault = parcelHelpers.interopDefault(_loginTemplate);
-var _router = require("core/router");
-var _hocs = require("hocs");
-const LinkWithRouter = (0, _hocs.WithRouter)((0, _index.Link));
+var _formComponents = require("./formComponents");
 class LoginPage extends (0, _dom.Block) {
     constructor(){
         const children = {};
         const refs = {};
-        children.registration = new LinkWithRouter({
-            props: {
-                label: (0, _loginDataDefault.default).link.name,
-                htmlName: (0, _loginDataDefault.default).link.htmlName,
-                htmlClass: (0, _loginDataDefault.default).link.class,
-                events: {
-                    click: [
-                        function() {
-                            this.router.go((0, _router.AppRoutes).Registration);
-                        }
-                    ]
-                }
-            }
-        });
-        (0, _loginDataDefault.default).inputFields.forEach(({ type , name , placeholder , label  })=>{
-            const inputField = new (0, _index.Input)({
-                props: {
-                    placeholder,
-                    type: type,
-                    // htmlName: name,
-                    htmlClass: [
-                        "auth__form__login__input"
-                    ],
-                    componentName: `${name} input with validation`,
-                    htmlWrapper: {
-                        componentAlias: "wrapped",
-                        htmlWrapperTemplate: `
-              <div>
-                <label for="login" class="auth__form__login__label">${label}</label>
-                {{{ wrapped }}}
-              </div>
-              `
-                    }
-                }
-            });
-            children[`${name}Field`] = inputField;
-            refs[`${name}Field`] = inputField;
-        });
-        children.error404 = new (0, _index.Link)({
-            props: {
-                label: (0, _loginDataDefault.default).errorLink[404].name,
-                htmlClasses: [
-                    (0, _loginDataDefault.default).errorLink[404].class
-                ],
-                events: {
-                    click: [
-                        function() {
-                            this.router.go((0, _router.AppRoutes).Error);
-                        }
-                    ]
-                }
-            }
-        });
-        children.error505 = new (0, _index.Link)({
-            props: {
-                label: (0, _loginDataDefault.default).errorLink[505].name,
-                htmlClasses: [
-                    (0, _loginDataDefault.default).errorLink[505].class
-                ],
-                events: {
-                    click: [
-                        function() {
-                            this.router.go((0, _router.AppRoutes).Error);
-                        }
-                    ]
-                }
-            }
-        });
+        children.loginForm = new (0, _formComponents.LoginPageForm)();
         super({
             children,
             componentName: (0, _loginDataDefault.default).page,
@@ -914,7 +842,7 @@ class LoginPage extends (0, _dom.Block) {
     }
 }
 
-},{"core/dom":"3BLMu","components/index":"dHnah","./loginData":"4Pgai","./loginTemplate":"1P9m9","core/router":"6PhbH","hocs":"8D4Xk","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3BLMu":[function(require,module,exports) {
+},{"core/dom":"3BLMu","./loginData":"4Pgai","./loginTemplate":"1P9m9","./formComponents":"1lBVe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3BLMu":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "BlockCommonEvents", ()=>(0, _blockBase.BlockCommonEvents));
@@ -1258,7 +1186,6 @@ var _objectsHandle = require("utils/objects-handle");
 var _blockBase = require("./block-base");
 var _blockBaseDefault = parcelHelpers.interopDefault(_blockBase);
 class Block extends (0, _blockBaseDefault.default) {
-    // public store?: Store;
     wasRendered = false;
     constructor({ componentName , props ={} , children ={} , refs ={} , state ={} , helpers ={}  } = {}){
         super();
@@ -12743,22 +12670,123 @@ function renderDOM({ rootSelector ="#app" , component  }) {
     root.append(element);
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dHnah":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4Pgai":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "Button", ()=>(0, _button.Button));
-parcelHelpers.export(exports, "Link", ()=>(0, _component.Link));
-parcelHelpers.export(exports, "Input", ()=>(0, _input.Input));
-parcelHelpers.export(exports, "InputValidator", ()=>(0, _input.InputValidator));
+const loginData = {
+    page: "Login Page",
+    formClass: "auth__form",
+    inputFields: [
+        {
+            type: "text",
+            name: "login",
+            placeholder: "Введите логин",
+            label: "Логин"
+        },
+        {
+            type: "password",
+            name: "password",
+            placeholder: "Введите пароль",
+            label: "Пароль"
+        }
+    ],
+    pageTitle: "Вход",
+    link: {
+        name: "Нет аккаунта?",
+        htmlName: "Registration",
+        class: "auth__noaccount"
+    },
+    submitButtonLabel: "Авторизоваться",
+    errorLabel: [
+        "errorLogin",
+        "errorPassword"
+    ],
+    errorLink: {
+        404: {
+            name: "error 404 page",
+            htmlName: "Error 404 page",
+            class: "auth__error"
+        },
+        505: {
+            name: "error 505 page",
+            htmlName: "Error 505 page",
+            class: "auth__error"
+        }
+    }
+};
+exports.default = loginData;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1P9m9":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+exports.default = `
+<main class='auth__container'>
+  {{{ loginForm }}}
+</main>`;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1lBVe":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "LoginPageForm", ()=>(0, _component.LoginPageForm));
+parcelHelpers.export(exports, "EnumInputFields", ()=>(0, _fields.EnumInputFields));
+var _component = require("./component");
+var _fields = require("./fields");
+
+},{"./component":"bEEqB","./fields":"7qrY1","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bEEqB":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "LoginPageForm", ()=>LoginPageForm);
+var _components = require("components");
+var _validationCallback = require("./validationCallback");
+var _loginData = require("../loginData");
+var _loginDataDefault = parcelHelpers.interopDefault(_loginData);
+var _fields = require("./fields");
+class LoginPageForm extends (0, _components.InputForm) {
+    constructor(){
+        super({
+            enumInputFieldsNames: (0, _fields.EnumInputFields),
+            mapInputToProps: (0, _fields.MapInputFieldsProps),
+            props: {
+                afterValidationCallback: (0, _validationCallback.afterValidationCallback),
+                formTitle: (0, _loginDataDefault.default).pageTitle,
+                htmlClasses: [
+                    (0, _loginDataDefault.default).formClass
+                ],
+                type: "login",
+                label: "Авторизоваться"
+            }
+        });
+    }
+}
+
+},{"components":"dHnah","./validationCallback":"ljkAW","../loginData":"4Pgai","./fields":"7qrY1","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dHnah":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Button", ()=>(0, _basicButton.Button));
+parcelHelpers.export(exports, "Link", ()=>(0, _link.Link));
+parcelHelpers.export(exports, "Input", ()=>(0, _basicInput.Input));
+parcelHelpers.export(exports, "InputWithValidation", ()=>(0, _inputs.InputWithValidation));
+parcelHelpers.export(exports, "FileInput", ()=>(0, _inputs.FileInput));
+parcelHelpers.export(exports, "InputForm", ()=>(0, _inputs.InputForm));
 parcelHelpers.export(exports, "TextComponent", ()=>(0, _text.TextComponent));
 parcelHelpers.export(exports, "ImageComponent", ()=>(0, _image.ImageComponent));
-var _button = require("./button/button");
-var _component = require("./link/component");
-var _input = require("./input/input");
+parcelHelpers.export(exports, "ModalWindow", ()=>(0, _modal.ModalWindow));
+var _basicButton = require("./buttons/basicButton");
+var _link = require("./link");
+var _basicInput = require("./inputs/basicInput");
+var _inputs = require("./inputs");
 var _text = require("./text");
 var _image = require("./image");
+var _modal = require("./modal");
 
-},{"./button/button":"9lSjy","./link/component":"3rKQe","./input/input":"fIx3g","./text":"6Xncd","./image":"8UAPc","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9lSjy":[function(require,module,exports) {
+},{"./buttons/basicButton":"5KyQc","./link":"hjADv","./inputs/basicInput":"eC8jo","./inputs":"fRfcK","./text":"6Xncd","./image":"8UAPc","./modal":"k4trj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5KyQc":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "TButtonProps", ()=>(0, _component.TButtonProps));
+parcelHelpers.export(exports, "Button", ()=>(0, _component.Button));
+var _component = require("./component");
+
+},{"./component":"gLC97","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gLC97":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Button", ()=>Button);
@@ -12766,42 +12794,39 @@ var _dom = require("core/dom");
 var _template = require("./template");
 var _templateDefault = parcelHelpers.interopDefault(_template);
 class Button extends (0, _dom.Block) {
-    constructor({ // props = { componentName: 'Button' },
-    props ={} , refs ={} , state ={}  }){
-        super({
-            props,
-            refs,
-            state
-        });
+    _afterPropsAssignHook() {
+        super._afterPropsAssignHook();
+        this.props.htmlAttributes.type ??= "button";
     }
     render() {
         return 0, _templateDefault.default;
     }
+    toggleDisabledState(state) {
+        const element = this._unwrappedElement;
+        if (state !== undefined) {
+            element.disabled = state;
+            return;
+        }
+        element.disabled = !element.disabled;
+    }
+    click() {
+        this._unwrappedElement.click();
+    }
 }
 
-},{"core/dom":"3BLMu","./template":"eBOr4","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eBOr4":[function(require,module,exports) {
+},{"core/dom":"3BLMu","./template":"idGo2","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"idGo2":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _templateGenerator = require("utils/components/templateGenerator");
 var _templateGeneratorDefault = parcelHelpers.interopDefault(_templateGenerator);
 const tag = "button";
-const attributes = `
-  {{#if type}} 
-    type="{{ type }}" 
-  {{else}} 
-    type="button" 
-  {{/if}}
-`;
 const content = `
 {{#if label}}
   {{ label }}
-{{else}}
-  ""
 {{/if}}
 `;
 exports.default = (0, _templateGeneratorDefault.default)({
     tag,
-    attributes,
     content
 });
 
@@ -12821,7 +12846,14 @@ function getComponentTemplate({ tag , content =null , isSelfClosingTag =false  }
 }
 exports.default = getComponentTemplate;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3rKQe":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hjADv":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "TLinkProps", ()=>(0, _component.TLinkProps));
+parcelHelpers.export(exports, "Link", ()=>(0, _component.Link));
+var _component = require("./component");
+
+},{"./component":"3rKQe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3rKQe":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Link", ()=>Link);
@@ -12851,7 +12883,14 @@ exports.default = (0, _templateGeneratorDefault.default)({
     content
 });
 
-},{"utils/components/templateGenerator":"58Af7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fIx3g":[function(require,module,exports) {
+},{"utils/components/templateGenerator":"58Af7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eC8jo":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "TInputProps", ()=>(0, _component.TInputProps));
+parcelHelpers.export(exports, "Input", ()=>(0, _component.Input));
+var _component = require("./component");
+
+},{"./component":"cTylG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cTylG":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Input", ()=>Input);
@@ -12859,70 +12898,681 @@ var _dom = require("core/dom");
 var _template = require("./template");
 var _templateDefault = parcelHelpers.interopDefault(_template);
 class Input extends (0, _dom.Block) {
-    constructor({ // props = { componentName: 'Input' },
-    props ={} , refs ={}  }){
-        super({
-            // props: { ...props, error: '' },
-            props: {},
-            refs
-        });
-    }
     render() {
         return 0, _templateDefault.default;
     }
-    _preInitHook() {
-        this._bindValidators();
-        this.state = {
-            previousValue: ""
-        };
+    getValue() {
+        const element = this._unwrappedElement;
+        return element.value;
     }
-    _preProxyHook() {
-        const props = this.props;
-        this.validators = props.validators ?? {};
-        delete props.validators;
+    _afterPropsAssignHook() {
+        super._afterPropsAssignHook();
+        this.props.htmlAttributes.value ??= "";
+        this.props.htmlAttributes.type ??= "text";
     }
-    _bindValidators() {
-        Object.entries(this.validators).forEach(([event, validator])=>{
-            const events = this.props.events;
-            if (!events[event]) events[event] = [];
-            const bindedValidator = validator.bind(this);
-            this.validators[event] = bindedValidator;
-            events[event].push(bindedValidator);
-        });
+    toggleDisabledState(state) {
+        const element = this._unwrappedElement;
+        if (state !== undefined) {
+            element.disabled = state;
+            return;
+        }
+        element.disabled = !element.disabled;
+    }
+    setValue(value) {
+        const element = this._unwrappedElement;
+        element.value = value;
     }
 }
 
-},{"core/dom":"3BLMu","./template":"alVvI","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"alVvI":[function(require,module,exports) {
+},{"core/dom":"3BLMu","./template":"gaCIz","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gaCIz":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _templateGenerator = require("utils/components/templateGenerator");
 var _templateGeneratorDefault = parcelHelpers.interopDefault(_templateGenerator);
 const tag = "input";
-const attributes = `
-  {{#if type }}
-    type="{{ type }}"
-  {{else}}
-    type="text"
-  {{/if}}
-
-  {{#if value }}
-    value="{{ value }}"
-  {{/if}}
-
-  {{#if placeholder}}
-    placeholder="{{ placeholder }}"
-  {{/if}}
-
-  {{#if disabledAttr}}
-    disabled
-  {{/if}}
-`;
 exports.default = (0, _templateGeneratorDefault.default)({
-    tag,
-    attributes
+    tag
 });
 
-},{"utils/components/templateGenerator":"58Af7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6Xncd":[function(require,module,exports) {
+},{"utils/components/templateGenerator":"58Af7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fRfcK":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Input", ()=>(0, _basicInput.Input));
+parcelHelpers.export(exports, "FileInput", ()=>(0, _fileInput.FileInput));
+parcelHelpers.export(exports, "InputWithValidation", ()=>(0, _inputValidation.InputWithValidation));
+parcelHelpers.export(exports, "InputForm", ()=>(0, _inputForm.InputForm));
+var _basicInput = require("./basicInput");
+var _fileInput = require("./fileInput");
+var _inputValidation = require("./inputValidation");
+var _inputForm = require("./inputForm");
+
+},{"./basicInput":"eC8jo","./fileInput":"gmiOZ","./inputValidation":"g9Xmr","./inputForm":"65vk3","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gmiOZ":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "FileInput", ()=>(0, _component.FileInput));
+parcelHelpers.export(exports, "EnumFileUploadingStatus", ()=>(0, _component.EnumFileUploadingStatus));
+var _component = require("./component");
+
+},{"./component":"gAibD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gAibD":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "EnumFileUploadingStatus", ()=>EnumFileUploadingStatus);
+parcelHelpers.export(exports, "FileInput", ()=>FileInput);
+var _dom = require("core/dom");
+var _objectsHandle = require("utils/objects-handle");
+var _basicInput = require("components/inputs/basicInput");
+var _basicButton = require("components/buttons/basicButton");
+var _template = require("./template");
+var _templateDefault = parcelHelpers.interopDefault(_template);
+let EnumFileUploadingStatus;
+(function(EnumFileUploadingStatus) {
+    EnumFileUploadingStatus["FileNotSelected"] = "File not selected";
+    EnumFileUploadingStatus["FileSelected"] = "File selected";
+    EnumFileUploadingStatus["FileUploaded"] = "File uploaded";
+})(EnumFileUploadingStatus || (EnumFileUploadingStatus = {}));
+class FileInput extends (0, _dom.Block) {
+    constructor({ fileInputProps , chooseButtonProps ={} , props ={} , helpers  }){
+        const children = {};
+        const fileInput = FileInput._createFileInput(fileInputProps);
+        children.fileInput = fileInput;
+        children.chooseButton = FileInput._createChooseButton(chooseButtonProps, fileInput);
+        super({
+            props,
+            children,
+            helpers
+        });
+    }
+    _afterPropsAssignHook() {
+        super._afterPropsAssignHook();
+        const fileInput = this.children.fileInput;
+        const chooseButton = this.children.chooseButton;
+        fileInput.refs.form = this;
+        chooseButton.refs.fileInput = fileInput;
+    }
+    static _createFileInput(props) {
+        const FileInputDefaultProps = {
+            htmlAttributes: {
+                type: "file",
+                accept: "image/*"
+            },
+            htmlStyle: {
+                display: "none"
+            },
+            events: {
+                change: [
+                    ()=>{}
+                ]
+            }
+        };
+        return new (0, _basicInput.Input)({
+            state: {
+                fileUploadingStatus: "File not selected"
+            },
+            props: (0, _objectsHandle.deepMerge)(FileInputDefaultProps, props)
+        });
+    }
+    static _createChooseButton(props, fileInputRef) {
+        const chooseButtonDefaultProps = {
+            events: {
+                click: [
+                    function() {
+                        const { fileInput  } = this.refs;
+                        fileInput._unwrappedElement.click();
+                    }
+                ]
+            }
+        };
+        return new (0, _basicButton.Button)({
+            props: (0, _objectsHandle.deepMerge)(chooseButtonDefaultProps, props),
+            refs: {
+                fileInput: fileInputRef
+            }
+        });
+    }
+    render() {
+        return 0, _templateDefault.default;
+    }
+}
+
+},{"core/dom":"3BLMu","utils/objects-handle":"kOfSo","components/inputs/basicInput":"eC8jo","components/buttons/basicButton":"5KyQc","./template":"3hEfZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3hEfZ":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+exports.default = `
+  <form enctype="multipart/form-data">
+      {{{ fileInput }}}
+      {{{ chooseButton }}}
+  </form>
+`;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"g9Xmr":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "InputWithValidation", ()=>(0, _component.InputWithValidation));
+parcelHelpers.export(exports, "TInputWithValidationProps", ()=>(0, _component.TInputWithValidationProps));
+parcelHelpers.export(exports, "TInputValidator", ()=>(0, _component.TInputValidator));
+var _component = require("./component");
+
+},{"./component":"6EhPb","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6EhPb":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "InputWithValidation", ()=>InputWithValidation);
+var _basicInput = require("../basicInput");
+const InputExtended = (0, _basicInput.Input);
+class InputWithValidation extends InputExtended {
+    _afterPropsAssignHook() {
+        super._afterPropsAssignHook();
+        this.state.inputError = "";
+        this.props.htmlWrapper ??= {
+            componentAlias: "wrapped",
+            htmlWrapperTemplate: `
+      <div class=${this.props.mainClass}${this.props.htmlAttributes?.name}>
+        <label for="${this.props.htmlAttributes?.name}" class="${this.props.mainClass}${this.props.htmlAttributes?.name}__label">${this.props.label}</label>
+        {{{ wrapped }}}
+        <div class="auth__error__container">
+          \\{{#if inputError}}
+            <span class="${this.props.mainClass}${this.props.htmlAttributes?.name}__error"> \\{{ inputError }} </span>
+          \\{{/if}}
+        </div>
+      </div>
+      `
+        };
+    }
+    _beforePropsProxyHook() {
+        super._beforePropsProxyHook();
+        this.props.validators = this.props.validators ?? {};
+        this._bindValidators();
+    }
+    _bindValidators() {
+        const bindedValidators = {};
+        Object.entries(this.props.validators).forEach(([event, validators])=>{
+            const events = this.props.events;
+            if (!events[event]) events[event] = [];
+            bindedValidators[event] = [];
+            validators.forEach((validator)=>{
+                const bindedValidator = validator.bind(this);
+                bindedValidators[event].push(bindedValidator);
+                events[event].push(bindedValidator);
+            });
+        });
+        this.props.validators = bindedValidators;
+    }
+    getValidators() {
+        return this.props.validators;
+    }
+}
+
+},{"../basicInput":"eC8jo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"65vk3":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "InputForm", ()=>(0, _component.InputForm));
+parcelHelpers.export(exports, "formSubmitButtonCallback", ()=>(0, _submitButton.formSubmitButtonCallback));
+var _component = require("./component");
+var _submitButton = require("./submitButton");
+
+},{"./component":"h7yZQ","./submitButton":"iDUIo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"h7yZQ":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "InputForm", ()=>InputForm);
+var _dom = require("core/dom");
+var _inputValidation = require("../inputValidation");
+var _submitButton = require("./submitButton");
+var _template = require("./template");
+var _templateDefault = parcelHelpers.interopDefault(_template);
+var _hocs = require("hocs");
+var _link = require("components/link");
+var _loginData = require("pages/login/loginData");
+var _loginDataDefault = parcelHelpers.interopDefault(_loginData);
+var _router = require("core/router");
+var _registrationData = require("pages/registration/registrationData");
+var _registrationDataDefault = parcelHelpers.interopDefault(_registrationData);
+const LinkWithRouter = (0, _hocs.WithRouter)((0, _link.Link));
+class InputForm extends (0, _dom.Block) {
+    static validationFailedError = "Form has input errors";
+    constructor({ enumInputFieldsNames , InputClass =(0, _inputValidation.InputWithValidation) , mapInputToProps ={} , mapInputToHelpers ={} , props ={} , helpers ={}  }){
+        const children = {};
+        const refs = {};
+        Object.values(enumInputFieldsNames).forEach((fieldName)=>{
+            const inputField = new InputClass({
+                componentName: `${fieldName} input with validation`,
+                props: mapInputToProps[fieldName] ?? {},
+                helpers: mapInputToHelpers[fieldName] ?? {}
+            });
+            children[`${fieldName}_child`] = inputField;
+            refs[fieldName] = inputField;
+        });
+        const state = {
+            apiResponseError: "",
+            apiResponseSuccess: ""
+        };
+        super({
+            children,
+            props: {
+                formTitle: "",
+                isSubmitButtonNeeded: true,
+                afterValidationCallback: ()=>{},
+                ...props
+            },
+            refs,
+            state,
+            helpers: {
+                enumInputFieldsNames,
+                ...helpers
+            }
+        });
+    }
+    render() {
+        return (0, _templateDefault.default)(this.helpers.enumInputFieldsNames);
+    }
+    _afterPropsAssignHook() {
+        super._afterPropsAssignHook();
+        Object.values(this.refs).forEach((inputField)=>{
+            inputField.refs.Form = this;
+        });
+    }
+    _beforeRenderHook() {
+        super._beforeRenderHook();
+        if (this.props.isSubmitButtonNeeded && !this.children.submitButton) this.children.submitButton = new (0, _submitButton.FormSubmitButton)({
+            form: this
+        }, this.props.label);
+        this.children.link = this.props.type === "login" ? new LinkWithRouter({
+            props: {
+                label: (0, _loginDataDefault.default).link.name,
+                htmlName: (0, _loginDataDefault.default).link.htmlName,
+                htmlClasses: [
+                    (0, _loginDataDefault.default).link.class
+                ],
+                events: {
+                    click: [
+                        function() {
+                            this.router.go((0, _router.AppRoutes).Registration);
+                        }
+                    ]
+                }
+            }
+        }) : new LinkWithRouter({
+            props: {
+                label: (0, _registrationDataDefault.default).link.name,
+                htmlName: (0, _registrationDataDefault.default).link.htmlName,
+                htmlClasses: [
+                    (0, _registrationDataDefault.default).link.class
+                ],
+                events: {
+                    click: [
+                        function() {
+                            this.router.go((0, _router.AppRoutes).Login);
+                        }
+                    ]
+                }
+            }
+        });
+    }
+    // @ts-ignore '_validateForm' is declared but its value is never read
+    _validateForm() {
+        let formHasInputErrors = false;
+        Object.values(this.refs).forEach((inputField)=>{
+            const validators = inputField.getValidators();
+            const validatorsByEvent = Object.values(validators);
+            for (const eventValidators of validatorsByEvent)for (const validator of eventValidators){
+                const validationResult = validator();
+                if (!validationResult) {
+                    formHasInputErrors = true;
+                    return;
+                }
+            }
+        });
+        if (formHasInputErrors) {
+            console.log(`Form has input errors: ${JSON.stringify(this.state)}`);
+            this.state.apiResponseError = InputForm.validationFailedError;
+        } else this.state.apiResponseError = "";
+    }
+    collectFormData() {
+        return Object.entries(this.refs).reduce((acc, [fieldName, inputField])=>{
+            acc[fieldName] = inputField.getValue();
+            return acc;
+        }, {});
+    }
+    getAPIResponseError() {
+        return this.state.apiResponseError;
+    }
+}
+
+},{"core/dom":"3BLMu","../inputValidation":"g9Xmr","./submitButton":"iDUIo","./template":"bNWNu","hocs":"8D4Xk","components/link":"hjADv","pages/login/loginData":"4Pgai","core/router":"6PhbH","pages/registration/registrationData":"5QT42","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iDUIo":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "formSubmitButtonCallback", ()=>formSubmitButtonCallback);
+parcelHelpers.export(exports, "FormSubmitButton", ()=>FormSubmitButton);
+var _components = require("components");
+async function formSubmitButtonCallback() {
+    const { form  } = this.refs;
+    this.state.apiResponseSuccess = "";
+    form._validateForm();
+    if (form.state.apiResponseError !== form.constructor.validationFailedError) await form.props.afterValidationCallback.call(form);
+}
+class FormSubmitButton extends (0, _components.Button) {
+    constructor(refs, label){
+        super({
+            refs,
+            props: {
+                label: label,
+                htmlClasses: [
+                    "buttonAuth"
+                ],
+                events: {
+                    click: [
+                        formSubmitButtonCallback
+                    ]
+                }
+            }
+        });
+    }
+}
+
+},{"components":"dHnah","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bNWNu":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _templateGenerator = require("utils/components/templateGenerator");
+var _templateGeneratorDefault = parcelHelpers.interopDefault(_templateGenerator);
+function getInputFormTemplate(enumFormFieldsNames) {
+    const tag = "form";
+    let content = `
+    {{#if formTitle}} 
+      <h2 class='auth__form__title'>{{{ formTitle }}}</h2>
+    {{/if}}
+  `;
+    Object.values(enumFormFieldsNames).forEach((fieldName)=>{
+        content = `
+      ${content}
+      {{{ ${fieldName}_child }}}
+    `;
+    });
+    content = `
+      ${content}
+      <div class="api-success">
+        {{#if apiResponseSuccess }} 
+          <span class="api-success"> {{ apiResponseSuccess }} </span>
+        {{/if}}
+      </div>
+      <div class="api-error">
+        {{#if apiResponseError }} 
+          <span> {{ apiResponseError }} </span>
+        {{/if}}
+      </div>
+      {{#if isSubmitButtonNeeded}}
+        <div class="auth__form__buttonContainer">
+          {{{ submitButton }}}
+          {{{ link }}}
+        </div>
+      {{/if}}
+  `;
+    return (0, _templateGeneratorDefault.default)({
+        tag,
+        content
+    });
+}
+exports.default = getInputFormTemplate;
+
+},{"utils/components/templateGenerator":"58Af7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8D4Xk":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "WithRouter", ()=>(0, _withRouter.WithRouter));
+parcelHelpers.export(exports, "WithStore", ()=>(0, _withStore.WithStore));
+var _withRouter = require("./withRouter");
+var _withStore = require("./withStore");
+
+},{"./withRouter":"kYXgc","./withStore":"45TSc","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kYXgc":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "WithRouter", ()=>WithRouter);
+function WithRouter(ComponentClass) {
+    return class WrappedComponent extends ComponentClass {
+        _beforePropsAssignHook() {
+            this.router = window.router;
+            super._beforePropsAssignHook();
+        }
+    };
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"45TSc":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "WithStore", ()=>WithStore);
+function WithStore(ComponentClass) {
+    class WithStoreComponent extends ComponentClass {
+        _beforePropsAssignHook() {
+            this.store = window.store;
+            super._beforePropsAssignHook();
+        }
+    }
+    return WithStoreComponent;
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6PhbH":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Router", ()=>(0, _router.Router));
+parcelHelpers.export(exports, "RouterCore", ()=>(0, _routerCore.RouterCore));
+parcelHelpers.export(exports, "AppRoutes", ()=>(0, _routerData.AppRoutes));
+parcelHelpers.export(exports, "AppRoutesData", ()=>(0, _routerData.AppRoutesData));
+var _router = require("./router");
+var _routerCore = require("./routerCore");
+var _routerData = require("./routerData");
+
+},{"./router":"8L95r","./routerCore":"9SKIB","./routerData":"84HBD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8L95r":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Router", ()=>Router);
+var _routerData = require("./routerData");
+class Router {
+    routes = {};
+    isStarted = false;
+    init() {
+        this.routesData = (0, _routerData.AppRoutesData);
+        const { store  } = window;
+        Object.entries(this.routesData).forEach(([routeName, routeData])=>{
+            this.use(routeName, ()=>{
+                if (store.isUserAuthorized() || !routeData.needAuthorization) store.dispatch({
+                    page: routeData.block
+                });
+                else store.dispatch({
+                    page: this.routesData[(0, _routerData.AppRoutes).Error].block
+                });
+            });
+        });
+    }
+    start(startRoute, startPathname) {
+        if (this.isStarted) return;
+        // console.log(`Router starts on window path '${window.location.pathname}'`);
+        // console.log(`Start route is '${startRoute}' on path '${startPathname}'`);
+        if (startRoute !== (0, _routerData.AppRoutes).Error) window.history.replaceState({}, "", startPathname);
+        this.onRouteChange(startRoute);
+        window.onpopstate = (function() {
+            const currentPath = this.getCurrentPath();
+            console.log(`ONPOPSTATE: ${currentPath}`);
+            const { route  } = this.matchRouteByPath(currentPath);
+            this.onRouteChange.call(this, route);
+        }).bind(this);
+        this.isStarted = true;
+    }
+    onRouteChange(route) {
+        const renderFunction = this.routes[route] ?? this.routes[(0, _routerData.AppRoutes).Error];
+        renderFunction();
+    }
+    use(route, renderFunction) {
+        this.routes[route] = renderFunction;
+        return this;
+    }
+    go(route) {
+        console.log(`Go to route '${route}'`);
+        const { path  } = this.routesData[route];
+        window.history.pushState({}, "", path);
+        console.log(`Go: state pushed to ${path}'`);
+        this.onRouteChange(route);
+    }
+    back() {
+        window.history.back();
+    }
+    forward() {
+        window.history.forward();
+    }
+    matchRouteByPath(pathname) {
+        if (pathname === "/") {
+            let route;
+            if (window.store.isUserAuthorized()) route = (0, _routerData.AppRoutes).Chat;
+            else route = (0, _routerData.AppRoutes).Login;
+            const path = this.routesData[route].path;
+            return {
+                route,
+                path
+            };
+        }
+        let route1 = (0, _routerData.MapPathToRoute)[pathname];
+        if (route1) console.log(`pathname "${pathname}" matches "${route1}" route`);
+        else {
+            console.log(`no routes matching pathname "${pathname}"`);
+            route1 = (0, _routerData.AppRoutes).Error;
+        }
+        return {
+            route: route1,
+            path: pathname
+        };
+    }
+    getPathByRoute(route) {
+        return this.routesData[route].path;
+    }
+    getCurrentPath() {
+        return window.location.pathname;
+    }
+}
+
+},{"./routerData":"84HBD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"84HBD":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "AppRoutes", ()=>AppRoutes);
+parcelHelpers.export(exports, "AppRoutesData", ()=>AppRoutesData);
+parcelHelpers.export(exports, "MapPathToRoute", ()=>MapPathToRoute);
+var _appPages = require("pages/appPages");
+let AppRoutes;
+(function(AppRoutes) {
+    AppRoutes["Login"] = "login_route";
+    AppRoutes["Registration"] = "registration_route";
+    AppRoutes["Chat"] = "chat_route";
+    AppRoutes["Profile"] = "profile_route";
+    AppRoutes["ChangePassword"] = "changePassword_route";
+    AppRoutes["Error"] = "error_route";
+})(AppRoutes || (AppRoutes = {}));
+const AppRoutesData = {
+    ["login_route"]: {
+        path: "/login",
+        block: (0, _appPages.AppPages).Login,
+        needAuthorization: false
+    },
+    ["registration_route"]: {
+        path: "/registration",
+        block: (0, _appPages.AppPages).Registration,
+        needAuthorization: false
+    },
+    ["chat_route"]: {
+        path: "/chat",
+        block: (0, _appPages.AppPages).Chat,
+        needAuthorization: true
+    },
+    ["profile_route"]: {
+        path: "/profile",
+        block: (0, _appPages.AppPages).Profile,
+        needAuthorization: true
+    },
+    ["changePassword_route"]: {
+        path: "/сhangePassword",
+        block: (0, _appPages.AppPages).ChangePassword,
+        needAuthorization: true
+    },
+    ["error_route"]: {
+        block: (0, _appPages.AppPages).Error,
+        needAuthorization: false
+    }
+};
+const MapPathToRoute = {
+    "/registration": "registration_route",
+    "/login": "login_route",
+    "/chats": "chat_route",
+    "/profile": "profile_route",
+    "/changePassword": "changePassword_route"
+};
+
+},{"pages/appPages":"c7aIo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9SKIB":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5QT42":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+const regData = {
+    page: "Registration Page",
+    formClass: "auth__registration_form",
+    inputFields: [
+        {
+            type: "text",
+            name: "email",
+            placeholder: "Введите email",
+            label: "Почта"
+        },
+        {
+            type: "text",
+            name: "login",
+            placeholder: "Введите логин",
+            label: "Логин"
+        },
+        {
+            type: "text",
+            name: "first_name",
+            placeholder: "Введите Имя",
+            label: "Имя"
+        },
+        {
+            type: "text",
+            name: "second_name",
+            placeholder: "Введите фамилию",
+            label: "Фамилия"
+        },
+        {
+            type: "text",
+            name: "phone",
+            placeholder: "Введите телефон",
+            label: "Телефон"
+        },
+        {
+            type: "password",
+            name: "password",
+            placeholder: "Введите пароль",
+            label: "Пароль"
+        },
+        {
+            type: "password",
+            name: "passwordCheck",
+            placeholder: "Введите пароль повторно",
+            label: "Пароль (еще раз)"
+        }
+    ],
+    pageTitle: "Регистрация",
+    link: {
+        name: "Войти",
+        htmlName: "Login",
+        class: "auth__noaccount"
+    },
+    submitButtonLabel: "Зарегистрироваться",
+    errorLabel: [
+        "errorEmail",
+        "errorLogin",
+        "errorFirstName",
+        "errorSecondName",
+        "errorPhone",
+        "errorPassword",
+        "errorPasswordCheck"
+    ]
+};
+exports.default = regData;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6Xncd":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "TextComponent", ()=>(0, _component.TextComponent));
@@ -13073,7 +13723,6 @@ var _objectsHandle = require("utils/objects-handle");
 var _blockBase = require("./block-base");
 var _blockBaseDefault = parcelHelpers.interopDefault(_blockBase);
 class Block extends (0, _blockBaseDefault.default) {
-    // public store?: Store;
     wasRendered = false;
     constructor({ componentName , props ={} , children ={} , refs ={} , state ={} , helpers ={}  } = {}){
         super();
@@ -13289,1875 +13938,135 @@ exports.default = (0, _templateGeneratorDefault.default)({
     isSelfClosingTag: true
 });
 
-},{"utils/components/templateGenerator":"58Af7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4Pgai":[function(require,module,exports) {
+},{"utils/components/templateGenerator":"58Af7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"k4trj":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-const loginData = {
-    page: "Login Page",
-    inputFields: [
-        {
-            type: "text",
-            name: "login",
-            placeholder: "Введите логин",
-            label: "Логин"
-        },
-        {
-            type: "password",
-            name: "password",
-            placeholder: "Введите пароль",
-            label: "Пароль"
-        }
-    ],
-    pageTitle: "Вход",
-    link: {
-        name: "Нет аккаунта?",
-        htmlName: "Registration",
-        class: "auth__noaccount"
-    },
-    submitButtonLabel: "Авторизоваться",
-    errorLabel: [
-        "errorLogin",
-        "errorPassword"
-    ],
-    errorLink: {
-        404: {
-            name: "error 404 page",
-            htmlName: "Error 404 page",
-            class: "auth__error"
-        },
-        505: {
-            name: "error 505 page",
-            htmlName: "Error 505 page",
-            class: "auth__error"
-        }
-    }
-};
-exports.default = loginData;
+parcelHelpers.export(exports, "ModalWindow", ()=>(0, _component.ModalWindow));
+var _component = require("./component");
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1P9m9":[function(require,module,exports) {
+},{"./component":"8OsrV","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8OsrV":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-var _loginData = require("./loginData");
-var _loginDataDefault = parcelHelpers.interopDefault(_loginData);
-exports.default = `
-<main class='auth__container'>
-  <form class='auth__form'>
-    <h2 class='auth__form__title'>${(0, _loginDataDefault.default).pageTitle}</h2>
-    <div class="auth__form__login">
-      {{{ loginField }}}
-      <span class='auth__form__login__error'>
-        {{{ loginError }}}
-      </span>
-    </div>
-    <div class="auth__form__password">
-      {{{ passwordField }}}
-      <span class='auth__form__password__error'>
-        {{{ passwordError }}}
-      </span>
-    </div>
-    <div class='auth__form__buttonContainer'>
-      {{{ button }}}
-      {{{ registration }}}
-    </div>
-  </form>
-  <footer class='auth__error__container'>
-    {{{error404}}}
-    {{{error505}}}
-  </footer>
-</main>`;
-
-},{"./loginData":"4Pgai","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6PhbH":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "Router", ()=>(0, _router.Router));
-parcelHelpers.export(exports, "RouterCore", ()=>(0, _routerCore.RouterCore));
-parcelHelpers.export(exports, "AppRoutes", ()=>(0, _routerData.AppRoutes));
-parcelHelpers.export(exports, "AppRoutesData", ()=>(0, _routerData.AppRoutesData));
-var _router = require("./router");
-var _routerCore = require("./routerCore");
-var _routerData = require("./routerData");
-
-},{"./router":"8L95r","./routerCore":"9SKIB","./routerData":"84HBD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8L95r":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "Router", ()=>Router);
-var _routerData = require("./routerData");
-class Router {
-    routes = {};
-    isStarted = false;
-    init() {
-        this.routesData = (0, _routerData.AppRoutesData);
-        const { store  } = window;
-        Object.entries(this.routesData).forEach(([routeName, routeData])=>{
-            this.use(routeName, ()=>{
-                if (store.isUserAuthorized() || !routeData.needAuthorization) store.dispatch({
-                    page: routeData.block
-                });
-                else store.dispatch({
-                    page: this.routesData[(0, _routerData.AppRoutes).Error].block
-                });
-            });
-        });
-    }
-    start(startRoute, startPathname) {
-        if (this.isStarted) return;
-        console.log(`Router starts on window path '${window.location.pathname}'`);
-        console.log(`Start route is '${startRoute}' on path '${startPathname}'`);
-        if (startRoute !== (0, _routerData.AppRoutes).Error) {
-            window.history.replaceState({}, "", startPathname);
-            console.log(`Router Start: replace state to '${startPathname}'`);
-        }
-        this.onRouteChange(startRoute);
-        window.onpopstate = (function() {
-            const currentPath = this.getCurrentPath();
-            console.log(`ONPOPSTATE: ${currentPath}`);
-            const { route  } = this.matchRouteByPath(currentPath);
-            this.onRouteChange.call(this, route);
-        }).bind(this);
-        this.isStarted = true;
-    }
-    onRouteChange(route) {
-        console.log(`onRouteChange ('${route}' route)`);
-        const renderFunction = this.routes[route] ?? this.routes[(0, _routerData.AppRoutes).Error];
-        renderFunction();
-    }
-    use(route, renderFunction) {
-        this.routes[route] = renderFunction;
-        return this;
-    }
-    go(route) {
-        console.log(`Go to route '${route}'`);
-        const { path  } = this.routesData[route];
-        window.history.pushState({}, "", path);
-        console.log(`Go: state pushed to ${path}'`);
-        this.onRouteChange(route);
-    }
-    back() {
-        window.history.back();
-    }
-    forward() {
-        window.history.forward();
-    }
-    matchRouteByPath(pathname) {
-        if (pathname === "/") {
-            let route;
-            if (window.store.isUserAuthorized()) route = (0, _routerData.AppRoutes).Chat;
-            else route = (0, _routerData.AppRoutes).Login;
-            const path = this.routesData[route].path;
-            return {
-                route,
-                path
-            };
-        }
-        let route1 = (0, _routerData.MapPathToRoute)[pathname];
-        if (route1) console.log(`pathname "${pathname}" matches "${route1}" route`);
-        else {
-            console.log(`no routes matching pathname "${pathname}"`);
-            route1 = (0, _routerData.AppRoutes).Error;
-        }
-        return {
-            route: route1,
-            path: pathname
-        };
-    }
-    getPathByRoute(route) {
-        return this.routesData[route].path;
-    }
-    getCurrentPath() {
-        return window.location.pathname;
-    }
-}
-
-},{"./routerData":"84HBD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"84HBD":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "AppRoutes", ()=>AppRoutes);
-parcelHelpers.export(exports, "AppRoutesData", ()=>AppRoutesData);
-parcelHelpers.export(exports, "MapPathToRoute", ()=>MapPathToRoute);
-var _appPages = require("pages/appPages");
-let AppRoutes;
-(function(AppRoutes) {
-    AppRoutes["Login"] = "login_route";
-    AppRoutes["Registration"] = "registration_route";
-    AppRoutes["Chat"] = "chat_route";
-    AppRoutes["Profile"] = "profile_route";
-    AppRoutes["ChangePassword"] = "changePassword_route";
-    AppRoutes["Error"] = "error_route";
-})(AppRoutes || (AppRoutes = {}));
-const AppRoutesData = {
-    ["login_route"]: {
-        path: "/login",
-        block: (0, _appPages.AppPages).Login,
-        needAuthorization: false
-    },
-    ["registration_route"]: {
-        path: "/registration",
-        block: (0, _appPages.AppPages).Registration,
-        needAuthorization: false
-    },
-    ["chat_route"]: {
-        path: "/chat",
-        block: (0, _appPages.AppPages).Chat,
-        needAuthorization: true
-    },
-    ["profile_route"]: {
-        path: "/profile",
-        block: (0, _appPages.AppPages).Profile,
-        needAuthorization: true
-    },
-    ["changePassword_route"]: {
-        path: "/сhangePassword",
-        block: (0, _appPages.AppPages).ChangePassword,
-        needAuthorization: true
-    },
-    ["error_route"]: {
-        block: (0, _appPages.AppPages).Error,
-        needAuthorization: false
-    }
-};
-const MapPathToRoute = {
-    "/registration": "registration_route",
-    "/login": "login_route",
-    "/chats": "chat_route",
-    "/profile": "profile_route",
-    "/changePassword": "changePassword_route"
-};
-
-},{"pages/appPages":"c7aIo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9SKIB":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8D4Xk":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "WithRouter", ()=>(0, _withRouter.WithRouter));
-parcelHelpers.export(exports, "WithStore", ()=>(0, _withStore.WithStore));
-var _withRouter = require("./withRouter");
-var _withStore = require("./withStore");
-
-},{"./withRouter":"kYXgc","./withStore":"45TSc","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kYXgc":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "WithRouter", ()=>WithRouter);
-function WithRouter(ComponentClass) {
-    return class WrappedComponent extends ComponentClass {
-        _beforePropsAssignHook() {
-            this.router = window.router;
-            super._beforePropsAssignHook();
-        }
-    };
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"45TSc":[function(require,module,exports) {
-// import { Store } from "core/store";
-// export function WithStore<
-//   P extends TComponentCommonProps,
-//   S extends TComponentState
-// >(ComponentClass: BlockClass<P, S>) {
-//   class WithStoreComponent extends ComponentClass {
-//     public store: Store;
-//     protected _beforePropsAssignHook() {
-//       this.store = window.store;
-//       super._beforePropsAssignHook();
-//     }
-//   }
-//   return WithStoreComponent;
-// }
-
-},{}],"ipn4T":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "RegistrationPage", ()=>RegistrationPage);
+parcelHelpers.export(exports, "ModalWindow", ()=>ModalWindow);
+var _buttons = require("components/buttons");
 var _dom = require("core/dom");
-var _index = require("components/index");
-var _registrationTemplate = require("./registrationTemplate");
-var _registrationTemplateDefault = parcelHelpers.interopDefault(_registrationTemplate);
-var _registrationData = require("./registrationData");
-var _registrationDataDefault = parcelHelpers.interopDefault(_registrationData);
-var _router = require("core/router");
-var _hocs = require("hocs");
-const LinkWithRouter = (0, _hocs.WithRouter)((0, _index.Link));
-class RegistrationPage extends (0, _dom.Block) {
-    constructor(){
-        const children = {};
-        const refs = {};
-        children.loginLink = new LinkWithRouter({
+var _template = require("./template");
+var _templateDefault = parcelHelpers.interopDefault(_template);
+class ModalWindow extends (0, _dom.Block) {
+    _afterPropsAssignHook() {
+        super._afterPropsAssignHook();
+        this.contentType = "";
+        this.children.closeButton = this._createCloseButton();
+        this.children.content = new (0, _dom.Block)();
+    }
+    _createCloseButton() {
+        return new (0, _buttons.Button)({
+            refs: {
+                modalWindow: this
+            },
             props: {
-                label: (0, _registrationDataDefault.default).link.name,
-                htmlName: (0, _registrationDataDefault.default).link.htmlName,
-                htmlClass: (0, _registrationDataDefault.default).link.class,
+                htmlClasses: [
+                    "close-button"
+                ],
+                label: "\xd7",
                 events: {
                     click: [
                         function() {
-                            this.router.go((0, _router.AppRoutes).Login);
+                            this.refs.modalWindow.toggleVisibility();
                         }
                     ]
                 }
             }
         });
-        // regData.inputFields.forEach(({ type, name, placeholder, label }) => {
-        //   const inputField = new Input({
-        //     props: {
-        //       placeholder,
-        //       type: type,
-        //       htmlName: name,
-        //       htmlClass: `auth__registration_form__${name}__input`,
-        //       componentName: `${name} input with validation`,
-        //       htmlWrapper: {
-        //         componentAlias: 'wrapped',
-        //         htmlWrapperTemplate: `
-        //         <div">
-        //           <label for="login" class="auth__registration_form__label">${label}</label>
-        //           {{{ wrapped }}}
-        //         </div>
-        //         `,
-        //       },
-        //       validators: {
-        //         blur: InputValidators[name],
-        //       },
-        //     },
-        //   });
-        //   children[`${name}Field`] = inputField;
-        //   refs[`${name}Field`] = inputField;
-        // });
-        super({
-            children,
-            componentName: (0, _registrationDataDefault.default).page,
-            refs
-        });
     }
     render() {
-        return 0, _registrationTemplateDefault.default;
+        return 0, _templateDefault.default;
+    }
+    getContentType() {
+        return this.contentType;
+    }
+    setContent(newContentBlock) {
+        const oldContentType = this.contentType;
+        const newContentType = newContentBlock.componentName;
+        console.log(`MODAL CONTENT: ${oldContentType} -> ${newContentType}`);
+        this.setChildByPath("content", newContentBlock);
+    }
+    toggleVisibility(state) {
+        this.toggleHtmlClass("show-modal", state);
     }
 }
 
-},{"core/dom":"3BLMu","components/index":"dHnah","./registrationTemplate":"7ZMRz","./registrationData":"5QT42","hocs":"8D4Xk","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","core/router":"6PhbH"}],"7ZMRz":[function(require,module,exports) {
+},{"components/buttons":"fWrjK","core/dom":"3BLMu","./template":"kPoiY","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fWrjK":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-var _registrationData = require("./registrationData");
-var _registrationDataDefault = parcelHelpers.interopDefault(_registrationData);
-exports.default = `
-<main class='auth__container'>
-  <form class='auth__registration_form'>
-    <h2 class='auth__registration_form__title'>${(0, _registrationDataDefault.default).pageTitle}</h2>
-    <div class='auth__registration_form__email'>
-      {{{ emailField }}}
-      <span class='auth__registration_form__email__error'>
-        {{{ emailError }}}
-      </span>
-    </div>
-    <div class='auth__registration_form__login'>
-      {{{ loginField }}}
-      <span class='auth__registration_form__login__error'>
-        {{{ loginError }}}
-      </span>
-    </div>
-    <div class='auth__registration_form__first_name'>
-      {{{ first_nameField }}}
-      <span class='auth__registration_form__first_name__error'>
-        {{{ first_nameError }}}
-      </span>
-    </div>
-    <div class='auth__registration_form__second_name'>
-      {{{ second_nameField }}}
-      <span class='auth__registration_form__second_name__error'>
-        {{{ second_nameError }}}
-      </span>
-    </div>
-    <div class='auth__registration_form__phone'>
-      {{{ phoneField }}}
-      <span class='auth__registration_form__phone__error'>
-        {{{ phoneError }}}
-      </span>
-    </div>
-    <div class='auth__registration_form__password'>
-      {{{ passwordField }}}
-      <span class='auth__registration_form__password__error'>
-        {{{ passwordError }}}
-      </span>
-    </div>
-    <div class='auth__registration_form__passwordCheck'>
-      {{{ passwordCheckField }}}
-      <span class='auth__registration_form__passwordCheck__error'>
-        {{{ passwordCheckError }}}
-      </span>
-    </div>
-    <footer class='auth__registration_form__buttonContainer'>
-      {{{ button }}}
-      {{{ loginLink }}}
-    </footer>
-  </form>
-</main>`;
+parcelHelpers.export(exports, "TButtonProps", ()=>(0, _basicButton.TButtonProps));
+parcelHelpers.export(exports, "Button", ()=>(0, _basicButton.Button));
+parcelHelpers.export(exports, "LogoutButton", ()=>(0, _logoutButton.LogoutButton));
+var _basicButton = require("./basicButton");
+var _logoutButton = require("./logout-button");
 
-},{"./registrationData":"5QT42","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5QT42":[function(require,module,exports) {
+},{"./basicButton":"5KyQc","./logout-button":"7lyDT","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7lyDT":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-const regData = {
-    page: "Registration Page",
-    inputFields: [
-        {
-            type: "text",
-            name: "email",
-            placeholder: "Введите email",
-            label: "Почта"
-        },
-        {
-            type: "text",
-            name: "login",
-            placeholder: "Введите логин",
-            label: "Логин"
-        },
-        {
-            type: "text",
-            name: "first_name",
-            placeholder: "Введите Имя",
-            label: "Имя"
-        },
-        {
-            type: "text",
-            name: "second_name",
-            placeholder: "Введите фамилию",
-            label: "Фамилия"
-        },
-        {
-            type: "text",
-            name: "phone",
-            placeholder: "Введите телефон",
-            label: "Телефон"
-        },
-        {
-            type: "password",
-            name: "password",
-            placeholder: "Введите пароль",
-            label: "Пароль"
-        },
-        {
-            type: "password",
-            name: "passwordCheck",
-            placeholder: "Введите пароль повторно",
-            label: "Пароль (еще раз)"
-        }
-    ],
-    pageTitle: "Регистрация",
-    link: {
-        name: "Войти",
-        htmlName: "Login",
-        class: "auth__noaccount"
-    },
-    submitButtonLabel: "Зарегистрироваться",
-    errorLabel: [
-        "errorEmail",
-        "errorLogin",
-        "errorFirstName",
-        "errorSecondName",
-        "errorPhone",
-        "errorPassword",
-        "errorPasswordCheck"
-    ]
-};
-exports.default = regData;
+parcelHelpers.export(exports, "LogoutButton", ()=>(0, _component.LogoutButton));
+var _component = require("./component");
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9muaU":[function(require,module,exports) {
+},{"./component":"hgX9X","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hgX9X":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "ChatPage", ()=>ChatPage);
-var _dom = require("core/dom");
-// import { ImageElement, Input, Link, TextElement } from 'components/index';
-var _chatTemplate = require("./chatTemplate");
-var _menuPng = require("static/img/menu.png");
-var _menuPngDefault = parcelHelpers.interopDefault(_menuPng);
-var _attachPng = require("static/img/attach.png");
-var _attachPngDefault = parcelHelpers.interopDefault(_attachPng);
-var _sendPng = require("static/img/send.png");
-var _sendPngDefault = parcelHelpers.interopDefault(_sendPng);
-var _cameraPng = require("static/img/camera.png");
-var _cameraPngDefault = parcelHelpers.interopDefault(_cameraPng);
-var _chatList = require("./chatList");
-var _chatListDefault = parcelHelpers.interopDefault(_chatList);
-var _chatData = require("./chatData");
-// import { MainPage } from 'core/renderDOM';
-var _profile = require("pages/profile/profile");
-var _modal = require("components/modal/modal");
-var _modalMessage = require("components/modal/modalMessage");
-class ChatPage extends (0, _dom.Block) {
-    constructor(){
-        const children = {
-            chats: []
-        };
-        const refs = {};
-        children.modal = new (0, _modal.Modal)({
+parcelHelpers.export(exports, "LogoutButton", ()=>LogoutButton);
+var _components = require("hocs/components");
+var _services = require("services");
+class LogoutButton extends (0, _components.WithRouterButton) {
+    constructor(props){
+        super({
             props: {
-                title: "",
-                inputProps: (0, _modalMessage.modalMessageUsers).inputProps,
-                text: "",
-                error: ""
-            }
-        });
-        refs["modalField"] = children.modal;
-        (0, _chatData.chatList).map(({ username , userImg , lastMessage , lastMessageDate  })=>{
-            children.chats.push(new (0, _chatListDefault.default)({
-                username,
-                userImg,
-                lastMessage,
-                lastMessageDate
-            }));
-        });
-        children.profileLink = new Link({
-            props: {
-                label: (0, _chatData.chatData).link.name,
-                htmlName: (0, _chatData.chatData).link.htmlName,
-                htmlClass: "chat__list__profileLink__icon",
-                htmlWrapper: {
-                    componentAlias: "wrappedLink",
-                    htmlWrapperTemplate: `
-              <div class='chat__list__profileLink'>
-                {{{wrappedLink}}} 
-                <svg
-                  class='chat__list__profileLink__svg'
-                  width='6'
-                  height='10'
-                  viewBox='0 0 6 10'
-                  fill='none'
-                  xmlns='http://www.w3.org/2000/svg'
-                >
-                  <path d='M1 9L5 5L1 1' stroke='#999999'></path>
-                </svg>
-              </div>
-            `
+                label: "Logout",
+                htmlClasses: [
+                    "logout-button"
+                ],
+                events: {
+                    click: [
+                        ()=>{
+                            (0, _services.AuthorizationService).logout();
+                        }
+                    ]
                 },
-                events: {
-                    click: [
-                        ()=>{
-                            MainPage.component = new (0, _profile.ProfilePage)();
-                        }
-                    ]
-                }
+                ...props
             }
         });
-        children.inputFind = new Input({
-            props: {
-                placeholder: (0, _chatData.chatData).inputFindUser.placeholder,
-                type: (0, _chatData.chatData).inputFindUser.type,
-                htmlName: (0, _chatData.chatData).inputFindUser.name,
-                htmlClass: (0, _chatData.chatData).inputFindUser.class,
-                componentName: `${(0, _chatData.chatData).inputFindUser.name} input`,
-                htmlWrapper: {
-                    componentAlias: "wrappedInputFind",
-                    htmlWrapperTemplate: `
-            <div style='height: auto'>
-              <label for='chatSearch'></label>
-              {{{wrappedInputFind}}}
-            </div>
-            `
-                }
-            }
-        });
-        children.chatWith = new TextElement({
-            props: {
-                text: (0, _chatData.chatMessages).user,
-                htmlClass: "chat__body__title__user",
-                componentName: "Chat Component Message"
-            }
-        });
-        children.menuImage = new ImageElement({
-            props: {
-                src: (0, _menuPngDefault.default),
-                htmlClass: "chat__body__title__img",
-                alt: "menu",
-                componentName: "Menu Image",
-                events: {
-                    click: [
-                        ()=>{
-                            refs.modalField.showModal({
-                                title: (0, _modalMessage.modalMessageUsers).addUser.title,
-                                link: (0, _modalMessage.modalMessageUsers).addUser.link,
-                                value: (0, _modalMessage.modalMessageUsers).addUser.value,
-                                button: (0, _modalMessage.modalMessageUsers).addUser.button,
-                                error: (0, _modalMessage.modalMessageUsers).addUser.error
-                            });
-                        }
-                    ]
-                }
-            }
-        });
-        children.chatDate = new TextElement({
-            props: {
-                text: (0, _chatData.chatMessages).date,
-                htmlClass: "chat__body__date",
-                componentName: "Chat Component Message"
-            }
-        });
-        children.chatMessage1 = new TextElement({
-            props: {
-                text: (0, _chatData.chatMessages).message1,
-                htmlClass: "chat__body__message",
-                componentName: "Chat Component Message"
-            }
-        });
-        children.chatTime1 = new TextElement({
-            props: {
-                text: (0, _chatData.chatMessages).time1,
-                htmlClass: "chat__body__message__time",
-                componentName: "Chat Component Message"
-            }
-        });
-        children.imagePhoto = new ImageElement({
-            props: {
-                src: (0, _cameraPngDefault.default),
-                htmlClass: "chat__body__img",
-                alt: "photo",
-                componentName: "Photo Image"
-            }
-        });
-        children.chatMessage2 = new TextElement({
-            props: {
-                text: (0, _chatData.chatMessages).message2,
-                htmlClass: "chat__body__you",
-                componentName: "Chat Component Message"
-            }
-        });
-        children.chatTime2 = new TextElement({
-            props: {
-                text: (0, _chatData.chatMessages).time2,
-                htmlClass: "chat__body__you__time",
-                componentName: "Chat Component Message"
-            }
-        });
-        children.inputMessage = new Input({
-            props: {
-                placeholder: (0, _chatData.chatData).inputMessage.placeholder,
-                type: (0, _chatData.chatData).inputMessage.type,
-                htmlName: (0, _chatData.chatData).inputMessage.name,
-                htmlClass: (0, _chatData.chatData).inputMessage.class,
-                componentName: `${(0, _chatData.chatData).inputMessage.name} input`,
-                htmlWrapper: {
-                    componentAlias: "wrappedInputMessage",
-                    htmlWrapperTemplate: `
-            <div style='height: auto'>
-              <label for='message' style='width: 0'></label>
-              {{{wrappedInputMessage}}}
-            </div>
-            `
-                }
-            }
-        });
-        children.attachImage = new ImageElement({
-            props: {
-                src: (0, _attachPngDefault.default),
-                htmlClass: "chat__body__footer__img",
-                alt: "attach",
-                componentName: "Attach Image"
-            }
-        });
-        children.sendImage = new ImageElement({
-            props: {
-                src: (0, _sendPngDefault.default),
-                htmlClass: "chat__body__footer__imgSend",
-                alt: "send",
-                componentName: "Send Image"
-            }
-        });
-        super({
-            children,
-            props: {
-                componentName: "Chats Page"
-            }
-        });
-    }
-    render() {
-        return 0, _chatTemplate.chatTemplate;
     }
 }
 
-},{"core/dom":"3BLMu","./chatTemplate":"bKpsa","static/img/menu.png":"1MGTQ","static/img/attach.png":"hTNQO","static/img/send.png":"ceWHr","static/img/camera.png":"hBYjR","./chatList":"iEv8H","./chatData":"42lLR","pages/profile/profile":"atqZr","components/modal/modal":"eJ8TT","components/modal/modalMessage":"a3Xn3","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bKpsa":[function(require,module,exports) {
+},{"hocs/components":"THcGa","services":"f5PO7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"THcGa":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "chatTemplate", ()=>chatTemplate);
-const chatTemplate = `
-<main class='chat__container'>
-  {{{modal}}}
-  <div class='chat__list'>
-    {{{profileLink}}}
-    {{{inputFind}}}
-    {{{ chats }}}
-  </div>
-  <div class='chat__body'>
-    <div class='chat__body__title'>
-      <div class='chat__body__title__circle'></div>
-      {{{chatWith}}}
-      {{{menuImage}}}
-    </div>
-    <div class='chat__body__line'></div>
-      {{{chatDate}}}
-    <div class='chat__body__message__container'>
-      {{{chatMessage1}}}
-      {{{chatTime1}}}
-    </div>
-    {{{imagePhoto}}}
-    <div class='chat__body__you__container'>
-      {{{chatMessage2}}}
-      {{{chatTime2}}}
-    </div>
-    <footer class='chat__body__footer'>
-      <div class='chat__body__line'></div>
-      <div class='chat__body__footer__container'>
-        {{{attachImage}}}
-        {{{inputMessage}}}
-        {{{sendImage}}}
-      </div>
-    </footer>
-  </div>
-</main>
-`;
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1MGTQ":[function(require,module,exports) {
-module.exports = require("662ada06709a3352").getBundleURL("7UhFu") + "menu.a1c33c79.png" + "?" + Date.now();
-
-},{"662ada06709a3352":"lgJ39"}],"lgJ39":[function(require,module,exports) {
-"use strict";
-var bundleURL = {};
-function getBundleURLCached(id) {
-    var value = bundleURL[id];
-    if (!value) {
-        value = getBundleURL();
-        bundleURL[id] = value;
-    }
-    return value;
-}
-function getBundleURL() {
-    try {
-        throw new Error();
-    } catch (err) {
-        var matches = ("" + err.stack).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^)\n]+/g);
-        if (matches) // The first two stack frames will be this function and getBundleURLCached.
-        // Use the 3rd one, which will be a runtime in the original bundle.
-        return getBaseURL(matches[2]);
-    }
-    return "/";
-}
-function getBaseURL(url) {
-    return ("" + url).replace(/^((?:https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/.+)\/[^/]+$/, "$1") + "/";
-} // TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
-function getOrigin(url) {
-    var matches = ("" + url).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^/]+/);
-    if (!matches) throw new Error("Origin not found");
-    return matches[0];
-}
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-exports.getOrigin = getOrigin;
-
-},{}],"hTNQO":[function(require,module,exports) {
-module.exports = require("84866f3f39f43634").getBundleURL("7UhFu") + "attach.a2507276.png" + "?" + Date.now();
-
-},{"84866f3f39f43634":"lgJ39"}],"ceWHr":[function(require,module,exports) {
-module.exports = require("94d6124511703da").getBundleURL("7UhFu") + "send.e0d50340.png" + "?" + Date.now();
-
-},{"94d6124511703da":"lgJ39"}],"hBYjR":[function(require,module,exports) {
-module.exports = require("5414f57f6c9aaea1").getBundleURL("7UhFu") + "camera.5b58f8e0.png" + "?" + Date.now();
-
-},{"5414f57f6c9aaea1":"lgJ39"}],"iEv8H":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "WithStoreBlock", ()=>WithStoreBlock);
+parcelHelpers.export(exports, "WithStoreButton", ()=>WithStoreButton);
+parcelHelpers.export(exports, "WithStoreInput", ()=>WithStoreInput);
+parcelHelpers.export(exports, "WithStoreFileInput", ()=>WithStoreFileInput);
+parcelHelpers.export(exports, "WithStoreTextComponent", ()=>WithStoreTextComponent);
+parcelHelpers.export(exports, "WithStoreValidatedInput", ()=>WithStoreValidatedInput);
+parcelHelpers.export(exports, "WithStoreImageComponent", ()=>WithStoreImageComponent);
+parcelHelpers.export(exports, "WithRouterLink", ()=>WithRouterLink);
+parcelHelpers.export(exports, "WithRouterButton", ()=>WithRouterButton);
 var _dom = require("core/dom");
-// import { ImageElement, TextElement } from 'components/index';
-var _chatListTemplate = require("./chatListTemplate");
-class ChatList extends (0, _dom.Block) {
-    constructor({ username , userImg , lastMessage , lastMessageDate  }){
-        const children = {};
-        const messageElement = new TextElement({
-            props: {
-                text: lastMessage,
-                componentName: "Chat Component Message",
-                htmlClass: "chat__list__message__last",
-                htmlWrapper: {
-                    componentAlias: "wrapped",
-                    htmlWrapperTemplate: `
-                <div class='chat__list__message__container'>
-                  <div class="chat__list__message__circle">
-                    ${userImg}
-                  </div>
-                  <div class='chat__list__message__text'>
-                    <span class='chat__list__message__title'>${username}</span>
-                    {{{wrapped}}}
-                  </div>
-                  <span class='chat__list__message__lastDate'>${lastMessageDate}</span>
-                </div>
-              `
-                }
-            }
-        });
-        children.message = messageElement;
-        super({
-            children
-        });
-    }
-    render() {
-        return 0, _chatListTemplate.chatListTemplate;
-    }
-}
-exports.default = ChatList;
+var _components = require("components");
+var _buttons = require("components/buttons");
+var _inputs = require("components/inputs");
+var _withStore = require("../withStore");
+var _withRouter = require("../withRouter");
+const WithStoreBlock = (0, _withStore.WithStore)((0, _dom.Block));
+const WithStoreButton = (0, _withStore.WithStore)((0, _buttons.Button));
+const WithStoreInput = (0, _withStore.WithStore)((0, _inputs.Input));
+const WithStoreFileInput = (0, _withStore.WithStore)((0, _inputs.FileInput));
+const WithStoreTextComponent = (0, _withStore.WithStore)((0, _components.TextComponent));
+const WithStoreValidatedInput = (0, _withStore.WithStore)((0, _inputs.InputWithValidation));
+const WithStoreImageComponent = (0, _withStore.WithStore)((0, _components.ImageComponent));
+const WithRouterLink = (0, _withRouter.WithRouter)((0, _components.Link));
+const WithRouterButton = (0, _withRouter.WithRouter)((0, _buttons.Button));
 
-},{"core/dom":"3BLMu","./chatListTemplate":"dc6W1","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dc6W1":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "chatListTemplate", ()=>chatListTemplate);
-const chatListTemplate = `
-    {{{message}}}
-`;
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"42lLR":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "chatList", ()=>chatList);
-parcelHelpers.export(exports, "chatData", ()=>chatData);
-parcelHelpers.export(exports, "chatMessages", ()=>chatMessages);
-const chatList = [
-    {
-        username: "Петя",
-        userImg: "",
-        lastMessage: "Test",
-        lastMessageDate: "16:54"
-    },
-    {
-        username: "Ваня",
-        userImg: "",
-        lastMessage: "Test Test",
-        lastMessageDate: "10:54"
-    },
-    {
-        username: "Коля",
-        userImg: "",
-        lastMessage: "Тестовое сообщение",
-        lastMessageDate: "Вт"
-    },
-    {
-        username: "Дима",
-        userImg: "",
-        lastMessage: "Тестовое сообщение, чтобы посмотреть как работает ограничение",
-        lastMessageDate: "2 Дек 2022"
-    }
-];
-const chatData = {
-    link: {
-        name: "Профиль",
-        htmlName: "Profile"
-    },
-    inputFindUser: {
-        placeholder: "Поиск",
-        type: "text",
-        name: "chatSearch",
-        class: "chat__list__input"
-    },
-    inputMessage: {
-        placeholder: "Сообщение",
-        type: "text",
-        name: "message",
-        class: "chat__body__footer__input"
-    }
-};
-const chatMessages = {
-    user: "Вадим",
-    date: "19 июня",
-    time1: "11:56",
-    message1: "Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой./n Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и не попали. Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.",
-    time2: "12:00",
-    message2: "Круто!"
-};
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"atqZr":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "ProfilePage", ()=>ProfilePage);
-var _chat = require("pages/chat/chat");
-var _dom = require("core/dom");
-// import {
-//   Button,
-//   ImageElement,
-//   Input,
-//   InputValidator,
-//   TextElement,
-// } from 'components/index';
-var _profileTemplate = require("./profileTemplate");
-var _profileData = require("./profileData");
-var _profileAvatarPng = require("static/img/profile_avatar.png");
-var _profileAvatarPngDefault = parcelHelpers.interopDefault(_profileAvatarPng);
-var _arrowBackPng = require("static/img/arrowBack.png");
-var _arrowBackPngDefault = parcelHelpers.interopDefault(_arrowBackPng);
-// import { InputValidators } from 'utils/inputValidators';
-var _login = require("../login/login");
-var _changePassword = require("./changePassword/changePassword");
-var _modal = require("components/modal/modal");
-var _modalMessage = require("components/modal/modalMessage");
-class ProfilePage extends (0, _dom.Block) {
-    constructor(){
-        const children = {};
-        const refModal = {};
-        const refs = {};
-        children.arrowBackImage = new ImageElement({
-            props: {
-                src: (0, _arrowBackPngDefault.default),
-                alt: (0, _profileData.profileData).backLink.alt,
-                htmlClass: (0, _profileData.profileData).backLink.class,
-                componentName: "Arrow Back Image",
-                htmlWrapper: {
-                    componentAlias: "wrappedProfileLink",
-                    htmlWrapperTemplate: `
-              <div class='profile__buttonBack'>
-                {{{wrappedProfileLink}}}
-              </div>
-            `
-                },
-                events: {
-                    click: [
-                        ()=>{
-                            MainPage.component = new (0, _chat.ChatPage)();
-                        }
-                    ]
-                }
-            }
-        });
-        children.avatarImage = new ImageElement({
-            props: {
-                src: (0, _profileAvatarPngDefault.default),
-                alt: (0, _profileData.profileData).avatar.alt,
-                htmlClass: (0, _profileData.profileData).avatar.class,
-                componentName: "Profile avatar image"
-            }
-        });
-        children.inputAvatarImage = new Input({
-            props: {
-                htmlName: "avatar",
-                type: "file",
-                htmlClass: "profile__data__data__avatar",
-                componentName: `${name} profile`
-            }
-        });
-        children.modal = new (0, _modal.Modal)({
-            props: {
-                title: "",
-                inputProps: (0, _modalMessage.modalMessage).inputProps,
-                text: "",
-                error: ""
-            }
-        });
-        refModal["modalField"] = children.modal;
-        children.changeAvatar = new TextElement({
-            props: {
-                text: (0, _profileData.profileData).changeAvatar,
-                htmlClass: "profile__avatar__change",
-                componentName: "Profile Component Message",
-                events: {
-                    click: [
-                        ()=>{
-                            refModal.modalField.showModal({
-                                title: (0, _modalMessage.modalMessage).LoadFile.title,
-                                link: (0, _modalMessage.modalMessage).LoadFile.link,
-                                value: (0, _modalMessage.modalMessage).LoadFile.value,
-                                button: (0, _modalMessage.modalMessage).LoadFile.button,
-                                error: (0, _modalMessage.modalMessage).LoadFile.error
-                            });
-                        }
-                    ]
-                }
-            }
-        });
-        children.username = new TextElement({
-            props: {
-                text: (0, _profileData.profileData).username,
-                htmlClass: "profile__title",
-                componentName: "Profile Component Message"
-            }
-        });
-        (0, _profileData.profileFieldsData).forEach(({ name: name1 , title , data , placeholder  })=>{
-            const inputField = new Input({
-                props: {
-                    placeholder,
-                    type: "text",
-                    htmlName: name1,
-                    value: data,
-                    htmlClass: (0, _profileData.profileData).inputFileds.class,
-                    htmlId: name1,
-                    componentName: `${name1} profile`,
-                    disabledAttr: true,
-                    htmlWrapper: {
-                        componentAlias: "wrappedProfileInput",
-                        htmlWrapperTemplate: `
-              <div class='profile__data'>
-                <p class='profile__data__title'>
-                  ${title}
-                </p>
-                <label for=${name1} style="width: 0px"></label>
-                {{{wrappedProfileInput}}}
-              </div>
-              <div class='profile__line'></div>
-              `
-                    },
-                    validators: {
-                        blur: InputValidators[name1]
-                    }
-                }
-            });
-            children[`${name1}Field`] = inputField;
-            refs[`${name1}Field`] = inputField;
-        });
-        children.changePasswordLink = new Button({
-            props: {
-                label: (0, _profileData.profileData).changePassword.link,
-                htmlName: (0, _profileData.profileData).changePassword.htmlName,
-                htmlClass: (0, _profileData.profileData).changePassword.class,
-                events: {
-                    click: [
-                        ()=>{
-                            MainPage.component = new (0, _changePassword.ChangePasswordPage)();
-                        }
-                    ]
-                }
-            }
-        });
-        children.exitLink = new Button({
-            props: {
-                label: (0, _profileData.profileData).exitProfile.link,
-                htmlName: (0, _profileData.profileData).exitProfile.htmlName,
-                htmlClass: (0, _profileData.profileData).exitProfile.class,
-                events: {
-                    click: [
-                        ()=>{
-                            MainPage.component = new (0, _login.LoginPage)();
-                        }
-                    ]
-                }
-            }
-        });
-        super({
-            children,
-            props: {
-                componentName: "Profile Page"
-            },
-            refs
-        });
-    }
-    render() {
-        return 0, _profileTemplate.profileTemplate;
-    }
-    _preInitHook() {
-        Object.values(this.refs).forEach((inputField)=>{
-            inputField.refs.Form = this;
-        });
-        (0, _profileData.profileData).errorLabel.forEach((stateErrorName)=>{
-            this.state[stateErrorName] = "";
-        });
-        const button = new Button({
-            state: {
-                mode: "save"
-            },
-            props: {
-                label: (0, _profileData.profileData).changeData.change,
-                htmlName: (0, _profileData.profileData).changeData.htmlName,
-                htmlClass: (0, _profileData.profileData).changeData.class,
-                componentName: "Profile button",
-                events: {
-                    click: [
-                        (function checkList() {
-                            let isError = false;
-                            const formRefs = this.refs;
-                            Object.values(formRefs).forEach((inputField)=>{
-                                const inputProps = inputField.props;
-                                if (inputProps.componentName === "Profile button") {
-                                    if (this.state.mode === "save" || !this.state.mode) {
-                                        inputProps.label = (0, _profileData.profileData).changeData.save;
-                                        this.state.mode = "change";
-                                        inputProps.htmlClass = (0, _profileData.profileData).changeData.classActive;
-                                    } else {
-                                        inputProps.label = (0, _profileData.profileData).changeData.change;
-                                        this.state.mode = "save";
-                                        inputProps.htmlClass = (0, _profileData.profileData).changeData.class;
-                                    }
-                                } else {
-                                    inputProps.disabledAttr = !inputProps.disabledAttr;
-                                    this.state.mode !== "save" ? inputProps.htmlClass = (0, _profileData.profileData).inputFileds.class : inputProps.htmlClass = (0, _profileData.profileData).inputFileds.classActive;
-                                    Object.values(inputField.validators).forEach((validator)=>{
-                                        const error = validator();
-                                        if (error) isError = true;
-                                    });
-                                }
-                            });
-                        }).bind(this)
-                    ]
-                }
-            }
-        });
-        this.children.changeDataLink = button;
-        this.refs["Button"] = button;
-    }
-}
-
-},{"pages/chat/chat":"9muaU","core/dom":"3BLMu","./profileTemplate":"5ySyV","./profileData":"hNHYd","static/img/profile_avatar.png":"j6gct","static/img/arrowBack.png":"P7Wev","../login/login":"dCEbf","./changePassword/changePassword":"dxpTD","components/modal/modal":"eJ8TT","components/modal/modalMessage":"a3Xn3","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5ySyV":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "profileTemplate", ()=>profileTemplate);
-parcelHelpers.export(exports, "imageBackTemplate", ()=>imageBackTemplate);
-const profileTemplate = `
-<main class='profile'>
-  {{{modal}}}
-  {{{arrowBackImage}}}
-  <div class='profile__container'>
-    <div class='profile__avatar'>
-      {{{avatarImage}}}
-      <label for='avatar' style='display: none'></label>
-      {{{inputAvatarImage}}}
-      {{{changeAvatar}}}
-    </div>
-    {{{username}}}
-    <div class='profile__data__container'>
-      {{{emailField}}}
-      <span class='profile__error'>
-        {{{ emailError }}}
-      </span>
-      {{{loginField}}}
-      <span class='profile__error'>
-        {{{ loginError }}}
-      </span>
-      {{{first_nameField}}}
-      <span class='profile__error'>
-        {{{ first_nameError }}}
-      </span>
-      {{{second_nameField}}}
-      <span class='profile__error'>
-        {{{ second_nameError }}}
-      </span>
-      {{{display_nameField}}}
-      <span class='profile__error'>
-        {{{ display_nameError }}}
-      </span>
-      {{{phoneField}}}
-      <span class='profile__error'>
-        {{{ phoneError }}}
-      </span>
-    </div>
-    <div class='profile__button__container'>
-      {{{changeDataLink}}}
-      <div class='profile__line2'></div>
-      {{{changePasswordLink}}}
-      <div class='profile__line2'></div>
-      {{{exitLink}}}
-   </div>
-</main>
-`;
-const imageBackTemplate = `
-  {{{arrowBackImage}}}
-`;
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hNHYd":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "profileFieldsData", ()=>profileFieldsData);
-parcelHelpers.export(exports, "profileData", ()=>profileData);
-const profileFieldsData = [
-    {
-        name: "email",
-        title: "Почта",
-        data: "pochta@yandex.ru",
-        placeholder: "Введите email"
-    },
-    {
-        name: "login",
-        title: "Логин",
-        data: "ivanivanov",
-        placeholder: "Введите логин"
-    },
-    {
-        name: "first_name",
-        title: "Имя",
-        data: "Иван",
-        placeholder: "Введите Имя"
-    },
-    {
-        name: "second_name",
-        title: "Фамилия",
-        data: "Иванов",
-        placeholder: "Введите фамилию"
-    },
-    {
-        name: "display_name",
-        title: "Имя в чате",
-        data: "Иван",
-        placeholder: "Введите имя в чате"
-    },
-    {
-        name: "phone",
-        title: "Телефон",
-        data: "79099673030",
-        placeholder: "Введите пароль"
-    }
-];
-const profileData = {
-    username: "Ivan",
-    changeAvatar: "Поменять аватар",
-    backLink: {
-        class: "profile__buttonBack__img",
-        name: "",
-        alt: "arrowBack",
-        htmlName: "backLink"
-    },
-    avatar: {
-        alt: "profileAvatar",
-        class: "profile__buttonBack__img"
-    },
-    changeData: {
-        change: "Изменить данные",
-        save: "Сохранить данные",
-        class: "profile__saveButton",
-        classActive: "profile__saveButton__active",
-        htmlName: "changeData"
-    },
-    changePassword: {
-        link: "Изменить пароль",
-        class: "profile__changePasswordButton",
-        htmlName: "changePassword"
-    },
-    exitProfile: {
-        link: "Выйти",
-        class: "profile__exitButton",
-        htmlName: "exitProfile"
-    },
-    inputFileds: {
-        class: "profile__data__data",
-        classActive: "profile__data__data__active"
-    },
-    errorLabel: [
-        "errorEmail",
-        "errorLogin",
-        "errorFirstName",
-        "errorSecondName",
-        "errorPhone",
-        "errorPassword",
-        "errorPasswordCheck"
-    ]
-};
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"j6gct":[function(require,module,exports) {
-module.exports = require("49cc8f1abcba409b").getBundleURL("7UhFu") + "profile_avatar.558a0e16.png" + "?" + Date.now();
-
-},{"49cc8f1abcba409b":"lgJ39"}],"P7Wev":[function(require,module,exports) {
-module.exports = require("266cec9c28fdb89").getBundleURL("7UhFu") + "arrowBack.b3aade7f.png" + "?" + Date.now();
-
-},{"266cec9c28fdb89":"lgJ39"}],"dxpTD":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-// import { InputValidators } from '../../../utils/inputValidators';
-parcelHelpers.export(exports, "ChangePasswordPage", ()=>ChangePasswordPage);
-var _dom = require("core/dom");
-var _index = require("components/index");
-var _changePasswordTemplate = require("./changePasswordTemplate");
-var _profileData = require("../profileData");
-var _profileAvatarPng = require("static/img/profile_avatar.png");
-var _profileAvatarPngDefault = parcelHelpers.interopDefault(_profileAvatarPng);
-var _arrowBackPng = require("static/img/arrowBack.png");
-var _arrowBackPngDefault = parcelHelpers.interopDefault(_arrowBackPng);
-var _profile = require("../profile");
-var _changePasswordData = require("./changePasswordData");
-class ChangePasswordPage extends (0, _dom.Block) {
-    constructor(){
-        const children = {};
-        const refs = {};
-        children.arrowBackImage = new (0, _index.ImageElement)({
-            props: {
-                src: (0, _arrowBackPngDefault.default),
-                alt: (0, _profileData.profileData).backLink.alt,
-                htmlClass: (0, _profileData.profileData).backLink.class,
-                componentName: "Arrow Back Image",
-                htmlWrapper: {
-                    componentAlias: "wrappedProfileLink",
-                    htmlWrapperTemplate: `
-              <div class='profile__buttonBack'>
-                {{{wrappedProfileLink}}}
-              </div>
-            `
-                },
-                events: {
-                    click: [
-                        ()=>{
-                            MainPage.component = new (0, _profile.ProfilePage)();
-                        }
-                    ]
-                }
-            }
-        });
-        children.avatarImage = new (0, _index.ImageElement)({
-            props: {
-                src: (0, _profileAvatarPngDefault.default),
-                alt: (0, _profileData.profileData).avatar.alt,
-                htmlClass: (0, _profileData.profileData).avatar.class,
-                componentName: "Profile avatar image"
-            }
-        });
-        children.username = new (0, _index.TextElement)({
-            props: {
-                text: (0, _profileData.profileData).username,
-                htmlClass: "profile__title",
-                componentName: "Profile Component Message"
-            }
-        });
-        (0, _changePasswordData.changePasswordData).forEach(({ name , title , data , placeholder  })=>{
-            const inputField = new (0, _index.Input)({
-                props: {
-                    placeholder,
-                    type: "password",
-                    htmlName: name,
-                    value: data,
-                    htmlClass: "profile__data__data",
-                    componentName: `${name} profile`,
-                    htmlWrapper: {
-                        componentAlias: "wrappedChangePasswordInput",
-                        htmlWrapperTemplate: `
-              <div class='profile__data'>
-                <p class='profile__data__title'>
-                  ${title}
-                </p>
-                <label for={{name}} style="width: 0px"></label>
-                {{{wrappedChangePasswordInput}}}
-              </div>
-              <div class='profile__line'></div>
-              `
-                    },
-                    validators: {
-                        blur: InputValidators[name]
-                    }
-                }
-            });
-            children[`${name}Field`] = inputField;
-            refs[`${name}Field`] = inputField;
-        });
-        super({
-            children,
-            props: {
-                componentName: "Change Password Page"
-            },
-            refs
-        });
-    }
-    render() {
-        return 0, _changePasswordTemplate.profileTemplate;
-    }
-    routeTo() {
-        MainPage.component = new (0, _profile.ProfilePage)();
-    }
-    _preInitHook() {
-        Object.values(this.refs).forEach((inputField)=>{
-            inputField.refs.Form = this;
-        });
-        (0, _changePasswordData.changePassword).errorLabel.forEach((stateErrorName)=>{
-            this.state[stateErrorName] = "";
-        });
-        const button = new (0, _index.Button)({
-            props: {
-                label: (0, _profileData.profileData).changeData.change,
-                htmlName: (0, _profileData.profileData).changeData.htmlName,
-                htmlClass: (0, _profileData.profileData).changeData.class,
-                componentName: "ChangePassword button",
-                events: {
-                    click: [
-                        (function checkPassword() {
-                            let isError = false;
-                            const formRefs = this.refs;
-                            Object.values(formRefs).forEach((inputField)=>{
-                                const inputProps = inputField.props;
-                                if (inputProps.componentName !== "ChangePassword button") Object.values(inputField.validators).forEach((validator)=>{
-                                    const error = validator();
-                                    if (error) isError = true;
-                                });
-                            });
-                            if (!isError) this.routeTo();
-                        }).bind(this)
-                    ]
-                }
-            }
-        });
-        this.children.button = button;
-        this.refs["Button"] = button;
-    }
-}
-
-},{"core/dom":"3BLMu","components/index":"dHnah","./changePasswordTemplate":"3FKbA","../profileData":"hNHYd","static/img/profile_avatar.png":"j6gct","static/img/arrowBack.png":"P7Wev","../profile":"atqZr","./changePasswordData":"jABZa","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3FKbA":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "profileTemplate", ()=>profileTemplate);
-parcelHelpers.export(exports, "imageBackTemplate", ()=>imageBackTemplate);
-var _profileData = require("../profileData");
-const profileTemplate = `
-<main class='profile'>
-  {{{arrowBackImage}}}
-  <div class='profile__container'>
-    <div class='profile__avatar'>
-      {{{avatarImage}}}
-      <label for='avatar' style='display: none'></label>
-      <input
-        name='avatar'
-        type='file'
-        id='avatar'
-        style='display: none'
-      />
-      <span class='profile__avatar__change'>${(0, _profileData.profileData).changeAvatar}</span>
-    </div>
-    {{{username}}}
-    <div class='profile__data__container'>
-      {{{oldPasswordField}}}
-      <span class='profile__error'>
-        {{{ oldPasswordError }}}
-      </span>
-      {{{newPasswordField}}}
-      <span class='profile__error'>
-        {{{ newPasswordError }}}
-      </span>
-      {{{newPasswordCheckField}}}
-      <span class='profile__error'>
-        {{{ newPasswordCheckError }}}
-      </span>
-    </div>
-    <div class="profile__button">
-      {{{button}}}
-    </div>
-</main>
-`;
-const imageBackTemplate = `
-  {{{arrowBackImage}}}
-`;
-
-},{"../profileData":"hNHYd","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jABZa":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "changePasswordData", ()=>changePasswordData);
-parcelHelpers.export(exports, "changePassword", ()=>changePassword);
-const changePasswordData = [
-    {
-        name: "oldPassword",
-        title: "Старый пароль",
-        data: "QWE123qwe",
-        placeholder: "Введите старый пароль"
-    },
-    {
-        name: "newPassword",
-        title: "Новый пароль",
-        data: "QWE123qwe",
-        placeholder: "Введите пароль"
-    },
-    {
-        name: "newPasswordCheck",
-        title: "Подтвердите новый пароль",
-        data: "QWE123qwe",
-        placeholder: "Введите пароль повторно"
-    }
-];
-const changePassword = {
-    button: "Сохранить",
-    errorLabel: [
-        "errorOldPassword",
-        "errorPassword",
-        "errorPasswordCheck"
-    ]
-};
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eJ8TT":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "Modal", ()=>Modal);
-var _button = require("components/button/button");
-var _input = require("components/input/input");
-var _text = require("components/text");
-var _dom = require("core/Dom");
-var _pages = require("pages");
-var _modalMessage = require("./modalMessage");
-var _modalTemplate = require("./modalTemplate");
-class Modal extends (0, _dom.Block) {
-    constructor({ props ={
-        componentName: "Modal"
-    } , refs ={} , state ={}  }){
-        const children = {};
-        children.modalTitle = new (0, _text.TextComponent)({
-            props: {
-                text: "",
-                htmlClass: "modal__title",
-                componentName: "Modal Component Message"
-            }
-        });
-        const ChooseFile = (event1)=>{
-            const fileName = event1.target.files[0].name;
-            if (fileName) {
-                refs.modalTitle.setTextContent({
-                    value: (0, _modalMessage.modalMessage).fileLoaded.title
-                });
-                refs.modalInputFile.setTextContent({
-                    value: fileName
-                });
-                refs.modalButton.setTextContent({
-                    value: (0, _modalMessage.modalMessage).fileLoaded.button
-                });
-                refs.modalError.setTextContent({
-                    value: (0, _modalMessage.modalMessage).fileLoaded.error
-                });
-            }
-        };
-        children.modalInputFile = new (0, _input.Input)({
-            props: {
-                type: props.inputProps.type,
-                htmlName: "modalInputFile",
-                htmlId: "modalInputFile",
-                htmlClass: props.inputProps.class,
-                componentName: "Modal input file",
-                htmlWrapper: {
-                    componentAlias: "wrapped",
-                    htmlWrapperTemplate: `
-            <div  class='modal__choose'>
-              <label for="modalInputFile" class="modal__choose__text">${props.inputProps.label}</label>
-              {{{ wrapped }}}
-            </div>
-            `
-                },
-                events: {
-                    change: [
-                        ()=>{
-                            ChooseFile(event);
-                        }
-                    ]
-                }
-            }
-        });
-        children.modalButton = new (0, _button.Button)({
-            props: {
-                type: "button",
-                label: "",
-                htmlClass: "modal__button",
-                events: {
-                    click: [
-                        ()=>{
-                            MainPage.component = props.inputProps.type === "file" ? new (0, _pages.ProfilePage)() : new (0, _pages.ChatPage)();
-                        }
-                    ]
-                }
-            }
-        });
-        children.modalError = new TextElement({
-            props: {
-                text: "",
-                htmlClass: "modal__error",
-                componentName: "Modal Component Message"
-            }
-        });
-        refs["modalTitle"] = children.modalTitle;
-        refs["modalInputFile"] = children.modalInputFile;
-        refs["modalButton"] = children.modalButton;
-        refs["modalError"] = children.modalError;
-        super({
-            children,
-            props,
-            refs,
-            state
-        });
-    }
-    render() {
-        return 0, _modalTemplate.modalTemplate;
-    }
-}
-
-},{"components/button/button":"9lSjy","components/input/input":"fIx3g","components/text":"6Xncd","core/Dom":"i0KHM","pages":"kIGWd","./modalMessage":"a3Xn3","./modalTemplate":"bPdqV","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"a3Xn3":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "modalMessage", ()=>modalMessage);
-parcelHelpers.export(exports, "modalMessageUsers", ()=>modalMessageUsers);
-const modalMessage = {
-    inputProps: {
-        type: "file",
-        class: "modal__choose__input",
-        label: ""
-    },
-    LoadFile: {
-        title: "Загрузите файл",
-        link: "Выбрать файл на компьютере",
-        value: "",
-        button: "Поменять",
-        error: ""
-    },
-    fileLoaded: {
-        title: "Файл загружен",
-        link: "",
-        value: "",
-        button: "Поменять",
-        error: ""
-    },
-    errorFileLoaded: {
-        title: "Загрузите файл",
-        link: "Выбрать файл на компьютере",
-        value: "",
-        button: "Поменять",
-        error: "Нужно выбрать файл"
-    },
-    error: {
-        title: "Ошибка, попробуйте еще раз",
-        link: "Выбрать файл на компьютере",
-        value: "",
-        button: "Поменять",
-        error: ""
-    }
-};
-const modalMessageUsers = {
-    inputProps: {
-        type: "text",
-        class: "modal__login__input",
-        label: "Логин"
-    },
-    addUser: {
-        title: "Добавить пользователя",
-        link: "Логин",
-        value: "ivanivanov",
-        button: "Добавить",
-        error: ""
-    },
-    deleteUser: {
-        title: "Удалить пользователя",
-        link: "Логин",
-        value: "ivanivanov",
-        button: "Удалить",
-        error: ""
-    }
-};
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bPdqV":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "modalTemplate", ()=>modalTemplate);
-const modalTemplate = `
-<div class='modal' style="display: none">
-  <div class='modal__background'></div>
-  <div class='modal__container'>
-    {{{modalTitle}}}
-    {{{modalInputFile}}}
-    <div class='modal__button__container'>
-       {{{modalButton}}} 
-    </div>
-    {{{modalError}}}
-  </div>
-</div>
-`;
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kZohv":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "ErrorPage", ()=>ErrorPage);
-var _dom = require("core/dom");
-// import { Link, TextElement } from 'components/index';
-// import { LoginPage } from '../index';
-var _errorData = require("./errorData");
-var _errorTemplate = require("./errorTemplate");
-class ErrorPage extends (0, _dom.Block) {
-    constructor({ props ={
-        componentName: "Error"
-    }  }){
-        const children = {};
-        children.errorTitle = new TextElement({
-            props: {
-                text: props.title,
-                htmlClass: "error__title",
-                componentName: "Error Component Message"
-            }
-        });
-        children.errorMessage = new TextElement({
-            props: {
-                text: props.message,
-                htmlClass: "error__message",
-                componentName: "Error Component Message"
-            }
-        });
-        children.backLink = new Link({
-            props: {
-                label: (0, _errorData.errorData).errorProps.link,
-                htmlClass: (0, _errorData.errorData).errorProps.class,
-                events: {
-                    click: [
-                        ()=>{
-                            MainPage.component = new LoginPage();
-                        }
-                    ]
-                }
-            }
-        });
-        super({
-            children
-        });
-    }
-    render() {
-        return 0, _errorTemplate.errorTemplate;
-    }
-}
-
-},{"core/dom":"3BLMu","./errorData":"2R9xq","./errorTemplate":"3LON2","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2R9xq":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "errorData", ()=>errorData);
-const errorData = {
-    errorProps: {
-        link: "Назад",
-        class: "error__link"
-    },
-    404: {
-        title: "404",
-        message: "Не туда попали"
-    },
-    505: {
-        title: "505",
-        message: "Мы уже фиксим"
-    }
-};
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3LON2":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "errorTemplate", ()=>errorTemplate);
-const errorTemplate = `
-  <main class='error__container'>
-    {{{errorTitle}}}
-    {{{errorMessage}}}
-    {{{backLink}}}
-  </main>
-`;
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8y9HY":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "getDescendantByPath", ()=>getDescendantByPath);
-function getDescendantByPath(blockChildren, pathString) {
-    const path = pathString.split(".").join(".children.").split(".");
-    let result = blockChildren;
-    for(let i = 0; i < path.length; i++){
-        if (!result[path[i]]) break;
-        result = result[path[i]];
-    }
-    return result;
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4fFtk":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "pageSetter", ()=>(0, _page.pageSetter));
-parcelHelpers.export(exports, "userSetter", ()=>(0, _user.userSetter));
-parcelHelpers.export(exports, "chatsSetter", ()=>(0, _chats.chatsSetter));
-parcelHelpers.export(exports, "currentChatSetter", ()=>(0, _currentChatId.currentChatSetter));
-var _page = require("./page");
-var _user = require("./user");
-var _chats = require("./chats");
-var _currentChatId = require("./current-chat-id");
-
-},{"./page":"jGROx","./user":"3WGvP","./chats":"48pRd","./current-chat-id":"kE50e","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jGROx":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "pageSetter", ()=>pageSetter);
-var _store = require("core/store");
-function pageSetter(newPage) {
-    this.eventBus.emit((0, _store.EnumStoreEvents).PageChanged, newPage);
-}
-
-},{"core/store":"8EiUk","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3WGvP":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "userSetter", ()=>userSetter);
-var _appPages = require("pages/appPages");
-var _objectsHandle = require("utils/objects-handle");
-function userSetter(oldValue, newValue) {
-    const pageType = this.state.page;
-    const { page  } = this;
-    switch(pageType){
-        case (0, _appPages.AppPages).Profile:
-            if ((0, _objectsHandle.isNullish)(newValue)) throw new Error("User Can't Be Nullified On Profile Page");
-            if (!(0, _objectsHandle.isObject)(oldValue) || !oldValue) throw new Error(`Incorrect User State ${oldValue} On Profile Page`);
-            if (oldValue.avatar !== newValue.avatar) page.updateUserAvatar();
-            page.updateUserInfo();
-            break;
-        case (0, _appPages.AppPages).Login:
-            if ((0, _objectsHandle.isNullish)(oldValue) !== (0, _objectsHandle.isNullish)(newValue)) page.createLinks();
-            break;
-        default:
-    }
-}
-
-},{"pages/appPages":"c7aIo","utils/objects-handle":"kOfSo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"48pRd":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "chatsSetter", ()=>chatsSetter);
-var _pages = require("pages");
-function chatsSetter() {
-    const { page  } = this.state;
-    if (page !== (0, _pages.EnumAppPages).Chats) return;
-    const { chatsList  } = this.page.refs;
-    chatsList.createChatsList();
-    Object.values(chatsList.children.chats).forEach((chat)=>{
-        this.page.refs[`chat-${chat.chatID}`] = chat;
-    });
-}
-
-},{"pages":"kIGWd","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kE50e":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "currentChatSetter", ()=>currentChatSetter);
-var _pages = require("pages");
-var _objectsHandle = require("utils/objects-handle");
-function currentChatSetter(oldValue, newValue) {
-    const newValueIsNull = (0, _objectsHandle.isNullish)(newValue);
-    const { page  } = this.state;
-    if (newValueIsNull) localStorage.removeItem("currentChatID");
-    else localStorage.currentChatID = newValue;
-    if (page !== (0, _pages.EnumAppPages).Chats) return;
-    const { refs  } = this.page;
-    refs.messagesDisplaySection.createMessagesList();
-    refs.messagesDisplaySection.setChatAbsenceWarning();
-    refs.addChatUsersButton.toggleDisabledState(newValueIsNull);
-    refs.deleteChatButton.toggleDisabledState(newValueIsNull);
-    refs.attachmentButton.assignCurrentChat();
-    refs.messageInput.assignCurrentChat();
-    refs.sendMessageButton.assignCurrentChat();
-    refs.chooseChatAvatarButton.toggleDisabledState(newValueIsNull);
-    if (!(0, _objectsHandle.isNullish)(oldValue)) refs[`chat-${oldValue}`].toggleHtmlClass("current-chat", "off");
-    if (!(0, _objectsHandle.isNullish)(newValue)) refs[`chat-${newValue}`].toggleHtmlClass("current-chat", "on");
-}
-
-},{"pages":"kIGWd","utils/objects-handle":"kOfSo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3V4YB":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "stateByPathSetter", ()=>_setters);
-parcelHelpers.export(exports, "statePathRegex", ()=>_pathRegex);
-var _setters = require("./setters");
-var _pathRegex = require("./path-regex");
-
-},{"./setters":"18cPE","./path-regex":"gczMQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"18cPE":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "ChatAvatar", ()=>ChatAvatar);
-parcelHelpers.export(exports, "ChatNewMessage", ()=>ChatNewMessage);
-var _pages = require("pages");
-function ChatAvatar(chatID, newAvatar) {
-    const pageType = this.state.page;
-    if (pageType !== (0, _pages.EnumAppPages).Chats) return;
-    const { page  } = this;
-    const chatComponent = page.refs[`chat-${chatID}`];
-    const { avatarImage  } = chatComponent.children;
-    avatarImage.setPropByPath("htmlAttributes.src", newAvatar);
-}
-function ChatNewMessage(chatID) {
-    const pageType = this.state.page;
-    if (pageType !== (0, _pages.EnumAppPages).Chats) return;
-    const { page  } = this;
-    if (chatID === window.store.getCurrentChatID()) page.refs.messagesDisplaySection.createMessagesList();
-    page.refs.messagesDisplaySection.setChatAbsenceWarning();
-}
-
-},{"pages":"kIGWd","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gczMQ":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "ChatAvatarChange", ()=>ChatAvatarChange);
-parcelHelpers.export(exports, "ChatNewMessage", ()=>ChatNewMessage);
-const ChatAvatarChange = /^chats\.(\d+)\.avatar$/g;
-const ChatNewMessage = /^chatsMessages\.(\d+)$/g;
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"f5PO7":[function(require,module,exports) {
+},{"core/dom":"3BLMu","components":"dHnah","components/buttons":"fWrjK","components/inputs":"fRfcK","../withStore":"45TSc","../withRouter":"kYXgc","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"f5PO7":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "SignUpService", ()=>(0, _signup.SignUpService));
@@ -16012,7 +14921,1727 @@ class ChatWebSocket {
     }
 }
 
-},{"utils/api":"i2lTI","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8xDdB":[function(require,module,exports) {
+},{"utils/api":"i2lTI","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kPoiY":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+exports.default = `
+  <div class="modal">
+    <div class="modal-content">
+      {{{ content }}}
+      {{{ closeButton }}}
+    </div>
+  </div>;
+`;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ljkAW":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "afterValidationCallback", ()=>afterValidationCallback);
+var _services = require("services");
+var _authorization = require("services/authorization");
+var _api = require("utils/api");
+async function afterRequestCallback(response) {
+    if ((0, _api.APIResponseHasError)(response) && response.reason !== (0, _authorization.EnumLoginAPIErrors).AlreadyInSystem) this.state.apiResponseError = response.reason;
+}
+async function afterValidationCallback() {
+    const formData = this.collectFormData();
+    const apiData = (0, _api.transformLoginFormDatatoAPI)(formData);
+    console.log(`API data: ${JSON.stringify(apiData)}`);
+    await (0, _services.AuthorizationService).login(apiData, afterRequestCallback.bind(this));
+}
+
+},{"services":"f5PO7","services/authorization":"3hYWC","utils/api":"i2lTI","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7qrY1":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "EnumInputFields", ()=>(0, _enumInputFields.EnumInputFields));
+parcelHelpers.export(exports, "MapInputFieldsProps", ()=>(0, _inputFields.MapInputFieldsProps));
+var _enumInputFields = require("./enumInputFields");
+var _inputFields = require("./inputFields");
+
+},{"./enumInputFields":"1jcMp","./inputFields":"gIXcI","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1jcMp":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "EnumInputFields", ()=>EnumInputFields);
+let EnumInputFields;
+(function(EnumInputFields) {
+    EnumInputFields["Login"] = "login";
+    EnumInputFields["Password"] = "password";
+})(EnumInputFields || (EnumInputFields = {}));
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gIXcI":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "MapInputFieldsProps", ()=>MapInputFieldsProps);
+var _enumInputFields = require("./enumInputFields");
+var _inputValidators = require("./inputValidators");
+const MapInputFieldsProps = {
+    [(0, _enumInputFields.EnumInputFields).Login]: {
+        htmlAttributes: {
+            name: "login",
+            placeholder: "Введите логин"
+        },
+        htmlClasses: [
+            "auth__form__login__input"
+        ],
+        validators: (0, _inputValidators.FormValidators)[(0, _enumInputFields.EnumInputFields).Login],
+        label: "Логин",
+        mainClass: "auth__form__"
+    },
+    [(0, _enumInputFields.EnumInputFields).Password]: {
+        htmlAttributes: {
+            name: "password",
+            placeholder: "Введите пароль",
+            type: "password"
+        },
+        htmlClasses: [
+            "auth__form__password__input"
+        ],
+        validators: (0, _inputValidators.FormValidators)[(0, _enumInputFields.EnumInputFields).Password],
+        label: "Пароль",
+        mainClass: "auth__form__"
+    }
+};
+
+},{"./enumInputFields":"1jcMp","./inputValidators":"eEVDO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eEVDO":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "FormValidators", ()=>FormValidators);
+var _formInputValidator = require("utils/form-input-validator");
+var _enumInputFields = require("./enumInputFields");
+const FormValidators = [
+    {
+        field: (0, _enumInputFields.EnumInputFields).Login,
+        validatorsList: [
+            (0, _formInputValidator.validateLoginRegex)
+        ]
+    },
+    {
+        field: (0, _enumInputFields.EnumInputFields).Password,
+        validatorsList: [
+            (0, _formInputValidator.validatePasswordRegex)
+        ]
+    }
+].reduce((acc, { field , validatorsList  })=>{
+    validatorsList.unshift((0, _formInputValidator.validateNotEmptyValue));
+    const validator = (0, _formInputValidator.makeValidator)({
+        validatorsList
+    });
+    acc[field] = {
+        blur: [
+            validator
+        ]
+    };
+    return acc;
+}, {});
+
+},{"utils/form-input-validator":"4RFK4","./enumInputFields":"1jcMp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4RFK4":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "makeValidator", ()=>(0, _makeValidator.makeValidator));
+parcelHelpers.export(exports, "TInputSingleValidator", ()=>(0, _makeValidator.TInputSingleValidator));
+parcelHelpers.export(exports, "validateNotEmptyValue", ()=>(0, _commonValidators.validateNotEmptyValue));
+parcelHelpers.export(exports, "validateLoginRegex", ()=>(0, _commonValidators.validateLoginRegex));
+parcelHelpers.export(exports, "validatePasswordRegex", ()=>(0, _commonValidators.validatePasswordRegex));
+parcelHelpers.export(exports, "validateNameRegex", ()=>(0, _commonValidators.validateNameRegex));
+parcelHelpers.export(exports, "validatePhoneRegex", ()=>(0, _commonValidators.validatePhoneRegex));
+parcelHelpers.export(exports, "validateEmailRegex", ()=>(0, _commonValidators.validateEmailRegex));
+parcelHelpers.export(exports, "validateTwoFieldsMatching", ()=>(0, _commonValidators.validateTwoFieldsMatching));
+var _makeValidator = require("./make-validator");
+var _commonValidators = require("./common-validators");
+
+},{"./make-validator":"6rqZs","./common-validators":"lJxTH","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6rqZs":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "makeValidator", ()=>makeValidator);
+function makeValidator({ validatorsList  }) {
+    return function validate() {
+        let error = "";
+        const value = this.getValue();
+        for (const validator of validatorsList){
+            error = validator.call(this, value);
+            if (error !== "") break;
+        }
+        this.state.inputError = error;
+        this.setPropByPath("htmlAttributes.value", value);
+        return !error;
+    };
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lJxTH":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "validateNotEmptyValue", ()=>validateNotEmptyValue);
+parcelHelpers.export(exports, "validateLoginRegex", ()=>validateLoginRegex);
+parcelHelpers.export(exports, "validatePasswordRegex", ()=>validatePasswordRegex);
+parcelHelpers.export(exports, "validateTwoFieldsMatching", ()=>validateTwoFieldsMatching);
+parcelHelpers.export(exports, "validateNameRegex", ()=>validateNameRegex);
+parcelHelpers.export(exports, "validatePhoneRegex", ()=>validatePhoneRegex);
+parcelHelpers.export(exports, "validateEmailRegex", ()=>validateEmailRegex);
+function validateNotEmptyValue(value) {
+    if (value === "") return "Пустое поле";
+    return "";
+}
+function validateLoginRegex(value) {
+    if (value.length < 3) return "Длина должна состовлять не менее 3 символов";
+    if (!value.match("^[a-zA-Z0-9_-]+$")) return "Только латиниские буквы, цифры";
+    if (!value.match("[a-zA-Z]+")) return "Только буквы";
+    if (value.length > 20) return "Длина логина состовлять не более 20 символов";
+    return "";
+}
+function validatePasswordRegex(value) {
+    if (value.length < 8) return "Длина должна состовлять не менее 8 символов";
+    if (!value.match("[A-Z]+")) return "Пароль должен сожержать хотя бы одну заглавную букву";
+    if (!value.match("[0-9]+")) return "Пароль должен сожержать хотя бы одну цифру";
+    if (value.length > 40) return "Длина логина состовлять не более 40 символов";
+    return "";
+}
+function validateTwoFieldsMatching({ fieldNames , notMatchErrorText  }) {
+    return function validateMatching() {
+        const form = this.refs.Form;
+        const inputFirst = form.refs[fieldNames.first];
+        const inputSecond = form.refs[fieldNames.second];
+        const value = this.getValue();
+        const inputs = {};
+        if (this === inputFirst) Object.assign(inputs, {
+            valueOther: inputSecond.getValue(),
+            this: inputFirst,
+            other: inputSecond
+        });
+        else Object.assign(inputs, {
+            valueOther: inputFirst.getValue(),
+            this: inputSecond,
+            other: inputFirst
+        });
+        let error = "";
+        const valuesMatching = value === inputs.valueOther;
+        const stateThis = inputs.this.state;
+        const stateOther = inputs.other.state;
+        if (!valuesMatching) {
+            error = notMatchErrorText;
+            stateThis.inputError = error;
+            stateOther.inputError = error;
+        } else if (stateOther.inputError === notMatchErrorText) {
+            stateOther.inputError = "";
+            stateThis.inputError = "";
+        }
+        return error;
+    };
+}
+function validateNameRegex(value) {
+    if (!value.match("^[а-яА-Яa-zA-Z]+$")) return "Только латиниские буквы или кирилицу, цифры";
+    if (!value.match("^[А-ЯA-Z]")) return "Должно начинаться с заглавной буквы";
+    return "";
+}
+function validatePhoneRegex(value) {
+    if (!value.match(`^[+]?[\\d]+$`)) return "Только цифра без + в начале";
+    if (!(value.length >= 10 && value.length <= 15)) return "от 10 до 15 символов";
+    return "";
+}
+function validateEmailRegex(value) {
+    if (!value.match("^[a-zA-z]+[a-zA-Z\\d-_]*@[a-z]+\\.")) return "Неправильный email";
+    return "";
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ipn4T":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "RegistrationPage", ()=>RegistrationPage);
+var _dom = require("core/dom");
+var _formComponent = require("./form-component");
+var _registrationTemplate = require("./registrationTemplate");
+var _registrationTemplateDefault = parcelHelpers.interopDefault(_registrationTemplate);
+class RegistrationPage extends (0, _dom.Block) {
+    constructor(){
+        const children = {};
+        const refs = {};
+        children.registrationForm = new (0, _formComponent.RegistrationPageForm)();
+        super({
+            componentName: "Registration Page",
+            children,
+            refs
+        });
+    }
+    render() {
+        return 0, _registrationTemplateDefault.default;
+    }
+}
+
+},{"core/dom":"3BLMu","./form-component":"gF871","./registrationTemplate":"7ZMRz","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gF871":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "RegistrationPageForm", ()=>(0, _component.RegistrationPageForm));
+parcelHelpers.export(exports, "EnumInputFields", ()=>(0, _fields.EnumInputFields));
+var _component = require("./component");
+var _fields = require("./fields");
+
+},{"./component":"fGMYG","./fields":"hm4bv","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fGMYG":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "RegistrationPageForm", ()=>RegistrationPageForm);
+var _components = require("components");
+var _registrationData = require("../registrationData");
+var _registrationDataDefault = parcelHelpers.interopDefault(_registrationData);
+var _validationCallback = require("./validationCallback");
+var _fields = require("./fields");
+class RegistrationPageForm extends (0, _components.InputForm) {
+    constructor(){
+        super({
+            enumInputFieldsNames: (0, _fields.EnumInputFields),
+            mapInputToProps: (0, _fields.MapInputFieldsProps),
+            props: {
+                afterValidationCallback: (0, _validationCallback.afterValidationCallback),
+                formTitle: (0, _registrationDataDefault.default).pageTitle,
+                htmlClasses: [
+                    (0, _registrationDataDefault.default).formClass
+                ],
+                type: "registration",
+                label: "Зарегистрироваться"
+            }
+        });
+    }
+}
+
+},{"components":"dHnah","../registrationData":"5QT42","./validationCallback":"iVVdl","./fields":"hm4bv","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iVVdl":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "afterValidationCallback", ()=>afterValidationCallback);
+var _services = require("services");
+var _api = require("utils/api");
+async function afterRequestCallback(response) {
+    console.log(`Registration REQUEST RESPONSE: ${JSON.stringify(response)}`);
+    if ((0, _api.APIResponseHasError)(response)) {
+        this.state.apiResponseError = response.reason;
+        return;
+    }
+    this.state.apiResponseSuccess = "Registration Successfull";
+    const user = (0, _api.transformProfileAPIResponseToUserData)(await (0, _services.ProfileService).getUserProfile(response.id));
+    window.store.dispatch({
+        user
+    });
+}
+async function afterValidationCallback() {
+    const formData = this.collectFormData();
+    const apiData = (0, _api.transformSignUpFormDatatoAPI)(formData);
+    console.log(`API data: ${JSON.stringify(apiData)}`);
+    (0, _services.SignUpService).signup(apiData, afterRequestCallback.bind(this));
+}
+
+},{"services":"f5PO7","utils/api":"i2lTI","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hm4bv":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "EnumInputFields", ()=>(0, _enumInputFields.EnumInputFields));
+parcelHelpers.export(exports, "MapInputFieldsProps", ()=>(0, _inputFields.MapInputFieldsProps));
+var _enumInputFields = require("./enumInputFields");
+var _inputFields = require("./inputFields");
+
+},{"./enumInputFields":"cbRu8","./inputFields":"c8YHi","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cbRu8":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "EnumInputFields", ()=>EnumInputFields);
+let EnumInputFields;
+(function(EnumInputFields) {
+    EnumInputFields["Email"] = "email";
+    EnumInputFields["Login"] = "login";
+    EnumInputFields["FirstName"] = "first_name";
+    EnumInputFields["SecondName"] = "second_name";
+    EnumInputFields["Phone"] = "phone";
+    EnumInputFields["Password"] = "password";
+    EnumInputFields["PasswordCheck"] = "password_check";
+})(EnumInputFields || (EnumInputFields = {}));
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"c8YHi":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "MapInputFieldsProps", ()=>MapInputFieldsProps);
+var _enumInputFields = require("./enumInputFields");
+var _inputValidators = require("./inputValidators");
+const MapInputFieldsProps = {
+    [(0, _enumInputFields.EnumInputFields).Email]: {
+        htmlAttributes: {
+            name: "email",
+            placeholder: "Введите email"
+        },
+        htmlClasses: [
+            "auth__registration_form__email__input"
+        ],
+        validators: (0, _inputValidators.FormValidators)[(0, _enumInputFields.EnumInputFields).Email],
+        label: "Почта",
+        mainClass: "auth__registration_form__"
+    },
+    [(0, _enumInputFields.EnumInputFields).Login]: {
+        htmlAttributes: {
+            name: "login",
+            placeholder: "Введите логин"
+        },
+        htmlClasses: [
+            "auth__registration_form__login__input"
+        ],
+        validators: (0, _inputValidators.FormValidators)[(0, _enumInputFields.EnumInputFields).Login],
+        label: "Логин",
+        mainClass: "auth__registration_form__"
+    },
+    [(0, _enumInputFields.EnumInputFields).FirstName]: {
+        htmlAttributes: {
+            name: "first_name",
+            placeholder: "Введите Имя"
+        },
+        htmlClasses: [
+            "auth__registration_form__first_name__input"
+        ],
+        validators: (0, _inputValidators.FormValidators)[(0, _enumInputFields.EnumInputFields).FirstName],
+        label: "Имя",
+        mainClass: "auth__registration_form__"
+    },
+    [(0, _enumInputFields.EnumInputFields).SecondName]: {
+        htmlAttributes: {
+            name: "second_name",
+            placeholder: "Введите фамилию"
+        },
+        htmlClasses: [
+            "auth__registration_form__second_name__input"
+        ],
+        validators: (0, _inputValidators.FormValidators)[(0, _enumInputFields.EnumInputFields).SecondName],
+        label: "Фамилия",
+        mainClass: "auth__registration_form__"
+    },
+    [(0, _enumInputFields.EnumInputFields).Phone]: {
+        htmlAttributes: {
+            name: "phone",
+            placeholder: "Введите телефон"
+        },
+        htmlClasses: [
+            "auth__registration_form__phone__input"
+        ],
+        validators: (0, _inputValidators.FormValidators)[(0, _enumInputFields.EnumInputFields).Phone],
+        label: "Телефон",
+        mainClass: "auth__registration_form__"
+    },
+    [(0, _enumInputFields.EnumInputFields).Password]: {
+        htmlAttributes: {
+            name: "password",
+            placeholder: "Введите пароль",
+            type: "password"
+        },
+        htmlClasses: [
+            "auth__registration_form__password__input"
+        ],
+        validators: (0, _inputValidators.FormValidators)[(0, _enumInputFields.EnumInputFields).Password],
+        label: "Пароль",
+        mainClass: "auth__registration_form__"
+    },
+    [(0, _enumInputFields.EnumInputFields).PasswordCheck]: {
+        htmlAttributes: {
+            name: "password",
+            placeholder: "Введите пароль повторно",
+            type: "password"
+        },
+        htmlClasses: [
+            "auth__registration_form__passwordCheck__input"
+        ],
+        validators: (0, _inputValidators.FormValidators)[(0, _enumInputFields.EnumInputFields).PasswordCheck],
+        label: "Пароль (еще раз)",
+        mainClass: "auth__registration_form__"
+    }
+};
+
+},{"./enumInputFields":"cbRu8","./inputValidators":"6IPrc","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6IPrc":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "FormValidators", ()=>FormValidators);
+var _formInputValidator = require("utils/form-input-validator");
+var _enumInputFields = require("./enumInputFields");
+const validatePasswordsMatching = _formInputValidator.validateTwoFieldsMatching({
+    fieldNames: {
+        first: (0, _enumInputFields.EnumInputFields).Password,
+        second: (0, _enumInputFields.EnumInputFields).PasswordCheck
+    },
+    notMatchErrorText: "Пароли не совпадают!"
+});
+const FormValidators = [
+    {
+        field: (0, _enumInputFields.EnumInputFields).Email,
+        validatorsList: [
+            _formInputValidator.validateEmailRegex
+        ]
+    },
+    {
+        field: (0, _enumInputFields.EnumInputFields).Login,
+        validatorsList: [
+            _formInputValidator.validateLoginRegex
+        ]
+    },
+    {
+        field: (0, _enumInputFields.EnumInputFields).FirstName,
+        validatorsList: [
+            _formInputValidator.validateNameRegex
+        ]
+    },
+    {
+        field: (0, _enumInputFields.EnumInputFields).SecondName,
+        validatorsList: [
+            _formInputValidator.validateNameRegex
+        ]
+    },
+    {
+        field: (0, _enumInputFields.EnumInputFields).Phone,
+        validatorsList: [
+            _formInputValidator.validatePhoneRegex
+        ]
+    },
+    {
+        field: (0, _enumInputFields.EnumInputFields).Password,
+        validatorsList: [
+            _formInputValidator.validatePasswordRegex,
+            validatePasswordsMatching
+        ]
+    },
+    {
+        field: (0, _enumInputFields.EnumInputFields).PasswordCheck,
+        validatorsList: [
+            _formInputValidator.validatePasswordRegex,
+            validatePasswordsMatching
+        ]
+    }
+].reduce((acc, { field , validatorsList  })=>{
+    validatorsList.unshift(_formInputValidator.validateNotEmptyValue);
+    const validator = _formInputValidator.makeValidator({
+        validatorsList
+    });
+    acc[field] = {
+        blur: [
+            validator
+        ]
+    };
+    return acc;
+}, {});
+
+},{"utils/form-input-validator":"4RFK4","./enumInputFields":"cbRu8","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7ZMRz":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+exports.default = `
+<main class='auth__container'>
+  {{{ registrationForm }}}
+</main>`;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9muaU":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+// import { Modal } from 'components/modal/modal';
+// import { modalMessageUsers } from 'components/modal/modalMessage';
+parcelHelpers.export(exports, "ChatPage", ()=>ChatPage);
+var _dom = require("core/dom");
+// import { ImageElement, Input, Link, TextElement } from 'components/index';
+var _chatTemplate = require("./chatTemplate");
+var _menuPng = require("static/img/menu.png");
+var _menuPngDefault = parcelHelpers.interopDefault(_menuPng);
+var _attachPng = require("static/img/attach.png");
+var _attachPngDefault = parcelHelpers.interopDefault(_attachPng);
+var _sendPng = require("static/img/send.png");
+var _sendPngDefault = parcelHelpers.interopDefault(_sendPng);
+var _cameraPng = require("static/img/camera.png");
+var _cameraPngDefault = parcelHelpers.interopDefault(_cameraPng);
+var _chatList = require("./chatList");
+var _chatListDefault = parcelHelpers.interopDefault(_chatList);
+var _chatData = require("./chatData");
+// import { MainPage } from 'core/renderDOM';
+var _profile = require("pages/profile/profile");
+class ChatPage extends (0, _dom.Block) {
+    constructor(){
+        const children = {
+            chats: []
+        };
+        const refs = {};
+        // children.modal = new Modal({
+        //   props: {
+        //     title: '',
+        //     inputProps: modalMessageUsers.inputProps,
+        //     text: '',
+        //     error: '',
+        //   },
+        // });
+        // refs['modalField'] = children.modal;
+        (0, _chatData.chatList).map(({ username , userImg , lastMessage , lastMessageDate  })=>{
+            children.chats.push(new (0, _chatListDefault.default)({
+                username,
+                userImg,
+                lastMessage,
+                lastMessageDate
+            }));
+        });
+        children.profileLink = new Link({
+            props: {
+                label: (0, _chatData.chatData).link.name,
+                htmlName: (0, _chatData.chatData).link.htmlName,
+                htmlClass: "chat__list__profileLink__icon",
+                htmlWrapper: {
+                    componentAlias: "wrappedLink",
+                    htmlWrapperTemplate: `
+              <div class='chat__list__profileLink'>
+                {{{wrappedLink}}} 
+                <svg
+                  class='chat__list__profileLink__svg'
+                  width='6'
+                  height='10'
+                  viewBox='0 0 6 10'
+                  fill='none'
+                  xmlns='http://www.w3.org/2000/svg'
+                >
+                  <path d='M1 9L5 5L1 1' stroke='#999999'></path>
+                </svg>
+              </div>
+            `
+                },
+                events: {
+                    click: [
+                        ()=>{
+                            MainPage.component = new (0, _profile.ProfilePage)();
+                        }
+                    ]
+                }
+            }
+        });
+        children.inputFind = new Input({
+            props: {
+                placeholder: (0, _chatData.chatData).inputFindUser.placeholder,
+                type: (0, _chatData.chatData).inputFindUser.type,
+                htmlName: (0, _chatData.chatData).inputFindUser.name,
+                htmlClass: (0, _chatData.chatData).inputFindUser.class,
+                componentName: `${(0, _chatData.chatData).inputFindUser.name} input`,
+                htmlWrapper: {
+                    componentAlias: "wrappedInputFind",
+                    htmlWrapperTemplate: `
+            <div style='height: auto'>
+              <label for='chatSearch'></label>
+              {{{wrappedInputFind}}}
+            </div>
+            `
+                }
+            }
+        });
+        children.chatWith = new TextElement({
+            props: {
+                text: (0, _chatData.chatMessages).user,
+                htmlClass: "chat__body__title__user",
+                componentName: "Chat Component Message"
+            }
+        });
+        children.menuImage = new ImageElement({
+            props: {
+                src: (0, _menuPngDefault.default),
+                htmlClass: "chat__body__title__img",
+                alt: "menu",
+                componentName: "Menu Image",
+                events: {
+                    click: [
+                        ()=>{
+                            refs.modalField.showModal({
+                                title: modalMessageUsers.addUser.title,
+                                link: modalMessageUsers.addUser.link,
+                                value: modalMessageUsers.addUser.value,
+                                button: modalMessageUsers.addUser.button,
+                                error: modalMessageUsers.addUser.error
+                            });
+                        }
+                    ]
+                }
+            }
+        });
+        children.chatDate = new TextElement({
+            props: {
+                text: (0, _chatData.chatMessages).date,
+                htmlClass: "chat__body__date",
+                componentName: "Chat Component Message"
+            }
+        });
+        children.chatMessage1 = new TextElement({
+            props: {
+                text: (0, _chatData.chatMessages).message1,
+                htmlClass: "chat__body__message",
+                componentName: "Chat Component Message"
+            }
+        });
+        children.chatTime1 = new TextElement({
+            props: {
+                text: (0, _chatData.chatMessages).time1,
+                htmlClass: "chat__body__message__time",
+                componentName: "Chat Component Message"
+            }
+        });
+        children.imagePhoto = new ImageElement({
+            props: {
+                src: (0, _cameraPngDefault.default),
+                htmlClass: "chat__body__img",
+                alt: "photo",
+                componentName: "Photo Image"
+            }
+        });
+        children.chatMessage2 = new TextElement({
+            props: {
+                text: (0, _chatData.chatMessages).message2,
+                htmlClass: "chat__body__you",
+                componentName: "Chat Component Message"
+            }
+        });
+        children.chatTime2 = new TextElement({
+            props: {
+                text: (0, _chatData.chatMessages).time2,
+                htmlClass: "chat__body__you__time",
+                componentName: "Chat Component Message"
+            }
+        });
+        children.inputMessage = new Input({
+            props: {
+                placeholder: (0, _chatData.chatData).inputMessage.placeholder,
+                type: (0, _chatData.chatData).inputMessage.type,
+                htmlName: (0, _chatData.chatData).inputMessage.name,
+                htmlClass: (0, _chatData.chatData).inputMessage.class,
+                componentName: `${(0, _chatData.chatData).inputMessage.name} input`,
+                htmlWrapper: {
+                    componentAlias: "wrappedInputMessage",
+                    htmlWrapperTemplate: `
+            <div style='height: auto'>
+              <label for='message' style='width: 0'></label>
+              {{{wrappedInputMessage}}}
+            </div>
+            `
+                }
+            }
+        });
+        children.attachImage = new ImageElement({
+            props: {
+                src: (0, _attachPngDefault.default),
+                htmlClass: "chat__body__footer__img",
+                alt: "attach",
+                componentName: "Attach Image"
+            }
+        });
+        children.sendImage = new ImageElement({
+            props: {
+                src: (0, _sendPngDefault.default),
+                htmlClass: "chat__body__footer__imgSend",
+                alt: "send",
+                componentName: "Send Image"
+            }
+        });
+        super({
+            children,
+            props: {
+                componentName: "Chats Page"
+            }
+        });
+    }
+    render() {
+        return 0, _chatTemplate.chatTemplate;
+    }
+}
+
+},{"core/dom":"3BLMu","./chatTemplate":"bKpsa","static/img/menu.png":"1MGTQ","static/img/attach.png":"hTNQO","static/img/send.png":"ceWHr","static/img/camera.png":"hBYjR","./chatList":"iEv8H","./chatData":"42lLR","pages/profile/profile":"atqZr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bKpsa":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "chatTemplate", ()=>chatTemplate);
+const chatTemplate = `
+<main class='chat__container'>
+  {{{modal}}}
+  <div class='chat__list'>
+    {{{profileLink}}}
+    {{{inputFind}}}
+    {{{ chats }}}
+  </div>
+  <div class='chat__body'>
+    <div class='chat__body__title'>
+      <div class='chat__body__title__circle'></div>
+      {{{chatWith}}}
+      {{{menuImage}}}
+    </div>
+    <div class='chat__body__line'></div>
+      {{{chatDate}}}
+    <div class='chat__body__message__container'>
+      {{{chatMessage1}}}
+      {{{chatTime1}}}
+    </div>
+    {{{imagePhoto}}}
+    <div class='chat__body__you__container'>
+      {{{chatMessage2}}}
+      {{{chatTime2}}}
+    </div>
+    <footer class='chat__body__footer'>
+      <div class='chat__body__line'></div>
+      <div class='chat__body__footer__container'>
+        {{{attachImage}}}
+        {{{inputMessage}}}
+        {{{sendImage}}}
+      </div>
+    </footer>
+  </div>
+</main>
+`;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1MGTQ":[function(require,module,exports) {
+module.exports = require("662ada06709a3352").getBundleURL("7UhFu") + "menu.a1c33c79.png" + "?" + Date.now();
+
+},{"662ada06709a3352":"lgJ39"}],"lgJ39":[function(require,module,exports) {
+"use strict";
+var bundleURL = {};
+function getBundleURLCached(id) {
+    var value = bundleURL[id];
+    if (!value) {
+        value = getBundleURL();
+        bundleURL[id] = value;
+    }
+    return value;
+}
+function getBundleURL() {
+    try {
+        throw new Error();
+    } catch (err) {
+        var matches = ("" + err.stack).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^)\n]+/g);
+        if (matches) // The first two stack frames will be this function and getBundleURLCached.
+        // Use the 3rd one, which will be a runtime in the original bundle.
+        return getBaseURL(matches[2]);
+    }
+    return "/";
+}
+function getBaseURL(url) {
+    return ("" + url).replace(/^((?:https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/.+)\/[^/]+$/, "$1") + "/";
+} // TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
+function getOrigin(url) {
+    var matches = ("" + url).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^/]+/);
+    if (!matches) throw new Error("Origin not found");
+    return matches[0];
+}
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+exports.getOrigin = getOrigin;
+
+},{}],"hTNQO":[function(require,module,exports) {
+module.exports = require("84866f3f39f43634").getBundleURL("7UhFu") + "attach.a2507276.png" + "?" + Date.now();
+
+},{"84866f3f39f43634":"lgJ39"}],"ceWHr":[function(require,module,exports) {
+module.exports = require("94d6124511703da").getBundleURL("7UhFu") + "send.e0d50340.png" + "?" + Date.now();
+
+},{"94d6124511703da":"lgJ39"}],"hBYjR":[function(require,module,exports) {
+module.exports = require("5414f57f6c9aaea1").getBundleURL("7UhFu") + "camera.5b58f8e0.png" + "?" + Date.now();
+
+},{"5414f57f6c9aaea1":"lgJ39"}],"iEv8H":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _dom = require("core/dom");
+// import { ImageElement, TextElement } from 'components/index';
+var _chatListTemplate = require("./chatListTemplate");
+class ChatList extends (0, _dom.Block) {
+    constructor({ username , userImg , lastMessage , lastMessageDate  }){
+        const children = {};
+        const messageElement = new TextElement({
+            props: {
+                text: lastMessage,
+                componentName: "Chat Component Message",
+                htmlClass: "chat__list__message__last",
+                htmlWrapper: {
+                    componentAlias: "wrapped",
+                    htmlWrapperTemplate: `
+                <div class='chat__list__message__container'>
+                  <div class="chat__list__message__circle">
+                    ${userImg}
+                  </div>
+                  <div class='chat__list__message__text'>
+                    <span class='chat__list__message__title'>${username}</span>
+                    {{{wrapped}}}
+                  </div>
+                  <span class='chat__list__message__lastDate'>${lastMessageDate}</span>
+                </div>
+              `
+                }
+            }
+        });
+        children.message = messageElement;
+        super({
+            children
+        });
+    }
+    render() {
+        return 0, _chatListTemplate.chatListTemplate;
+    }
+}
+exports.default = ChatList;
+
+},{"core/dom":"3BLMu","./chatListTemplate":"dc6W1","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dc6W1":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "chatListTemplate", ()=>chatListTemplate);
+const chatListTemplate = `
+    {{{message}}}
+`;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"42lLR":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "chatList", ()=>chatList);
+parcelHelpers.export(exports, "chatData", ()=>chatData);
+parcelHelpers.export(exports, "chatMessages", ()=>chatMessages);
+const chatList = [
+    {
+        username: "Петя",
+        userImg: "",
+        lastMessage: "Test",
+        lastMessageDate: "16:54"
+    },
+    {
+        username: "Ваня",
+        userImg: "",
+        lastMessage: "Test Test",
+        lastMessageDate: "10:54"
+    },
+    {
+        username: "Коля",
+        userImg: "",
+        lastMessage: "Тестовое сообщение",
+        lastMessageDate: "Вт"
+    },
+    {
+        username: "Дима",
+        userImg: "",
+        lastMessage: "Тестовое сообщение, чтобы посмотреть как работает ограничение",
+        lastMessageDate: "2 Дек 2022"
+    }
+];
+const chatData = {
+    link: {
+        name: "Профиль",
+        htmlName: "Profile"
+    },
+    inputFindUser: {
+        placeholder: "Поиск",
+        type: "text",
+        name: "chatSearch",
+        class: "chat__list__input"
+    },
+    inputMessage: {
+        placeholder: "Сообщение",
+        type: "text",
+        name: "message",
+        class: "chat__body__footer__input"
+    }
+};
+const chatMessages = {
+    user: "Вадим",
+    date: "19 июня",
+    time1: "11:56",
+    message1: "Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой./n Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и не попали. Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.",
+    time2: "12:00",
+    message2: "Круто!"
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"atqZr":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+// import { Modal } from 'components/modal/modal';
+// import { modalMessage } from 'components/modal/modalMessage';
+parcelHelpers.export(exports, "ProfilePage", ()=>ProfilePage);
+var _chat = require("pages/chat/chat");
+var _dom = require("core/dom");
+// import {
+//   Button,
+//   ImageElement,
+//   Input,
+//   InputValidator,
+//   TextElement,
+// } from 'components/index';
+var _profileTemplate = require("./profileTemplate");
+var _profileData = require("./profileData");
+var _profileAvatarPng = require("static/img/profile_avatar.png");
+var _profileAvatarPngDefault = parcelHelpers.interopDefault(_profileAvatarPng);
+var _arrowBackPng = require("static/img/arrowBack.png");
+var _arrowBackPngDefault = parcelHelpers.interopDefault(_arrowBackPng);
+// import { InputValidators } from 'utils/inputValidators';
+var _login = require("../login/login");
+var _changePassword = require("./changePassword/changePassword");
+class ProfilePage extends (0, _dom.Block) {
+    constructor(){
+        const children = {};
+        const refModal = {};
+        const refs = {};
+        children.arrowBackImage = new ImageElement({
+            props: {
+                src: (0, _arrowBackPngDefault.default),
+                alt: (0, _profileData.profileData).backLink.alt,
+                htmlClass: (0, _profileData.profileData).backLink.class,
+                componentName: "Arrow Back Image",
+                htmlWrapper: {
+                    componentAlias: "wrappedProfileLink",
+                    htmlWrapperTemplate: `
+              <div class='profile__buttonBack'>
+                {{{wrappedProfileLink}}}
+              </div>
+            `
+                },
+                events: {
+                    click: [
+                        ()=>{
+                            MainPage.component = new (0, _chat.ChatPage)();
+                        }
+                    ]
+                }
+            }
+        });
+        children.avatarImage = new ImageElement({
+            props: {
+                src: (0, _profileAvatarPngDefault.default),
+                alt: (0, _profileData.profileData).avatar.alt,
+                htmlClass: (0, _profileData.profileData).avatar.class,
+                componentName: "Profile avatar image"
+            }
+        });
+        children.inputAvatarImage = new Input({
+            props: {
+                htmlName: "avatar",
+                type: "file",
+                htmlClass: "profile__data__data__avatar",
+                componentName: `${name} profile`
+            }
+        });
+        children.modal = new Modal({
+            props: {
+                title: "",
+                inputProps: modalMessage.inputProps,
+                text: "",
+                error: ""
+            }
+        });
+        refModal["modalField"] = children.modal;
+        children.changeAvatar = new TextElement({
+            props: {
+                text: (0, _profileData.profileData).changeAvatar,
+                htmlClass: "profile__avatar__change",
+                componentName: "Profile Component Message",
+                events: {
+                    click: [
+                        ()=>{
+                            refModal.modalField.showModal({
+                                title: modalMessage.LoadFile.title,
+                                link: modalMessage.LoadFile.link,
+                                value: modalMessage.LoadFile.value,
+                                button: modalMessage.LoadFile.button,
+                                error: modalMessage.LoadFile.error
+                            });
+                        }
+                    ]
+                }
+            }
+        });
+        children.username = new TextElement({
+            props: {
+                text: (0, _profileData.profileData).username,
+                htmlClass: "profile__title",
+                componentName: "Profile Component Message"
+            }
+        });
+        (0, _profileData.profileFieldsData).forEach(({ name: name1 , title , data , placeholder  })=>{
+            const inputField = new Input({
+                props: {
+                    placeholder,
+                    type: "text",
+                    htmlName: name1,
+                    value: data,
+                    htmlClass: (0, _profileData.profileData).inputFileds.class,
+                    htmlId: name1,
+                    componentName: `${name1} profile`,
+                    disabledAttr: true,
+                    htmlWrapper: {
+                        componentAlias: "wrappedProfileInput",
+                        htmlWrapperTemplate: `
+              <div class='profile__data'>
+                <p class='profile__data__title'>
+                  ${title}
+                </p>
+                <label for=${name1} style="width: 0px"></label>
+                {{{wrappedProfileInput}}}
+              </div>
+              <div class='profile__line'></div>
+              `
+                    },
+                    validators: {
+                        blur: InputValidators[name1]
+                    }
+                }
+            });
+            children[`${name1}Field`] = inputField;
+            refs[`${name1}Field`] = inputField;
+        });
+        children.changePasswordLink = new Button({
+            props: {
+                label: (0, _profileData.profileData).changePassword.link,
+                htmlName: (0, _profileData.profileData).changePassword.htmlName,
+                htmlClass: (0, _profileData.profileData).changePassword.class,
+                events: {
+                    click: [
+                        ()=>{
+                            MainPage.component = new (0, _changePassword.ChangePasswordPage)();
+                        }
+                    ]
+                }
+            }
+        });
+        children.exitLink = new Button({
+            props: {
+                label: (0, _profileData.profileData).exitProfile.link,
+                htmlName: (0, _profileData.profileData).exitProfile.htmlName,
+                htmlClass: (0, _profileData.profileData).exitProfile.class,
+                events: {
+                    click: [
+                        ()=>{
+                            MainPage.component = new (0, _login.LoginPage)();
+                        }
+                    ]
+                }
+            }
+        });
+        super({
+            children,
+            props: {
+                componentName: "Profile Page"
+            },
+            refs
+        });
+    }
+    render() {
+        return 0, _profileTemplate.profileTemplate;
+    }
+    _preInitHook() {
+        Object.values(this.refs).forEach((inputField)=>{
+            inputField.refs.Form = this;
+        });
+        (0, _profileData.profileData).errorLabel.forEach((stateErrorName)=>{
+            this.state[stateErrorName] = "";
+        });
+        const button = new Button({
+            state: {
+                mode: "save"
+            },
+            props: {
+                label: (0, _profileData.profileData).changeData.change,
+                htmlName: (0, _profileData.profileData).changeData.htmlName,
+                htmlClass: (0, _profileData.profileData).changeData.class,
+                componentName: "Profile button",
+                events: {
+                    click: [
+                        (function checkList() {
+                            let isError = false;
+                            const formRefs = this.refs;
+                            Object.values(formRefs).forEach((inputField)=>{
+                                const inputProps = inputField.props;
+                                if (inputProps.componentName === "Profile button") {
+                                    if (this.state.mode === "save" || !this.state.mode) {
+                                        inputProps.label = (0, _profileData.profileData).changeData.save;
+                                        this.state.mode = "change";
+                                        inputProps.htmlClass = (0, _profileData.profileData).changeData.classActive;
+                                    } else {
+                                        inputProps.label = (0, _profileData.profileData).changeData.change;
+                                        this.state.mode = "save";
+                                        inputProps.htmlClass = (0, _profileData.profileData).changeData.class;
+                                    }
+                                } else {
+                                    inputProps.disabledAttr = !inputProps.disabledAttr;
+                                    this.state.mode !== "save" ? inputProps.htmlClass = (0, _profileData.profileData).inputFileds.class : inputProps.htmlClass = (0, _profileData.profileData).inputFileds.classActive;
+                                    Object.values(inputField.validators).forEach((validator)=>{
+                                        const error = validator();
+                                        if (error) isError = true;
+                                    });
+                                }
+                            });
+                        }).bind(this)
+                    ]
+                }
+            }
+        });
+        this.children.changeDataLink = button;
+        this.refs["Button"] = button;
+    }
+}
+
+},{"pages/chat/chat":"9muaU","core/dom":"3BLMu","./profileTemplate":"5ySyV","./profileData":"hNHYd","static/img/profile_avatar.png":"j6gct","static/img/arrowBack.png":"P7Wev","../login/login":"dCEbf","./changePassword/changePassword":"dxpTD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5ySyV":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "profileTemplate", ()=>profileTemplate);
+parcelHelpers.export(exports, "imageBackTemplate", ()=>imageBackTemplate);
+const profileTemplate = `
+<main class='profile'>
+  {{{modal}}}
+  {{{arrowBackImage}}}
+  <div class='profile__container'>
+    <div class='profile__avatar'>
+      {{{avatarImage}}}
+      <label for='avatar' style='display: none'></label>
+      {{{inputAvatarImage}}}
+      {{{changeAvatar}}}
+    </div>
+    {{{username}}}
+    <div class='profile__data__container'>
+      {{{emailField}}}
+      <span class='profile__error'>
+        {{{ emailError }}}
+      </span>
+      {{{loginField}}}
+      <span class='profile__error'>
+        {{{ loginError }}}
+      </span>
+      {{{first_nameField}}}
+      <span class='profile__error'>
+        {{{ first_nameError }}}
+      </span>
+      {{{second_nameField}}}
+      <span class='profile__error'>
+        {{{ second_nameError }}}
+      </span>
+      {{{display_nameField}}}
+      <span class='profile__error'>
+        {{{ display_nameError }}}
+      </span>
+      {{{phoneField}}}
+      <span class='profile__error'>
+        {{{ phoneError }}}
+      </span>
+    </div>
+    <div class='profile__button__container'>
+      {{{changeDataLink}}}
+      <div class='profile__line2'></div>
+      {{{changePasswordLink}}}
+      <div class='profile__line2'></div>
+      {{{exitLink}}}
+   </div>
+</main>
+`;
+const imageBackTemplate = `
+  {{{arrowBackImage}}}
+`;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hNHYd":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "profileFieldsData", ()=>profileFieldsData);
+parcelHelpers.export(exports, "profileData", ()=>profileData);
+const profileFieldsData = [
+    {
+        name: "email",
+        title: "Почта",
+        data: "pochta@yandex.ru",
+        placeholder: "Введите email"
+    },
+    {
+        name: "login",
+        title: "Логин",
+        data: "ivanivanov",
+        placeholder: "Введите логин"
+    },
+    {
+        name: "first_name",
+        title: "Имя",
+        data: "Иван",
+        placeholder: "Введите Имя"
+    },
+    {
+        name: "second_name",
+        title: "Фамилия",
+        data: "Иванов",
+        placeholder: "Введите фамилию"
+    },
+    {
+        name: "display_name",
+        title: "Имя в чате",
+        data: "Иван",
+        placeholder: "Введите имя в чате"
+    },
+    {
+        name: "phone",
+        title: "Телефон",
+        data: "79099673030",
+        placeholder: "Введите пароль"
+    }
+];
+const profileData = {
+    username: "Ivan",
+    changeAvatar: "Поменять аватар",
+    backLink: {
+        class: "profile__buttonBack__img",
+        name: "",
+        alt: "arrowBack",
+        htmlName: "backLink"
+    },
+    avatar: {
+        alt: "profileAvatar",
+        class: "profile__buttonBack__img"
+    },
+    changeData: {
+        change: "Изменить данные",
+        save: "Сохранить данные",
+        class: "profile__saveButton",
+        classActive: "profile__saveButton__active",
+        htmlName: "changeData"
+    },
+    changePassword: {
+        link: "Изменить пароль",
+        class: "profile__changePasswordButton",
+        htmlName: "changePassword"
+    },
+    exitProfile: {
+        link: "Выйти",
+        class: "profile__exitButton",
+        htmlName: "exitProfile"
+    },
+    inputFileds: {
+        class: "profile__data__data",
+        classActive: "profile__data__data__active"
+    },
+    errorLabel: [
+        "errorEmail",
+        "errorLogin",
+        "errorFirstName",
+        "errorSecondName",
+        "errorPhone",
+        "errorPassword",
+        "errorPasswordCheck"
+    ]
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"j6gct":[function(require,module,exports) {
+module.exports = require("49cc8f1abcba409b").getBundleURL("7UhFu") + "profile_avatar.558a0e16.png" + "?" + Date.now();
+
+},{"49cc8f1abcba409b":"lgJ39"}],"P7Wev":[function(require,module,exports) {
+module.exports = require("266cec9c28fdb89").getBundleURL("7UhFu") + "arrowBack.b3aade7f.png" + "?" + Date.now();
+
+},{"266cec9c28fdb89":"lgJ39"}],"dxpTD":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+// import { InputValidators } from '../../../utils/inputValidators';
+parcelHelpers.export(exports, "ChangePasswordPage", ()=>ChangePasswordPage);
+var _dom = require("core/dom");
+var _index = require("components/index");
+var _changePasswordTemplate = require("./changePasswordTemplate");
+var _profileData = require("../profileData");
+var _profileAvatarPng = require("static/img/profile_avatar.png");
+var _profileAvatarPngDefault = parcelHelpers.interopDefault(_profileAvatarPng);
+var _arrowBackPng = require("static/img/arrowBack.png");
+var _arrowBackPngDefault = parcelHelpers.interopDefault(_arrowBackPng);
+var _profile = require("../profile");
+var _changePasswordData = require("./changePasswordData");
+class ChangePasswordPage extends (0, _dom.Block) {
+    constructor(){
+        const children = {};
+        const refs = {};
+        children.arrowBackImage = new (0, _index.ImageElement)({
+            props: {
+                src: (0, _arrowBackPngDefault.default),
+                alt: (0, _profileData.profileData).backLink.alt,
+                htmlClass: (0, _profileData.profileData).backLink.class,
+                componentName: "Arrow Back Image",
+                htmlWrapper: {
+                    componentAlias: "wrappedProfileLink",
+                    htmlWrapperTemplate: `
+              <div class='profile__buttonBack'>
+                {{{wrappedProfileLink}}}
+              </div>
+            `
+                },
+                events: {
+                    click: [
+                        ()=>{
+                            MainPage.component = new (0, _profile.ProfilePage)();
+                        }
+                    ]
+                }
+            }
+        });
+        children.avatarImage = new (0, _index.ImageElement)({
+            props: {
+                src: (0, _profileAvatarPngDefault.default),
+                alt: (0, _profileData.profileData).avatar.alt,
+                htmlClass: (0, _profileData.profileData).avatar.class,
+                componentName: "Profile avatar image"
+            }
+        });
+        children.username = new (0, _index.TextElement)({
+            props: {
+                text: (0, _profileData.profileData).username,
+                htmlClass: "profile__title",
+                componentName: "Profile Component Message"
+            }
+        });
+        (0, _changePasswordData.changePasswordData).forEach(({ name , title , data , placeholder  })=>{
+            const inputField = new (0, _index.Input)({
+                props: {
+                    placeholder,
+                    type: "password",
+                    htmlName: name,
+                    value: data,
+                    htmlClass: "profile__data__data",
+                    componentName: `${name} profile`,
+                    htmlWrapper: {
+                        componentAlias: "wrappedChangePasswordInput",
+                        htmlWrapperTemplate: `
+              <div class='profile__data'>
+                <p class='profile__data__title'>
+                  ${title}
+                </p>
+                <label for={{name}} style="width: 0px"></label>
+                {{{wrappedChangePasswordInput}}}
+              </div>
+              <div class='profile__line'></div>
+              `
+                    },
+                    validators: {
+                        blur: InputValidators[name]
+                    }
+                }
+            });
+            children[`${name}Field`] = inputField;
+            refs[`${name}Field`] = inputField;
+        });
+        super({
+            children,
+            props: {
+                componentName: "Change Password Page"
+            },
+            refs
+        });
+    }
+    render() {
+        return 0, _changePasswordTemplate.profileTemplate;
+    }
+    routeTo() {
+        MainPage.component = new (0, _profile.ProfilePage)();
+    }
+    _preInitHook() {
+        Object.values(this.refs).forEach((inputField)=>{
+            inputField.refs.Form = this;
+        });
+        (0, _changePasswordData.changePassword).errorLabel.forEach((stateErrorName)=>{
+            this.state[stateErrorName] = "";
+        });
+        const button = new (0, _index.Button)({
+            props: {
+                label: (0, _profileData.profileData).changeData.change,
+                htmlName: (0, _profileData.profileData).changeData.htmlName,
+                htmlClass: (0, _profileData.profileData).changeData.class,
+                componentName: "ChangePassword button",
+                events: {
+                    click: [
+                        (function checkPassword() {
+                            let isError = false;
+                            const formRefs = this.refs;
+                            Object.values(formRefs).forEach((inputField)=>{
+                                const inputProps = inputField.props;
+                                if (inputProps.componentName !== "ChangePassword button") Object.values(inputField.validators).forEach((validator)=>{
+                                    const error = validator();
+                                    if (error) isError = true;
+                                });
+                            });
+                            if (!isError) this.routeTo();
+                        }).bind(this)
+                    ]
+                }
+            }
+        });
+        this.children.button = button;
+        this.refs["Button"] = button;
+    }
+}
+
+},{"core/dom":"3BLMu","components/index":"dHnah","./changePasswordTemplate":"3FKbA","../profileData":"hNHYd","static/img/profile_avatar.png":"j6gct","static/img/arrowBack.png":"P7Wev","../profile":"atqZr","./changePasswordData":"jABZa","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3FKbA":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "profileTemplate", ()=>profileTemplate);
+parcelHelpers.export(exports, "imageBackTemplate", ()=>imageBackTemplate);
+var _profileData = require("../profileData");
+const profileTemplate = `
+<main class='profile'>
+  {{{arrowBackImage}}}
+  <div class='profile__container'>
+    <div class='profile__avatar'>
+      {{{avatarImage}}}
+      <label for='avatar' style='display: none'></label>
+      <input
+        name='avatar'
+        type='file'
+        id='avatar'
+        style='display: none'
+      />
+      <span class='profile__avatar__change'>${(0, _profileData.profileData).changeAvatar}</span>
+    </div>
+    {{{username}}}
+    <div class='profile__data__container'>
+      {{{oldPasswordField}}}
+      <span class='profile__error'>
+        {{{ oldPasswordError }}}
+      </span>
+      {{{newPasswordField}}}
+      <span class='profile__error'>
+        {{{ newPasswordError }}}
+      </span>
+      {{{newPasswordCheckField}}}
+      <span class='profile__error'>
+        {{{ newPasswordCheckError }}}
+      </span>
+    </div>
+    <div class="profile__button">
+      {{{button}}}
+    </div>
+</main>
+`;
+const imageBackTemplate = `
+  {{{arrowBackImage}}}
+`;
+
+},{"../profileData":"hNHYd","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jABZa":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "changePasswordData", ()=>changePasswordData);
+parcelHelpers.export(exports, "changePassword", ()=>changePassword);
+const changePasswordData = [
+    {
+        name: "oldPassword",
+        title: "Старый пароль",
+        data: "QWE123qwe",
+        placeholder: "Введите старый пароль"
+    },
+    {
+        name: "newPassword",
+        title: "Новый пароль",
+        data: "QWE123qwe",
+        placeholder: "Введите пароль"
+    },
+    {
+        name: "newPasswordCheck",
+        title: "Подтвердите новый пароль",
+        data: "QWE123qwe",
+        placeholder: "Введите пароль повторно"
+    }
+];
+const changePassword = {
+    button: "Сохранить",
+    errorLabel: [
+        "errorOldPassword",
+        "errorPassword",
+        "errorPasswordCheck"
+    ]
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kZohv":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ErrorPage", ()=>ErrorPage);
+var _dom = require("core/dom");
+// import { Link, TextElement } from 'components/index';
+// import { LoginPage } from '../index';
+var _errorData = require("./errorData");
+var _errorTemplate = require("./errorTemplate");
+class ErrorPage extends (0, _dom.Block) {
+    constructor({ props ={
+        componentName: "Error"
+    }  }){
+        const children = {};
+        children.errorTitle = new TextElement({
+            props: {
+                text: props.title,
+                htmlClass: "error__title",
+                componentName: "Error Component Message"
+            }
+        });
+        children.errorMessage = new TextElement({
+            props: {
+                text: props.message,
+                htmlClass: "error__message",
+                componentName: "Error Component Message"
+            }
+        });
+        children.backLink = new Link({
+            props: {
+                label: (0, _errorData.errorData).errorProps.link,
+                htmlClass: (0, _errorData.errorData).errorProps.class,
+                events: {
+                    click: [
+                        ()=>{
+                            MainPage.component = new LoginPage();
+                        }
+                    ]
+                }
+            }
+        });
+        super({
+            children
+        });
+    }
+    render() {
+        return 0, _errorTemplate.errorTemplate;
+    }
+}
+
+},{"core/dom":"3BLMu","./errorData":"2R9xq","./errorTemplate":"3LON2","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2R9xq":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "errorData", ()=>errorData);
+const errorData = {
+    errorProps: {
+        link: "Назад",
+        class: "error__link"
+    },
+    404: {
+        title: "404",
+        message: "Не туда попали"
+    },
+    505: {
+        title: "505",
+        message: "Мы уже фиксим"
+    }
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3LON2":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "errorTemplate", ()=>errorTemplate);
+const errorTemplate = `
+  <main class='error__container'>
+    {{{errorTitle}}}
+    {{{errorMessage}}}
+    {{{backLink}}}
+  </main>
+`;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8y9HY":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "getDescendantByPath", ()=>getDescendantByPath);
+function getDescendantByPath(blockChildren, pathString) {
+    const path = pathString.split(".").join(".children.").split(".");
+    let result = blockChildren;
+    for(let i = 0; i < path.length; i++){
+        if (!result[path[i]]) break;
+        result = result[path[i]];
+    }
+    return result;
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4fFtk":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "pageSetter", ()=>(0, _page.pageSetter));
+parcelHelpers.export(exports, "userSetter", ()=>(0, _user.userSetter));
+parcelHelpers.export(exports, "chatsSetter", ()=>(0, _chats.chatsSetter));
+parcelHelpers.export(exports, "currentChatSetter", ()=>(0, _currentChatId.currentChatSetter));
+var _page = require("./page");
+var _user = require("./user");
+var _chats = require("./chats");
+var _currentChatId = require("./current-chat-id");
+
+},{"./page":"jGROx","./user":"3WGvP","./chats":"48pRd","./current-chat-id":"kE50e","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jGROx":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "pageSetter", ()=>pageSetter);
+var _store = require("core/store");
+function pageSetter(newPage) {
+    this.eventBus.emit((0, _store.EnumStoreEvents).PageChanged, newPage);
+}
+
+},{"core/store":"8EiUk","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3WGvP":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "userSetter", ()=>userSetter);
+var _appPages = require("pages/appPages");
+var _objectsHandle = require("utils/objects-handle");
+function userSetter(oldValue, newValue) {
+    const pageType = this.state.page;
+    const { page  } = this;
+    switch(pageType){
+        case (0, _appPages.AppPages).Profile:
+            if ((0, _objectsHandle.isNullish)(newValue)) throw new Error("User Can't Be Nullified On Profile Page");
+            if (!(0, _objectsHandle.isObject)(oldValue) || !oldValue) throw new Error(`Incorrect User State ${oldValue} On Profile Page`);
+            if (oldValue.avatar !== newValue.avatar) page.updateUserAvatar();
+            page.updateUserInfo();
+            break;
+        case (0, _appPages.AppPages).Login:
+            if ((0, _objectsHandle.isNullish)(oldValue) !== (0, _objectsHandle.isNullish)(newValue)) page.createLinks();
+            break;
+        default:
+    }
+}
+
+},{"pages/appPages":"c7aIo","utils/objects-handle":"kOfSo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"48pRd":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "chatsSetter", ()=>chatsSetter);
+var _appPages = require("pages/appPages");
+function chatsSetter() {
+    const { page  } = this.state;
+    if (page !== (0, _appPages.AppPages).Chat) return;
+    const { chatsList  } = this.page.refs;
+    chatsList.createChatsList();
+    Object.values(chatsList.children.chats).forEach((chat)=>{
+        this.page.refs[`chat-${chat.chatID}`] = chat;
+    });
+}
+
+},{"pages/appPages":"c7aIo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kE50e":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "currentChatSetter", ()=>currentChatSetter);
+var _appPages = require("pages/appPages");
+var _objectsHandle = require("utils/objects-handle");
+function currentChatSetter(oldValue, newValue) {
+    const newValueIsNull = (0, _objectsHandle.isNullish)(newValue);
+    const { page  } = this.state;
+    if (newValueIsNull) localStorage.removeItem("currentChatID");
+    else localStorage.currentChatID = newValue;
+    if (page !== (0, _appPages.AppPages).Chat) return;
+    const { refs  } = this.page;
+    refs.messagesDisplaySection.createMessagesList();
+    refs.messagesDisplaySection.setChatAbsenceWarning();
+    refs.addChatUsersButton.toggleDisabledState(newValueIsNull);
+    refs.deleteChatButton.toggleDisabledState(newValueIsNull);
+    refs.attachmentButton.assignCurrentChat();
+    refs.messageInput.assignCurrentChat();
+    refs.sendMessageButton.assignCurrentChat();
+    refs.chooseChatAvatarButton.toggleDisabledState(newValueIsNull);
+    if (!(0, _objectsHandle.isNullish)(oldValue)) refs[`chat-${oldValue}`].toggleHtmlClass("current-chat", "off");
+    if (!(0, _objectsHandle.isNullish)(newValue)) refs[`chat-${newValue}`].toggleHtmlClass("current-chat", "on");
+}
+
+},{"pages/appPages":"c7aIo","utils/objects-handle":"kOfSo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3V4YB":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "stateByPathSetter", ()=>_setters);
+parcelHelpers.export(exports, "statePathRegex", ()=>_pathRegex);
+var _setters = require("./setters");
+var _pathRegex = require("./path-regex");
+
+},{"./setters":"18cPE","./path-regex":"gczMQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"18cPE":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ChatAvatar", ()=>ChatAvatar);
+parcelHelpers.export(exports, "ChatNewMessage", ()=>ChatNewMessage);
+var _appPages = require("pages/appPages");
+function ChatAvatar(chatID, newAvatar) {
+    const pageType = this.state.page;
+    if (pageType !== (0, _appPages.AppPages).Chat) return;
+    const { page  } = this;
+    const chatComponent = page.refs[`chat-${chatID}`];
+    const { avatarImage  } = chatComponent.children;
+    avatarImage.setPropByPath("htmlAttributes.src", newAvatar);
+}
+function ChatNewMessage(chatID) {
+    const pageType = this.state.page;
+    if (pageType !== (0, _appPages.AppPages).Chat) return;
+    const { page  } = this;
+    if (chatID === window.store.getCurrentChatID()) page.refs.messagesDisplaySection.createMessagesList();
+    page.refs.messagesDisplaySection.setChatAbsenceWarning();
+}
+
+},{"pages/appPages":"c7aIo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gczMQ":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ChatAvatarChange", ()=>ChatAvatarChange);
+parcelHelpers.export(exports, "ChatNewMessage", ()=>ChatNewMessage);
+const ChatAvatarChange = /^chats\.(\d+)\.avatar$/g;
+const ChatNewMessage = /^chatsMessages\.(\d+)$/g;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8xDdB":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "initAppData", ()=>initAppData);

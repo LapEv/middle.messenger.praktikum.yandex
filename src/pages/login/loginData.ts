@@ -1,5 +1,6 @@
 const loginData = {
   page: 'Login Page',
+  formClass: 'auth__form',
   inputFields: [
     {
       type: 'text',

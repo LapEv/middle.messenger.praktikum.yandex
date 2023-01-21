@@ -1,5 +1,5 @@
-import { EnumAppPages } from "pages";
-import { isNullish } from "utils/objects-handle";
+import { AppPages } from 'pages/appPages';
+import { isNullish } from 'utils/objects-handle';
 
 export function currentChatSetter(
   oldValue: Nullable<number>,
@@ -9,11 +9,11 @@ export function currentChatSetter(
   const { page } = this.state;
 
   if (newValueIsNull) {
-    localStorage.removeItem("currentChatID");
+    localStorage.removeItem('currentChatID');
   } else {
     localStorage.currentChatID = newValue;
   }
-  if (page !== EnumAppPages.Chats) {
+  if (page !== AppPages.Chat) {
     return;
   }
 
@@ -28,9 +28,9 @@ export function currentChatSetter(
   refs.chooseChatAvatarButton.toggleDisabledState(newValueIsNull);
 
   if (!isNullish(oldValue)) {
-    refs[`chat-${oldValue}`].toggleHtmlClass("current-chat", "off");
+    refs[`chat-${oldValue}`].toggleHtmlClass('current-chat', 'off');
   }
   if (!isNullish(newValue)) {
-    refs[`chat-${newValue}`].toggleHtmlClass("current-chat", "on");
+    refs[`chat-${newValue}`].toggleHtmlClass('current-chat', 'on');
   }
 }

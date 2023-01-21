@@ -1,7 +1,7 @@
 import Handlebars from 'handlebars';
 import { nanoid } from 'nanoid';
 import { deepMerge } from 'utils/objects-handle';
-// import { type Store } from "core/store";
+import { type Store } from 'core/store';
 import { type Router } from 'core/router';
 import BlockBase, { BlockCommonEvents } from './block-base';
 
@@ -19,7 +19,7 @@ export class Block<
 
   public router?: Router;
 
-  // public store?: Store;
+  public store?: Store;
 
   private wasRendered: Boolean = false;
 

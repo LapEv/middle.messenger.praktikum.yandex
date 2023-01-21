@@ -1,8 +1,8 @@
 {
     "version": 3,
-    "mappings": "AAEA,AAAA,WAAW,AAAC,CACV,KAAK,CAAE,KAAK,CACZ,MAAM,CAAE,IAAI,CACZ,gBAAgB,CCJQ,OAAO,CDK/B,KAAK,CCAO,IAAI,CDChB,aAAa,CAAE,GAAG,CAClB,YAAY,CCPY,OAAO,CDQ/B,SAAS,CAAE,EAAE,CACb,MAAM,CAAE,OAAO,CAChB",
+    "mappings": "AAEA,AAAA,WAAW,AAAC,CACV,KAAK,CAAE,KAAK,CACZ,MAAM,CAAE,IAAI,CACZ,gBAAgB,CCJQ,OAAO,CDK/B,KAAK,CCCO,IAAI,CDAhB,aAAa,CAAE,GAAG,CAClB,YAAY,CCPY,OAAO,CDQ/B,SAAS,CAAE,EAAE,CACb,MAAM,CAAE,OAAO,CAChB",
     "sources": [
-        "../button/button.scss",
+        "../buttons/button.scss",
         "../../style/variables.scss"
     ],
     "names": [],

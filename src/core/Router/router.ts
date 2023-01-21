@@ -32,11 +32,11 @@ export class Router implements RouterCore<AppRoutes> {
       return;
     }
 
-    console.log(`Router starts on window path '${window.location.pathname}'`);
-    console.log(`Start route is '${startRoute}' on path '${startPathname}'`);
+    // console.log(`Router starts on window path '${window.location.pathname}'`);
+    // console.log(`Start route is '${startRoute}' on path '${startPathname}'`);
     if (startRoute !== AppRoutes.Error) {
       window.history.replaceState({}, '', startPathname);
-      console.log(`Router Start: replace state to '${startPathname}'`);
+      // console.log(`Router Start: replace state to '${startPathname}'`);
     }
     this.onRouteChange(startRoute);
 
@@ -51,7 +51,6 @@ export class Router implements RouterCore<AppRoutes> {
   }
 
   private onRouteChange(route: AppRoutes) {
-    console.log(`onRouteChange ('${route}' route)`);
     const renderFunction = this.routes[route] ?? this.routes[AppRoutes.Error];
     renderFunction();
   }
