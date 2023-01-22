@@ -1,12 +1,12 @@
 export default `
-  <section class="message-input-section">
-    <div class="attachment-block">
+  <section class="chat__body__footer">
+    <div class="chat__body__line"></div>
+    <div class="chat__body__footer__container">
       {{{ attachmentButton }}}
-    </div>
-    <div class="message-input-block">
-      {{{ messageInput }}}
-    </div>
-    <div class="submit-block">
+      <div class="chat__body__footer__inputContainer">
+        <label for="message" style="width: 0"></label>
+        {{{ messageInput }}}
+      </div>
       {{{ sendMessageButton }}}
     </div>
   </section>

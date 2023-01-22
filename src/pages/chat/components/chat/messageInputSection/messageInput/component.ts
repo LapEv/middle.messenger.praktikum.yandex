@@ -1,15 +1,16 @@
-import { WithStoreInput } from "hocs/components";
-import { isNullish } from "utils/objects-handle";
+import { WithStoreInput } from 'hocs/components';
+import { isNullish } from 'utils/objects-handle';
 
 export class MessageInput extends WithStoreInput {
   constructor() {
     super({
       props: {
-        htmlAttributes: { name: "message", placeholder: "Enter Message" },
+        htmlAttributes: { name: 'message', placeholder: 'Введите сообщение' },
+        htmlClasses: ['chat__body__footer__input'],
         events: {
           keypress: [
             function (event: KeyboardEvent) {
-              if (event.key === "Enter") {
+              if (event.key === 'Enter') {
                 this.refs.sendMessageButton.click();
               }
             },

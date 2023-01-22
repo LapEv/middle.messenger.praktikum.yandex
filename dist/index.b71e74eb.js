@@ -15456,6 +15456,7 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ChatPage", ()=>ChatPage);
 var _components = require("hocs/components");
 var _pages = require("utils/pages");
+var _modals = require("./components/modals");
 var _chatTemplate = require("./chatTemplate");
 var _chatTemplateDefault = parcelHelpers.interopDefault(_chatTemplate);
 var _components1 = require("./components");
@@ -15465,7 +15466,7 @@ class ChatPage extends (0, _components.WithStoreBlock) {
         children.navigationSection = new (0, _components1.ChatsPageNavigationSection)();
         children.chatSection = new (0, _components1.ChatsPageMainSection)();
         children.settings = new (0, _components1.ChatListPage)();
-        // children.modal = Modal;
+        children.modal = (0, _modals.Modal);
         super({
             componentName: "Chats Page",
             children
@@ -15494,7 +15495,7 @@ class ChatPage extends (0, _components.WithStoreBlock) {
     }
 }
 
-},{"hocs/components":"THcGa","utils/pages":"5q3PA","./chatTemplate":"bKpsa","./components":"fpzww","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bKpsa":[function(require,module,exports) {
+},{"hocs/components":"THcGa","utils/pages":"5q3PA","./chatTemplate":"bKpsa","./components":"fpzww","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./components/modals":"6qehp"}],"bKpsa":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 exports.default = `
@@ -15502,13 +15503,9 @@ exports.default = `
   {{{ navigationSection }}}
   {{{ chatSection }}}
   {{{ settings }}}
+  {{{ modal }}}
 </main>
-`; // export default `
- // <div class="chats-page">
- //   {{{ chatSection }}}
- //   {{{ chatList }}}
- //   {{{ modalWindow }}}
- // `;
+`;
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fpzww":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -15551,7 +15548,53 @@ class ChatsPageNavigationSection extends (0, _components.WithStoreBlock) {
     }
 }
 
-},{"hocs/components":"THcGa","./chatsList":"bRoLu","./headerSection":"6DKWP","./template":"3sw5G","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./headerSection/chatFind":"hnQV8"}],"bRoLu":[function(require,module,exports) {
+},{"hocs/components":"THcGa","./headerSection/chatFind":"hnQV8","./chatsList":"bRoLu","./headerSection":"6DKWP","./template":"3sw5G","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hnQV8":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ChatFind", ()=>(0, _component.ChatFind));
+var _component = require("./component");
+
+},{"./component":"58XKj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"58XKj":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ChatFind", ()=>ChatFind);
+var _components = require("components");
+var _dom = require("core/dom");
+var _template = require("./template");
+var _templateDefault = parcelHelpers.interopDefault(_template);
+class ChatFind extends (0, _dom.Block) {
+    constructor(){
+        const children = {};
+        children.findInput = new (0, _components.Input)({
+            props: {
+                htmlAttributes: {
+                    name: "chatSearch",
+                    placeholder: "Поиск"
+                },
+                htmlClasses: [
+                    "chat__list__input"
+                ]
+            }
+        });
+        super({
+            children
+        });
+    }
+    render() {
+        return 0, _templateDefault.default;
+    }
+}
+
+},{"components":"dHnah","core/dom":"3BLMu","./template":"l5Ysm","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"l5Ysm":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+exports.default = `
+  <div style="height: auto">
+    {{{ findInput }}}
+  </div>
+`;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bRoLu":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ChatsList", ()=>(0, _component.ChatsList));
@@ -15892,52 +15935,6 @@ exports.default = `
   </div>
 `;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hnQV8":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "ChatFind", ()=>(0, _component.ChatFind));
-var _component = require("./component");
-
-},{"./component":"58XKj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"58XKj":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "ChatFind", ()=>ChatFind);
-var _components = require("components");
-var _dom = require("core/dom");
-var _template = require("./template");
-var _templateDefault = parcelHelpers.interopDefault(_template);
-class ChatFind extends (0, _dom.Block) {
-    constructor(){
-        const children = {};
-        children.findInput = new (0, _components.Input)({
-            props: {
-                htmlAttributes: {
-                    name: "chatSearch",
-                    placeholder: "Поиск"
-                },
-                htmlClasses: [
-                    "chat__list__input"
-                ]
-            }
-        });
-        super({
-            children
-        });
-    }
-    render() {
-        return 0, _templateDefault.default;
-    }
-}
-
-},{"components":"dHnah","core/dom":"3BLMu","./template":"l5Ysm","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"l5Ysm":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-exports.default = `
-  <div style="height: auto">
-    {{{ findInput }}}
-  </div>
-`;
-
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"zhx6y":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
@@ -15951,6 +15948,7 @@ parcelHelpers.export(exports, "ChatsPageMainSection", ()=>ChatsPageMainSection);
 var _components = require("hocs/components");
 var _headerSection = require("./headerSection");
 var _messagesDisplaySection = require("./messagesDisplaySection");
+var _messageInputSection = require("./messageInputSection");
 var _template = require("./template");
 var _templateDefault = parcelHelpers.interopDefault(_template);
 class ChatsPageMainSection extends (0, _components.WithStoreBlock) {
@@ -15958,7 +15956,7 @@ class ChatsPageMainSection extends (0, _components.WithStoreBlock) {
         const children = {};
         children.headerSection = new (0, _headerSection.ChatSectionHeader)();
         children.messagesDisplaySection = new (0, _messagesDisplaySection.MessagesDisplayArea)();
-        // children.messageInputSection = new MessageInputSection();
+        children.messageInputSection = new (0, _messageInputSection.MessageInputSection)();
         super({
             children
         });
@@ -15968,7 +15966,7 @@ class ChatsPageMainSection extends (0, _components.WithStoreBlock) {
     }
 }
 
-},{"hocs/components":"THcGa","./headerSection":"6Q9wC","./template":"jgBby","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./messagesDisplaySection":"ec3hp"}],"6Q9wC":[function(require,module,exports) {
+},{"hocs/components":"THcGa","./headerSection":"6Q9wC","./messagesDisplaySection":"ec3hp","./messageInputSection":"yocSC","./template":"jgBby","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6Q9wC":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ChatSectionHeader", ()=>(0, _component.ChatSectionHeader));
@@ -16047,22 +16045,6 @@ exports.default = `
     {{{ functionalButton }}}
   </div>
 `;
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jgBby":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-exports.default = `
-<div class="chat__body">
-  {{{ headerSection }}}
-  {{{ messagesDisplaySection }}}
-</div>
-`; // export default `
- //   <main class="main-section">
- //     {{{ headerSection }}}
- //     {{{ messagesDisplaySection }}}
- //     {{{ messageInputSection }}}
- //   </main>
- // `;
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ec3hp":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -16230,6 +16212,218 @@ exports.default = `
     </div>
   </section>;
 `;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"yocSC":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "MessageInputSection", ()=>(0, _component.MessageInputSection));
+var _component = require("./component");
+
+},{"./component":"a5DVC","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"a5DVC":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "MessageInputSection", ()=>MessageInputSection);
+var _components = require("hocs/components");
+var _sendMessageButton = require("./sendMessageButton");
+var _attachmentButton = require("./attachmentButton");
+var _messageInput = require("./messageInput");
+var _template = require("./template");
+var _templateDefault = parcelHelpers.interopDefault(_template);
+class MessageInputSection extends (0, _components.WithStoreBlock) {
+    constructor(){
+        const children = {};
+        children.attachmentButton = new (0, _attachmentButton.AttachmentButton)();
+        const messageInput = new (0, _messageInput.MessageInput)();
+        children.messageInput = messageInput;
+        children.sendMessageButton = new (0, _sendMessageButton.SendMessageButton)(messageInput);
+        super({
+            children
+        });
+    }
+    _afterPropsAssignHook() {
+        super._afterPropsAssignHook();
+        const sendMessageButton = this.getChildByPath("sendMessageButton");
+        const messageInput = this.getChildByPath("messageInput");
+        messageInput.refs.sendMessageButton = sendMessageButton;
+    }
+    render() {
+        return 0, _templateDefault.default;
+    }
+}
+
+},{"hocs/components":"THcGa","./sendMessageButton":"3Qwoy","./attachmentButton":"c4JZ0","./messageInput":"5PC5x","./template":"gfpJD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3Qwoy":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "SendMessageButton", ()=>(0, _component.SendMessageButton));
+var _component = require("./component");
+
+},{"./component":"ibkFG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ibkFG":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "SendMessageButton", ()=>SendMessageButton);
+var _components = require("hocs/components");
+var _objectsHandle = require("utils/objects-handle");
+var _sendPng = require("static/img/send.png");
+var _sendPngDefault = parcelHelpers.interopDefault(_sendPng);
+class SendMessageButton extends (0, _components.WithStoreButton) {
+    constructor(messageInputRef){
+        super({
+            props: {
+                htmlClasses: [
+                    "chat__body__footer__imgSend"
+                ],
+                htmlStyle: {
+                    "background-image": (0, _sendPngDefault.default)
+                }
+            },
+            refs: {
+                messageInput: messageInputRef
+            }
+        });
+    }
+    _afterRenderHook() {
+        super._afterRenderHook();
+        this.assignCurrentChat();
+    }
+    assignCurrentChat() {
+        const store = this.store;
+        const currentChatID = store.getCurrentChatID();
+        const isChatSelected = !(0, _objectsHandle.isNullish)(currentChatID);
+        const messageInput = this.refs.messageInput;
+        const webSocket = store.getSocketByChatID(currentChatID, true);
+        console.log(`CHAT(${currentChatID}) Websocket: ${JSON.stringify(webSocket)}`);
+        if (isChatSelected) this.setPropByPath("events.click", [
+            function() {
+                const message = messageInput.getValue();
+                if (message === "") return;
+                webSocket.send(message);
+                messageInput.setValue("");
+            }
+        ]);
+        else this.setPropByPath("events.click", []);
+        this.toggleDisabledState(!isChatSelected);
+    }
+}
+
+},{"hocs/components":"THcGa","utils/objects-handle":"kOfSo","static/img/send.png":"ceWHr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ceWHr":[function(require,module,exports) {
+module.exports = require("94d6124511703da").getBundleURL("7UhFu") + "send.e0d50340.png" + "?" + Date.now();
+
+},{"94d6124511703da":"lgJ39"}],"c4JZ0":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "AttachmentButton", ()=>(0, _component.AttachmentButton));
+var _component = require("./component");
+
+},{"./component":"5oVYz","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5oVYz":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "AttachmentButton", ()=>AttachmentButton);
+var _components = require("hocs/components");
+var _objectsHandle = require("utils/objects-handle");
+var _attachPng = require("static/img/attach.png");
+var _attachPngDefault = parcelHelpers.interopDefault(_attachPng);
+class AttachmentButton extends (0, _components.WithStoreButton) {
+    constructor(){
+        super({
+            props: {
+                htmlClasses: [
+                    "chat__body__footer__img"
+                ],
+                htmlStyle: {
+                    "background-image": (0, _attachPngDefault.default)
+                }
+            }
+        });
+    }
+    _afterRenderHook() {
+        super._afterRenderHook();
+        this.assignCurrentChat();
+    }
+    assignCurrentChat() {
+        const currentChatID = this.store.getCurrentChatID();
+        this.toggleDisabledState((0, _objectsHandle.isNullish)(currentChatID));
+    }
+}
+
+},{"hocs/components":"THcGa","utils/objects-handle":"kOfSo","static/img/attach.png":"hTNQO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hTNQO":[function(require,module,exports) {
+module.exports = require("84866f3f39f43634").getBundleURL("7UhFu") + "attach.a2507276.png" + "?" + Date.now();
+
+},{"84866f3f39f43634":"lgJ39"}],"5PC5x":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "MessageInput", ()=>(0, _component.MessageInput));
+var _component = require("./component");
+
+},{"./component":"hIotf","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hIotf":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "MessageInput", ()=>MessageInput);
+var _components = require("hocs/components");
+var _objectsHandle = require("utils/objects-handle");
+class MessageInput extends (0, _components.WithStoreInput) {
+    constructor(){
+        super({
+            props: {
+                htmlAttributes: {
+                    name: "message",
+                    placeholder: "Введите сообщение"
+                },
+                htmlClasses: [
+                    "chat__body__footer__input"
+                ],
+                events: {
+                    keypress: [
+                        function(event) {
+                            if (event.key === "Enter") this.refs.sendMessageButton.click();
+                        }
+                    ]
+                }
+            }
+        });
+    }
+    _afterRenderHook() {
+        super._afterRenderHook();
+        this.assignCurrentChat();
+    }
+    assignCurrentChat() {
+        const currentChatID = this.store.getCurrentChatID();
+        this.toggleDisabledState((0, _objectsHandle.isNullish)(currentChatID));
+    }
+}
+
+},{"hocs/components":"THcGa","utils/objects-handle":"kOfSo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gfpJD":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+exports.default = `
+  <section class="chat__body__footer">
+    <div class="chat__body__line"></div>
+    <div class="chat__body__footer__container">
+      {{{ attachmentButton }}}
+      <div class="chat__body__footer__inputContainer">
+        <label for="message" style="width: 0"></label>
+        {{{ messageInput }}}
+      </div>
+      {{{ sendMessageButton }}}
+    </div>
+  </section>
+`;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jgBby":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+exports.default = `
+<div class="chat__body">
+  {{{ headerSection }}}
+  {{{ messagesDisplaySection }}}
+  {{{ messageInputSection }}}
+</div>
+`; // export default `
+ //   <main class="main-section">
+ //     {{{ headerSection }}}
+ //     {{{ messagesDisplaySection }}}
+ //     {{{ messageInputSection }}}
+ //   </main>
+ // `;
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ixuOs":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");

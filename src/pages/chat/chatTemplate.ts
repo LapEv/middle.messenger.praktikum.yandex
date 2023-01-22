@@ -3,12 +3,6 @@ export default `
   {{{ navigationSection }}}
   {{{ chatSection }}}
   {{{ settings }}}
+  {{{ modal }}}
 </main>
 `;
-
-// export default `
-// <div class="chats-page">
-//   {{{ chatSection }}}
-//   {{{ chatList }}}
-//   {{{ modalWindow }}}
-// `;

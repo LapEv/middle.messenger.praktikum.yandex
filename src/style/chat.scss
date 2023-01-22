@@ -180,13 +180,16 @@
       height: auto;
     }
     &__message {
-      height: 5vh;
-      width: 93%;
+      height: 40px;
+      width: 91%;
       align-items: flex-end;
       padding: 0 3.5%;
       flex-direction: column;
       justify-content: space-evenly;
       display: flex;
+      border-radius: 5px;
+      background-color: $color-message-light;
+      margin: 7px;
       &__text {
         text-align: end;
         font-size: 13;
@@ -198,20 +201,11 @@
         display: flex;
       }
       &__container {
-        // max-width: 380px;
-        // min-width: 114px;
         height: 80vh;
         width: 96%;
-        background-color: $color-background-light;
+        background-color: $color-background-light3;
         color: $color-black-light;
         overflow-y: auto;
-        // margin-top: 30px;
-        // display: flex;
-        // justify-content: flex-start;
-        // align-items: flex-start;
-        // flex-direction: column;
-        // border-radius: 12px;
-        // padding: 11px;
         flex-direction: column-reverse;
         justify-content: flex-start;
         overflow-y: auto;
@@ -267,25 +261,34 @@
     }
     &__footer {
       width: 100%;
-      height: 54px;
+      height: 35px;
       padding: 10px 0px;
       text-align: center;
       margin: auto 0 0 0;
+      &__inputContainer {
+        height: auto;
+        margin-left: 10px;
+      }
       &__container {
         width: 100%;
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
         align-items: center;
+        margin-top: 9px;
       }
       &__img {
         width: 32px;
         height: 32px;
+        border: none;
+        cursor: pointer;
       }
       &__imgSend {
-        width: 28px;
+        width: 30px;
         height: 28px;
-        margin-left: 20px;
+        margin-left: 30px;
+        margin-right: 10px;
+        border: none;
         cursor: pointer;
       }
 
@@ -307,7 +310,8 @@
     right: 0;
     width: 150px;
     margin-right: 35px;
-    margin-top: 37px;
+    margin-top: 27px;
+    cursor: pointer;
     &__button {
       width: 20px;
       height: 20px;

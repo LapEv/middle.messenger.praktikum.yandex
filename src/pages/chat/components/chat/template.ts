@@ -2,6 +2,7 @@ export default `
 <div class="chat__body">
   {{{ headerSection }}}
   {{{ messagesDisplaySection }}}
+  {{{ messageInputSection }}}
 </div>
 `;
 

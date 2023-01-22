@@ -14,7 +14,7 @@ export class ChatPage extends WithStoreBlock {
     children.navigationSection = new ChatsPageNavigationSection();
     children.chatSection = new ChatsPageMainSection();
     children.settings = new ChatListPage();
-    // children.modal = Modal;
+    children.modal = Modal;
 
     super({
       componentName: 'Chats Page',

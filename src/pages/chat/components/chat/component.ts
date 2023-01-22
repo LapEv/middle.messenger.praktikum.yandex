@@ -10,7 +10,7 @@ export class ChatsPageMainSection extends WithStoreBlock {
 
     children.headerSection = new ChatSectionHeader();
     children.messagesDisplaySection = new MessagesDisplayArea();
-    // children.messageInputSection = new MessageInputSection();
+    children.messageInputSection = new MessageInputSection();
 
     super({ children });
   }
