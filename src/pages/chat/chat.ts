@@ -58,11 +58,11 @@ export class ChatPage extends WithStoreBlock {
       'settings.deleteChatButton'
     );
 
-    const settings = this.getChildByPath('navigationSection.chatsList');
-    this.refs.settings = settings;
+    const chatsList = this.getChildByPath('navigationSection.chatsList');
+    this.refs.chatsList = chatsList;
 
     const chats = getDescendantByPath<TComponentChildArray>(
-      settings.children,
+      chatsList.children,
       'chats'
     );
     chats.forEach((chat: any) => {

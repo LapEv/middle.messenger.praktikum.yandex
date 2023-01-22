@@ -22,7 +22,7 @@ export class ChatSectionHeader extends WithStoreBlock {
     const store = this.store!;
     const currentChatID = store.getCurrentChatID();
     const chats = this.store.getChatsDataByPath();
-    const title = chats[currentChatID].title;
+    const title = chats[currentChatID]?.title;
 
     this.children.user = new TextComponent({
       props: { text: title, htmlClasses: ['chat__body__title__user'] },

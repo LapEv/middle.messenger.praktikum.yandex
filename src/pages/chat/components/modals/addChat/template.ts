@@ -1,12 +1,12 @@
 export default `
-    <div class="modal-content">
-      <section class="users-data-input-section">
-        <div class="idenrifierss-input-section">
-          {{{ usersIdenifiersInput }}}
-        </div>
+    <div class="modal__container">
+      {{{title}}}
+      <section class="modal__choose">
+        <label for="modalInputFile" class="modal__choose__text">Название</label>
+        {{{ usersIdenifiersInput }}}
       </section>
       
-      <section class="submit-button-section">
+      <section class="modal__button__container">
         {{{ submitButton }}}
       </section>
 

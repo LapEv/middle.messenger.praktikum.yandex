@@ -1,5 +1,8 @@
 @import './variables.scss';
 
+.current-chat {
+  background-color: #dae9ff;
+}
 .chat {
   &__container {
     display: flex;

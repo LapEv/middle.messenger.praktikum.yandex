@@ -807,22 +807,23 @@ let AppPages;
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kIGWd":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "AppPages", ()=>(0, _appPages.AppPages));
 parcelHelpers.export(exports, "LoginPage", ()=>(0, _login.LoginPage));
 parcelHelpers.export(exports, "RegistrationPage", ()=>(0, _registration.RegistrationPage));
 parcelHelpers.export(exports, "ChatPage", ()=>(0, _chat.ChatPage));
 parcelHelpers.export(exports, "ProfilePage", ()=>(0, _profile.ProfilePage));
-// export { ChangePasswordPage } from 'pages/profile/changePassword/changePassword';
 parcelHelpers.export(exports, "NotFoundErrorPage", ()=>(0, _pages.NotFoundErrorPage));
 parcelHelpers.export(exports, "AuthorizationRequiredErrorPage", ()=>(0, _pages.AuthorizationRequiredErrorPage));
 parcelHelpers.export(exports, "TErrorPage", ()=>(0, _pages.TErrorPage));
 parcelHelpers.export(exports, "TErrorPageClass", ()=>(0, _pages.TErrorPageClass));
+var _appPages = require("./appPages");
 var _login = require("pages/login/login");
 var _registration = require("pages/registration/registration");
 var _chat = require("pages/chat/chat");
 var _profile = require("pages/profile/profile");
 var _pages = require("./errors/pages");
 
-},{"pages/login/login":"dCEbf","pages/registration/registration":"ipn4T","pages/chat/chat":"9muaU","pages/profile/profile":"atqZr","./errors/pages":"a1Xr3","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dCEbf":[function(require,module,exports) {
+},{"pages/login/login":"dCEbf","pages/registration/registration":"ipn4T","pages/chat/chat":"9muaU","pages/profile/profile":"atqZr","./errors/pages":"a1Xr3","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./appPages":"c7aIo"}],"dCEbf":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "LoginPage", ()=>LoginPage);
@@ -13979,12 +13980,14 @@ var _buttons = require("components/buttons");
 var _dom = require("core/dom");
 var _template = require("./template");
 var _templateDefault = parcelHelpers.interopDefault(_template);
+var _closePng = require("static/img/close.png");
+var _closePngDefault = parcelHelpers.interopDefault(_closePng);
 class Modal extends (0, _dom.Block) {
     _afterPropsAssignHook() {
         super._afterPropsAssignHook();
         this.contentType = "";
-        this.children.closeButton = this._createCloseButton();
         this.children.content = new (0, _dom.Block)();
+        this.children.closeButton = this._createCloseButton();
     }
     _createCloseButton() {
         return new (0, _buttons.Button)({
@@ -13992,10 +13995,12 @@ class Modal extends (0, _dom.Block) {
                 modal: this
             },
             props: {
+                htmlStyle: {
+                    "background-image": (0, _closePngDefault.default)
+                },
                 htmlClasses: [
-                    "close-button"
+                    "modal__closeButton"
                 ],
-                label: "\xd7",
                 events: {
                     click: [
                         function() {
@@ -14019,11 +14024,11 @@ class Modal extends (0, _dom.Block) {
         this.setChildByPath("content", newContentBlock);
     }
     toggleVisibility(state) {
-        this.toggleHtmlClass("show-modal", state);
+        this.toggleHtmlClass("modal__show", state);
     }
 }
 
-},{"components/buttons":"fWrjK","core/dom":"3BLMu","./template":"kPoiY","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fWrjK":[function(require,module,exports) {
+},{"components/buttons":"fWrjK","core/dom":"3BLMu","./template":"kPoiY","static/img/close.png":"aAzW4","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fWrjK":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "TButtonProps", ()=>(0, _basicButton.TButtonProps));
@@ -14953,14 +14958,52 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 exports.default = `
   <div class="modal">
-    <div class="modal-content">
+    <div class="modal__background"></div>
+    <div class="modal__container">
       {{{ content }}}
       {{{ closeButton }}}
     </div>
   </div>;
 `;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ljkAW":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aAzW4":[function(require,module,exports) {
+module.exports = require("5108df9080157bf8").getBundleURL("7UhFu") + "close.5ceff4ea.png" + "?" + Date.now();
+
+},{"5108df9080157bf8":"lgJ39"}],"lgJ39":[function(require,module,exports) {
+"use strict";
+var bundleURL = {};
+function getBundleURLCached(id) {
+    var value = bundleURL[id];
+    if (!value) {
+        value = getBundleURL();
+        bundleURL[id] = value;
+    }
+    return value;
+}
+function getBundleURL() {
+    try {
+        throw new Error();
+    } catch (err) {
+        var matches = ("" + err.stack).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^)\n]+/g);
+        if (matches) // The first two stack frames will be this function and getBundleURLCached.
+        // Use the 3rd one, which will be a runtime in the original bundle.
+        return getBaseURL(matches[2]);
+    }
+    return "/";
+}
+function getBaseURL(url) {
+    return ("" + url).replace(/^((?:https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/.+)\/[^/]+$/, "$1") + "/";
+} // TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
+function getOrigin(url) {
+    var matches = ("" + url).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^/]+/);
+    if (!matches) throw new Error("Origin not found");
+    return matches[0];
+}
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+exports.getOrigin = getOrigin;
+
+},{}],"ljkAW":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "afterValidationCallback", ()=>afterValidationCallback);
@@ -15483,9 +15526,9 @@ class ChatPage extends (0, _components.WithStoreBlock) {
         this.refs.chooseChatAvatarButton = this.getChildByPath("settings.avatarChooseButton.chooseButton");
         this.refs.addChatUsersButton = this.getChildByPath("settings.addChatUsersButton");
         this.refs.deleteChatButton = this.getChildByPath("settings.deleteChatButton");
-        const settings = this.getChildByPath("navigationSection.chatsList");
-        this.refs.settings = settings;
-        const chats = (0, _pages.getDescendantByPath)(settings.children, "chats");
+        const chatsList = this.getChildByPath("navigationSection.chatsList");
+        this.refs.chatsList = chatsList;
+        const chats = (0, _pages.getDescendantByPath)(chatsList.children, "chats");
         chats.forEach((chat)=>{
             this.refs[`chat-${chat.chatID}`] = chat;
         });
@@ -15495,15 +15538,313 @@ class ChatPage extends (0, _components.WithStoreBlock) {
     }
 }
 
-},{"hocs/components":"THcGa","utils/pages":"5q3PA","./chatTemplate":"bKpsa","./components":"fpzww","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./components/modals":"6qehp"}],"bKpsa":[function(require,module,exports) {
+},{"hocs/components":"THcGa","utils/pages":"5q3PA","./components/modals":"6qehp","./chatTemplate":"bKpsa","./components":"fpzww","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6qehp":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Modal", ()=>(0, _modal.Modal));
+parcelHelpers.export(exports, "EnumModal", ()=>(0, _enumModal.EnumModal));
+parcelHelpers.export(exports, "AddChatModal", ()=>(0, _addChat.AddChatModal));
+parcelHelpers.export(exports, "CreateChatModal", ()=>(0, _createChat.CreateChatModal));
+var _modal = require("./modal");
+var _enumModal = require("./enumModal");
+var _addChat = require("./addChat");
+var _createChat = require("./createChat");
+
+},{"./modal":"iFufE","./enumModal":"a0gF8","./addChat":"gldQ7","./createChat":"jeOUx","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iFufE":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Modal", ()=>Modal);
+var _components = require("components");
+const Modal = new (0, _components.Modal)();
+
+},{"components":"dHnah","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"a0gF8":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "EnumModal", ()=>EnumModal);
+let EnumModal;
+(function(EnumModal) {
+    EnumModal["CreateChat"] = "CreateChatModal";
+    EnumModal["AddUsers"] = "AddChatUsersModal";
+})(EnumModal || (EnumModal = {}));
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gldQ7":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "AddChatModal", ()=>(0, _component.AddChatModal));
+var _component = require("./component");
+
+},{"./component":"dLJ3m","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dLJ3m":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "AddChatModal", ()=>AddChatModal);
+var _dom = require("core/dom");
+var _components = require("components");
+var _api = require("utils/api");
+var _services = require("services");
+var _toApiDataTransformers = require("utils/api/to-api-data-transformers");
+var _template = require("./template");
+var _templateDefault = parcelHelpers.interopDefault(_template);
+var _modals = require("pages/chat/components/modals");
+class AddChatModal extends (0, _dom.Block) {
+    constructor({ chatID , componentName  }){
+        const state = {
+            apiResponseSuccess: "",
+            apiResponseError: ""
+        };
+        const children = {};
+        children.title = AddChatModal._createChatTitle();
+        children.usersIdenifiersInput = AddChatModal._createUsersIdenifiersInput();
+        const beforePropsAssignHook = function() {
+            this.chatID = chatID;
+        };
+        super({
+            children,
+            state,
+            componentName,
+            helpers: {
+                beforePropsAssignHook
+            }
+        });
+    }
+    _afterPropsAssignHook() {
+        super._afterPropsAssignHook();
+        this._createSubmitButton();
+    }
+    _createSubmitButton() {
+        const refs = {
+            usersInput: this.children.usersIdenifiersInput,
+            modalWindow: this
+        };
+        const afterRequestCallback = (function(response) {
+            if ((0, _api.APIResponseHasError)(response)) this.state.apiResponseError = response.reason;
+            else {
+                this.state.apiResponseSuccess = "Users added successfully";
+                this.children.usersIdenifiersInput.setValue("");
+                (0, _modals.Modal).toggleVisibility("off");
+            }
+        }).bind(this);
+        const submitButton = new (0, _components.Button)({
+            refs,
+            props: {
+                label: "add users",
+                htmlClasses: [
+                    "modal__button"
+                ],
+                events: {
+                    click: [
+                        function() {
+                            const { usersInput , modalWindow  } = this.refs;
+                            modalWindow.clearAPIResponseStatus();
+                            const { chatID  } = modalWindow;
+                            const usersList = usersInput.getValue().split(",");
+                            const apiData = (0, _toApiDataTransformers.transformAddUsersFormDataToAPI)({
+                                chatID,
+                                usersList
+                            });
+                            console.log(`ADD USERS DATA: ${apiData.chatId}, ${apiData.users}`);
+                            (0, _services.ChatsService).addUsersToChat(apiData, afterRequestCallback);
+                        }
+                    ]
+                }
+            }
+        });
+        this.children.submitButton = submitButton;
+    }
+    clearAPIResponseStatus() {
+        this.state.apiResponseSuccess = "";
+        this.state.apiResponseError = "";
+    }
+    render() {
+        return 0, _templateDefault.default;
+    }
+    static _createUsersIdenifiersInput() {
+        return new (0, _components.Input)({
+            props: {
+                htmlAttributes: {
+                    placeholder: "Enter Users ID Numbers"
+                },
+                htmlClasses: [
+                    "modal__login__input"
+                ]
+            }
+        });
+    }
+    static _createChatTitle() {
+        return new (0, _components.TextComponent)({
+            props: {
+                text: "Добавить нового пользователя",
+                htmlClasses: [
+                    "modal__title"
+                ]
+            }
+        });
+    }
+}
+
+},{"core/dom":"3BLMu","components":"dHnah","utils/api":"i2lTI","services":"f5PO7","utils/api/to-api-data-transformers":"gwV72","./template":"apQGS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","pages/chat/components/modals":"6qehp"}],"apQGS":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+exports.default = `
+    <div class="modal__container">
+      {{{title}}}
+      <section class="modal__choose">
+        <label for="modalInputFile" class="modal__choose__text">Название</label>
+        {{{ usersIdenifiersInput }}}
+      </section>
+      
+      <section class="modal__button__container">
+        {{{ submitButton }}}
+      </section>
+
+      <section claas="api-response-status">
+        {{#if apiResponseSuccess}}
+          <span class="api-success"> {{apiResponseSuccess}} </span>
+        {{/if}}
+        {{#if apiResponseError}}
+          <span class="api-error"> {{apiResponseError}} </span>
+        {{/if}}
+      </section>
+    </div>
+`;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jeOUx":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "CreateChatModal", ()=>(0, _component.CreateChatModal));
+var _component = require("./component");
+
+},{"./component":"89YnJ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"89YnJ":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "CreateChatModal", ()=>CreateChatModal);
+var _dom = require("core/dom");
+var _components = require("components");
+var _chats = require("services/chats");
+var _api = require("utils/api");
+var _template = require("./template");
+var _templateDefault = parcelHelpers.interopDefault(_template);
+var _modals = require("pages/chat/components/modals");
+class CreateChatModal extends (0, _dom.Block) {
+    constructor(componentName){
+        const state = {
+            apiResponseSuccess: "",
+            apiResponseError: ""
+        };
+        const children = {};
+        children.title = CreateChatModal._createChatTitle();
+        children.chatTitleInput = CreateChatModal._createChatTitleInput();
+        super({
+            children,
+            state,
+            componentName
+        });
+    }
+    _afterPropsAssignHook() {
+        super._afterPropsAssignHook();
+        this._createSubmitButton();
+    }
+    _createSubmitButton() {
+        const refs = {
+            titleInput: this.children.chatTitleInput,
+            modalWindow: this
+        };
+        const afterRequestCallback = (function(response) {
+            if ((0, _api.APIResponseHasError)(response)) this.state.apiResponseError = response.reason;
+            else {
+                this.state.apiResponseSuccess = "Chat created successfully";
+                this.children.chatTitleInput.setValue("");
+                (0, _modals.Modal).toggleVisibility("off");
+            }
+        }).bind(this);
+        const submitButton = new (0, _components.Button)({
+            refs,
+            props: {
+                label: "Create",
+                htmlClasses: [
+                    "modal__button"
+                ],
+                events: {
+                    click: [
+                        function() {
+                            const { titleInput , modalWindow  } = this.refs;
+                            modalWindow.clearAPIResponseStatus();
+                            console.log(`TITLE INPUT: ${titleInput.getValue()}`);
+                            (0, _chats.ChatsService).createChat({
+                                title: titleInput.getValue()
+                            }, afterRequestCallback);
+                        }
+                    ]
+                }
+            }
+        });
+        this.children.submitButton = submitButton;
+    }
+    clearAPIResponseStatus() {
+        this.state.apiResponseSuccess = "";
+        this.state.apiResponseError = "";
+    }
+    render() {
+        return 0, _templateDefault.default;
+    }
+    static _createChatTitleInput() {
+        return new (0, _components.Input)({
+            props: {
+                htmlAttributes: {
+                    placeholder: "Enter Chat Title"
+                },
+                htmlClasses: [
+                    "modal__login__input"
+                ]
+            }
+        });
+    }
+    static _createChatTitle() {
+        return new (0, _components.TextComponent)({
+            props: {
+                text: "Создать новый чат",
+                htmlClasses: [
+                    "modal__title"
+                ]
+            }
+        });
+    }
+}
+
+},{"core/dom":"3BLMu","components":"dHnah","services/chats":"NtgIu","utils/api":"i2lTI","./template":"h7zha","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","pages/chat/components/modals":"6qehp"}],"h7zha":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+exports.default = `
+    <div class="modal__container">
+      {{{title}}}
+      <section class="modal__choose">
+        <label for="modalInputFile" class="modal__choose__text">Название</label>
+        {{{ chatTitleInput }}}
+      </section>
+      
+      <section class="modal__button__container">
+        {{{ submitButton }}}
+      </section>
+
+      <section class="api-response-status">
+        {{#if apiResponseSuccess}}
+          <span class="api-success"> {{apiResponseSuccess}} </span>
+        {{/if}}
+        {{#if apiResponseError}}
+          <span class="api-error"> {{apiResponseError}} </span>
+        {{/if}}
+      </section>
+    </div>
+`;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bKpsa":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 exports.default = `
 <main class="chat__container">
+  {{{ modal }}}
   {{{ navigationSection }}}
   {{{ chatSection }}}
   {{{ settings }}}
-  {{{ modal }}}
 </main>
 `;
 
@@ -15719,41 +16060,7 @@ class ChatAvatar extends (0, _components.WithStoreImageComponent) {
 },{"hocs/components":"THcGa","./avatarPlacholder.svg":"6Kq46","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6Kq46":[function(require,module,exports) {
 module.exports = require("c162a9ad7954962f").getBundleURL("7UhFu") + "avatarPlacholder.a325773c.svg" + "?" + Date.now();
 
-},{"c162a9ad7954962f":"lgJ39"}],"lgJ39":[function(require,module,exports) {
-"use strict";
-var bundleURL = {};
-function getBundleURLCached(id) {
-    var value = bundleURL[id];
-    if (!value) {
-        value = getBundleURL();
-        bundleURL[id] = value;
-    }
-    return value;
-}
-function getBundleURL() {
-    try {
-        throw new Error();
-    } catch (err) {
-        var matches = ("" + err.stack).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^)\n]+/g);
-        if (matches) // The first two stack frames will be this function and getBundleURLCached.
-        // Use the 3rd one, which will be a runtime in the original bundle.
-        return getBaseURL(matches[2]);
-    }
-    return "/";
-}
-function getBaseURL(url) {
-    return ("" + url).replace(/^((?:https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/.+)\/[^/]+$/, "$1") + "/";
-} // TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
-function getOrigin(url) {
-    var matches = ("" + url).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^/]+/);
-    if (!matches) throw new Error("Origin not found");
-    return matches[0];
-}
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-exports.getOrigin = getOrigin;
-
-},{}],"1lBwA":[function(require,module,exports) {
+},{"c162a9ad7954962f":"lgJ39"}],"1lBwA":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ChatTitle", ()=>ChatTitle);
@@ -15998,7 +16305,7 @@ class ChatSectionHeader extends (0, _components.WithStoreBlock) {
         const store = this.store;
         const currentChatID = store.getCurrentChatID();
         const chats = this.store.getChatsDataByPath();
-        const title = chats[currentChatID].title;
+        const title = chats[currentChatID]?.title;
         this.children.user = new (0, _components1.TextComponent)({
             props: {
                 text: title,
@@ -16508,10 +16815,7 @@ class CollapseButton extends (0, _components.Button) {
     }
 }
 
-},{"components":"dHnah","static/img/close.png":"aAzW4","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aAzW4":[function(require,module,exports) {
-module.exports = require("5108df9080157bf8").getBundleURL("7UhFu") + "close.5ceff4ea.png" + "?" + Date.now();
-
-},{"5108df9080157bf8":"lgJ39"}],"5JvzZ":[function(require,module,exports) {
+},{"components":"dHnah","static/img/close.png":"aAzW4","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5JvzZ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "CreateChatButton", ()=>CreateChatButton);
@@ -16540,267 +16844,7 @@ class CreateChatButton extends (0, _components.Button) {
     }
 }
 
-},{"components":"dHnah","pages/chat/components/modals":"6qehp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6qehp":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "Modal", ()=>(0, _modal.Modal));
-parcelHelpers.export(exports, "EnumModal", ()=>(0, _enumModal.EnumModal));
-parcelHelpers.export(exports, "AddChatModal", ()=>(0, _addChat.AddChatModal));
-parcelHelpers.export(exports, "CreateChatModal", ()=>(0, _createChat.CreateChatModal));
-var _modal = require("./modal");
-var _enumModal = require("./enumModal");
-var _addChat = require("./addChat");
-var _createChat = require("./createChat");
-
-},{"./modal":"iFufE","./enumModal":"a0gF8","./addChat":"gldQ7","./createChat":"jeOUx","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iFufE":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "Modal", ()=>Modal);
-var _components = require("components");
-const Modal = new (0, _components.Modal)();
-
-},{"components":"dHnah","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"a0gF8":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "EnumModal", ()=>EnumModal);
-let EnumModal;
-(function(EnumModal) {
-    EnumModal["CreateChat"] = "CreateChatModal";
-    EnumModal["AddUsers"] = "AddChatUsersModal";
-})(EnumModal || (EnumModal = {}));
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gldQ7":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "AddChatModal", ()=>(0, _component.AddChatModal));
-var _component = require("./component");
-
-},{"./component":"dLJ3m","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dLJ3m":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "AddChatModal", ()=>AddChatModal);
-var _dom = require("core/dom");
-var _components = require("components");
-var _api = require("utils/api");
-var _services = require("services");
-var _toApiDataTransformers = require("utils/api/to-api-data-transformers");
-var _template = require("./template");
-var _templateDefault = parcelHelpers.interopDefault(_template);
-class AddChatModal extends (0, _dom.Block) {
-    constructor({ chatID , componentName  }){
-        const state = {
-            apiResponseSuccess: "",
-            apiResponseError: ""
-        };
-        const children = {};
-        children.usersIdenifiersInput = AddChatModal._createUsersIdenifiersInput();
-        const beforePropsAssignHook = function() {
-            this.chatID = chatID;
-        };
-        super({
-            children,
-            state,
-            componentName,
-            helpers: {
-                beforePropsAssignHook
-            }
-        });
-    }
-    _afterPropsAssignHook() {
-        super._afterPropsAssignHook();
-        this._createSubmitButton();
-    }
-    _createSubmitButton() {
-        const refs = {
-            usersInput: this.children.usersIdenifiersInput,
-            modalWindow: this
-        };
-        const afterRequestCallback = (function(response) {
-            if ((0, _api.APIResponseHasError)(response)) this.state.apiResponseError = response.reason;
-            else {
-                this.state.apiResponseSuccess = "Users added successfully";
-                this.children.usersIdenifiersInput.setValue("");
-            }
-        }).bind(this);
-        const submitButton = new (0, _components.Button)({
-            refs,
-            props: {
-                label: "add users",
-                events: {
-                    click: [
-                        function() {
-                            const { usersInput , modalWindow  } = this.refs;
-                            modalWindow.clearAPIResponseStatus();
-                            const { chatID  } = modalWindow;
-                            const usersList = usersInput.getValue().split(",");
-                            const apiData = (0, _toApiDataTransformers.transformAddUsersFormDataToAPI)({
-                                chatID,
-                                usersList
-                            });
-                            console.log(`ADD USERS DATA: ${apiData.chatId}, ${apiData.users}`);
-                            (0, _services.ChatsService).addUsersToChat(apiData, afterRequestCallback);
-                        }
-                    ]
-                }
-            }
-        });
-        this.children.submitButton = submitButton;
-    }
-    clearAPIResponseStatus() {
-        this.state.apiResponseSuccess = "";
-        this.state.apiResponseError = "";
-    }
-    render() {
-        return 0, _templateDefault.default;
-    }
-    static _createUsersIdenifiersInput() {
-        return new (0, _components.Input)({
-            props: {
-                htmlAttributes: {
-                    placeholder: "Enter Users ID Numbers"
-                }
-            }
-        });
-    }
-}
-
-},{"core/dom":"3BLMu","components":"dHnah","utils/api":"i2lTI","services":"f5PO7","utils/api/to-api-data-transformers":"gwV72","./template":"apQGS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"apQGS":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-exports.default = `
-    <div class="modal-content">
-      <section class="users-data-input-section">
-        <div class="idenrifierss-input-section">
-          {{{ usersIdenifiersInput }}}
-        </div>
-      </section>
-      
-      <section class="submit-button-section">
-        {{{ submitButton }}}
-      </section>
-
-      <section claas="api-response-status">
-        {{#if apiResponseSuccess}}
-          <span class="api-success"> {{apiResponseSuccess}} </span>
-        {{/if}}
-        {{#if apiResponseError}}
-          <span class="api-error"> {{apiResponseError}} </span>
-        {{/if}}
-      </section>
-    </div>
-`;
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jeOUx":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "CreateChatModal", ()=>(0, _component.CreateChatModal));
-var _component = require("./component");
-
-},{"./component":"89YnJ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"89YnJ":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "CreateChatModal", ()=>CreateChatModal);
-var _dom = require("core/dom");
-var _components = require("components");
-var _chats = require("services/chats");
-var _api = require("utils/api");
-var _template = require("./template");
-var _templateDefault = parcelHelpers.interopDefault(_template);
-class CreateChatModal extends (0, _dom.Block) {
-    constructor(componentName){
-        const state = {
-            apiResponseSuccess: "",
-            apiResponseError: ""
-        };
-        const children = {};
-        children.chatTitleInput = CreateChatModal._createChatTitleInput();
-        super({
-            children,
-            state,
-            componentName
-        });
-    }
-    _afterPropsAssignHook() {
-        super._afterPropsAssignHook();
-        this._createSubmitButton();
-    }
-    _createSubmitButton() {
-        const refs = {
-            titleInput: this.children.chatTitleInput,
-            modalWindow: this
-        };
-        const afterRequestCallback = (function(response) {
-            if ((0, _api.APIResponseHasError)(response)) this.state.apiResponseError = response.reason;
-            else {
-                this.state.apiResponseSuccess = "Chat created successfully";
-                this.children.chatTitleInput.setValue("");
-            }
-        }).bind(this);
-        const submitButton = new (0, _components.Button)({
-            refs,
-            props: {
-                label: "Create",
-                events: {
-                    click: [
-                        function() {
-                            const { titleInput , modalWindow  } = this.refs;
-                            modalWindow.clearAPIResponseStatus();
-                            console.log(`TITLE INPUT: ${titleInput.getValue()}`);
-                            (0, _chats.ChatsService).createChat({
-                                title: titleInput.getValue()
-                            }, afterRequestCallback);
-                        }
-                    ]
-                }
-            }
-        });
-        this.children.submitButton = submitButton;
-    }
-    clearAPIResponseStatus() {
-        this.state.apiResponseSuccess = "";
-        this.state.apiResponseError = "";
-    }
-    render() {
-        return 0, _templateDefault.default;
-    }
-    static _createChatTitleInput() {
-        return new (0, _components.Input)({
-            props: {
-                htmlAttributes: {
-                    placeholder: "Enter Chat Title"
-                }
-            }
-        });
-    }
-}
-
-},{"core/dom":"3BLMu","components":"dHnah","services/chats":"NtgIu","utils/api":"i2lTI","./template":"h7zha","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"h7zha":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-exports.default = `
-    <div class="modal-content">
-      <section class="chat-data-input-section">
-        <div class="title-input-section">
-          {{{ chatTitleInput }}}
-        </div>
-      </section>
-      
-      <section class="submit-button-section">
-        {{{ submitButton }}}
-      </section>
-
-      <section claas="api-response-status">
-        {{#if apiResponseSuccess}}
-          <span class="api-success"> {{apiResponseSuccess}} </span>
-        {{/if}}
-        {{#if apiResponseError}}
-          <span class="api-error"> {{apiResponseError}} </span>
-        {{/if}}
-      </section>
-    </div>
-`;
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aCfl4":[function(require,module,exports) {
+},{"components":"dHnah","pages/chat/components/modals":"6qehp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aCfl4":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "DeleteChatButton", ()=>DeleteChatButton);

@@ -1,6 +1,7 @@
 import { Button } from 'components/buttons';
 import { Block } from 'core/dom';
 import template from './template';
+import close from 'static/img/close.png';
 
 export class Modal extends Block {
   private contentType: string;
@@ -9,9 +10,8 @@ export class Modal extends Block {
     super._afterPropsAssignHook();
 
     this.contentType = '';
-
-    this.children.closeButton = this._createCloseButton();
     this.children.content = new Block();
+    this.children.closeButton = this._createCloseButton();
   }
 
   private _createCloseButton() {
@@ -20,8 +20,10 @@ export class Modal extends Block {
         modal: this,
       },
       props: {
-        htmlClasses: ['close-button'],
-        label: '×',
+        htmlStyle: {
+          'background-image': close,
+        },
+        htmlClasses: ['modal__closeButton'],
         events: {
           click: [
             function () {
@@ -50,6 +52,6 @@ export class Modal extends Block {
   }
 
   toggleVisibility(state?: Nullable<'on' | 'off'>) {
-    this.toggleHtmlClass('show-modal', state);
+    this.toggleHtmlClass('modal__show', state);
   }
 }

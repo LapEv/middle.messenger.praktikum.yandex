@@ -1,16 +1,16 @@
 export default `
-    <div class="modal-content">
-      <section class="chat-data-input-section">
-        <div class="title-input-section">
-          {{{ chatTitleInput }}}
-        </div>
+    <div class="modal__container">
+      {{{title}}}
+      <section class="modal__choose">
+        <label for="modalInputFile" class="modal__choose__text">Название</label>
+        {{{ chatTitleInput }}}
       </section>
       
-      <section class="submit-button-section">
+      <section class="modal__button__container">
         {{{ submitButton }}}
       </section>
 
-      <section claas="api-response-status">
+      <section class="api-response-status">
         {{#if apiResponseSuccess}}
           <span class="api-success"> {{apiResponseSuccess}} </span>
         {{/if}}

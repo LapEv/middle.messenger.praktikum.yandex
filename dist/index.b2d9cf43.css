@@ -145,6 +145,10 @@
   font-size: 13px;
 }
 
+.current-chat {
+  background-color: #dae9ff;
+}
+
 .chat__container {
   flex-direction: row;
   display: flex;
@@ -766,13 +770,32 @@
 .modal {
   justify-content: center;
   align-items: center;
-  display: flex;
+  display: none;
   position: fixed;
+}
+
+.modal__show {
+  z-index: 99;
+  display: flex;
+}
+
+.modal__closeButton {
+  width: 5vmin;
+  height: 5vmin;
+  z-index: 999;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  border: none;
+  margin: 10px;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .modal__background {
   opacity: .5;
-  z-index: 9;
+  z-index: 99;
   background-color: #000;
 }
 
@@ -855,6 +878,7 @@
   height: 28px;
   border-width: 0 0 1px;
   border-bottom-color: #3369f3;
+  margin-top: 10px;
   font-size: 13px;
 }
 

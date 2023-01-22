@@ -1,8 +1,9 @@
 import { Block } from 'core/dom';
-import { Button, Input } from 'components';
+import { Button, Input, TextComponent } from 'components';
 import { ChatsService } from 'services/chats';
 import { APIResponseHasError } from 'utils/api';
 import template from './template';
+import { Modal } from 'pages/chat/components/modals';
 
 export class CreateChatModal extends Block {
   constructor(componentName: string) {
@@ -12,6 +13,7 @@ export class CreateChatModal extends Block {
     };
     const children = {} as TComponentChildren;
 
+    children.title = CreateChatModal._createChatTitle();
     children.chatTitleInput = CreateChatModal._createChatTitleInput();
 
     super({
@@ -39,6 +41,7 @@ export class CreateChatModal extends Block {
       } else {
         this.state.apiResponseSuccess = 'Chat created successfully';
         this.children.chatTitleInput.setValue('');
+        Modal.toggleVisibility('off');
       }
     }.bind(this);
 
@@ -46,6 +49,7 @@ export class CreateChatModal extends Block {
       refs,
       props: {
         label: 'Create',
+        htmlClasses: ['modal__button'],
         events: {
           click: [
             function () {
@@ -80,7 +84,14 @@ export class CreateChatModal extends Block {
         htmlAttributes: {
           placeholder: 'Enter Chat Title',
         },
+        htmlClasses: ['modal__login__input'],
       },
+    });
+  }
+
+  private static _createChatTitle() {
+    return new TextComponent({
+      props: { text: 'Создать новый чат', htmlClasses: ['modal__title'] },
     });
   }
 }

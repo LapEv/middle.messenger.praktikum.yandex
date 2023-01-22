@@ -6,7 +6,6 @@ export function chatsSetter() {
   if (page !== AppPages.Chat) {
     return;
   }
-
   const { chatsList } = this.page.refs;
   chatsList.createChatsList();
   Object.values(chatsList.children.chats).forEach((chat: any) => {
