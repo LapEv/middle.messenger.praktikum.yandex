@@ -102,7 +102,9 @@ export class Store {
       EnumStoreEvents.PageChanged,
       function (newPage: AppPages) {
         const PageComponent = getPageComponent(newPage);
+        console.log('newPage = ', newPage);
         const page = new PageComponent();
+        console.log('PageComponent = ', PageComponent);
         this.page = page;
         renderDOM({ component: page });
         document.title = `App / ${page.componentName}`;

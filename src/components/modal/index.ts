@@ -1,1 +1,1 @@
-export { ModalWindow } from "./component";
+export { Modal } from './component';

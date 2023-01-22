@@ -6,7 +6,8 @@ export const enum AppRoutes {
   Chat = 'chat_route',
   Profile = 'profile_route',
   ChangePassword = 'changePassword_route',
-  Error = 'error_route',
+  NotFound = 'not_found_route',
+  NotAuthorized = 'not_authorized_route',
 }
 
 export const AppRoutesData = {
@@ -16,7 +17,7 @@ export const AppRoutesData = {
     needAuthorization: false,
   },
   [AppRoutes.Registration]: {
-    path: '/registration',
+    path: '/sign-up',
     block: AppPages.Registration,
     needAuthorization: false,
   },
@@ -35,16 +36,20 @@ export const AppRoutesData = {
     block: AppPages.ChangePassword,
     needAuthorization: true,
   },
-  [AppRoutes.Error]: {
-    block: AppPages.Error,
+  [AppRoutes.NotFound]: {
+    block: AppPages.NotFound,
+    needAuthorization: false,
+  },
+  [AppRoutes.NotAuthorized]: {
+    block: AppPages.Forbidden,
     needAuthorization: false,
   },
 };
 
 export const MapPathToRoute: Record<string, AppRoutes> = {
-  '/registration': AppRoutes.Registration,
+  '/sign-up': AppRoutes.Registration,
   '/login': AppRoutes.Login,
-  '/chats': AppRoutes.Chat,
+  '/chat': AppRoutes.Chat,
   '/profile': AppRoutes.Profile,
   '/changePassword': AppRoutes.ChangePassword,
 };

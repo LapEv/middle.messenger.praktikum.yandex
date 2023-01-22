@@ -4,4 +4,4 @@ export { Input } from './inputs/basicInput';
 export { InputWithValidation, FileInput, InputForm } from './inputs';
 export { TextComponent } from './text';
 export { ImageComponent } from './image';
-export { ModalWindow } from './modal';
+export { Modal } from './modal';

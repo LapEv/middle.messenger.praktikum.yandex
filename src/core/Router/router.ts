@@ -19,7 +19,7 @@ export class Router implements RouterCore<AppRoutes> {
             store.dispatch({ page: routeData.block });
           } else {
             store.dispatch({
-              page: this.routesData[AppRoutes.Error].block,
+              page: this.routesData[AppRoutes.NotAuthorized].block,
             });
           }
         });
@@ -34,7 +34,7 @@ export class Router implements RouterCore<AppRoutes> {
 
     // console.log(`Router starts on window path '${window.location.pathname}'`);
     // console.log(`Start route is '${startRoute}' on path '${startPathname}'`);
-    if (startRoute !== AppRoutes.Error) {
+    if (startRoute !== AppRoutes.NotFound) {
       window.history.replaceState({}, '', startPathname);
       // console.log(`Router Start: replace state to '${startPathname}'`);
     }
@@ -51,7 +51,8 @@ export class Router implements RouterCore<AppRoutes> {
   }
 
   private onRouteChange(route: AppRoutes) {
-    const renderFunction = this.routes[route] ?? this.routes[AppRoutes.Error];
+    const renderFunction =
+      this.routes[route] ?? this.routes[AppRoutes.NotFound];
     renderFunction();
   }
 
@@ -96,7 +97,7 @@ export class Router implements RouterCore<AppRoutes> {
       console.log(`pathname "${pathname}" matches "${route}" route`);
     } else {
       console.log(`no routes matching pathname "${pathname}"`);
-      route = AppRoutes.Error;
+      route = AppRoutes.NotFound;
     }
     return { route, path: pathname };
   }

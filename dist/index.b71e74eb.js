@@ -686,7 +686,9 @@ class Store {
     init() {
         this.eventBus.on((0, _enumStoreEvents.EnumStoreEvents).PageChanged, (function(newPage) {
             const PageComponent = (0, _pages.getPageComponent)(newPage);
+            console.log("newPage = ", newPage);
             const page = new PageComponent();
+            console.log("PageComponent = ", PageComponent);
             this.page = page;
             (0, _dom.renderDOM)({
                 component: page
@@ -765,10 +767,10 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getPageComponent", ()=>(0, _getPageComponent.getPageComponent));
 parcelHelpers.export(exports, "getDescendantByPath", ()=>(0, _getDescendantByPath.getDescendantByPath));
-var _getPageComponent = require("./get-page-component");
-var _getDescendantByPath = require("./get-descendant-by-path");
+var _getPageComponent = require("./getPageComponent");
+var _getDescendantByPath = require("./getDescendantByPath");
 
-},{"./get-page-component":"bNBxj","./get-descendant-by-path":"8y9HY","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bNBxj":[function(require,module,exports) {
+},{"./getPageComponent":"fHj1l","./getDescendantByPath":"8AvjI","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fHj1l":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getPageComponent", ()=>getPageComponent);
@@ -779,8 +781,9 @@ const map = {
     [(0, _appPages.AppPages).Login]: _pages.LoginPage,
     [(0, _appPages.AppPages).Chat]: _pages.ChatPage,
     [(0, _appPages.AppPages).Profile]: _pages.ProfilePage,
-    [(0, _appPages.AppPages).ChangePassword]: _pages.ChangePasswordPage,
-    [(0, _appPages.AppPages).Error]: _pages.ErrorPage
+    [(0, _appPages.AppPages).ChangePassword]: _pages.ProfilePage,
+    [(0, _appPages.AppPages).NotFound]: _pages.NotFoundErrorPage,
+    [(0, _appPages.AppPages).Forbidden]: _pages.AuthorizationRequiredErrorPage
 };
 const getPageComponent = (page)=>{
     return map[page];
@@ -797,7 +800,8 @@ let AppPages;
     AppPages["Chat"] = "chat_page";
     AppPages["Profile"] = "profile_page";
     AppPages["ChangePassword"] = "сhangePassword_page";
-    AppPages["Error"] = "error_page";
+    AppPages["NotFound"] = "not_found_page";
+    AppPages["Forbidden"] = "access_denied_error_page";
 })(AppPages || (AppPages = {}));
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kIGWd":[function(require,module,exports) {
@@ -807,16 +811,18 @@ parcelHelpers.export(exports, "LoginPage", ()=>(0, _login.LoginPage));
 parcelHelpers.export(exports, "RegistrationPage", ()=>(0, _registration.RegistrationPage));
 parcelHelpers.export(exports, "ChatPage", ()=>(0, _chat.ChatPage));
 parcelHelpers.export(exports, "ProfilePage", ()=>(0, _profile.ProfilePage));
-parcelHelpers.export(exports, "ChangePasswordPage", ()=>(0, _changePassword.ChangePasswordPage));
-parcelHelpers.export(exports, "ErrorPage", ()=>(0, _error.ErrorPage));
+// export { ChangePasswordPage } from 'pages/profile/changePassword/changePassword';
+parcelHelpers.export(exports, "NotFoundErrorPage", ()=>(0, _pages.NotFoundErrorPage));
+parcelHelpers.export(exports, "AuthorizationRequiredErrorPage", ()=>(0, _pages.AuthorizationRequiredErrorPage));
+parcelHelpers.export(exports, "TErrorPage", ()=>(0, _pages.TErrorPage));
+parcelHelpers.export(exports, "TErrorPageClass", ()=>(0, _pages.TErrorPageClass));
 var _login = require("pages/login/login");
 var _registration = require("pages/registration/registration");
 var _chat = require("pages/chat/chat");
 var _profile = require("pages/profile/profile");
-var _changePassword = require("pages/profile/changePassword/changePassword");
-var _error = require("pages/error/error");
+var _pages = require("./errors/pages");
 
-},{"pages/login/login":"dCEbf","pages/registration/registration":"ipn4T","pages/chat/chat":"9muaU","pages/profile/profile":"atqZr","pages/profile/changePassword/changePassword":"dxpTD","pages/error/error":"kZohv","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dCEbf":[function(require,module,exports) {
+},{"pages/login/login":"dCEbf","pages/registration/registration":"ipn4T","pages/chat/chat":"9muaU","pages/profile/profile":"atqZr","./errors/pages":"a1Xr3","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dCEbf":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "LoginPage", ()=>LoginPage);
@@ -1005,13 +1011,15 @@ parcelHelpers.export(exports, "deepMerge", ()=>(0, _objectsMerge.deepMerge));
 parcelHelpers.export(exports, "setPropByPath", ()=>(0, _propByPath.setPropByPath));
 parcelHelpers.export(exports, "comparePropByPath", ()=>(0, _propByPath.comparePropByPath));
 parcelHelpers.export(exports, "getPropByPath", ()=>(0, _propByPath.getPropByPath));
+parcelHelpers.export(exports, "dateToString", ()=>(0, _dateToString.dateToString));
 var _isObject = require("./is-object");
 var _objectWithoutKey = require("./object-without-key");
 var _objectsCompare = require("./objects-compare");
 var _objectsMerge = require("./objects-merge");
 var _propByPath = require("./prop-by-path");
+var _dateToString = require("./dateToString");
 
-},{"./is-object":"azcyt","./object-without-key":"9CDza","./objects-compare":"hLCsT","./objects-merge":"5G3Tt","./prop-by-path":"iANYm","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"azcyt":[function(require,module,exports) {
+},{"./is-object":"azcyt","./object-without-key":"9CDza","./objects-compare":"hLCsT","./objects-merge":"5G3Tt","./prop-by-path":"iANYm","./dateToString":"ktGNe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"azcyt":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "isObject", ()=>isObject);
@@ -1124,7 +1132,21 @@ function getPropByPath(object, pathString, doLog = false) {
     return result;
 }
 
-},{"./objects-merge":"5G3Tt","./objects-compare":"hLCsT","./is-object":"azcyt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eVSQQ":[function(require,module,exports) {
+},{"./objects-merge":"5G3Tt","./objects-compare":"hLCsT","./is-object":"azcyt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ktGNe":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "dateToString", ()=>dateToString);
+function dateToString(timestamp) {
+    const date = !timestamp ? new Date() : new Date(timestamp);
+    const timeRegex = /^.*T(\d{2}):(\d{2}):(\d{2}).*$/;
+    const dateRegex = /^(\d{4})-(\d{2})-(\d{2})T.*$/;
+    const dateData = dateRegex.exec(new Date(date.getTime() - date.getTimezoneOffset() * 60000).toJSON());
+    const timeData = timeRegex.exec(new Date(date.getTime() - date.getTimezoneOffset() * 60000).toJSON());
+    const myFormat = `${dateData[3]}.${dateData[2]}.${dateData[1]} ${timeData[1]}:${timeData[2]}`;
+    return myFormat;
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eVSQQ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "EventBus", ()=>EventBus);
@@ -12770,7 +12792,7 @@ parcelHelpers.export(exports, "FileInput", ()=>(0, _inputs.FileInput));
 parcelHelpers.export(exports, "InputForm", ()=>(0, _inputs.InputForm));
 parcelHelpers.export(exports, "TextComponent", ()=>(0, _text.TextComponent));
 parcelHelpers.export(exports, "ImageComponent", ()=>(0, _image.ImageComponent));
-parcelHelpers.export(exports, "ModalWindow", ()=>(0, _modal.ModalWindow));
+parcelHelpers.export(exports, "Modal", ()=>(0, _modal.Modal));
 var _basicButton = require("./buttons/basicButton");
 var _link = require("./link");
 var _basicInput = require("./inputs/basicInput");
@@ -13374,7 +13396,7 @@ class Router {
                     page: routeData.block
                 });
                 else store.dispatch({
-                    page: this.routesData[(0, _routerData.AppRoutes).Error].block
+                    page: this.routesData[(0, _routerData.AppRoutes).NotAuthorized].block
                 });
             });
         });
@@ -13383,7 +13405,7 @@ class Router {
         if (this.isStarted) return;
         // console.log(`Router starts on window path '${window.location.pathname}'`);
         // console.log(`Start route is '${startRoute}' on path '${startPathname}'`);
-        if (startRoute !== (0, _routerData.AppRoutes).Error) window.history.replaceState({}, "", startPathname);
+        if (startRoute !== (0, _routerData.AppRoutes).NotFound) window.history.replaceState({}, "", startPathname);
         this.onRouteChange(startRoute);
         window.onpopstate = (function() {
             const currentPath = this.getCurrentPath();
@@ -13394,7 +13416,7 @@ class Router {
         this.isStarted = true;
     }
     onRouteChange(route) {
-        const renderFunction = this.routes[route] ?? this.routes[(0, _routerData.AppRoutes).Error];
+        const renderFunction = this.routes[route] ?? this.routes[(0, _routerData.AppRoutes).NotFound];
         renderFunction();
     }
     use(route, renderFunction) {
@@ -13429,7 +13451,7 @@ class Router {
         if (route1) console.log(`pathname "${pathname}" matches "${route1}" route`);
         else {
             console.log(`no routes matching pathname "${pathname}"`);
-            route1 = (0, _routerData.AppRoutes).Error;
+            route1 = (0, _routerData.AppRoutes).NotFound;
         }
         return {
             route: route1,
@@ -13458,7 +13480,8 @@ let AppRoutes;
     AppRoutes["Chat"] = "chat_route";
     AppRoutes["Profile"] = "profile_route";
     AppRoutes["ChangePassword"] = "changePassword_route";
-    AppRoutes["Error"] = "error_route";
+    AppRoutes["NotFound"] = "not_found_route";
+    AppRoutes["NotAuthorized"] = "not_authorized_route";
 })(AppRoutes || (AppRoutes = {}));
 const AppRoutesData = {
     ["login_route"]: {
@@ -13467,7 +13490,7 @@ const AppRoutesData = {
         needAuthorization: false
     },
     ["registration_route"]: {
-        path: "/registration",
+        path: "/sign-up",
         block: (0, _appPages.AppPages).Registration,
         needAuthorization: false
     },
@@ -13486,15 +13509,19 @@ const AppRoutesData = {
         block: (0, _appPages.AppPages).ChangePassword,
         needAuthorization: true
     },
-    ["error_route"]: {
-        block: (0, _appPages.AppPages).Error,
+    ["not_found_route"]: {
+        block: (0, _appPages.AppPages).NotFound,
+        needAuthorization: false
+    },
+    ["not_authorized_route"]: {
+        block: (0, _appPages.AppPages).Forbidden,
         needAuthorization: false
     }
 };
 const MapPathToRoute = {
-    "/registration": "registration_route",
+    "/sign-up": "registration_route",
     "/login": "login_route",
-    "/chats": "chat_route",
+    "/chat": "chat_route",
     "/profile": "profile_route",
     "/changePassword": "changePassword_route"
 };
@@ -13941,18 +13968,18 @@ exports.default = (0, _templateGeneratorDefault.default)({
 },{"utils/components/templateGenerator":"58Af7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"k4trj":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "ModalWindow", ()=>(0, _component.ModalWindow));
+parcelHelpers.export(exports, "Modal", ()=>(0, _component.Modal));
 var _component = require("./component");
 
 },{"./component":"8OsrV","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8OsrV":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "ModalWindow", ()=>ModalWindow);
+parcelHelpers.export(exports, "Modal", ()=>Modal);
 var _buttons = require("components/buttons");
 var _dom = require("core/dom");
 var _template = require("./template");
 var _templateDefault = parcelHelpers.interopDefault(_template);
-class ModalWindow extends (0, _dom.Block) {
+class Modal extends (0, _dom.Block) {
     _afterPropsAssignHook() {
         super._afterPropsAssignHook();
         this.contentType = "";
@@ -13962,7 +13989,7 @@ class ModalWindow extends (0, _dom.Block) {
     _createCloseButton() {
         return new (0, _buttons.Button)({
             refs: {
-                modalWindow: this
+                modal: this
             },
             props: {
                 htmlClasses: [
@@ -13972,7 +13999,7 @@ class ModalWindow extends (0, _dom.Block) {
                 events: {
                     click: [
                         function() {
-                            this.refs.modalWindow.toggleVisibility();
+                            this.refs.modal.toggleVisibility();
                         }
                     ]
                 }
@@ -15426,260 +15453,230 @@ exports.default = `
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9muaU":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-// import { Modal } from 'components/modal/modal';
-// import { modalMessageUsers } from 'components/modal/modalMessage';
 parcelHelpers.export(exports, "ChatPage", ()=>ChatPage);
-var _dom = require("core/dom");
-// import { ImageElement, Input, Link, TextElement } from 'components/index';
+var _components = require("hocs/components");
+var _pages = require("utils/pages");
 var _chatTemplate = require("./chatTemplate");
-var _menuPng = require("static/img/menu.png");
-var _menuPngDefault = parcelHelpers.interopDefault(_menuPng);
-var _attachPng = require("static/img/attach.png");
-var _attachPngDefault = parcelHelpers.interopDefault(_attachPng);
-var _sendPng = require("static/img/send.png");
-var _sendPngDefault = parcelHelpers.interopDefault(_sendPng);
-var _cameraPng = require("static/img/camera.png");
-var _cameraPngDefault = parcelHelpers.interopDefault(_cameraPng);
-var _chatList = require("./chatList");
-var _chatListDefault = parcelHelpers.interopDefault(_chatList);
-var _chatData = require("./chatData");
-// import { MainPage } from 'core/renderDOM';
-var _profile = require("pages/profile/profile");
-class ChatPage extends (0, _dom.Block) {
+var _chatTemplateDefault = parcelHelpers.interopDefault(_chatTemplate);
+var _components1 = require("./components");
+class ChatPage extends (0, _components.WithStoreBlock) {
     constructor(){
-        const children = {
-            chats: []
+        const children = {};
+        children.navigationSection = new (0, _components1.ChatsPageNavigationSection)();
+        children.chatSection = new (0, _components1.ChatsPageMainSection)();
+        children.settings = new (0, _components1.ChatListPage)();
+        // children.modal = Modal;
+        super({
+            componentName: "Chats Page",
+            children
+        });
+    }
+    _afterPropsAssignHook() {
+        super._afterPropsAssignHook();
+        const functionalButton = this.getChildByPath("chatSection.headerSection.functionalButton");
+        functionalButton.refs.settings = this.getChildByPath("settings");
+        this.refs.messagesDisplaySection = this.getChildByPath("chatSection.messagesDisplaySection");
+        this.refs.attachmentButton = this.getChildByPath("chatSection.messageInputSection.attachmentButton");
+        this.refs.messageInput = this.getChildByPath("chatSection.messageInputSection.messageInput");
+        this.refs.sendMessageButton = this.getChildByPath("chatSection.messageInputSection.sendMessageButton");
+        this.refs.chooseChatAvatarButton = this.getChildByPath("settings.avatarChooseButton.chooseButton");
+        this.refs.addChatUsersButton = this.getChildByPath("settings.addChatUsersButton");
+        this.refs.deleteChatButton = this.getChildByPath("settings.deleteChatButton");
+        const settings = this.getChildByPath("navigationSection.chatsList");
+        this.refs.settings = settings;
+        const chats = (0, _pages.getDescendantByPath)(settings.children, "chats");
+        chats.forEach((chat)=>{
+            this.refs[`chat-${chat.chatID}`] = chat;
+        });
+    }
+    render() {
+        return 0, _chatTemplateDefault.default;
+    }
+}
+
+},{"hocs/components":"THcGa","utils/pages":"5q3PA","./chatTemplate":"bKpsa","./components":"fpzww","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bKpsa":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+exports.default = `
+<main class="chat__container">
+  {{{ navigationSection }}}
+  {{{ chatSection }}}
+  {{{ settings }}}
+</main>
+`; // export default `
+ // <div class="chats-page">
+ //   {{{ chatSection }}}
+ //   {{{ chatList }}}
+ //   {{{ modalWindow }}}
+ // `;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fpzww":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ChatsPageNavigationSection", ()=>(0, _navigation.ChatsPageNavigationSection));
+parcelHelpers.export(exports, "ChatsPageMainSection", ()=>(0, _chat.ChatsPageMainSection));
+parcelHelpers.export(exports, "ChatListPage", ()=>(0, _chatList.ChatListPage));
+var _navigation = require("./navigation");
+var _chat = require("./chat");
+var _chatList = require("./chatList");
+
+},{"./navigation":"5wz5f","./chat":"zhx6y","./chatList":"ixuOs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5wz5f":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ChatsPageNavigationSection", ()=>(0, _component.ChatsPageNavigationSection));
+var _component = require("./component");
+
+},{"./component":"fqQir","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fqQir":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ChatsPageNavigationSection", ()=>ChatsPageNavigationSection);
+var _components = require("hocs/components");
+var _chatFind = require("./headerSection/chatFind");
+var _chatsList = require("./chatsList");
+var _headerSection = require("./headerSection");
+var _template = require("./template");
+var _templateDefault = parcelHelpers.interopDefault(_template);
+class ChatsPageNavigationSection extends (0, _components.WithStoreBlock) {
+    constructor(){
+        const children = {};
+        children.headerSection = new (0, _headerSection.HeaderSection)();
+        children.chatFind = new (0, _chatFind.ChatFind)();
+        children.chatsList = new (0, _chatsList.ChatsList)();
+        super({
+            children
+        });
+    }
+    render() {
+        return 0, _templateDefault.default;
+    }
+}
+
+},{"hocs/components":"THcGa","./chatsList":"bRoLu","./headerSection":"6DKWP","./template":"3sw5G","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./headerSection/chatFind":"hnQV8"}],"bRoLu":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ChatsList", ()=>(0, _component.ChatsList));
+var _component = require("./component");
+
+},{"./component":"6RLvb","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6RLvb":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ChatsList", ()=>ChatsList);
+var _components = require("hocs/components");
+var _chatComponent = require("../chatComponent");
+var _template = require("./template");
+var _templateDefault = parcelHelpers.interopDefault(_template);
+class ChatsList extends (0, _components.WithStoreBlock) {
+    render() {
+        return 0, _templateDefault.default;
+    }
+    _afterPropsAssignHook() {
+        super._afterPropsAssignHook();
+        this.createChatsList();
+    }
+    createChatsList() {
+        let chats = {};
+        if (this.store.userHasAnyChats()) chats = this.store.getChatsDataByPath();
+        console.log(`CHATS: ${JSON.stringify(chats)}`);
+        const chatsList = [];
+        Object.keys(chats).forEach((id)=>{
+            chatsList.push(new (0, _chatComponent.ChatComponent)(id));
+        });
+        this.children.chats = chatsList;
+    }
+}
+
+},{"hocs/components":"THcGa","../chatComponent":"lx7HR","./template":"wieZO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lx7HR":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ChatComponent", ()=>(0, _components.ChatComponent));
+var _components = require("./components");
+
+},{"./components":"4WZ06","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4WZ06":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ChatComponent", ()=>ChatComponent);
+var _components = require("hocs/components");
+var _avatar = require("./avatar");
+var _title = require("./title");
+var _template = require("./template");
+var _templateDefault = parcelHelpers.interopDefault(_template);
+var _text = require("./text");
+var _time = require("./time");
+class ChatComponent extends (0, _components.WithStoreBlock) {
+    constructor(chatID){
+        const children = {};
+        children.avatarImage = new (0, _avatar.ChatAvatar)(chatID);
+        children.chatTitle = new (0, _title.ChatTitle)(chatID);
+        children.chatText = new (0, _text.ChatText)(chatID);
+        children.chatTime = new (0, _time.ChatTime)(chatID);
+        const beforePropsAssignHook = function() {
+            this.chatID = chatID;
         };
-        const refs = {};
-        // children.modal = new Modal({
-        //   props: {
-        //     title: '',
-        //     inputProps: modalMessageUsers.inputProps,
-        //     text: '',
-        //     error: '',
-        //   },
-        // });
-        // refs['modalField'] = children.modal;
-        (0, _chatData.chatList).map(({ username , userImg , lastMessage , lastMessageDate  })=>{
-            children.chats.push(new (0, _chatListDefault.default)({
-                username,
-                userImg,
-                lastMessage,
-                lastMessageDate
-            }));
-        });
-        children.profileLink = new Link({
-            props: {
-                label: (0, _chatData.chatData).link.name,
-                htmlName: (0, _chatData.chatData).link.htmlName,
-                htmlClass: "chat__list__profileLink__icon",
-                htmlWrapper: {
-                    componentAlias: "wrappedLink",
-                    htmlWrapperTemplate: `
-              <div class='chat__list__profileLink'>
-                {{{wrappedLink}}} 
-                <svg
-                  class='chat__list__profileLink__svg'
-                  width='6'
-                  height='10'
-                  viewBox='0 0 6 10'
-                  fill='none'
-                  xmlns='http://www.w3.org/2000/svg'
-                >
-                  <path d='M1 9L5 5L1 1' stroke='#999999'></path>
-                </svg>
-              </div>
-            `
-                },
-                events: {
-                    click: [
-                        ()=>{
-                            MainPage.component = new (0, _profile.ProfilePage)();
-                        }
-                    ]
-                }
-            }
-        });
-        children.inputFind = new Input({
-            props: {
-                placeholder: (0, _chatData.chatData).inputFindUser.placeholder,
-                type: (0, _chatData.chatData).inputFindUser.type,
-                htmlName: (0, _chatData.chatData).inputFindUser.name,
-                htmlClass: (0, _chatData.chatData).inputFindUser.class,
-                componentName: `${(0, _chatData.chatData).inputFindUser.name} input`,
-                htmlWrapper: {
-                    componentAlias: "wrappedInputFind",
-                    htmlWrapperTemplate: `
-            <div style='height: auto'>
-              <label for='chatSearch'></label>
-              {{{wrappedInputFind}}}
-            </div>
-            `
-                }
-            }
-        });
-        children.chatWith = new TextElement({
-            props: {
-                text: (0, _chatData.chatMessages).user,
-                htmlClass: "chat__body__title__user",
-                componentName: "Chat Component Message"
-            }
-        });
-        children.menuImage = new ImageElement({
-            props: {
-                src: (0, _menuPngDefault.default),
-                htmlClass: "chat__body__title__img",
-                alt: "menu",
-                componentName: "Menu Image",
-                events: {
-                    click: [
-                        ()=>{
-                            refs.modalField.showModal({
-                                title: modalMessageUsers.addUser.title,
-                                link: modalMessageUsers.addUser.link,
-                                value: modalMessageUsers.addUser.value,
-                                button: modalMessageUsers.addUser.button,
-                                error: modalMessageUsers.addUser.error
-                            });
-                        }
-                    ]
-                }
-            }
-        });
-        children.chatDate = new TextElement({
-            props: {
-                text: (0, _chatData.chatMessages).date,
-                htmlClass: "chat__body__date",
-                componentName: "Chat Component Message"
-            }
-        });
-        children.chatMessage1 = new TextElement({
-            props: {
-                text: (0, _chatData.chatMessages).message1,
-                htmlClass: "chat__body__message",
-                componentName: "Chat Component Message"
-            }
-        });
-        children.chatTime1 = new TextElement({
-            props: {
-                text: (0, _chatData.chatMessages).time1,
-                htmlClass: "chat__body__message__time",
-                componentName: "Chat Component Message"
-            }
-        });
-        children.imagePhoto = new ImageElement({
-            props: {
-                src: (0, _cameraPngDefault.default),
-                htmlClass: "chat__body__img",
-                alt: "photo",
-                componentName: "Photo Image"
-            }
-        });
-        children.chatMessage2 = new TextElement({
-            props: {
-                text: (0, _chatData.chatMessages).message2,
-                htmlClass: "chat__body__you",
-                componentName: "Chat Component Message"
-            }
-        });
-        children.chatTime2 = new TextElement({
-            props: {
-                text: (0, _chatData.chatMessages).time2,
-                htmlClass: "chat__body__you__time",
-                componentName: "Chat Component Message"
-            }
-        });
-        children.inputMessage = new Input({
-            props: {
-                placeholder: (0, _chatData.chatData).inputMessage.placeholder,
-                type: (0, _chatData.chatData).inputMessage.type,
-                htmlName: (0, _chatData.chatData).inputMessage.name,
-                htmlClass: (0, _chatData.chatData).inputMessage.class,
-                componentName: `${(0, _chatData.chatData).inputMessage.name} input`,
-                htmlWrapper: {
-                    componentAlias: "wrappedInputMessage",
-                    htmlWrapperTemplate: `
-            <div style='height: auto'>
-              <label for='message' style='width: 0'></label>
-              {{{wrappedInputMessage}}}
-            </div>
-            `
-                }
-            }
-        });
-        children.attachImage = new ImageElement({
-            props: {
-                src: (0, _attachPngDefault.default),
-                htmlClass: "chat__body__footer__img",
-                alt: "attach",
-                componentName: "Attach Image"
-            }
-        });
-        children.sendImage = new ImageElement({
-            props: {
-                src: (0, _sendPngDefault.default),
-                htmlClass: "chat__body__footer__imgSend",
-                alt: "send",
-                componentName: "Send Image"
-            }
-        });
+        const afterRenderHook = function() {
+            if (this.chatID === this.store.getCurrentChatID()) this.toggleHtmlClass("current-chat", "on");
+        };
         super({
             children,
-            props: {
-                componentName: "Chats Page"
+            helpers: {
+                beforePropsAssignHook,
+                afterRenderHook
             }
         });
     }
     render() {
-        return 0, _chatTemplate.chatTemplate;
+        return 0, _templateDefault.default;
+    }
+    _afterRenderHook() {
+        super._afterRenderHook();
+        const onclickCallback = function() {
+            this.store.dispatch({
+                currentChatID: this.chatID
+            });
+        };
+        this.dispatchEventListener("click", onclickCallback.bind(this));
     }
 }
 
-},{"core/dom":"3BLMu","./chatTemplate":"bKpsa","static/img/menu.png":"1MGTQ","static/img/attach.png":"hTNQO","static/img/send.png":"ceWHr","static/img/camera.png":"hBYjR","./chatList":"iEv8H","./chatData":"42lLR","pages/profile/profile":"atqZr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bKpsa":[function(require,module,exports) {
+},{"hocs/components":"THcGa","./avatar":"9PVHJ","./title":"1lBwA","./template":"lzXld","./text":"j65YY","./time":"iVPsw","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9PVHJ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "chatTemplate", ()=>chatTemplate);
-const chatTemplate = `
-<main class='chat__container'>
-  {{{modal}}}
-  <div class='chat__list'>
-    {{{profileLink}}}
-    {{{inputFind}}}
-    {{{ chats }}}
-  </div>
-  <div class='chat__body'>
-    <div class='chat__body__title'>
-      <div class='chat__body__title__circle'></div>
-      {{{chatWith}}}
-      {{{menuImage}}}
-    </div>
-    <div class='chat__body__line'></div>
-      {{{chatDate}}}
-    <div class='chat__body__message__container'>
-      {{{chatMessage1}}}
-      {{{chatTime1}}}
-    </div>
-    {{{imagePhoto}}}
-    <div class='chat__body__you__container'>
-      {{{chatMessage2}}}
-      {{{chatTime2}}}
-    </div>
-    <footer class='chat__body__footer'>
-      <div class='chat__body__line'></div>
-      <div class='chat__body__footer__container'>
-        {{{attachImage}}}
-        {{{inputMessage}}}
-        {{{sendImage}}}
-      </div>
-    </footer>
-  </div>
-</main>
-`;
+parcelHelpers.export(exports, "ChatAvatar", ()=>(0, _component.ChatAvatar));
+var _component = require("./component");
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1MGTQ":[function(require,module,exports) {
-module.exports = require("662ada06709a3352").getBundleURL("7UhFu") + "menu.a1c33c79.png" + "?" + Date.now();
+},{"./component":"13csI","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"13csI":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ChatAvatar", ()=>ChatAvatar);
+var _components = require("hocs/components");
+var _avatarPlacholderSvg = require("./avatarPlacholder.svg");
+var _avatarPlacholderSvgDefault = parcelHelpers.interopDefault(_avatarPlacholderSvg);
+class ChatAvatar extends (0, _components.WithStoreImageComponent) {
+    constructor(chatID){
+        const beforePropsAssignHook = function() {
+            this.chatID = chatID;
+        };
+        super({
+            helpers: {
+                beforePropsAssignHook
+            }
+        });
+    }
+    _afterPropsAssignHook() {
+        super._afterPropsAssignHook();
+        const avatarSrc = this.store.getChatsDataByPath(`${this.chatID}.avatar`) ?? (0, _avatarPlacholderSvgDefault.default);
+        Object.assign(this.props, {
+            htmlAttributes: {
+                src: avatarSrc,
+                alt: "avatar placeholder"
+            }
+        });
+    }
+}
 
-},{"662ada06709a3352":"lgJ39"}],"lgJ39":[function(require,module,exports) {
+},{"hocs/components":"THcGa","./avatarPlacholder.svg":"6Kq46","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6Kq46":[function(require,module,exports) {
+module.exports = require("c162a9ad7954962f").getBundleURL("7UhFu") + "avatarPlacholder.a325773c.svg" + "?" + Date.now();
+
+},{"c162a9ad7954962f":"lgJ39"}],"lgJ39":[function(require,module,exports) {
 "use strict";
 var bundleURL = {};
 function getBundleURLCached(id) {
@@ -15713,799 +15710,1665 @@ exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
 exports.getOrigin = getOrigin;
 
-},{}],"hTNQO":[function(require,module,exports) {
-module.exports = require("84866f3f39f43634").getBundleURL("7UhFu") + "attach.a2507276.png" + "?" + Date.now();
-
-},{"84866f3f39f43634":"lgJ39"}],"ceWHr":[function(require,module,exports) {
-module.exports = require("94d6124511703da").getBundleURL("7UhFu") + "send.e0d50340.png" + "?" + Date.now();
-
-},{"94d6124511703da":"lgJ39"}],"hBYjR":[function(require,module,exports) {
-module.exports = require("5414f57f6c9aaea1").getBundleURL("7UhFu") + "camera.5b58f8e0.png" + "?" + Date.now();
-
-},{"5414f57f6c9aaea1":"lgJ39"}],"iEv8H":[function(require,module,exports) {
+},{}],"1lBwA":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ChatTitle", ()=>ChatTitle);
+var _components = require("hocs/components");
+class ChatTitle extends (0, _components.WithStoreTextComponent) {
+    constructor(chatID){
+        const beforePropsAssignHook = function() {
+            this.chatID = chatID;
+            const title = this.store.getChatsDataByPath(`${this.chatID}.title`);
+            this.props = {
+                htmlClasses: [
+                    "chat__list__message__title"
+                ],
+                text: title
+            };
+        };
+        super({
+            helpers: {
+                beforePropsAssignHook
+            }
+        });
+    }
+}
+
+},{"hocs/components":"THcGa","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lzXld":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+exports.default = `
+  <li class="chat__list__message__container">
+    <div class="chat__list__message__circle">
+      {{{ avatarImage }}}
+    </div>
+    <div class="chat__list__message__text">
+      {{{ chatTitle }}}
+      {{{ chatText }}}
+      {{{ chatTime }}}
+    </div>
+    <div class="chat__list__message__unread">
+      {{{ unreadMessagesCount }}}
+    </div>
+  </li>
+`;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"j65YY":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ChatText", ()=>ChatText);
+var _components = require("hocs/components");
+class ChatText extends (0, _components.WithStoreTextComponent) {
+    constructor(chatID){
+        const beforePropsAssignHook = function() {
+            this.chatID = chatID;
+            const text = this.store.getChatsDataByPath(`${this.chatID}.lastMessage.content`);
+            this.props = {
+                htmlClasses: [
+                    "chat__list__message__last"
+                ],
+                text: text
+            };
+        };
+        super({
+            helpers: {
+                beforePropsAssignHook
+            }
+        });
+    }
+}
+
+},{"hocs/components":"THcGa","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iVPsw":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ChatTime", ()=>ChatTime);
+var _components = require("hocs/components");
+var _objectsHandle = require("utils/objects-handle");
+class ChatTime extends (0, _components.WithStoreTextComponent) {
+    constructor(chatID){
+        const beforePropsAssignHook = function() {
+            this.chatID = chatID;
+            const time = this.store.getChatsDataByPath(`${this.chatID}.lastMessage.time`);
+            const convertTime = (0, _objectsHandle.dateToString)(time);
+            this.props = {
+                htmlClasses: [
+                    "chat__list__message__lastDate"
+                ],
+                text: convertTime
+            };
+        };
+        super({
+            helpers: {
+                beforePropsAssignHook
+            }
+        });
+    }
+}
+
+},{"hocs/components":"THcGa","utils/objects-handle":"kOfSo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"wieZO":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+exports.default = `
+  <div style="height: auto">
+    {{{ chats }}}
+  </div>
+`;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6DKWP":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "HeaderSection", ()=>(0, _component.HeaderSection));
+var _component = require("./component");
+
+},{"./component":"b6TPL","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"b6TPL":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "HeaderSection", ()=>HeaderSection);
+var _components = require("components");
 var _dom = require("core/dom");
-// import { ImageElement, TextElement } from 'components/index';
-var _chatListTemplate = require("./chatListTemplate");
-class ChatList extends (0, _dom.Block) {
-    constructor({ username , userImg , lastMessage , lastMessageDate  }){
+var _router = require("core/router");
+var _hocs = require("hocs");
+var _template = require("./template");
+var _templateDefault = parcelHelpers.interopDefault(_template);
+const LinkWithRouter = (0, _hocs.WithRouter)((0, _components.Link));
+class HeaderSection extends (0, _dom.Block) {
+    constructor(){
         const children = {};
-        const messageElement = new TextElement({
+        children.profileLink = new LinkWithRouter({
             props: {
-                text: lastMessage,
-                componentName: "Chat Component Message",
-                htmlClass: "chat__list__message__last",
-                htmlWrapper: {
-                    componentAlias: "wrapped",
-                    htmlWrapperTemplate: `
-                <div class='chat__list__message__container'>
-                  <div class="chat__list__message__circle">
-                    ${userImg}
-                  </div>
-                  <div class='chat__list__message__text'>
-                    <span class='chat__list__message__title'>${username}</span>
-                    {{{wrapped}}}
-                  </div>
-                  <span class='chat__list__message__lastDate'>${lastMessageDate}</span>
-                </div>
-              `
+                label: "Профиль",
+                htmlAttributes: {
+                    name: "Profile"
+                },
+                htmlClasses: [
+                    "chat__list__profileLink__icon"
+                ],
+                events: {
+                    click: [
+                        function() {
+                            this.router.go((0, _router.AppRoutes).Profile);
+                        }
+                    ]
                 }
             }
         });
-        children.message = messageElement;
         super({
             children
         });
     }
     render() {
-        return 0, _chatListTemplate.chatListTemplate;
+        return 0, _templateDefault.default;
     }
 }
-exports.default = ChatList;
 
-},{"core/dom":"3BLMu","./chatListTemplate":"dc6W1","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dc6W1":[function(require,module,exports) {
+},{"components":"dHnah","core/dom":"3BLMu","core/router":"6PhbH","hocs":"8D4Xk","./template":"lTAk7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lTAk7":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "chatListTemplate", ()=>chatListTemplate);
-const chatListTemplate = `
-    {{{message}}}
+exports.default = `
+<div class='chat__list__profileLink'>
+  {{{profileLink}}} 
+  <svg
+    class='chat__list__profileLink__svg'
+    width='6'
+    height='10'
+    viewBox='0 0 6 10'
+    fill='none'
+    xmlns='http://www.w3.org/2000/svg'
+  >
+    <path d='M1 9L5 5L1 1' stroke='#999999'></path>
+  </svg>
+</div>
 `;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"42lLR":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3sw5G":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "chatList", ()=>chatList);
-parcelHelpers.export(exports, "chatData", ()=>chatData);
-parcelHelpers.export(exports, "chatMessages", ()=>chatMessages);
-const chatList = [
-    {
-        username: "Петя",
-        userImg: "",
-        lastMessage: "Test",
-        lastMessageDate: "16:54"
-    },
-    {
-        username: "Ваня",
-        userImg: "",
-        lastMessage: "Test Test",
-        lastMessageDate: "10:54"
-    },
-    {
-        username: "Коля",
-        userImg: "",
-        lastMessage: "Тестовое сообщение",
-        lastMessageDate: "Вт"
-    },
-    {
-        username: "Дима",
-        userImg: "",
-        lastMessage: "Тестовое сообщение, чтобы посмотреть как работает ограничение",
-        lastMessageDate: "2 Дек 2022"
+exports.default = `
+  <div class="chat__list">
+    {{{ headerSection }}}
+    {{{ chatFind }}}
+    {{{ chatsList }}}
+  </div>
+`;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hnQV8":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ChatFind", ()=>(0, _component.ChatFind));
+var _component = require("./component");
+
+},{"./component":"58XKj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"58XKj":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ChatFind", ()=>ChatFind);
+var _components = require("components");
+var _dom = require("core/dom");
+var _template = require("./template");
+var _templateDefault = parcelHelpers.interopDefault(_template);
+class ChatFind extends (0, _dom.Block) {
+    constructor(){
+        const children = {};
+        children.findInput = new (0, _components.Input)({
+            props: {
+                htmlAttributes: {
+                    name: "chatSearch",
+                    placeholder: "Поиск"
+                },
+                htmlClasses: [
+                    "chat__list__input"
+                ]
+            }
+        });
+        super({
+            children
+        });
     }
-];
-const chatData = {
-    link: {
-        name: "Профиль",
-        htmlName: "Profile"
-    },
-    inputFindUser: {
-        placeholder: "Поиск",
-        type: "text",
-        name: "chatSearch",
-        class: "chat__list__input"
-    },
-    inputMessage: {
-        placeholder: "Сообщение",
-        type: "text",
-        name: "message",
-        class: "chat__body__footer__input"
+    render() {
+        return 0, _templateDefault.default;
     }
-};
-const chatMessages = {
-    user: "Вадим",
-    date: "19 июня",
-    time1: "11:56",
-    message1: "Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой./n Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и не попали. Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.",
-    time2: "12:00",
-    message2: "Круто!"
-};
+}
+
+},{"components":"dHnah","core/dom":"3BLMu","./template":"l5Ysm","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"l5Ysm":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+exports.default = `
+  <div style="height: auto">
+    {{{ findInput }}}
+  </div>
+`;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"zhx6y":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ChatsPageMainSection", ()=>(0, _component.ChatsPageMainSection));
+var _component = require("./component");
+
+},{"./component":"gIc8o","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gIc8o":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ChatsPageMainSection", ()=>ChatsPageMainSection);
+var _components = require("hocs/components");
+var _headerSection = require("./headerSection");
+var _messagesDisplaySection = require("./messagesDisplaySection");
+var _template = require("./template");
+var _templateDefault = parcelHelpers.interopDefault(_template);
+class ChatsPageMainSection extends (0, _components.WithStoreBlock) {
+    constructor(){
+        const children = {};
+        children.headerSection = new (0, _headerSection.ChatSectionHeader)();
+        children.messagesDisplaySection = new (0, _messagesDisplaySection.MessagesDisplayArea)();
+        // children.messageInputSection = new MessageInputSection();
+        super({
+            children
+        });
+    }
+    render() {
+        return 0, _templateDefault.default;
+    }
+}
+
+},{"hocs/components":"THcGa","./headerSection":"6Q9wC","./template":"jgBby","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./messagesDisplaySection":"ec3hp"}],"6Q9wC":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ChatSectionHeader", ()=>(0, _component.ChatSectionHeader));
+var _component = require("./component");
+
+},{"./component":"ghLqX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ghLqX":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ChatSectionHeader", ()=>ChatSectionHeader);
+var _components = require("hocs/components");
+var _components1 = require("components");
+var _settingsPng = require("static/img/settings.png");
+var _settingsPngDefault = parcelHelpers.interopDefault(_settingsPng);
+var _template = require("./template");
+var _templateDefault = parcelHelpers.interopDefault(_template);
+class ChatSectionHeader extends (0, _components.WithStoreBlock) {
+    constructor(){
+        const children = {};
+        children.functionalButton = ChatSectionHeader._createfunctionalButton();
+        super({
+            children
+        });
+    }
+    _afterRenderHook() {
+        super._afterRenderHook();
+        this.assignCurrentChat();
+    }
+    assignCurrentChat() {
+        const store = this.store;
+        const currentChatID = store.getCurrentChatID();
+        const chats = this.store.getChatsDataByPath();
+        const title = chats[currentChatID].title;
+        this.children.user = new (0, _components1.TextComponent)({
+            props: {
+                text: title,
+                htmlClasses: [
+                    "chat__body__title__user"
+                ]
+            }
+        });
+    }
+    render() {
+        return 0, _templateDefault.default;
+    }
+    static _createfunctionalButton() {
+        return new (0, _components1.Button)({
+            props: {
+                htmlClasses: [
+                    "chat__body__title__img"
+                ],
+                htmlStyle: {
+                    "background-image": (0, _settingsPngDefault.default)
+                },
+                events: {
+                    click: [
+                        function() {
+                            this.refs.settings._element.style.display = "block";
+                        }
+                    ]
+                }
+            }
+        });
+    }
+}
+
+},{"hocs/components":"THcGa","components":"dHnah","static/img/settings.png":"6FegF","./template":"LioTh","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6FegF":[function(require,module,exports) {
+module.exports = require("90cb2a65a2f0de24").getBundleURL("7UhFu") + "settings.f49c5153.png" + "?" + Date.now();
+
+},{"90cb2a65a2f0de24":"lgJ39"}],"LioTh":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+exports.default = `
+  <div class="chat__body__title">
+    <div class="chat__body__title__circle"></div>
+    {{{ user }}}
+    {{{ functionalButton }}}
+  </div>
+`;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jgBby":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+exports.default = `
+<div class="chat__body">
+  {{{ headerSection }}}
+  {{{ messagesDisplaySection }}}
+</div>
+`; // export default `
+ //   <main class="main-section">
+ //     {{{ headerSection }}}
+ //     {{{ messagesDisplaySection }}}
+ //     {{{ messageInputSection }}}
+ //   </main>
+ // `;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ec3hp":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "MessagesDisplayArea", ()=>(0, _component.MessagesDisplayArea));
+var _component = require("./component");
+
+},{"./component":"hqKGp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hqKGp":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "MessagesDisplayArea", ()=>MessagesDisplayArea);
+var _components = require("hocs/components");
+var _objectsHandle = require("utils/objects-handle");
+var _messagesList = require("./messagesList");
+var _template = require("./template");
+var _templateDefault = parcelHelpers.interopDefault(_template);
+let EnumChatAbsenceWarnings;
+(function(EnumChatAbsenceWarnings) {
+    EnumChatAbsenceWarnings["NoChatsCreated"] = "NO CHATS CREATED";
+    EnumChatAbsenceWarnings["NoChatSelected"] = "NO CHAT SELECTED";
+    EnumChatAbsenceWarnings["NoMessagesWritten"] = "NO MESSAGES EXIST";
+})(EnumChatAbsenceWarnings || (EnumChatAbsenceWarnings = {}));
+class MessagesDisplayArea extends (0, _components.WithStoreBlock) {
+    _afterPropsAssignHook() {
+        super._afterPropsAssignHook();
+        this.setChatAbsenceWarning();
+        this.createMessagesList();
+    }
+    setChatAbsenceWarning() {
+        let warning = "";
+        const { store  } = this;
+        if (!store.userHasAnyChats()) warning = "NO CHATS CREATED";
+        else {
+            const chatID = store.getCurrentChatID();
+            if ((0, _objectsHandle.isNullish)(chatID)) warning = "NO CHAT SELECTED";
+            else if (!this.store.chatHasMessages(chatID)) {
+                const messages = this.store.getStateValueByPath(`chatMessages.${chatID}`);
+                console.log(`CHAT(${chatID}): ${JSON.stringify(messages)}`);
+                warning = "NO MESSAGES EXIST";
+            }
+        }
+        this.state.chatAbsenceWarning = warning;
+    }
+    createMessagesList() {
+        const chatID = this.store.getCurrentChatID();
+        const messagesList = new (0, _messagesList.MessagesList)(chatID);
+        this.children.messagesList = messagesList;
+        messagesList.jumpToScrollBottom();
+    }
+    render() {
+        return 0, _templateDefault.default;
+    }
+}
+
+},{"hocs/components":"THcGa","utils/objects-handle":"kOfSo","./messagesList":"fHi9D","./template":"jdda0","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fHi9D":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "MessagesList", ()=>(0, _component.MessagesList));
+var _component = require("./component");
+
+},{"./component":"1MaQB","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1MaQB":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "MessagesList", ()=>MessagesList);
+var _components = require("hocs/components");
+var _objectsHandle = require("utils/objects-handle");
+var _message = require("../message");
+var _template = require("./template");
+var _templateDefault = parcelHelpers.interopDefault(_template);
+class MessagesList extends (0, _components.WithStoreBlock) {
+    constructor(chatID){
+        const beforePropsAssignHook = function() {
+            this.chatID = chatID;
+        };
+        super({
+            helpers: {
+                beforePropsAssignHook
+            }
+        });
+    }
+    _afterPropsAssignHook() {
+        super._afterPropsAssignHook();
+        const { chatID  } = this;
+        if ((0, _objectsHandle.isNullish)(chatID) || !this.store.chatHasMessages(chatID)) {
+            this.children.messages = [];
+            return;
+        }
+        const messages = this.store.getStateValueByPath(`chatsMessages.${chatID}`);
+        const messagesList = [];
+        for (const { content  } of messages)messagesList.push(new (0, _message.MessageComponent)(content));
+        this.children.messages = messagesList;
+    }
+    jumpToScrollBottom() {
+        const element = this._unwrappedElement;
+        element.scrollTop = element.scrollHeight;
+    }
+    render() {
+        return 0, _templateDefault.default;
+    }
+}
+
+},{"hocs/components":"THcGa","utils/objects-handle":"kOfSo","../message":"4Oubd","./template":"8DYA1","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4Oubd":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "MessageComponent", ()=>(0, _component.MessageComponent));
+var _component = require("./component");
+
+},{"./component":"eqpCN","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eqpCN":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "MessageComponent", ()=>MessageComponent);
+var _components = require("components");
+var _dom = require("core/dom");
+var _template = require("./template");
+var _templateDefault = parcelHelpers.interopDefault(_template);
+class MessageComponent extends (0, _dom.Block) {
+    constructor(message){
+        const children = {};
+        children.content = new (0, _components.TextComponent)({
+            props: {
+                text: message,
+                htmlClasses: [
+                    "chat__body__message__text"
+                ]
+            }
+        });
+        super({
+            children
+        });
+    }
+    render() {
+        return 0, _templateDefault.default;
+    }
+}
+
+},{"components":"dHnah","core/dom":"3BLMu","./template":"5YSAN","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5YSAN":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+exports.default = `
+  <li class="chat__body__message">
+    {{{ content }}}
+  </li>
+`;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8DYA1":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+exports.default = `
+  <ul class="chat__body__message__container">
+   {{{ messages }}}
+  </ul>      
+`;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jdda0":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+exports.default = `
+  <section class="chat__body">
+    <div class="chat__body__messages__display">
+      {{{ messagesList }}}  
+      
+      {{#if chatAbsenceWarning }}
+        <h1 class="message-placeholder"> {{ chatAbsenceWarning }}</h1>
+      {{/if}}
+    </div>
+  </section>;
+`;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ixuOs":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ChatListPage", ()=>(0, _component.ChatListPage));
+var _component = require("./component");
+
+},{"./component":"j3nD8","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"j3nD8":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ChatListPage", ()=>ChatListPage);
+var _dom = require("core/dom");
+var _buttons = require("./buttons");
+var _template = require("./template");
+var _templateDefault = parcelHelpers.interopDefault(_template);
+class ChatListPage extends (0, _dom.Block) {
+    constructor(){
+        const children = {};
+        children.collapseButton = new _buttons.CollapseButton();
+        children.createChatButton = new _buttons.CreateChatButton();
+        children.deleteChatButton = new _buttons.DeleteChatButton();
+        children.addChatUsersButton = new _buttons.AddChatUsersButton();
+        children.avatarChooseButton = new _buttons.AvatarChooseButton();
+        super({
+            props: {
+                htmlStyle: {
+                    display: "none"
+                }
+            },
+            children
+        });
+    }
+    _afterPropsAssignHook() {
+        super._afterPropsAssignHook();
+        this.children.collapseButton.refs.settings = this;
+    }
+    render() {
+        return 0, _templateDefault.default;
+    }
+}
+
+},{"core/dom":"3BLMu","./buttons":"8APea","./template":"7SmnO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8APea":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "CollapseButton", ()=>(0, _collapse.CollapseButton));
+parcelHelpers.export(exports, "CreateChatButton", ()=>(0, _createChat.CreateChatButton));
+parcelHelpers.export(exports, "DeleteChatButton", ()=>(0, _deleteChat.DeleteChatButton));
+parcelHelpers.export(exports, "AddChatUsersButton", ()=>(0, _addChat.AddChatUsersButton));
+parcelHelpers.export(exports, "AvatarChooseButton", ()=>(0, _chooseAvatar.AvatarChooseButton));
+var _collapse = require("./collapse");
+var _createChat = require("./createChat");
+var _deleteChat = require("./deleteChat");
+var _addChat = require("./addChat");
+var _chooseAvatar = require("./chooseAvatar");
+
+},{"./collapse":"dUYN5","./createChat":"5JvzZ","./deleteChat":"aCfl4","./addChat":"7epTV","./chooseAvatar":"jwAxg","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dUYN5":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "CollapseButton", ()=>CollapseButton);
+var _components = require("components");
+var _closePng = require("static/img/close.png");
+var _closePngDefault = parcelHelpers.interopDefault(_closePng);
+class CollapseButton extends (0, _components.Button) {
+    constructor(){
+        super({
+            props: {
+                htmlStyle: {
+                    "background-image": (0, _closePngDefault.default)
+                },
+                htmlClasses: [
+                    "chat__settings__button"
+                ],
+                events: {
+                    click: [
+                        function() {
+                            this.refs.settings.hide();
+                        }
+                    ]
+                }
+            }
+        });
+    }
+}
+
+},{"components":"dHnah","static/img/close.png":"aAzW4","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aAzW4":[function(require,module,exports) {
+module.exports = require("5108df9080157bf8").getBundleURL("7UhFu") + "close.5ceff4ea.png" + "?" + Date.now();
+
+},{"5108df9080157bf8":"lgJ39"}],"5JvzZ":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "CreateChatButton", ()=>CreateChatButton);
+var _components = require("components");
+var _modals = require("pages/chat/components/modals");
+class CreateChatButton extends (0, _components.Button) {
+    constructor(){
+        super({
+            props: {
+                label: "create new chat",
+                htmlClasses: [
+                    "chat__settings__item"
+                ],
+                events: {
+                    click: [
+                        function() {
+                            const contentType = (0, _modals.Modal).getContentType();
+                            const componentName = (0, _modals.EnumModal).CreateChat;
+                            if (contentType !== componentName) (0, _modals.Modal).setContent(new (0, _modals.CreateChatModal)(componentName));
+                            (0, _modals.Modal).toggleVisibility("on");
+                        }
+                    ]
+                }
+            }
+        });
+    }
+}
+
+},{"components":"dHnah","pages/chat/components/modals":"6qehp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6qehp":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Modal", ()=>(0, _modal.Modal));
+parcelHelpers.export(exports, "EnumModal", ()=>(0, _enumModal.EnumModal));
+parcelHelpers.export(exports, "AddChatModal", ()=>(0, _addChat.AddChatModal));
+parcelHelpers.export(exports, "CreateChatModal", ()=>(0, _createChat.CreateChatModal));
+var _modal = require("./modal");
+var _enumModal = require("./enumModal");
+var _addChat = require("./addChat");
+var _createChat = require("./createChat");
+
+},{"./modal":"iFufE","./enumModal":"a0gF8","./addChat":"gldQ7","./createChat":"jeOUx","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iFufE":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Modal", ()=>Modal);
+var _components = require("components");
+const Modal = new (0, _components.Modal)();
+
+},{"components":"dHnah","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"a0gF8":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "EnumModal", ()=>EnumModal);
+let EnumModal;
+(function(EnumModal) {
+    EnumModal["CreateChat"] = "CreateChatModal";
+    EnumModal["AddUsers"] = "AddChatUsersModal";
+})(EnumModal || (EnumModal = {}));
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gldQ7":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "AddChatModal", ()=>(0, _component.AddChatModal));
+var _component = require("./component");
+
+},{"./component":"dLJ3m","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dLJ3m":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "AddChatModal", ()=>AddChatModal);
+var _dom = require("core/dom");
+var _components = require("components");
+var _api = require("utils/api");
+var _services = require("services");
+var _toApiDataTransformers = require("utils/api/to-api-data-transformers");
+var _template = require("./template");
+var _templateDefault = parcelHelpers.interopDefault(_template);
+class AddChatModal extends (0, _dom.Block) {
+    constructor({ chatID , componentName  }){
+        const state = {
+            apiResponseSuccess: "",
+            apiResponseError: ""
+        };
+        const children = {};
+        children.usersIdenifiersInput = AddChatModal._createUsersIdenifiersInput();
+        const beforePropsAssignHook = function() {
+            this.chatID = chatID;
+        };
+        super({
+            children,
+            state,
+            componentName,
+            helpers: {
+                beforePropsAssignHook
+            }
+        });
+    }
+    _afterPropsAssignHook() {
+        super._afterPropsAssignHook();
+        this._createSubmitButton();
+    }
+    _createSubmitButton() {
+        const refs = {
+            usersInput: this.children.usersIdenifiersInput,
+            modalWindow: this
+        };
+        const afterRequestCallback = (function(response) {
+            if ((0, _api.APIResponseHasError)(response)) this.state.apiResponseError = response.reason;
+            else {
+                this.state.apiResponseSuccess = "Users added successfully";
+                this.children.usersIdenifiersInput.setValue("");
+            }
+        }).bind(this);
+        const submitButton = new (0, _components.Button)({
+            refs,
+            props: {
+                label: "add users",
+                events: {
+                    click: [
+                        function() {
+                            const { usersInput , modalWindow  } = this.refs;
+                            modalWindow.clearAPIResponseStatus();
+                            const { chatID  } = modalWindow;
+                            const usersList = usersInput.getValue().split(",");
+                            const apiData = (0, _toApiDataTransformers.transformAddUsersFormDataToAPI)({
+                                chatID,
+                                usersList
+                            });
+                            console.log(`ADD USERS DATA: ${apiData.chatId}, ${apiData.users}`);
+                            (0, _services.ChatsService).addUsersToChat(apiData, afterRequestCallback);
+                        }
+                    ]
+                }
+            }
+        });
+        this.children.submitButton = submitButton;
+    }
+    clearAPIResponseStatus() {
+        this.state.apiResponseSuccess = "";
+        this.state.apiResponseError = "";
+    }
+    render() {
+        return 0, _templateDefault.default;
+    }
+    static _createUsersIdenifiersInput() {
+        return new (0, _components.Input)({
+            props: {
+                htmlAttributes: {
+                    placeholder: "Enter Users ID Numbers"
+                }
+            }
+        });
+    }
+}
+
+},{"core/dom":"3BLMu","components":"dHnah","utils/api":"i2lTI","services":"f5PO7","utils/api/to-api-data-transformers":"gwV72","./template":"apQGS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"apQGS":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+exports.default = `
+    <div class="modal-content">
+      <section class="users-data-input-section">
+        <div class="idenrifierss-input-section">
+          {{{ usersIdenifiersInput }}}
+        </div>
+      </section>
+      
+      <section class="submit-button-section">
+        {{{ submitButton }}}
+      </section>
+
+      <section claas="api-response-status">
+        {{#if apiResponseSuccess}}
+          <span class="api-success"> {{apiResponseSuccess}} </span>
+        {{/if}}
+        {{#if apiResponseError}}
+          <span class="api-error"> {{apiResponseError}} </span>
+        {{/if}}
+      </section>
+    </div>
+`;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jeOUx":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "CreateChatModal", ()=>(0, _component.CreateChatModal));
+var _component = require("./component");
+
+},{"./component":"89YnJ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"89YnJ":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "CreateChatModal", ()=>CreateChatModal);
+var _dom = require("core/dom");
+var _components = require("components");
+var _chats = require("services/chats");
+var _api = require("utils/api");
+var _template = require("./template");
+var _templateDefault = parcelHelpers.interopDefault(_template);
+class CreateChatModal extends (0, _dom.Block) {
+    constructor(componentName){
+        const state = {
+            apiResponseSuccess: "",
+            apiResponseError: ""
+        };
+        const children = {};
+        children.chatTitleInput = CreateChatModal._createChatTitleInput();
+        super({
+            children,
+            state,
+            componentName
+        });
+    }
+    _afterPropsAssignHook() {
+        super._afterPropsAssignHook();
+        this._createSubmitButton();
+    }
+    _createSubmitButton() {
+        const refs = {
+            titleInput: this.children.chatTitleInput,
+            modalWindow: this
+        };
+        const afterRequestCallback = (function(response) {
+            if ((0, _api.APIResponseHasError)(response)) this.state.apiResponseError = response.reason;
+            else {
+                this.state.apiResponseSuccess = "Chat created successfully";
+                this.children.chatTitleInput.setValue("");
+            }
+        }).bind(this);
+        const submitButton = new (0, _components.Button)({
+            refs,
+            props: {
+                label: "Create",
+                events: {
+                    click: [
+                        function() {
+                            const { titleInput , modalWindow  } = this.refs;
+                            modalWindow.clearAPIResponseStatus();
+                            console.log(`TITLE INPUT: ${titleInput.getValue()}`);
+                            (0, _chats.ChatsService).createChat({
+                                title: titleInput.getValue()
+                            }, afterRequestCallback);
+                        }
+                    ]
+                }
+            }
+        });
+        this.children.submitButton = submitButton;
+    }
+    clearAPIResponseStatus() {
+        this.state.apiResponseSuccess = "";
+        this.state.apiResponseError = "";
+    }
+    render() {
+        return 0, _templateDefault.default;
+    }
+    static _createChatTitleInput() {
+        return new (0, _components.Input)({
+            props: {
+                htmlAttributes: {
+                    placeholder: "Enter Chat Title"
+                }
+            }
+        });
+    }
+}
+
+},{"core/dom":"3BLMu","components":"dHnah","services/chats":"NtgIu","utils/api":"i2lTI","./template":"h7zha","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"h7zha":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+exports.default = `
+    <div class="modal-content">
+      <section class="chat-data-input-section">
+        <div class="title-input-section">
+          {{{ chatTitleInput }}}
+        </div>
+      </section>
+      
+      <section class="submit-button-section">
+        {{{ submitButton }}}
+      </section>
+
+      <section claas="api-response-status">
+        {{#if apiResponseSuccess}}
+          <span class="api-success"> {{apiResponseSuccess}} </span>
+        {{/if}}
+        {{#if apiResponseError}}
+          <span class="api-error"> {{apiResponseError}} </span>
+        {{/if}}
+      </section>
+    </div>
+`;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aCfl4":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "DeleteChatButton", ()=>DeleteChatButton);
+var _components = require("hocs/components");
+var _services = require("services");
+var _toApiDataTransformers = require("utils/api/to-api-data-transformers");
+var _objectsHandle = require("utils/objects-handle");
+class DeleteChatButton extends (0, _components.WithStoreButton) {
+    constructor(){
+        super({
+            props: {
+                label: "delete chat",
+                htmlClasses: [
+                    "chat__settings__item"
+                ],
+                events: {
+                    click: [
+                        function() {
+                            const currentChatID = this.store.getCurrentChatID();
+                            console.log(`CURRENT CHAT: ${JSON.stringify((0, _toApiDataTransformers.transformChatIDToDeleteAPI)(currentChatID))}`);
+                            (0, _services.ChatsService).deleteChat(currentChatID);
+                        }
+                    ]
+                }
+            }
+        });
+    }
+    _afterRenderHook() {
+        const currentChatID = this.store.getCurrentChatID();
+        if ((0, _objectsHandle.isNullish)(currentChatID)) this.toggleDisabledState(true);
+    }
+}
+
+},{"hocs/components":"THcGa","services":"f5PO7","utils/api/to-api-data-transformers":"gwV72","utils/objects-handle":"kOfSo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7epTV":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "AddChatUsersButton", ()=>AddChatUsersButton);
+var _components = require("hocs/components");
+var _objectsHandle = require("utils/objects-handle");
+var _modals = require("pages/chat/components/modals");
+class AddChatUsersButton extends (0, _components.WithStoreButton) {
+    constructor(){
+        super({
+            props: {
+                label: "add chat users",
+                htmlClasses: [
+                    "chat__settings__item"
+                ],
+                events: {
+                    click: [
+                        function() {
+                            const chatID = this.store.getCurrentChatID();
+                            const componentName = `${(0, _modals.EnumModal).AddUsers}(${chatID})`;
+                            const contentType = (0, _modals.Modal).getContentType();
+                            if (contentType !== componentName) (0, _modals.Modal).setContent(new (0, _modals.AddChatModal)({
+                                chatID,
+                                componentName
+                            }));
+                            (0, _modals.Modal).toggleVisibility("on");
+                        }
+                    ]
+                }
+            }
+        });
+    }
+    _afterRenderHook() {
+        const currentChatID = this.store.getCurrentChatID();
+        if ((0, _objectsHandle.isNullish)(currentChatID)) this.toggleDisabledState(true);
+    }
+}
+
+},{"hocs/components":"THcGa","utils/objects-handle":"kOfSo","pages/chat/components/modals":"6qehp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jwAxg":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "AvatarChooseButton", ()=>AvatarChooseButton);
+var _components = require("hocs/components");
+var _services = require("services");
+class AvatarChooseButton extends (0, _components.WithStoreFileInput) {
+    constructor(){
+        const afterRenderHook = function() {
+            if (!this.store.getCurrentChatID()) this.children.chooseButton.toggleDisabledState(true);
+        };
+        const onchangeCallback = async function() {
+            const { form  } = this.refs;
+            const fileInput = this._unwrappedElement;
+            if (!fileInput.value) return;
+            const avatarForm = new FormData(form._unwrappedElement);
+            const chatID = window.store.getCurrentChatID();
+            avatarForm.append("chatId", chatID);
+            await (0, _services.ChatsService).changeAvatar(avatarForm);
+        };
+        super({
+            fileInputProps: {
+                htmlAttributes: {
+                    name: "avatar"
+                },
+                events: {
+                    change: [
+                        onchangeCallback
+                    ]
+                }
+            },
+            chooseButtonProps: {
+                label: "choose avatar",
+                htmlClasses: [
+                    "chat__settings__item2"
+                ]
+            },
+            props: {
+                htmlClasses: [
+                    "chat__settings__item__avatar"
+                ]
+            },
+            helpers: {
+                afterRenderHook
+            }
+        });
+    }
+}
+
+},{"hocs/components":"THcGa","services":"f5PO7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7SmnO":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+exports.default = `
+  <section class="chat__settings">
+    {{{ collapseButton }}}
+    {{{ createChatButton }}}
+    {{{ addChatUsersButton }}}
+    {{{ avatarChooseButton }}}
+    {{{ deleteChatButton }}}
+  </section>
+`;
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"atqZr":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-// import { Modal } from 'components/modal/modal';
-// import { modalMessage } from 'components/modal/modalMessage';
 parcelHelpers.export(exports, "ProfilePage", ()=>ProfilePage);
-var _chat = require("pages/chat/chat");
 var _dom = require("core/dom");
-// import {
-//   Button,
-//   ImageElement,
-//   Input,
-//   InputValidator,
-//   TextElement,
-// } from 'components/index';
-var _profileTemplate = require("./profileTemplate");
-var _profileData = require("./profileData");
 var _profileAvatarPng = require("static/img/profile_avatar.png");
 var _profileAvatarPngDefault = parcelHelpers.interopDefault(_profileAvatarPng);
-var _arrowBackPng = require("static/img/arrowBack.png");
-var _arrowBackPngDefault = parcelHelpers.interopDefault(_arrowBackPng);
-// import { InputValidators } from 'utils/inputValidators';
-var _login = require("../login/login");
-var _changePassword = require("./changePassword/changePassword");
-class ProfilePage extends (0, _dom.Block) {
+var _components = require("components");
+var _hocs = require("hocs");
+var _profileTemplate = require("./profileTemplate");
+var _profileTemplateDefault = parcelHelpers.interopDefault(_profileTemplate);
+var _components1 = require("./components");
+var _fields = require("./components/data-form/fields");
+var _avatarUploadForm = require("./components/avatar-upload-form");
+const ProfilePageBlock = (0, _hocs.WithStore)((0, _dom.Block));
+class ProfilePage extends ProfilePageBlock {
     constructor(){
         const children = {};
-        const refModal = {};
+        const storeAvatar = window.store.getUserDataByPath("avatar");
+        const imageSource = storeAvatar || (0, _profileAvatarPngDefault.default);
+        const avatarImage = new (0, _components.ImageComponent)({
+            props: {
+                htmlAttributes: {
+                    src: imageSource,
+                    alt: "Profile Avatar"
+                }
+            }
+        });
+        children.avatarImage = avatarImage;
+        children.avatarUploadForm = new (0, _avatarUploadForm.AvatarUploadForm)(avatarImage);
+        children.profileDataForm = new (0, _components1.ProfilePageInputForm)();
         const refs = {};
-        children.arrowBackImage = new ImageElement({
-            props: {
-                src: (0, _arrowBackPngDefault.default),
-                alt: (0, _profileData.profileData).backLink.alt,
-                htmlClass: (0, _profileData.profileData).backLink.class,
-                componentName: "Arrow Back Image",
-                htmlWrapper: {
-                    componentAlias: "wrappedProfileLink",
-                    htmlWrapperTemplate: `
-              <div class='profile__buttonBack'>
-                {{{wrappedProfileLink}}}
-              </div>
-            `
-                },
-                events: {
-                    click: [
-                        ()=>{
-                            MainPage.component = new (0, _chat.ChatPage)();
-                        }
-                    ]
-                }
-            }
-        });
-        children.avatarImage = new ImageElement({
-            props: {
-                src: (0, _profileAvatarPngDefault.default),
-                alt: (0, _profileData.profileData).avatar.alt,
-                htmlClass: (0, _profileData.profileData).avatar.class,
-                componentName: "Profile avatar image"
-            }
-        });
-        children.inputAvatarImage = new Input({
-            props: {
-                htmlName: "avatar",
-                type: "file",
-                htmlClass: "profile__data__data__avatar",
-                componentName: `${name} profile`
-            }
-        });
-        children.modal = new Modal({
-            props: {
-                title: "",
-                inputProps: modalMessage.inputProps,
-                text: "",
-                error: ""
-            }
-        });
-        refModal["modalField"] = children.modal;
-        children.changeAvatar = new TextElement({
-            props: {
-                text: (0, _profileData.profileData).changeAvatar,
-                htmlClass: "profile__avatar__change",
-                componentName: "Profile Component Message",
-                events: {
-                    click: [
-                        ()=>{
-                            refModal.modalField.showModal({
-                                title: modalMessage.LoadFile.title,
-                                link: modalMessage.LoadFile.link,
-                                value: modalMessage.LoadFile.value,
-                                button: modalMessage.LoadFile.button,
-                                error: modalMessage.LoadFile.error
-                            });
-                        }
-                    ]
-                }
-            }
-        });
-        children.username = new TextElement({
-            props: {
-                text: (0, _profileData.profileData).username,
-                htmlClass: "profile__title",
-                componentName: "Profile Component Message"
-            }
-        });
-        (0, _profileData.profileFieldsData).forEach(({ name: name1 , title , data , placeholder  })=>{
-            const inputField = new Input({
-                props: {
-                    placeholder,
-                    type: "text",
-                    htmlName: name1,
-                    value: data,
-                    htmlClass: (0, _profileData.profileData).inputFileds.class,
-                    htmlId: name1,
-                    componentName: `${name1} profile`,
-                    disabledAttr: true,
-                    htmlWrapper: {
-                        componentAlias: "wrappedProfileInput",
-                        htmlWrapperTemplate: `
-              <div class='profile__data'>
-                <p class='profile__data__title'>
-                  ${title}
-                </p>
-                <label for=${name1} style="width: 0px"></label>
-                {{{wrappedProfileInput}}}
-              </div>
-              <div class='profile__line'></div>
-              `
-                    },
-                    validators: {
-                        blur: InputValidators[name1]
-                    }
-                }
-            });
-            children[`${name1}Field`] = inputField;
-            refs[`${name1}Field`] = inputField;
-        });
-        children.changePasswordLink = new Button({
-            props: {
-                label: (0, _profileData.profileData).changePassword.link,
-                htmlName: (0, _profileData.profileData).changePassword.htmlName,
-                htmlClass: (0, _profileData.profileData).changePassword.class,
-                events: {
-                    click: [
-                        ()=>{
-                            MainPage.component = new (0, _changePassword.ChangePasswordPage)();
-                        }
-                    ]
-                }
-            }
-        });
-        children.exitLink = new Button({
-            props: {
-                label: (0, _profileData.profileData).exitProfile.link,
-                htmlName: (0, _profileData.profileData).exitProfile.htmlName,
-                htmlClass: (0, _profileData.profileData).exitProfile.class,
-                events: {
-                    click: [
-                        ()=>{
-                            MainPage.component = new (0, _login.LoginPage)();
-                        }
-                    ]
-                }
-            }
-        });
         super({
             children,
-            props: {
-                componentName: "Profile Page"
-            },
             refs
         });
     }
     render() {
-        return 0, _profileTemplate.profileTemplate;
+        return 0, _profileTemplateDefault.default;
     }
-    _preInitHook() {
-        Object.values(this.refs).forEach((inputField)=>{
-            inputField.refs.Form = this;
+    _afterPropsAssignHook() {
+        super._afterPropsAssignHook();
+        this.children.changeDataButton = new (0, _components1.DataChangeButton)({
+            form: this.children.profileDataForm
         });
-        (0, _profileData.profileData).errorLabel.forEach((stateErrorName)=>{
-            this.state[stateErrorName] = "";
+        this.props.userID = this.store.getUserDataByPath("id");
+    }
+    updateUserInfo() {
+        const userData = this.store.getUserDataByPath();
+        Object.entries(this.children.profileDataForm.refs).forEach(([inputName, inputBlock])=>{
+            const recordName = (0, _fields.MapInputFieldToUserDataRecord)[inputName];
+            inputBlock.setPropByPath("htmlAttributes.value", `${userData[recordName]}`);
         });
-        const button = new Button({
-            state: {
-                mode: "save"
-            },
-            props: {
-                label: (0, _profileData.profileData).changeData.change,
-                htmlName: (0, _profileData.profileData).changeData.htmlName,
-                htmlClass: (0, _profileData.profileData).changeData.class,
-                componentName: "Profile button",
-                events: {
-                    click: [
-                        (function checkList() {
-                            let isError = false;
-                            const formRefs = this.refs;
-                            Object.values(formRefs).forEach((inputField)=>{
-                                const inputProps = inputField.props;
-                                if (inputProps.componentName === "Profile button") {
-                                    if (this.state.mode === "save" || !this.state.mode) {
-                                        inputProps.label = (0, _profileData.profileData).changeData.save;
-                                        this.state.mode = "change";
-                                        inputProps.htmlClass = (0, _profileData.profileData).changeData.classActive;
-                                    } else {
-                                        inputProps.label = (0, _profileData.profileData).changeData.change;
-                                        this.state.mode = "save";
-                                        inputProps.htmlClass = (0, _profileData.profileData).changeData.class;
-                                    }
-                                } else {
-                                    inputProps.disabledAttr = !inputProps.disabledAttr;
-                                    this.state.mode !== "save" ? inputProps.htmlClass = (0, _profileData.profileData).inputFileds.class : inputProps.htmlClass = (0, _profileData.profileData).inputFileds.classActive;
-                                    Object.values(inputField.validators).forEach((validator)=>{
-                                        const error = validator();
-                                        if (error) isError = true;
-                                    });
-                                }
-                            });
-                        }).bind(this)
-                    ]
-                }
-            }
-        });
-        this.children.changeDataLink = button;
-        this.refs["Button"] = button;
+    }
+    updateUserAvatar() {
+        const newAvatar = this.store.getUserDataByPath("avatar");
+        this.children.avatarImage.setPropByPath("htmlAttributes.src", newAvatar);
     }
 }
 
-},{"pages/chat/chat":"9muaU","core/dom":"3BLMu","./profileTemplate":"5ySyV","./profileData":"hNHYd","static/img/profile_avatar.png":"j6gct","static/img/arrowBack.png":"P7Wev","../login/login":"dCEbf","./changePassword/changePassword":"dxpTD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5ySyV":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "profileTemplate", ()=>profileTemplate);
-parcelHelpers.export(exports, "imageBackTemplate", ()=>imageBackTemplate);
-const profileTemplate = `
-<main class='profile'>
-  {{{modal}}}
-  {{{arrowBackImage}}}
-  <div class='profile__container'>
-    <div class='profile__avatar'>
-      {{{avatarImage}}}
-      <label for='avatar' style='display: none'></label>
-      {{{inputAvatarImage}}}
-      {{{changeAvatar}}}
-    </div>
-    {{{username}}}
-    <div class='profile__data__container'>
-      {{{emailField}}}
-      <span class='profile__error'>
-        {{{ emailError }}}
-      </span>
-      {{{loginField}}}
-      <span class='profile__error'>
-        {{{ loginError }}}
-      </span>
-      {{{first_nameField}}}
-      <span class='profile__error'>
-        {{{ first_nameError }}}
-      </span>
-      {{{second_nameField}}}
-      <span class='profile__error'>
-        {{{ second_nameError }}}
-      </span>
-      {{{display_nameField}}}
-      <span class='profile__error'>
-        {{{ display_nameError }}}
-      </span>
-      {{{phoneField}}}
-      <span class='profile__error'>
-        {{{ phoneError }}}
-      </span>
-    </div>
-    <div class='profile__button__container'>
-      {{{changeDataLink}}}
-      <div class='profile__line2'></div>
-      {{{changePasswordLink}}}
-      <div class='profile__line2'></div>
-      {{{exitLink}}}
-   </div>
-</main>
-`;
-const imageBackTemplate = `
-  {{{arrowBackImage}}}
-`;
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hNHYd":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "profileFieldsData", ()=>profileFieldsData);
-parcelHelpers.export(exports, "profileData", ()=>profileData);
-const profileFieldsData = [
-    {
-        name: "email",
-        title: "Почта",
-        data: "pochta@yandex.ru",
-        placeholder: "Введите email"
-    },
-    {
-        name: "login",
-        title: "Логин",
-        data: "ivanivanov",
-        placeholder: "Введите логин"
-    },
-    {
-        name: "first_name",
-        title: "Имя",
-        data: "Иван",
-        placeholder: "Введите Имя"
-    },
-    {
-        name: "second_name",
-        title: "Фамилия",
-        data: "Иванов",
-        placeholder: "Введите фамилию"
-    },
-    {
-        name: "display_name",
-        title: "Имя в чате",
-        data: "Иван",
-        placeholder: "Введите имя в чате"
-    },
-    {
-        name: "phone",
-        title: "Телефон",
-        data: "79099673030",
-        placeholder: "Введите пароль"
-    }
-];
-const profileData = {
-    username: "Ivan",
-    changeAvatar: "Поменять аватар",
-    backLink: {
-        class: "profile__buttonBack__img",
-        name: "",
-        alt: "arrowBack",
-        htmlName: "backLink"
-    },
-    avatar: {
-        alt: "profileAvatar",
-        class: "profile__buttonBack__img"
-    },
-    changeData: {
-        change: "Изменить данные",
-        save: "Сохранить данные",
-        class: "profile__saveButton",
-        classActive: "profile__saveButton__active",
-        htmlName: "changeData"
-    },
-    changePassword: {
-        link: "Изменить пароль",
-        class: "profile__changePasswordButton",
-        htmlName: "changePassword"
-    },
-    exitProfile: {
-        link: "Выйти",
-        class: "profile__exitButton",
-        htmlName: "exitProfile"
-    },
-    inputFileds: {
-        class: "profile__data__data",
-        classActive: "profile__data__data__active"
-    },
-    errorLabel: [
-        "errorEmail",
-        "errorLogin",
-        "errorFirstName",
-        "errorSecondName",
-        "errorPhone",
-        "errorPassword",
-        "errorPasswordCheck"
-    ]
-};
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"j6gct":[function(require,module,exports) {
+},{"core/dom":"3BLMu","static/img/profile_avatar.png":"j6gct","components":"dHnah","hocs":"8D4Xk","./profileTemplate":"5ySyV","./components":"ghiMZ","./components/data-form/fields":"3ZzdV","./components/avatar-upload-form":"iLR7h","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"j6gct":[function(require,module,exports) {
 module.exports = require("49cc8f1abcba409b").getBundleURL("7UhFu") + "profile_avatar.558a0e16.png" + "?" + Date.now();
 
-},{"49cc8f1abcba409b":"lgJ39"}],"P7Wev":[function(require,module,exports) {
-module.exports = require("266cec9c28fdb89").getBundleURL("7UhFu") + "arrowBack.b3aade7f.png" + "?" + Date.now();
-
-},{"266cec9c28fdb89":"lgJ39"}],"dxpTD":[function(require,module,exports) {
+},{"49cc8f1abcba409b":"lgJ39"}],"5ySyV":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-// import { InputValidators } from '../../../utils/inputValidators';
-parcelHelpers.export(exports, "ChangePasswordPage", ()=>ChangePasswordPage);
-var _dom = require("core/dom");
-var _index = require("components/index");
-var _changePasswordTemplate = require("./changePasswordTemplate");
-var _profileData = require("../profileData");
-var _profileAvatarPng = require("static/img/profile_avatar.png");
-var _profileAvatarPngDefault = parcelHelpers.interopDefault(_profileAvatarPng);
-var _arrowBackPng = require("static/img/arrowBack.png");
-var _arrowBackPngDefault = parcelHelpers.interopDefault(_arrowBackPng);
-var _profile = require("../profile");
-var _changePasswordData = require("./changePasswordData");
-class ChangePasswordPage extends (0, _dom.Block) {
+exports.default = `
+      <main class="profile-page">
+        <header class="profile-form-header">
+          <div class="image-section">
+            {{{ avatarImage }}}
+          </div>
+          <div class="name-section">
+            <span class="user-id">ID: {{ userID }}</span>
+          </div>
+        </header>
+        {{{ profileDataForm }}}
+        <nav class="profile-nav-section">
+          <section class="data-change-section">
+            <div>
+              {{{ changeDataButton }}}
+            </div>
+            <div>
+              <a class="change-password" href="#app">Изменить пароль</a>
+            </div>
+          </section>
+          <section class="home-button-section">
+            <div>
+              {{{ homeButton }}}
+            </div>
+          </section>
+          
+          {{{ avatarUploadForm }}}
+        </nav>
+      </main>
+`;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ghiMZ":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ProfilePageInputForm", ()=>(0, _dataForm.ProfilePageInputForm));
+parcelHelpers.export(exports, "DataChangeButton", ()=>(0, _dataCangeButton.DataChangeButton));
+var _dataForm = require("./data-form");
+var _dataCangeButton = require("./data-cange-button");
+
+},{"./data-form":"kHTlw","./data-cange-button":"bdQP0","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kHTlw":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ProfilePageInputForm", ()=>(0, _component.ProfilePageInputForm));
+parcelHelpers.export(exports, "EnumInputFields", ()=>(0, _fields.EnumInputFields));
+var _component = require("./component");
+var _fields = require("./fields");
+
+},{"./component":"d97TG","./fields":"3ZzdV","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"d97TG":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ProfilePageInputForm", ()=>ProfilePageInputForm);
+var _components = require("components");
+var _components1 = require("hocs/components");
+var _afterValidationCallback = require("./after-validation-callback");
+var _fields = require("./fields");
+class ProfilePageInputForm extends (0, _components.InputForm) {
     constructor(){
-        const children = {};
-        const refs = {};
-        children.arrowBackImage = new (0, _index.ImageElement)({
+        super({
             props: {
-                src: (0, _arrowBackPngDefault.default),
-                alt: (0, _profileData.profileData).backLink.alt,
-                htmlClass: (0, _profileData.profileData).backLink.class,
-                componentName: "Arrow Back Image",
-                htmlWrapper: {
-                    componentAlias: "wrappedProfileLink",
-                    htmlWrapperTemplate: `
-              <div class='profile__buttonBack'>
-                {{{wrappedProfileLink}}}
-              </div>
-            `
+                htmlClasses: [
+                    "profile-data-form"
+                ],
+                isSubmitButtonNeeded: false,
+                afterValidationCallback: (0, _afterValidationCallback.afterValidationCallback)
+            },
+            InputClass: (0, _components1.WithStoreValidatedInput),
+            enumInputFieldsNames: (0, _fields.EnumInputFields),
+            mapInputToProps: (0, _fields.MapInputFieldToProps),
+            mapInputToHelpers: (0, _fields.MapInputFieldToHelpers)
+        });
+    }
+}
+
+},{"components":"dHnah","hocs/components":"THcGa","./after-validation-callback":"65o4o","./fields":"3ZzdV","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"65o4o":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "afterValidationCallback", ()=>afterValidationCallback);
+var _services = require("services");
+var _api = require("utils/api");
+function afterRequestCallback(response) {
+    if ((0, _api.APIResponseHasError)(response)) {
+        this.state.apiResponseError = response.reason;
+        return;
+    }
+    window.store.dispatch({
+        user: (0, _api.transformProfileAPIResponseToUserData)(response)
+    });
+    this.state.apiResponseSuccess = "Profile Data Updated Successfully";
+}
+async function afterValidationCallback() {
+    const formData = this.collectFormData();
+    const apiData = (0, _api.transformProfileFormDatatoAPI)(formData);
+    console.log(`API data: ${JSON.stringify(apiData)}`);
+    await (0, _services.ProfileService).changeUserProfile(apiData, afterRequestCallback.bind(this));
+}
+
+},{"services":"f5PO7","utils/api":"i2lTI","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3ZzdV":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "MapInputFieldToProps", ()=>(0, _inputFields.MapInputFieldToProps));
+parcelHelpers.export(exports, "MapInputFieldToHelpers", ()=>(0, _inputFields.MapInputFieldToHelpers));
+parcelHelpers.export(exports, "MapInputFieldToUserDataRecord", ()=>(0, _inputFields.MapInputFieldToUserDataRecord));
+parcelHelpers.export(exports, "EnumInputFields", ()=>(0, _enumInputFields.EnumInputFields));
+var _inputFields = require("./input-fields");
+var _enumInputFields = require("./enum-input-fields");
+
+},{"./input-fields":"lng4w","./enum-input-fields":"eCEQ8","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lng4w":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "MapInputFieldToProps", ()=>MapInputFieldToProps);
+parcelHelpers.export(exports, "MapInputFieldToUserDataRecord", ()=>MapInputFieldToUserDataRecord);
+parcelHelpers.export(exports, "MapInputFieldToHelpers", ()=>MapInputFieldToHelpers);
+var _enumInputFields = require("./enum-input-fields");
+var _inputValidators = require("./input-validators");
+const MapInputFieldToProps = {
+    [(0, _enumInputFields.EnumInputFields).FirstName]: {
+        htmlAttributes: {
+            name: "first_name"
+        },
+        validators: (0, _inputValidators.FormValidators)[(0, _enumInputFields.EnumInputFields).FirstName]
+    },
+    [(0, _enumInputFields.EnumInputFields).SecondName]: {
+        htmlAttributes: {
+            name: "second_name"
+        },
+        validators: (0, _inputValidators.FormValidators)[(0, _enumInputFields.EnumInputFields).SecondName]
+    },
+    [(0, _enumInputFields.EnumInputFields).DisplayName]: {
+        htmlAttributes: {
+            name: "display_name"
+        },
+        validators: (0, _inputValidators.FormValidators)[(0, _enumInputFields.EnumInputFields).DisplayName]
+    },
+    [(0, _enumInputFields.EnumInputFields).Login]: {
+        htmlAttributes: {
+            name: "login"
+        },
+        validators: (0, _inputValidators.FormValidators)[(0, _enumInputFields.EnumInputFields).Login]
+    },
+    [(0, _enumInputFields.EnumInputFields).Email]: {
+        htmlAttributes: {
+            name: "email"
+        },
+        validators: (0, _inputValidators.FormValidators)[(0, _enumInputFields.EnumInputFields).Email]
+    },
+    [(0, _enumInputFields.EnumInputFields).Phone]: {
+        htmlAttributes: {
+            name: "phone"
+        },
+        validators: (0, _inputValidators.FormValidators)[(0, _enumInputFields.EnumInputFields).Phone]
+    }
+};
+const MapInputFieldToDataType = {
+    [(0, _enumInputFields.EnumInputFields).FirstName]: "first name",
+    [(0, _enumInputFields.EnumInputFields).SecondName]: "second name",
+    [(0, _enumInputFields.EnumInputFields).DisplayName]: "display name",
+    [(0, _enumInputFields.EnumInputFields).Login]: "login",
+    [(0, _enumInputFields.EnumInputFields).Email]: "email",
+    [(0, _enumInputFields.EnumInputFields).Phone]: "phone"
+};
+Object.entries(MapInputFieldToProps).forEach(([fieldName, props])=>{
+    props.htmlClasses = [
+        "data-input"
+    ];
+    props.htmlWrapper = {
+        componentAlias: "wrappedDataInput",
+        htmlWrapperTemplate: `
+      <field class="data-field">
+        <div class="data-type-section">
+          <span class="data-type"> ${MapInputFieldToDataType[fieldName]} </span>
+        </div>
+        <div class="data-input-section">
+          {{{ wrappedDataInput }}}
+          \\{{#if inputError}}
+            <span class="input-error"> \\{{ inputError }} </span>
+          \\{{/if}}
+        </div>
+      </field>
+    `
+    };
+});
+const MapInputFieldToUserDataRecord = {
+    [(0, _enumInputFields.EnumInputFields).FirstName]: "firstName",
+    [(0, _enumInputFields.EnumInputFields).SecondName]: "secondName",
+    [(0, _enumInputFields.EnumInputFields).DisplayName]: "displayName",
+    [(0, _enumInputFields.EnumInputFields).Login]: "login",
+    [(0, _enumInputFields.EnumInputFields).Email]: "email",
+    [(0, _enumInputFields.EnumInputFields).Phone]: "phone"
+};
+const MapInputFieldToHelpers = Object.entries(MapInputFieldToUserDataRecord).reduce((acc, [fieldName, recordName])=>{
+    acc[fieldName] = {
+        beforePropsProxyHook () {
+            this.setPropByPath("htmlAttributes.value", this.store.getUserDataByPath(recordName));
+        },
+        afterRenderHook () {
+            this.toggleDisabledState(true);
+        }
+    };
+    return acc;
+}, {});
+
+},{"./enum-input-fields":"eCEQ8","./input-validators":"fWv6x","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eCEQ8":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "EnumInputFields", ()=>EnumInputFields);
+let EnumInputFields;
+(function(EnumInputFields) {
+    EnumInputFields["FirstName"] = "first_name";
+    EnumInputFields["SecondName"] = "second_name";
+    EnumInputFields["DisplayName"] = "display_name";
+    EnumInputFields["Login"] = "login";
+    EnumInputFields["Email"] = "email";
+    EnumInputFields["Phone"] = "phone";
+})(EnumInputFields || (EnumInputFields = {}));
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fWv6x":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "FormValidators", ()=>FormValidators);
+var _formInputValidator = require("utils/form-input-validator");
+var _enumInputFields = require("./enum-input-fields");
+const FormValidators = [
+    {
+        field: (0, _enumInputFields.EnumInputFields).FirstName,
+        validatorsList: [
+            _formInputValidator.validateNameRegex
+        ]
+    },
+    {
+        field: (0, _enumInputFields.EnumInputFields).SecondName,
+        validatorsList: [
+            _formInputValidator.validateNameRegex
+        ]
+    },
+    {
+        field: (0, _enumInputFields.EnumInputFields).DisplayName,
+        validatorsList: [
+            _formInputValidator.validateNameRegex
+        ]
+    },
+    {
+        field: (0, _enumInputFields.EnumInputFields).Login,
+        validatorsList: [
+            _formInputValidator.validateLoginRegex
+        ]
+    },
+    {
+        field: (0, _enumInputFields.EnumInputFields).Email,
+        validatorsList: [
+            _formInputValidator.validateEmailRegex
+        ]
+    },
+    {
+        field: (0, _enumInputFields.EnumInputFields).Phone,
+        validatorsList: [
+            _formInputValidator.validatePhoneRegex
+        ]
+    }
+].reduce((acc, { field , validatorsList  })=>{
+    validatorsList.unshift(_formInputValidator.validateNotEmptyValue);
+    const validator = _formInputValidator.makeValidator({
+        validatorsList
+    });
+    acc[field] = {
+        blur: [
+            validator
+        ]
+    };
+    return acc;
+}, {});
+
+},{"utils/form-input-validator":"4RFK4","./enum-input-fields":"eCEQ8","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bdQP0":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "DataChangeButton", ()=>DataChangeButton);
+var _components = require("components");
+var _inputForm = require("components/inputs/inputForm");
+class DataChangeButton extends (0, _components.Button) {
+    constructor(refs){
+        let FormMode;
+        (function(FormMode) {
+            FormMode["DataSaved"] = "data_saved";
+            FormMode["DataChanging"] = "data_changing";
+        })(FormMode || (FormMode = {}));
+        async function onClickCallback() {
+            const { form  } = this.refs;
+            form.state.apiResponseSuccess = "";
+            if (this.state.mode === "data_saved") {
+                this.state.mode = "data_changing";
+                this.props.label = "save data";
+                Object.values(form.refs).forEach((dataField)=>{
+                    dataField.toggleDisabledState();
+                });
+            } else {
+                await (0, _inputForm.formSubmitButtonCallback).call(this);
+                if (form.getAPIResponseError() === "") {
+                    this.state.mode = "data_saved";
+                    this.props.label = "change data";
+                    Object.values(form.refs).forEach((dataField)=>{
+                        dataField.toggleDisabledState();
+                    });
+                }
+            }
+        }
+        super({
+            state: {
+                mode: "data_saved"
+            },
+            refs,
+            props: {
+                label: "change data",
+                htmlClasses: [
+                    "change-data-button"
+                ],
+                events: {
+                    click: [
+                        onClickCallback
+                    ]
+                }
+            }
+        });
+    }
+}
+
+},{"components":"dHnah","components/inputs/inputForm":"65vk3","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iLR7h":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "AvatarUploadForm", ()=>(0, _component.AvatarUploadForm));
+var _component = require("./component");
+
+},{"./component":"1TWmJ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1TWmJ":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "AvatarUploadForm", ()=>AvatarUploadForm);
+var _dom = require("core/dom");
+var _submitSection = require("./submit-section");
+var _avatarInput = require("./avatar-input");
+var _template = require("./template");
+var _templateDefault = parcelHelpers.interopDefault(_template);
+class AvatarUploadForm extends (0, _dom.Block) {
+    constructor(profilePageImageRef){
+        super({
+            refs: {
+                profileImage: profilePageImageRef
+            },
+            state: {
+                uploadingStatus: ""
+            }
+        });
+    }
+    _afterPropsAssignHook() {
+        super._afterPropsAssignHook();
+        const avatarInput = this._createAvatarInput();
+        this.children.avatarInput = avatarInput;
+        const submitSection = this._createAvatarSubmitSection();
+        this.children.submitSection = submitSection;
+        const avatarFileInput = avatarInput.getChildByPath("fileInput");
+        avatarFileInput.refs.avatarSubmit = submitSection;
+        const submitButton = submitSection.getChildByPath("submitButton");
+        Object.assign(submitButton.refs, {
+            avatarInput
+        });
+    }
+    render() {
+        return 0, _templateDefault.default;
+    }
+    _createAvatarInput() {
+        return new (0, _avatarInput.AvatarInput)();
+    }
+    _createAvatarSubmitSection() {
+        return new (0, _submitSection.SubmitSection)();
+    }
+}
+
+},{"core/dom":"3BLMu","./submit-section":"jdnHD","./avatar-input":"iAhn5","./template":"7bWXk","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jdnHD":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "SubmitSection", ()=>(0, _component.SubmitSection));
+var _component = require("./component");
+
+},{"./component":"d4peN","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"d4peN":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "SubmitSection", ()=>SubmitSection);
+var _dom = require("core/dom");
+var _components = require("components");
+var _services = require("services");
+var _api = require("utils/api");
+var _template = require("./template");
+var _templateDefault = parcelHelpers.interopDefault(_template);
+class SubmitSection extends (0, _dom.Block) {
+    constructor(){
+        super({
+            state: {
+                uploadingStatus: ""
+            }
+        });
+    }
+    _afterPropsAssignHook() {
+        super._afterPropsAssignHook();
+        const submitButton = this._createSubmitButton();
+        this.children.submitButton = submitButton;
+        submitButton.refs.submitSection = this;
+    }
+    _createSubmitButton() {
+        const afterRequestCallback = (function(response) {
+            let uploadingStatus = "Changed successfully";
+            if (!(0, _api.APIResponseHasError)(response)) {
+                const userData = (0, _api.transformProfileAPIResponseToUserData)(response);
+                window.store.dispatch({
+                    user: userData
+                });
+            } else uploadingStatus = response.reason;
+            this.state.uploadingStatus = uploadingStatus;
+        }).bind(this);
+        const onClickCallback = function() {
+            const { avatarInput , submitSection  } = this.refs;
+            const fileInput = avatarInput.children.fileInput._unwrappedElement;
+            if (!fileInput.value) {
+                submitSection.state.uploadingStatus = "File not selected";
+                return;
+            }
+            const formData = new FormData(avatarInput._unwrappedElement);
+            fileInput.value = "";
+            (0, _services.ProfileService).changeUserAvatar(formData, afterRequestCallback);
+        };
+        return new (0, _components.Button)({
+            props: {
+                label: "submit",
+                events: {
+                    click: [
+                        onClickCallback
+                    ]
+                }
+            }
+        });
+    }
+    render() {
+        return 0, _templateDefault.default;
+    }
+}
+
+},{"core/dom":"3BLMu","components":"dHnah","services":"f5PO7","utils/api":"i2lTI","./template":"juYWv","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"juYWv":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+exports.default = `
+  <div class="submit-button-section">
+    {{{ submitButton }}}
+    {{#if uploadingStatus }}
+      <span>{{ uploadingStatus }}</span>
+    {{/if}}
+  </div>
+`;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iAhn5":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "AvatarInput", ()=>(0, _component.AvatarInput));
+var _component = require("./component");
+
+},{"./component":"fF7Sw","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fF7Sw":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "AvatarInput", ()=>AvatarInput);
+var _components = require("components");
+var _fileInput = require("components/inputs/fileInput");
+class AvatarInput extends (0, _components.FileInput) {
+    constructor(){
+        const onFileChangeCallback = function() {
+            const fileInput = this._unwrappedElement;
+            const submitState = this.refs.avatarSubmit.state;
+            console.log(`FILE CHANGE`, fileInput.value);
+            if (!fileInput.value) submitState.uploadingStatus = (0, _fileInput.EnumFileUploadingStatus).FileNotSelected;
+            else submitState.uploadingStatus = (0, _fileInput.EnumFileUploadingStatus).FileSelected;
+        };
+        super({
+            props: {
+                htmlClasses: [
+                    "upload-avatar"
+                ]
+            },
+            chooseButtonProps: {
+                label: "upload avatar",
+                htmlClasses: [
+                    "choose-profile-avatar"
+                ]
+            },
+            fileInputProps: {
+                htmlAttributes: {
+                    name: "avatar"
                 },
                 events: {
-                    click: [
-                        ()=>{
-                            MainPage.component = new (0, _profile.ProfilePage)();
-                        }
+                    change: [
+                        onFileChangeCallback
                     ]
                 }
             }
         });
-        children.avatarImage = new (0, _index.ImageElement)({
-            props: {
-                src: (0, _profileAvatarPngDefault.default),
-                alt: (0, _profileData.profileData).avatar.alt,
-                htmlClass: (0, _profileData.profileData).avatar.class,
-                componentName: "Profile avatar image"
-            }
-        });
-        children.username = new (0, _index.TextElement)({
-            props: {
-                text: (0, _profileData.profileData).username,
-                htmlClass: "profile__title",
-                componentName: "Profile Component Message"
-            }
-        });
-        (0, _changePasswordData.changePasswordData).forEach(({ name , title , data , placeholder  })=>{
-            const inputField = new (0, _index.Input)({
-                props: {
-                    placeholder,
-                    type: "password",
-                    htmlName: name,
-                    value: data,
-                    htmlClass: "profile__data__data",
-                    componentName: `${name} profile`,
-                    htmlWrapper: {
-                        componentAlias: "wrappedChangePasswordInput",
-                        htmlWrapperTemplate: `
-              <div class='profile__data'>
-                <p class='profile__data__title'>
-                  ${title}
-                </p>
-                <label for={{name}} style="width: 0px"></label>
-                {{{wrappedChangePasswordInput}}}
-              </div>
-              <div class='profile__line'></div>
-              `
-                    },
-                    validators: {
-                        blur: InputValidators[name]
-                    }
-                }
-            });
-            children[`${name}Field`] = inputField;
-            refs[`${name}Field`] = inputField;
-        });
-        super({
-            children,
-            props: {
-                componentName: "Change Password Page"
-            },
-            refs
-        });
-    }
-    render() {
-        return 0, _changePasswordTemplate.profileTemplate;
-    }
-    routeTo() {
-        MainPage.component = new (0, _profile.ProfilePage)();
-    }
-    _preInitHook() {
-        Object.values(this.refs).forEach((inputField)=>{
-            inputField.refs.Form = this;
-        });
-        (0, _changePasswordData.changePassword).errorLabel.forEach((stateErrorName)=>{
-            this.state[stateErrorName] = "";
-        });
-        const button = new (0, _index.Button)({
-            props: {
-                label: (0, _profileData.profileData).changeData.change,
-                htmlName: (0, _profileData.profileData).changeData.htmlName,
-                htmlClass: (0, _profileData.profileData).changeData.class,
-                componentName: "ChangePassword button",
-                events: {
-                    click: [
-                        (function checkPassword() {
-                            let isError = false;
-                            const formRefs = this.refs;
-                            Object.values(formRefs).forEach((inputField)=>{
-                                const inputProps = inputField.props;
-                                if (inputProps.componentName !== "ChangePassword button") Object.values(inputField.validators).forEach((validator)=>{
-                                    const error = validator();
-                                    if (error) isError = true;
-                                });
-                            });
-                            if (!isError) this.routeTo();
-                        }).bind(this)
-                    ]
-                }
-            }
-        });
-        this.children.button = button;
-        this.refs["Button"] = button;
     }
 }
 
-},{"core/dom":"3BLMu","components/index":"dHnah","./changePasswordTemplate":"3FKbA","../profileData":"hNHYd","static/img/profile_avatar.png":"j6gct","static/img/arrowBack.png":"P7Wev","../profile":"atqZr","./changePasswordData":"jABZa","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3FKbA":[function(require,module,exports) {
+},{"components":"dHnah","components/inputs/fileInput":"gmiOZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7bWXk":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "profileTemplate", ()=>profileTemplate);
-parcelHelpers.export(exports, "imageBackTemplate", ()=>imageBackTemplate);
-var _profileData = require("../profileData");
-const profileTemplate = `
-<main class='profile'>
-  {{{arrowBackImage}}}
-  <div class='profile__container'>
-    <div class='profile__avatar'>
-      {{{avatarImage}}}
-      <label for='avatar' style='display: none'></label>
-      <input
-        name='avatar'
-        type='file'
-        id='avatar'
-        style='display: none'
-      />
-      <span class='profile__avatar__change'>${(0, _profileData.profileData).changeAvatar}</span>
+exports.default = `
+  <section class="avatar-change-section">
+    <div class="avatar-input-section">
+      {{{ avatarInput }}}
     </div>
-    {{{username}}}
-    <div class='profile__data__container'>
-      {{{oldPasswordField}}}
-      <span class='profile__error'>
-        {{{ oldPasswordError }}}
-      </span>
-      {{{newPasswordField}}}
-      <span class='profile__error'>
-        {{{ newPasswordError }}}
-      </span>
-      {{{newPasswordCheckField}}}
-      <span class='profile__error'>
-        {{{ newPasswordCheckError }}}
-      </span>
-    </div>
-    <div class="profile__button">
-      {{{button}}}
-    </div>
-</main>
-`;
-const imageBackTemplate = `
-  {{{arrowBackImage}}}
+    {{{ submitSection }}}
+  </section>
 `;
 
-},{"../profileData":"hNHYd","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jABZa":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"a1Xr3":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "changePasswordData", ()=>changePasswordData);
-parcelHelpers.export(exports, "changePassword", ()=>changePassword);
-const changePasswordData = [
-    {
-        name: "oldPassword",
-        title: "Старый пароль",
-        data: "QWE123qwe",
-        placeholder: "Введите старый пароль"
-    },
-    {
-        name: "newPassword",
-        title: "Новый пароль",
-        data: "QWE123qwe",
-        placeholder: "Введите пароль"
-    },
-    {
-        name: "newPasswordCheck",
-        title: "Подтвердите новый пароль",
-        data: "QWE123qwe",
-        placeholder: "Введите пароль повторно"
-    }
-];
-const changePassword = {
-    button: "Сохранить",
-    errorLabel: [
-        "errorOldPassword",
-        "errorPassword",
-        "errorPasswordCheck"
-    ]
-};
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kZohv":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "ErrorPage", ()=>ErrorPage);
+parcelHelpers.export(exports, "NotFoundErrorPage", ()=>NotFoundErrorPage);
+parcelHelpers.export(exports, "AuthorizationRequiredErrorPage", ()=>AuthorizationRequiredErrorPage);
 var _dom = require("core/dom");
-// import { Link, TextElement } from 'components/index';
-// import { LoginPage } from '../index';
-var _errorData = require("./errorData");
-var _errorTemplate = require("./errorTemplate");
-class ErrorPage extends (0, _dom.Block) {
-    constructor({ props ={
-        componentName: "Error"
-    }  }){
-        const children = {};
-        children.errorTitle = new TextElement({
-            props: {
-                text: props.title,
-                htmlClass: "error__title",
-                componentName: "Error Component Message"
-            }
-        });
-        children.errorMessage = new TextElement({
-            props: {
-                text: props.message,
-                htmlClass: "error__message",
-                componentName: "Error Component Message"
-            }
-        });
-        children.backLink = new Link({
-            props: {
-                label: (0, _errorData.errorData).errorProps.link,
-                htmlClass: (0, _errorData.errorData).errorProps.class,
-                events: {
-                    click: [
-                        ()=>{
-                            MainPage.component = new LoginPage();
-                        }
-                    ]
-                }
-            }
-        });
-        super({
-            children
-        });
+var _template = require("./template");
+var _templateDefault = parcelHelpers.interopDefault(_template);
+function getErrorPageClass(initProps) {
+    class ErrorPage extends (0, _dom.Block) {
+        constructor(){
+            const children = {};
+            super({
+                props: initProps,
+                children
+            });
+        }
+        render() {
+            return 0, _templateDefault.default;
+        }
     }
-    render() {
-        return 0, _errorTemplate.errorTemplate;
-    }
+    return ErrorPage;
 }
+const NotFoundErrorPage = getErrorPageClass({
+    errorCode: 404,
+    errorDescription: "Page Not Found"
+});
+const AuthorizationRequiredErrorPage = getErrorPageClass({
+    errorCode: 403,
+    errorDescription: "Authorization Required"
+});
 
-},{"core/dom":"3BLMu","./errorData":"2R9xq","./errorTemplate":"3LON2","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2R9xq":[function(require,module,exports) {
+},{"core/dom":"3BLMu","./template":"2NFc8","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2NFc8":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "errorData", ()=>errorData);
-const errorData = {
-    errorProps: {
-        link: "Назад",
-        class: "error__link"
-    },
-    404: {
-        title: "404",
-        message: "Не туда попали"
-    },
-    505: {
-        title: "505",
-        message: "Мы уже фиксим"
-    }
-};
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3LON2":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "errorTemplate", ()=>errorTemplate);
-const errorTemplate = `
-  <main class='error__container'>
-    {{{errorTitle}}}
-    {{{errorMessage}}}
-    {{{backLink}}}
+exports.default = `
+  <main class="error-page">
+    <div class="error-code-section">
+      <h1 class="error-code">{{ errorCode }}</h1>
+    </div>
+    <div class="error-description-section">
+      <div class="error-description">{{ errorDescription }}</div>
+    </div>
+    <div class="return-link-section">
+      {{{ homeButton }}}
+    </div> 
   </main>
 `;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8y9HY":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8AvjI":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getDescendantByPath", ()=>getDescendantByPath);

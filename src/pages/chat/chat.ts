@@ -1,222 +1,73 @@
-import { Block } from 'core/dom';
-// import { ImageElement, Input, Link, TextElement } from 'components/index';
-import { chatTemplate } from './chatTemplate';
-import menuImage from 'static/img/menu.png';
-import attachImage from 'static/img/attach.png';
-import sendImage from 'static/img/send.png';
-import photoImage from 'static/img/camera.png';
-import ChatList from './chatList';
-import { chatList, chatData, chatMessages } from './chatData';
-// import { MainPage } from 'core/renderDOM';
-import { ProfilePage } from 'pages/profile/profile';
-// import { Modal } from 'components/modal/modal';
-// import { modalMessageUsers } from 'components/modal/modalMessage';
+import { WithStoreBlock } from 'hocs/components';
+import { getDescendantByPath } from 'utils/pages';
+import { Modal } from './components/modals';
+import chatTemplate from './chatTemplate';
+import {
+  ChatsPageMainSection,
+  ChatsPageNavigationSection,
+  ChatListPage,
+} from './components';
 
-export class ChatPage extends Block {
+export class ChatPage extends WithStoreBlock {
   constructor() {
-    const children: { chats: ChatList[] } & TComponentChildren = {
-      chats: [],
-    };
-    const refs: TComponentRefs = {};
+    const children = {} as TComponentChildren;
+    children.navigationSection = new ChatsPageNavigationSection();
+    children.chatSection = new ChatsPageMainSection();
+    children.settings = new ChatListPage();
+    // children.modal = Modal;
 
-    // children.modal = new Modal({
-    //   props: {
-    //     title: '',
-    //     inputProps: modalMessageUsers.inputProps,
-    //     text: '',
-    //     error: '',
-    //   },
-    // });
+    super({
+      componentName: 'Chats Page',
+      children,
+    });
+  }
 
-    // refs['modalField'] = children.modal;
+  protected _afterPropsAssignHook() {
+    super._afterPropsAssignHook();
 
-    chatList.map(
-      ({
-        username,
-        userImg,
-        lastMessage,
-        lastMessageDate,
-      }: {
-        username: string;
-        userImg: string;
-        lastMessage: string;
-        lastMessageDate: string;
-      }) => {
-        children.chats.push(
-          new ChatList({ username, userImg, lastMessage, lastMessageDate })
-        );
-      }
+    const functionalButton = this.getChildByPath(
+      'chatSection.headerSection.functionalButton'
+    );
+    functionalButton.refs.settings = this.getChildByPath('settings');
+
+    this.refs.messagesDisplaySection = this.getChildByPath(
+      'chatSection.messagesDisplaySection'
     );
 
-    children.profileLink = new Link({
-      props: {
-        label: chatData.link.name,
-        htmlName: chatData.link.htmlName,
-        htmlClass: 'chat__list__profileLink__icon',
-        htmlWrapper: {
-          componentAlias: 'wrappedLink',
-          htmlWrapperTemplate: `
-              <div class='chat__list__profileLink'>
-                {{{wrappedLink}}} 
-                <svg
-                  class='chat__list__profileLink__svg'
-                  width='6'
-                  height='10'
-                  viewBox='0 0 6 10'
-                  fill='none'
-                  xmlns='http://www.w3.org/2000/svg'
-                >
-                  <path d='M1 9L5 5L1 1' stroke='#999999'></path>
-                </svg>
-              </div>
-            `,
-        },
-        events: {
-          click: [
-            () => {
-              MainPage.component = new ProfilePage();
-            },
-          ],
-        },
-      },
-    });
+    this.refs.attachmentButton = this.getChildByPath(
+      'chatSection.messageInputSection.attachmentButton'
+    );
 
-    children.inputFind = new Input({
-      props: {
-        placeholder: chatData.inputFindUser.placeholder,
-        type: chatData.inputFindUser.type,
-        htmlName: chatData.inputFindUser.name,
-        htmlClass: chatData.inputFindUser.class,
-        componentName: `${chatData.inputFindUser.name} input`,
-        htmlWrapper: {
-          componentAlias: 'wrappedInputFind',
-          htmlWrapperTemplate: `
-            <div style='height: auto'>
-              <label for='chatSearch'></label>
-              {{{wrappedInputFind}}}
-            </div>
-            `,
-        },
-      },
-    });
+    this.refs.messageInput = this.getChildByPath(
+      'chatSection.messageInputSection.messageInput'
+    );
 
-    children.chatWith = new TextElement({
-      props: {
-        text: chatMessages.user,
-        htmlClass: 'chat__body__title__user',
-        componentName: 'Chat Component Message',
-      },
-    });
+    this.refs.sendMessageButton = this.getChildByPath(
+      'chatSection.messageInputSection.sendMessageButton'
+    );
 
-    children.menuImage = new ImageElement({
-      props: {
-        src: menuImage,
-        htmlClass: 'chat__body__title__img',
-        alt: 'menu',
-        componentName: 'Menu Image',
-        events: {
-          click: [
-            () => {
-              refs.modalField.showModal({
-                title: modalMessageUsers.addUser.title,
-                link: modalMessageUsers.addUser.link,
-                value: modalMessageUsers.addUser.value,
-                button: modalMessageUsers.addUser.button,
-                error: modalMessageUsers.addUser.error,
-              });
-            },
-          ],
-        },
-      },
-    });
+    this.refs.chooseChatAvatarButton = this.getChildByPath(
+      'settings.avatarChooseButton.chooseButton'
+    );
 
-    children.chatDate = new TextElement({
-      props: {
-        text: chatMessages.date,
-        htmlClass: 'chat__body__date',
-        componentName: 'Chat Component Message',
-      },
-    });
+    this.refs.addChatUsersButton = this.getChildByPath(
+      'settings.addChatUsersButton'
+    );
 
-    children.chatMessage1 = new TextElement({
-      props: {
-        text: chatMessages.message1,
-        htmlClass: 'chat__body__message',
-        componentName: 'Chat Component Message',
-      },
-    });
+    this.refs.deleteChatButton = this.getChildByPath(
+      'settings.deleteChatButton'
+    );
 
-    children.chatTime1 = new TextElement({
-      props: {
-        text: chatMessages.time1,
-        htmlClass: 'chat__body__message__time',
-        componentName: 'Chat Component Message',
-      },
-    });
+    const settings = this.getChildByPath('navigationSection.chatsList');
+    this.refs.settings = settings;
 
-    children.imagePhoto = new ImageElement({
-      props: {
-        src: photoImage,
-        htmlClass: 'chat__body__img',
-        alt: 'photo',
-        componentName: 'Photo Image',
-      },
+    const chats = getDescendantByPath<TComponentChildArray>(
+      settings.children,
+      'chats'
+    );
+    chats.forEach((chat: any) => {
+      this.refs[`chat-${chat.chatID}`] = chat;
     });
-
-    children.chatMessage2 = new TextElement({
-      props: {
-        text: chatMessages.message2,
-        htmlClass: 'chat__body__you',
-        componentName: 'Chat Component Message',
-      },
-    });
-
-    children.chatTime2 = new TextElement({
-      props: {
-        text: chatMessages.time2,
-        htmlClass: 'chat__body__you__time',
-        componentName: 'Chat Component Message',
-      },
-    });
-
-    children.inputMessage = new Input({
-      props: {
-        placeholder: chatData.inputMessage.placeholder,
-        type: chatData.inputMessage.type,
-        htmlName: chatData.inputMessage.name,
-        htmlClass: chatData.inputMessage.class,
-        componentName: `${chatData.inputMessage.name} input`,
-        htmlWrapper: {
-          componentAlias: 'wrappedInputMessage',
-          htmlWrapperTemplate: `
-            <div style='height: auto'>
-              <label for='message' style='width: 0'></label>
-              {{{wrappedInputMessage}}}
-            </div>
-            `,
-        },
-      },
-    });
-
-    children.attachImage = new ImageElement({
-      props: {
-        src: attachImage,
-        htmlClass: 'chat__body__footer__img',
-        alt: 'attach',
-        componentName: 'Attach Image',
-      },
-    });
-
-    children.sendImage = new ImageElement({
-      props: {
-        src: sendImage,
-        htmlClass: 'chat__body__footer__imgSend',
-        alt: 'send',
-        componentName: 'Send Image',
-      },
-    });
-
-    super({ children, props: { componentName: 'Chats Page' } });
   }
 
   protected render(): string {

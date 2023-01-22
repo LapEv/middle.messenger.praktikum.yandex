@@ -1,14 +1,14 @@
-import { Button } from "components/buttons";
-import { Block } from "core/dom";
-import template from "./template";
+import { Button } from 'components/buttons';
+import { Block } from 'core/dom';
+import template from './template';
 
-export class ModalWindow extends Block {
+export class Modal extends Block {
   private contentType: string;
 
   protected _afterPropsAssignHook(): void {
     super._afterPropsAssignHook();
 
-    this.contentType = "";
+    this.contentType = '';
 
     this.children.closeButton = this._createCloseButton();
     this.children.content = new Block();
@@ -17,15 +17,15 @@ export class ModalWindow extends Block {
   private _createCloseButton() {
     return new Button({
       refs: {
-        modalWindow: this,
+        modal: this,
       },
       props: {
-        htmlClasses: ["close-button"],
-        label: "×",
+        htmlClasses: ['close-button'],
+        label: '×',
         events: {
           click: [
             function () {
-              this.refs.modalWindow.toggleVisibility();
+              this.refs.modal.toggleVisibility();
             },
           ],
         },
@@ -46,10 +46,10 @@ export class ModalWindow extends Block {
     const newContentType = newContentBlock.componentName;
     console.log(`MODAL CONTENT: ${oldContentType} -> ${newContentType}`);
 
-    this.setChildByPath("content", newContentBlock);
+    this.setChildByPath('content', newContentBlock);
   }
 
-  toggleVisibility(state?: Nullable<"on" | "off">) {
-    this.toggleHtmlClass("show-modal", state);
+  toggleVisibility(state?: Nullable<'on' | 'off'>) {
+    this.toggleHtmlClass('show-modal', state);
   }
 }
