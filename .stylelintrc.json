@@ -1,6 +1,4 @@
 {
   "extends": "stylelint-config-prettier",
-  "source.fixAll.stylelint": true,
-  "scss/at-import-partial-extension": "always",
-  "scss/at-import-partial-extension-whitelist": ["scss"]
+  "source.fixAll.stylelint": true
 }
