@@ -1,6 +1,6 @@
 import { AuthorizationAPI } from 'api';
 
-import { AppRoutes } from 'core/router';
+import { AppRoutes } from 'core/Router';
 import { APIResponseHasError } from 'utils/api';
 import { initAppData } from 'services/initApp';
 

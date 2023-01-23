@@ -1,6 +1,6 @@
 import { Link } from 'components/link';
 import { Block } from 'core/dom';
-import { AppRoutes } from 'core/router';
+import { AppRoutes } from 'core/Router';
 import { WithRouter } from 'hocs';
 import template from './template';
 

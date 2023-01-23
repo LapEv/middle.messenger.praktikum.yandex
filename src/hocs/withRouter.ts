@@ -1,4 +1,4 @@
-import { Router } from 'core/router';
+import { Router } from 'core/Router';
 
 export function WithRouter<
   P extends TComponentCommonProps,

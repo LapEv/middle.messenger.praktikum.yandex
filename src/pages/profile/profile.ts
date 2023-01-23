@@ -10,7 +10,7 @@ import { EnumInputFields } from './components/data-form';
 import { MapInputFieldToUserDataRecord } from './components/data-form/fields';
 import arrowBackImage from 'static/img/arrowBack.png';
 import { profileData } from './profileData';
-import { AppRoutes } from 'core/router';
+import { AppRoutes } from 'core/Router';
 import { AvatarInput } from './components/avatar-upload-form/avatar-input';
 import { SubmitSection } from './components/avatar-upload-form/submit-section';
 import { LogoutButton } from 'components/buttons';

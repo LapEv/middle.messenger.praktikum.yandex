@@ -6,7 +6,7 @@ import template from './template';
 import { WithRouter } from 'hocs';
 import { Link } from 'components/link';
 import loginData from 'pages/login/loginData';
-import { AppRoutes } from 'core/router';
+import { AppRoutes } from 'core/Router';
 import regData from 'pages/registration/registrationData';
 
 type TInputFormProps = WithComponentCommonProps<{
