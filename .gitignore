@@ -1,4 +1,5 @@
 .git
 .parcel-cache
+/dist
 /node_modules
 /dist
