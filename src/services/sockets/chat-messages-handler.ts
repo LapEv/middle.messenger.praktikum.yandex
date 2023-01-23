@@ -1,5 +1,5 @@
-import { transformWebsocketMessageDTOtoAppMessage } from "utils/api";
-import { ChatWebSocket } from "./socket-class";
+import { transformWebsocketMessageDTOtoAppMessage } from 'utils/api';
+import { ChatWebSocket } from './socket-class';
 
 const allMessagesReceiver = function (messagesBatch: TWebsocketMessageDTO[]) {
   this._setMessagesBatch(messagesBatch);
@@ -36,7 +36,7 @@ export class ChatMessagesHandler extends ChatWebSocket {
       messagesBatchAwaiter = setInterval(() => {
         if (this.socket.readyState > 1) {
           reject(
-            new Error("Socket Closed While Awaiting Old Messages Get Responses")
+            new Error('Socket Closed While Awaiting Old Messages Get Responses')
           );
           return;
         }
@@ -46,9 +46,9 @@ export class ChatMessagesHandler extends ChatWebSocket {
           this.currentBatch === currentBatch
         ) {
           resolve();
-          console.log(
-            `SUCCESSFULLY GOT CHAT(${this.chatID}) MESSAGES BATCH WITH OFFSET ${offset}`
-          );
+          // console.log(
+          //   `SUCCESSFULLY GOT CHAT(${this.chatID}) MESSAGES BATCH WITH OFFSET ${offset}`
+          // );
         }
       }, 50);
     })
@@ -72,7 +72,7 @@ export class ChatMessagesHandler extends ChatWebSocket {
 
     await this._getAllMessagesFromBatch(0);
     if (this.allMessagesReceivedStatus) {
-      console.log(`CHAT(${this.chatID}) ALL MESSAGES RECEIVED SUCCESSFULLY`);
+      // console.log(`CHAT(${this.chatID}) ALL MESSAGES RECEIVED SUCCESSFULLY`);
     }
 
     const { allMessages } = this;

@@ -109,7 +109,6 @@ export class InputForm<
       );
     }
 
-    console.log('this.props.type = ', this.props.type);
     if (!this.props.type) return;
 
     this.children.link =
@@ -164,7 +163,7 @@ export class InputForm<
     });
 
     if (formHasInputErrors) {
-      console.log(`Form has input errors: ${JSON.stringify(this.state)}`);
+      // console.log(`Form has input errors: ${JSON.stringify(this.state)}`);
       this.state.apiResponseError = InputForm.validationFailedError;
     } else {
       this.state.apiResponseError = '';

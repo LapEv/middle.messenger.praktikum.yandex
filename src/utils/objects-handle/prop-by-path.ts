@@ -1,6 +1,6 @@
-import { Indexed, deepMerge as merge } from "./objects-merge";
-import { deepEqual } from "./objects-compare";
-import { isObject } from "./is-object";
+import { Indexed, deepMerge as merge } from './objects-merge';
+import { deepEqual } from './objects-compare';
+import { isObject } from './is-object';
 
 export function setPropByPath(
   object: Indexed | unknown,
@@ -12,12 +12,12 @@ export function setPropByPath(
     return object;
   }
 
-  if (typeof pathString !== "string") {
-    throw new Error("path must be string");
+  if (typeof pathString !== 'string') {
+    throw new Error('path must be string');
   }
 
-  const path = pathString.split(".");
-  if (path.length === 1 && path[0] === "") {
+  const path = pathString.split('.');
+  if (path.length === 1 && path[0] === '') {
     return value;
   }
 
@@ -29,9 +29,9 @@ export function setPropByPath(
   );
 
   if (doLog) {
-    console.log(
-      `SET PROP BY PATH '${pathString}': value ${JSON.stringify(value)}`
-    );
+    // console.log(
+    //   `SET PROP BY PATH '${pathString}': value ${JSON.stringify(value)}`
+    // );
   }
   return merge(object as Indexed, result);
 }
@@ -47,11 +47,11 @@ export function comparePropByPath(
       `Incorrect target ${object} of type ${typeof object} to compare prop by path`
     );
   }
-  if (!(typeof pathString === "string" && pathString.length)) {
-    throw new Error("path must be not empty string");
+  if (!(typeof pathString === 'string' && pathString.length)) {
+    throw new Error('path must be not empty string');
   }
 
-  const path = pathString.split(".");
+  const path = pathString.split('.');
   let pathExisting = path;
   let value = object as any;
 
@@ -65,13 +65,13 @@ export function comparePropByPath(
   }
 
   if (doLog) {
-    console.log(
-      `PATH COMPARE'${pathString}' EXISTING PART: ` +
-        `${pathExisting.join(".")}\n` +
-        `OLD VALUE ${JSON.stringify(value)}, TO COMPARE ${JSON.stringify(
-          valueToCompare
-        )}`
-    );
+    // console.log(
+    //   `PATH COMPARE'${pathString}' EXISTING PART: ` +
+    //     `${pathExisting.join(".")}\n` +
+    //     `OLD VALUE ${JSON.stringify(value)}, TO COMPARE ${JSON.stringify(
+    //       valueToCompare
+    //     )}`
+    // );
   }
 
   return pathExisting.length < path.length
@@ -89,11 +89,11 @@ export function getPropByPath(
       `Incorrect target ${object} of type ${typeof object} to get prop by path`
     );
   }
-  if (!(typeof pathString === "string" && pathString.length)) {
-    throw new Error("path must be not empty string");
+  if (!(typeof pathString === 'string' && pathString.length)) {
+    throw new Error('path must be not empty string');
   }
 
-  const path = pathString.split(".");
+  const path = pathString.split('.');
   let pathExisting = path;
   let value = object as any;
 
@@ -107,12 +107,12 @@ export function getPropByPath(
   }
 
   if (doLog) {
-    console.log(
-      `PATH GET '${pathString}' EXISTING PART: ` +
-        `${pathExisting.join(".")}\n` +
-        `value: ${JSON.stringify(value)}`
-    );
+    // console.log(
+    //   `PATH GET '${pathString}' EXISTING PART: ` +
+    //     `${pathExisting.join(".")}\n` +
+    //     `value: ${JSON.stringify(value)}`
+    // );
   }
-  const result = setPropByPath({}, "", value);
+  const result = setPropByPath({}, '', value);
   return result;
 }

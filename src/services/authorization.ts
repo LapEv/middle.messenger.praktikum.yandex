@@ -13,11 +13,11 @@ class AuthorizationServiceClass {
     try {
       const request = await AuthorizationAPI.me();
       const { status, response } = request;
-      console.log(
-        `GET USER REQUEST: status ${status}; response ${JSON.stringify(
-          response
-        )}`
-      );
+      // console.log(
+      //   `GET USER REQUEST: status ${status}; response ${JSON.stringify(
+      //     response
+      //   )}`
+      // );
       return response;
     } catch (error) {
       console.error(`GET USER REQUEST ERROR: ${error}`);
@@ -33,9 +33,9 @@ class AuthorizationServiceClass {
       const requestLogin = await AuthorizationAPI.login(data);
       const { status, response } = requestLogin;
 
-      console.log(
-        `LOGIN REQUEST: status ${status}; response ${JSON.stringify(response)}`
-      );
+      // console.log(
+      //   `LOGIN REQUEST: status ${status}; response ${JSON.stringify(response)}`
+      // );
 
       if (afterRequestCallback) {
         await afterRequestCallback(response);
@@ -67,9 +67,9 @@ class AuthorizationServiceClass {
       const request = await AuthorizationAPI.logout();
       const { status, response } = request;
 
-      console.log(
-        `LOGIN LOGOUT: status ${status}; response ${JSON.stringify(response)}`
-      );
+      // console.log(
+      //   `LOGIN LOGOUT: status ${status}; response ${JSON.stringify(response)}`
+      // );
 
       window.store.dispatch({ user: null });
       window.store.dispatch({ currentChatID: null });

@@ -76,9 +76,9 @@ export class AddChatModal extends Block {
                 usersList,
               });
 
-              console.log(
-                `ADD USERS DATA: ${apiData.chatId}, ${apiData.users}`
-              );
+              // console.log(
+              //   `ADD USERS DATA: ${apiData.chatId}, ${apiData.users}`
+              // );
 
               ChatsService.addUsersToChat(apiData, afterRequestCallback);
             },

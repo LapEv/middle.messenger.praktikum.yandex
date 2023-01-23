@@ -1,9 +1,9 @@
-import { ProfileService } from "services";
+import { ProfileService } from 'services';
 import {
   transformProfileFormDatatoAPI,
   transformProfileAPIResponseToUserData,
   APIResponseHasError,
-} from "utils/api";
+} from 'utils/api';
 
 function afterRequestCallback(response: any) {
   if (APIResponseHasError(response)) {
@@ -14,13 +14,13 @@ function afterRequestCallback(response: any) {
   window.store.dispatch({
     user: transformProfileAPIResponseToUserData(response),
   });
-  this.state.apiResponseSuccess = "Profile Data Updated Successfully";
+  this.state.apiResponseSuccess = 'Profile Data Updated Successfully';
 }
 
 export async function afterValidationCallback() {
   const formData = this.collectFormData();
   const apiData = transformProfileFormDatatoAPI(formData);
-  console.log(`API data: ${JSON.stringify(apiData)}`);
+  // console.log(`API data: ${JSON.stringify(apiData)}`);
   await ProfileService.changeUserProfile(
     apiData,
     afterRequestCallback.bind(this)

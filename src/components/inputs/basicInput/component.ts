@@ -29,8 +29,9 @@ export class Input extends Block<TInputProps> {
   public toggleDisabledState(state: boolean | undefined = undefined) {
     const element = this._unwrappedElement as HTMLInputElement;
 
-    if (state !== undefined) {
-      element.disabled = state;
+    if (state !== false) {
+      console.log('state = ', state);
+      element.disabled = true;
       element.classList.add('profile__data__data__active');
       element.classList.remove('profile__data__data');
       return;

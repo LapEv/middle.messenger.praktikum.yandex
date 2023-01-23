@@ -1,4 +1,4 @@
-import { transformWebsocketMessageDTOtoAppMessage } from "utils/api";
+import { transformWebsocketMessageDTOtoAppMessage } from 'utils/api';
 
 type TChatWebSocketContructorArgs = {
   userID: string;
@@ -35,39 +35,39 @@ export class ChatWebSocket {
     const ping = setInterval(function () {
       socket.send(
         JSON.stringify({
-          type: "ping",
+          type: 'ping',
         })
       );
     }, 30000);
 
-    socket.addEventListener("close", (event) => {
+    socket.addEventListener('close', (event) => {
       if (!event.wasClean) {
-        console.log(`Chat(${chatID}) Socket Closed Clearly`);
+        // console.log(`Chat(${chatID}) Socket Closed Clearly`);
       } else {
-        console.log(
-          `Chat(${chatID}) Socket Closed With Error: code ${event.code}, reason ${event.reason}`
-        );
+        // console.log(
+        //   `Chat(${chatID}) Socket Closed With Error: code ${event.code}, reason ${event.reason}`
+        // );
         clearInterval(ping);
       }
     });
 
     socket.addEventListener(
-      "message",
+      'message',
       function (event: any) {
         let message;
 
         try {
           message = JSON.parse(event.data);
         } catch (err) {
-          console.log(
-            `ERROR ON PARSING MESSAGE ${JSON.stringify(
-              message
-            )} ON CHAT(${chatID}) SOCKET`
-          );
+          // console.log(
+          //   `ERROR ON PARSING MESSAGE ${JSON.stringify(
+          //     message
+          //   )} ON CHAT(${chatID}) SOCKET`
+          // );
           return;
         }
 
-        if (message.type === "pong" || message.type === "user connected") {
+        if (message.type === 'pong' || message.type === 'user connected') {
           return;
         }
         if (Array.isArray(message) && this.messagesArrayHander) {
@@ -75,11 +75,11 @@ export class ChatWebSocket {
           return;
         }
 
-        console.log(
-          `MESSAGE OF '${message.type}' TYPE RECEIVED: '${JSON.stringify(
-            message
-          )}'`
-        );
+        // console.log(
+        //   `MESSAGE OF '${message.type}' TYPE RECEIVED: '${JSON.stringify(
+        //     message
+        //   )}'`
+        // );
 
         message = transformWebsocketMessageDTOtoAppMessage(message);
         const messagesStatePath = `chatsMessages.${chatID}`;
@@ -96,12 +96,12 @@ export class ChatWebSocket {
       }.bind(this)
     );
 
-    socket.addEventListener("error", () => {
+    socket.addEventListener('error', () => {
       clearInterval(ping);
     });
   }
 
-  public send(content: string, type: string = "message") {
+  public send(content: string, type: string = 'message') {
     this.socket.send(JSON.stringify({ content, type }));
   }
 
@@ -109,7 +109,7 @@ export class ChatWebSocket {
     return this.socket.send(
       JSON.stringify({
         content: offset.toString(),
-        type: "get old",
+        type: 'get old',
       })
     );
   }
@@ -120,7 +120,7 @@ export class ChatWebSocket {
         if (this.socket.readyState === 1) {
           resolve();
           clearInterval(awaiter);
-          console.log(`SOCKET OF CHAT(${this.chatID}) CONNECTED`);
+          // console.log(`SOCKET OF CHAT(${this.chatID}) CONNECTED`);
         }
       }, 50);
     });

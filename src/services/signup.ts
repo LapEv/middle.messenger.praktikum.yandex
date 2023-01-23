@@ -1,4 +1,4 @@
-import { SignUpAPI } from "api";
+import { SignUpAPI } from 'api';
 
 export class SignUpServiceClass {
   async signup(
@@ -13,11 +13,11 @@ export class SignUpServiceClass {
       status = request.status;
       response = request.response;
 
-      console.log(
-        `SIGN UP REQUEST: status ${status}; response: ${JSON.stringify(
-          response
-        )}`
-      );
+      // console.log(
+      //   `SIGN UP REQUEST: status ${status}; response: ${JSON.stringify(
+      //     response
+      //   )}`
+      // );
 
       if (afterRequestCallback) {
         await afterRequestCallback(response);

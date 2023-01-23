@@ -55,7 +55,7 @@ export class CreateChatModal extends Block {
             function () {
               const { titleInput, modalWindow } = this.refs;
               modalWindow.clearAPIResponseStatus();
-              console.log(`TITLE INPUT: ${titleInput.getValue()}`);
+              // console.log(`TITLE INPUT: ${titleInput.getValue()}`);
               ChatsService.createChat(
                 { title: titleInput.getValue() },
                 afterRequestCallback

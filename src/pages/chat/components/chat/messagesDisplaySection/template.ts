@@ -4,7 +4,7 @@ export default `
       {{{ messagesList }}}  
       
       {{#if chatAbsenceWarning }}
-        <h1 class="message-placeholder"> {{ chatAbsenceWarning }}</h1>
+        <h1 class="chat__body__message-placeholder"> {{ chatAbsenceWarning }}</h1>
       {{/if}}
     </div>
   </section>;

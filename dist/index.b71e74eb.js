@@ -555,7 +555,7 @@ var _services = require("services");
 var _api = require("utils/api");
 var _initAppData = require("./initAppData");
 async function initApp() {
-    console.log(`INIT APP STATRTING`);
+    // console.log(`INIT APP STATRTING`);
     const store = new (0, _store.Store)();
     const router = new (0, _router.Router)();
     window.router = router;
@@ -686,15 +686,15 @@ class Store {
     init() {
         this.eventBus.on((0, _enumStoreEvents.EnumStoreEvents).PageChanged, (function(newPage) {
             const PageComponent = (0, _pages.getPageComponent)(newPage);
-            console.log("newPage = ", newPage);
+            // console.log('newPage = ', newPage);
             const page = new PageComponent();
-            console.log("PageComponent = ", PageComponent);
+            // console.log('PageComponent = ', PageComponent);
             this.page = page;
             (0, _dom.renderDOM)({
                 component: page
             });
             document.title = `App / ${page.componentName}`;
-            console.log(`Store event '${(0, _enumStoreEvents.EnumStoreEvents).PageChanged}' emitted`);
+        // console.log(`Store event '${EnumStoreEvents.PageChanged}' emitted`);
         }).bind(this));
     }
     isPageSet() {
@@ -709,7 +709,11 @@ class Store {
                 const oldValue = target[prop];
                 if ((0, _objectsHandle.deepEqual)(oldValue, newValue)) return true;
                 target[prop] = newValue;
-                console.log(`STORE ${prop}: ${JSON.stringify(oldValue)} -> ${JSON.stringify(newValue)}`);
+                // console.log(
+                //   `STORE ${prop}: ${JSON.stringify(oldValue)} -> ${JSON.stringify(
+                //     newValue
+                //   )}`
+                // );
                 switch(prop){
                     case "page":
                         _mainStatesProxies.pageSetter.call(this, newValue);
@@ -1096,7 +1100,7 @@ function setPropByPath(object, pathString, value, doLog = false) {
     const result = path.reduceRight((acc, key)=>({
             [key]: acc
         }), value);
-    if (doLog) console.log(`SET PROP BY PATH '${pathString}': value ${JSON.stringify(value)}`);
+    doLog;
     return (0, _objectsMerge.deepMerge)(object, result);
 }
 function comparePropByPath(object, pathString, valueToCompare, doLog = false) {
@@ -1112,7 +1116,7 @@ function comparePropByPath(object, pathString, valueToCompare, doLog = false) {
         }
         value = value[path[i]];
     }
-    if (doLog) console.log(`PATH COMPARE'${pathString}' EXISTING PART: ` + `${pathExisting.join(".")}\n` + `OLD VALUE ${JSON.stringify(value)}, TO COMPARE ${JSON.stringify(valueToCompare)}`);
+    doLog;
     return pathExisting.length < path.length ? false : (0, _objectsCompare.deepEqual)(value, valueToCompare);
 }
 function getPropByPath(object, pathString, doLog = false) {
@@ -1128,7 +1132,7 @@ function getPropByPath(object, pathString, doLog = false) {
         }
         value = value[path[i]];
     }
-    if (doLog) console.log(`PATH GET '${pathString}' EXISTING PART: ` + `${pathExisting.join(".")}\n` + `value: ${JSON.stringify(value)}`);
+    doLog;
     const result = setPropByPath({}, "", value);
     return result;
 }
@@ -12935,8 +12939,9 @@ class Input extends (0, _dom.Block) {
     }
     toggleDisabledState(state) {
         const element = this._unwrappedElement;
-        if (state !== undefined) {
-            element.disabled = state;
+        if (state !== false) {
+            console.log("state = ", state);
+            element.disabled = true;
             element.classList.add("profile__data__data__active");
             element.classList.remove("profile__data__data");
             return;
@@ -13201,7 +13206,6 @@ class InputForm extends (0, _dom.Block) {
         if (this.props.isSubmitButtonNeeded && !this.children.submitButton) this.children.submitButton = new (0, _submitButton.FormSubmitButton)({
             form: this
         }, this.props.label);
-        console.log("this.props.type = ", this.props.type);
         if (!this.props.type) return;
         this.children.link = this.props.type === "login" ? new LinkWithRouter({
             props: {
@@ -13249,10 +13253,9 @@ class InputForm extends (0, _dom.Block) {
                 }
             }
         });
-        if (formHasInputErrors) {
-            console.log(`Form has input errors: ${JSON.stringify(this.state)}`);
-            this.state.apiResponseError = InputForm.validationFailedError;
-        } else this.state.apiResponseError = "";
+        if (formHasInputErrors) // console.log(`Form has input errors: ${JSON.stringify(this.state)}`);
+        this.state.apiResponseError = InputForm.validationFailedError;
+        else this.state.apiResponseError = "";
     }
     collectFormData() {
         return Object.entries(this.refs).reduce((acc, [fieldName, inputField])=>{
@@ -13915,7 +13918,7 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "renderDOM", ()=>renderDOM);
 function renderDOM({ rootSelector ="#app" , component  }) {
-    console.log(`render ${component.componentName}`);
+    // console.log(`render ${component.componentName}`);
     const root = document.querySelector(rootSelector);
     if (!root) throw new Error("Root not found");
     const element = component.getElement();
@@ -14026,7 +14029,7 @@ class Modal extends (0, _dom.Block) {
     setContent(newContentBlock) {
         const oldContentType = this.contentType;
         const newContentType = newContentBlock.componentName;
-        console.log(`MODAL CONTENT: ${oldContentType} -> ${newContentType}`);
+        // console.log(`MODAL CONTENT: ${oldContentType} -> ${newContentType}`);
         this.setChildByPath("content", newContentBlock);
     }
     toggleVisibility(state) {
@@ -14135,7 +14138,11 @@ class SignUpServiceClass {
             const request = await (0, _api.SignUpAPI).signup(data);
             status = request.status;
             response = request.response;
-            console.log(`SIGN UP REQUEST: status ${status}; response: ${JSON.stringify(response)}`);
+            // console.log(
+            //   `SIGN UP REQUEST: status ${status}; response: ${JSON.stringify(
+            //     response
+            //   )}`
+            // );
             if (afterRequestCallback) await afterRequestCallback(response);
         } catch (error) {
             console.error(`SIGN UP REQUEST ERROR: ${error}`);
@@ -14388,7 +14395,11 @@ class AuthorizationServiceClass {
         try {
             const request = await (0, _api.AuthorizationAPI).me();
             const { status , response  } = request;
-            console.log(`GET USER REQUEST: status ${status}; response ${JSON.stringify(response)}`);
+            // console.log(
+            //   `GET USER REQUEST: status ${status}; response ${JSON.stringify(
+            //     response
+            //   )}`
+            // );
             return response;
         } catch (error) {
             console.error(`GET USER REQUEST ERROR: ${error}`);
@@ -14399,7 +14410,9 @@ class AuthorizationServiceClass {
         try {
             const requestLogin = await (0, _api.AuthorizationAPI).login(data);
             const { status , response  } = requestLogin;
-            console.log(`LOGIN REQUEST: status ${status}; response ${JSON.stringify(response)}`);
+            // console.log(
+            //   `LOGIN REQUEST: status ${status}; response ${JSON.stringify(response)}`
+            // );
             if (afterRequestCallback) await afterRequestCallback(response);
             if (!(0, _api1.APIResponseHasError)(response) || response.reason === "User already in system") {
                 const userResponse = await this.getUser();
@@ -14417,7 +14430,9 @@ class AuthorizationServiceClass {
         try {
             const request = await (0, _api.AuthorizationAPI).logout();
             const { status , response  } = request;
-            console.log(`LOGIN LOGOUT: status ${status}; response ${JSON.stringify(response)}`);
+            // console.log(
+            //   `LOGIN LOGOUT: status ${status}; response ${JSON.stringify(response)}`
+            // );
             window.store.dispatch({
                 user: null
             });
@@ -14574,7 +14589,11 @@ class ProfileServiceClass {
             const request = await (0, _api.ProfileAPI).getProfileData(userID);
             status = request.status;
             response = request.response;
-            console.log(`PROFILE WITH ID(${userID}) GET REQUEST: status ${status}; response: ${JSON.stringify(response)}`);
+            // console.log(
+            //   `PROFILE WITH ID(${userID}) GET REQUEST: status ${status}; response: ${JSON.stringify(
+            //     response
+            //   )}`
+            // );
             if (!(0, _api1.APIResponseHasError)(response)) {
                 const user = (0, _api1.transformProfileAPIResponseToUserData)(response);
                 window.store.dispatch({
@@ -14594,7 +14613,11 @@ class ProfileServiceClass {
             const request = await (0, _api.ProfileAPI).changeProfile(data);
             status = request.status;
             response = request.response;
-            console.log(`PROFILE CHANGE REQUEST: status ${status}; response: ${JSON.stringify(response)}`);
+            // console.log(
+            //   `PROFILE CHANGE REQUEST: status ${status}; response: ${JSON.stringify(
+            //     response
+            //   )}`
+            // );
             if (afterRequestCallback) await afterRequestCallback(response);
         } catch (error) {
             console.error(`PROFILE CHANGE REQUEST GET REQUEST ERROR: ${error}`);
@@ -14609,7 +14632,11 @@ class ProfileServiceClass {
             const request = await (0, _api.ProfileAPI).changeAvatar(avatarFormData);
             status = request.status;
             response = request.response;
-            console.log(`PROFILE CHANGE AVATAR REQUEST: status ${status}; response: ${JSON.stringify(response)}`);
+            // console.log(
+            //   `PROFILE CHANGE AVATAR REQUEST: status ${status}; response: ${JSON.stringify(
+            //     response
+            //   )}`
+            // );
             if (afterRequestCallback) await afterRequestCallback(response);
         } catch (error) {
             console.error(`PROFILE CHANGE AVATAR REQUEST GET REQUEST ERROR: ${error}`);
@@ -14639,7 +14666,11 @@ class ChatsServiceClass {
             const request = await (0, _api.ChatsAPI).getChats();
             status = request.status;
             response = request.response;
-            console.log(`GET CHATS REQUEST: status ${status}; response ${JSON.stringify(response)}`);
+            // console.log(
+            //   `GET CHATS REQUEST: status ${status}; response ${JSON.stringify(
+            //     response
+            //   )}`
+            // );
             if (afterRequestCallback) await afterRequestCallback(response);
             if (!(0, _api1.APIResponseHasError)(response)) window.store.dispatch({
                 chats: (0, _api1.transformChatsGetResponseToChatsData)(response)
@@ -14657,7 +14688,11 @@ class ChatsServiceClass {
             const request = await (0, _api.ChatsAPI).createChat(data);
             status = request.status;
             response = request.response;
-            console.log(`CREATE CHAT REQUEST: status ${status}; response ${JSON.stringify(response)}`);
+            // console.log(
+            //   `CREATE CHAT REQUEST: status ${status}; response ${JSON.stringify(
+            //     response
+            //   )}`
+            // );
             if (afterRequestCallback) await afterRequestCallback(response);
             if (!(0, _api1.APIResponseHasError)(response)) {
                 const chatID = response.id.toString();
@@ -14680,7 +14715,11 @@ class ChatsServiceClass {
             const request = await (0, _api.ChatsAPI).deleteChat((0, _toApiDataTransformers.transformChatIDToDeleteAPI)(chatID));
             status = request.status;
             response = request.response;
-            console.log(`DELETE CHAT(${chatID}) REQUEST: status ${status}; response ${JSON.stringify(response)}`);
+            // console.log(
+            //   `DELETE CHAT(${chatID}) REQUEST: status ${status}; response ${JSON.stringify(
+            //     response
+            //   )}`
+            // );
             if (afterRequestCallback) await afterRequestCallback(response);
             if (!(0, _api1.APIResponseHasError)(response)) {
                 const currentChats = window.store.getChatsDataByPath();
@@ -14705,7 +14744,11 @@ class ChatsServiceClass {
             const request = await (0, _api.ChatsAPI).getChatUsers(chatID);
             status = request.status;
             response = request.response;
-            console.log(`GET CHAT(${chatID}) USERS REQUEST: status ${status}; response ${JSON.stringify(response)}`);
+            // console.log(
+            //   `GET CHAT(${chatID}) USERS REQUEST: status ${status}; response ${JSON.stringify(
+            //     response
+            //   )}`
+            // );
             if (afterRequestCallback) await afterRequestCallback(response);
         } catch (error) {
             console.error(`GET CHAT(${chatID}) REQUEST ERROR: ${error}`);
@@ -14722,7 +14765,11 @@ class ChatsServiceClass {
             status = request.status;
             response = request.response;
             const usersList = data.users;
-            console.log(`ADD USERS TO CHAT(${chatID}) REQUEST: status ${status}; response ${JSON.stringify(response)}`);
+            // console.log(
+            //   `ADD USERS TO CHAT(${chatID}) REQUEST: status ${status}; response ${JSON.stringify(
+            //     response
+            //   )}`
+            // );
             if (afterRequestCallback) await afterRequestCallback(response);
             if (!(0, _api1.APIResponseHasError)(response)) {
                 const responseChatUsers = await this.getChatUsers(chatID.toString());
@@ -14746,7 +14793,11 @@ class ChatsServiceClass {
             status = request.status;
             response = request.response;
             chatID = avatarPutForm.get("chatId");
-            console.log(`CHANGE CHAT(${chatID}) AVATAR REQUEST: status ${status}; response ${JSON.stringify(response)}`);
+            // console.log(
+            //   `CHANGE CHAT(${chatID}) AVATAR REQUEST: status ${status}; response ${JSON.stringify(
+            //     response
+            //   )}`
+            // );
             if (afterRequestCallback) await afterRequestCallback(response);
             if (!(0, _api1.APIResponseHasError)(response)) {
                 const avatar = (0, _api1.transformAvatarURL)(response.avatar);
@@ -14781,7 +14832,11 @@ class SocketsCreatorClass {
     async getChatToken(chatID, afterRequestCallback) {
         const request = await (0, _api.ChatsAPI).getChatToken(chatID);
         const { status , response  } = request;
-        console.log(`GET CHAT(${chatID}) TOKEN REQUEST: status ${status}; response ${JSON.stringify(response)}`);
+        // console.log(
+        //   `GET CHAT(${chatID}) TOKEN REQUEST: status ${status}; response ${JSON.stringify(
+        //     response
+        //   )}`
+        // );
         if (afterRequestCallback) await afterRequestCallback(response);
         return response;
     }
@@ -14854,10 +14909,7 @@ class ChatMessagesHandler extends (0, _socketClass.ChatWebSocket) {
                     reject(new Error("Socket Closed While Awaiting Old Messages Get Responses"));
                     return;
                 }
-                if (this.allMessagesReceivedStatus || this.currentBatch === currentBatch) {
-                    resolve();
-                    console.log(`SUCCESSFULLY GOT CHAT(${this.chatID}) MESSAGES BATCH WITH OFFSET ${offset}`);
-                }
+                if (this.allMessagesReceivedStatus || this.currentBatch === currentBatch) resolve();
             }, 50);
         }).catch((error)=>{
             console.error(`ERROR OCCURED ON BATCH ${currentBatch} WHILE RECEIVING ALL MESSAGES: ${error}`);
@@ -14870,7 +14922,7 @@ class ChatMessagesHandler extends (0, _socketClass.ChatWebSocket) {
     async getAllMessages() {
         this.messagesArrayHander = allMessagesReceiver.bind(this);
         await this._getAllMessagesFromBatch(0);
-        if (this.allMessagesReceivedStatus) console.log(`CHAT(${this.chatID}) ALL MESSAGES RECEIVED SUCCESSFULLY`);
+        this.allMessagesReceivedStatus;
         const { allMessages  } = this;
         this._resetAllMessageReceivingStatus();
         return allMessages;
@@ -14904,18 +14956,22 @@ class ChatWebSocket {
             }));
         }, 30000);
         socket.addEventListener("close", (event)=>{
-            if (!event.wasClean) console.log(`Chat(${chatID}) Socket Closed Clearly`);
-            else {
-                console.log(`Chat(${chatID}) Socket Closed With Error: code ${event.code}, reason ${event.reason}`);
-                clearInterval(ping);
-            }
+            if (!event.wasClean) ;
+            else // console.log(
+            //   `Chat(${chatID}) Socket Closed With Error: code ${event.code}, reason ${event.reason}`
+            // );
+            clearInterval(ping);
         });
         socket.addEventListener("message", (function(event) {
             let message;
             try {
                 message = JSON.parse(event.data);
             } catch (err) {
-                console.log(`ERROR ON PARSING MESSAGE ${JSON.stringify(message)} ON CHAT(${chatID}) SOCKET`);
+                // console.log(
+                //   `ERROR ON PARSING MESSAGE ${JSON.stringify(
+                //     message
+                //   )} ON CHAT(${chatID}) SOCKET`
+                // );
                 return;
             }
             if (message.type === "pong" || message.type === "user connected") return;
@@ -14923,7 +14979,11 @@ class ChatWebSocket {
                 this.messagesArrayHander(message);
                 return;
             }
-            console.log(`MESSAGE OF '${message.type}' TYPE RECEIVED: '${JSON.stringify(message)}'`);
+            // console.log(
+            //   `MESSAGE OF '${message.type}' TYPE RECEIVED: '${JSON.stringify(
+            //     message
+            //   )}'`
+            // );
             message = (0, _api.transformWebsocketMessageDTOtoAppMessage)(message);
             const messagesStatePath = `chatsMessages.${chatID}`;
             const currentMessages = window.store.chatHasMessages(chatID) ? window.store.getStateValueByPath(messagesStatePath) : [];
@@ -14954,7 +15014,7 @@ class ChatWebSocket {
                 if (this.socket.readyState === 1) {
                     resolve();
                     clearInterval(awaiter);
-                    console.log(`SOCKET OF CHAT(${this.chatID}) CONNECTED`);
+                // console.log(`SOCKET OF CHAT(${this.chatID}) CONNECTED`);
                 }
             }, 50);
         });
@@ -15024,7 +15084,7 @@ async function afterRequestCallback(response) {
 async function afterValidationCallback() {
     const formData = this.collectFormData();
     const apiData = (0, _api.transformLoginFormDatatoAPI)(formData);
-    console.log(`API data: ${JSON.stringify(apiData)}`);
+    // console.log(`API data: ${JSON.stringify(apiData)}`);
     await (0, _services.AuthorizationService).login(apiData, afterRequestCallback.bind(this));
 }
 
@@ -15286,7 +15346,7 @@ parcelHelpers.export(exports, "afterValidationCallback", ()=>afterValidationCall
 var _services = require("services");
 var _api = require("utils/api");
 async function afterRequestCallback(response) {
-    console.log(`Registration REQUEST RESPONSE: ${JSON.stringify(response)}`);
+    // console.log(`Registration REQUEST RESPONSE: ${JSON.stringify(response)}`);
     if ((0, _api.APIResponseHasError)(response)) {
         this.state.apiResponseError = response.reason;
         return;
@@ -15300,7 +15360,7 @@ async function afterRequestCallback(response) {
 async function afterValidationCallback() {
     const formData = this.collectFormData();
     const apiData = (0, _api.transformSignUpFormDatatoAPI)(formData);
-    console.log(`API data: ${JSON.stringify(apiData)}`);
+    // console.log(`API data: ${JSON.stringify(apiData)}`);
     (0, _services.SignUpService).signup(apiData, afterRequestCallback.bind(this));
 }
 
@@ -15649,7 +15709,9 @@ class AddChatModal extends (0, _dom.Block) {
                                 chatID,
                                 usersList
                             });
-                            console.log(`ADD USERS DATA: ${apiData.chatId}, ${apiData.users}`);
+                            // console.log(
+                            //   `ADD USERS DATA: ${apiData.chatId}, ${apiData.users}`
+                            // );
                             (0, _services.ChatsService).addUsersToChat(apiData, afterRequestCallback);
                         }
                     ]
@@ -15776,7 +15838,7 @@ class CreateChatModal extends (0, _dom.Block) {
                         function() {
                             const { titleInput , modalWindow  } = this.refs;
                             modalWindow.clearAPIResponseStatus();
-                            console.log(`TITLE INPUT: ${titleInput.getValue()}`);
+                            // console.log(`TITLE INPUT: ${titleInput.getValue()}`);
                             (0, _chats.ChatsService).createChat({
                                 title: titleInput.getValue()
                             }, afterRequestCallback);
@@ -15968,7 +16030,7 @@ class ChatsList extends (0, _components.WithStoreBlock) {
     createChatsList() {
         let chats = {};
         if (this.store.userHasAnyChats()) chats = this.store.getChatsDataByPath();
-        console.log(`CHATS: ${JSON.stringify(chats)}`);
+        // console.log(`CHATS: ${JSON.stringify(chats)}`);
         const chatsList = [];
         Object.keys(chats).forEach((id)=>{
             chatsList.push(new (0, _chatComponent.ChatComponent)(id));
@@ -16397,7 +16459,7 @@ class MessagesDisplayArea extends (0, _components.WithStoreBlock) {
             if ((0, _objectsHandle.isNullish)(chatID)) warning = "NO CHAT SELECTED";
             else if (!this.store.chatHasMessages(chatID)) {
                 const messages = this.store.getStateValueByPath(`chatMessages.${chatID}`);
-                console.log(`CHAT(${chatID}): ${JSON.stringify(messages)}`);
+                // console.log(`CHAT(${chatID}): ${JSON.stringify(messages)}`);
                 warning = "NO MESSAGES EXIST";
             }
         }
@@ -16522,7 +16584,7 @@ exports.default = `
       {{{ messagesList }}}  
       
       {{#if chatAbsenceWarning }}
-        <h1 class="message-placeholder"> {{ chatAbsenceWarning }}</h1>
+        <h1 class="chat__body__message-placeholder"> {{ chatAbsenceWarning }}</h1>
       {{/if}}
     </div>
   </section>;
@@ -16606,7 +16668,9 @@ class SendMessageButton extends (0, _components.WithStoreButton) {
         const isChatSelected = !(0, _objectsHandle.isNullish)(currentChatID);
         const messageInput = this.refs.messageInput;
         const webSocket = store.getSocketByChatID(currentChatID, true);
-        console.log(`CHAT(${currentChatID}) Websocket: ${JSON.stringify(webSocket)}`);
+        // console.log(
+        //   `CHAT(${currentChatID}) Websocket: ${JSON.stringify(webSocket)}`
+        // );
         if (isChatSelected) this.setPropByPath("events.click", [
             function() {
                 const message = messageInput.getValue();
@@ -16860,7 +16924,6 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "DeleteChatButton", ()=>DeleteChatButton);
 var _components = require("hocs/components");
 var _services = require("services");
-var _toApiDataTransformers = require("utils/api/to-api-data-transformers");
 var _objectsHandle = require("utils/objects-handle");
 class DeleteChatButton extends (0, _components.WithStoreButton) {
     constructor(){
@@ -16874,7 +16937,11 @@ class DeleteChatButton extends (0, _components.WithStoreButton) {
                     click: [
                         function() {
                             const currentChatID = this.store.getCurrentChatID();
-                            console.log(`CURRENT CHAT: ${JSON.stringify((0, _toApiDataTransformers.transformChatIDToDeleteAPI)(currentChatID))}`);
+                            // console.log(
+                            //   `CURRENT CHAT: ${JSON.stringify(
+                            //     transformChatIDToDeleteAPI(currentChatID)
+                            //   )}`
+                            // );
                             (0, _services.ChatsService).deleteChat(currentChatID);
                         }
                     ]
@@ -16888,7 +16955,7 @@ class DeleteChatButton extends (0, _components.WithStoreButton) {
     }
 }
 
-},{"hocs/components":"THcGa","services":"f5PO7","utils/api/to-api-data-transformers":"gwV72","utils/objects-handle":"kOfSo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7epTV":[function(require,module,exports) {
+},{"hocs/components":"THcGa","services":"f5PO7","utils/objects-handle":"kOfSo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7epTV":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "AddChatUsersButton", ()=>AddChatUsersButton);
@@ -17197,7 +17264,7 @@ function afterRequestCallback(response) {
 async function afterValidationCallback() {
     const formData = this.collectFormData();
     const apiData = (0, _api.transformProfileFormDatatoAPI)(formData);
-    console.log(`API data: ${JSON.stringify(apiData)}`);
+    // console.log(`API data: ${JSON.stringify(apiData)}`);
     await (0, _services.ProfileService).changeUserProfile(apiData, afterRequestCallback.bind(this));
 }
 
@@ -17392,7 +17459,7 @@ class DataChangeButton extends (0, _components.Button) {
             form.state.apiResponseSuccess = "";
             if (this.state.mode === "data_saved") {
                 this.state.mode = "data_changing";
-                this.props.label = "save data";
+                this.props.label = "Save Data";
                 // console.log('state = ', this.state.mode);
                 Object.values(form.refs).forEach((dataField)=>{
                     dataField.toggleDisabledState(true);
@@ -17401,9 +17468,9 @@ class DataChangeButton extends (0, _components.Button) {
                 await (0, _inputForm.formSubmitButtonCallback).call(this);
                 if (form.getAPIResponseError() === "") {
                     this.state.mode = "data_saved";
-                    this.props.label = "change data";
+                    this.props.label = "Change Data";
                     Object.values(form.refs).forEach((dataField)=>{
-                        dataField.toggleDisabledState();
+                        dataField.toggleDisabledState(false);
                     });
                 }
             }
@@ -17536,7 +17603,7 @@ class AvatarInput extends (0, _components.FileInput) {
         const onFileChangeCallback = function() {
             const fileInput = this._unwrappedElement;
             const submitState = this.refs.avatarSubmit.state;
-            console.log(`FILE CHANGE`, fileInput.value);
+            // console.log(`FILE CHANGE`, fileInput.value);
             if (!fileInput.value) submitState.uploadingStatus = (0, _fileInput.EnumFileUploadingStatus).FileNotSelected;
             else submitState.uploadingStatus = (0, _fileInput.EnumFileUploadingStatus).FileSelected;
         };
@@ -17764,9 +17831,6 @@ var _objectsHandle = require("utils/objects-handle");
 function userSetter(oldValue, newValue) {
     const pageType = this.state.page;
     const { page  } = this;
-    console.log("pageType = ", pageType);
-    console.log("oldValue = ", oldValue);
-    console.log("newValue = ", newValue);
     switch(pageType){
         case (0, _appPages.AppPages).Profile:
             if ((0, _objectsHandle.isNullish)(newValue)) throw new Error("User Can't Be Nullified On Profile Page");

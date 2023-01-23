@@ -294,6 +294,10 @@
   display: flex;
 }
 
+.chat__body__message-placeholder {
+  height: auto;
+}
+
 .chat__body__title {
   width: 100%;
   height: 54px;

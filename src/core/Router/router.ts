@@ -42,7 +42,7 @@ export class Router implements RouterCore<AppRoutes> {
 
     window.onpopstate = function () {
       const currentPath = this.getCurrentPath();
-      console.log(`ONPOPSTATE: ${currentPath}`);
+      // console.log(`ONPOPSTATE: ${currentPath}`);
       const { route } = this.matchRouteByPath(currentPath);
       this.onRouteChange.call(this, route);
     }.bind(this);
@@ -62,10 +62,10 @@ export class Router implements RouterCore<AppRoutes> {
   }
 
   go(route: AppRoutes) {
-    console.log(`Go to route '${route}'`);
+    // console.log(`Go to route '${route}'`);
     const { path } = this.routesData[route];
     window.history.pushState({}, '', path);
-    console.log(`Go: state pushed to ${path}'`);
+    // console.log(`Go: state pushed to ${path}'`);
     this.onRouteChange(route);
   }
 
@@ -94,9 +94,9 @@ export class Router implements RouterCore<AppRoutes> {
 
     let route = MapPathToRoute[pathname];
     if (route) {
-      console.log(`pathname "${pathname}" matches "${route}" route`);
+      // console.log(`pathname "${pathname}" matches "${route}" route`);
     } else {
-      console.log(`no routes matching pathname "${pathname}"`);
+      // console.log(`no routes matching pathname "${pathname}"`);
       route = AppRoutes.NotFound;
     }
     return { route, path: pathname };

@@ -46,7 +46,7 @@ export class Modal extends Block {
   public setContent(newContentBlock: Block) {
     const oldContentType = this.contentType;
     const newContentType = newContentBlock.componentName;
-    console.log(`MODAL CONTENT: ${oldContentType} -> ${newContentType}`);
+    // console.log(`MODAL CONTENT: ${oldContentType} -> ${newContentType}`);
 
     this.setChildByPath('content', newContentBlock);
   }

@@ -7,7 +7,7 @@ export class AvatarInput extends FileInput {
       const fileInput = this._unwrappedElement;
       const submitState = this.refs.avatarSubmit.state;
 
-      console.log(`FILE CHANGE`, fileInput.value);
+      // console.log(`FILE CHANGE`, fileInput.value);
       if (!fileInput.value) {
         submitState.uploadingStatus = EnumFileUploadingStatus.FileNotSelected;
       } else {

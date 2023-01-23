@@ -31,7 +31,7 @@ export class MessagesDisplayArea extends WithStoreBlock {
         const messages = this.store.getStateValueByPath(
           `chatMessages.${chatID}`
         );
-        console.log(`CHAT(${chatID}): ${JSON.stringify(messages)}`);
+        // console.log(`CHAT(${chatID}): ${JSON.stringify(messages)}`);
         warning = EnumChatAbsenceWarnings.NoMessagesWritten;
       }
     }

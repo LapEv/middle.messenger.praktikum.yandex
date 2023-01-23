@@ -102,13 +102,13 @@ export class Store {
       EnumStoreEvents.PageChanged,
       function (newPage: AppPages) {
         const PageComponent = getPageComponent(newPage);
-        console.log('newPage = ', newPage);
+        // console.log('newPage = ', newPage);
         const page = new PageComponent();
-        console.log('PageComponent = ', PageComponent);
+        // console.log('PageComponent = ', PageComponent);
         this.page = page;
         renderDOM({ component: page });
         document.title = `App / ${page.componentName}`;
-        console.log(`Store event '${EnumStoreEvents.PageChanged}' emitted`);
+        // console.log(`Store event '${EnumStoreEvents.PageChanged}' emitted`);
       }.bind(this)
     );
   }
@@ -134,11 +134,11 @@ export class Store {
         }
 
         (target as Record<string, unknown>)[prop] = newValue;
-        console.log(
-          `STORE ${prop}: ${JSON.stringify(oldValue)} -> ${JSON.stringify(
-            newValue
-          )}`
-        );
+        // console.log(
+        //   `STORE ${prop}: ${JSON.stringify(oldValue)} -> ${JSON.stringify(
+        //     newValue
+        //   )}`
+        // );
 
         switch (prop) {
           case 'page':

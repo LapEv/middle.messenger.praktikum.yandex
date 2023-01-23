@@ -1,6 +1,6 @@
-import { transformChatGetTokenResponseToToken } from "utils/api/from-api-data-transformers";
-import { ChatsAPI } from "api";
-import { ChatMessagesHandler } from "./chat-messages-handler";
+import { transformChatGetTokenResponseToToken } from 'utils/api/from-api-data-transformers';
+import { ChatsAPI } from 'api';
+import { ChatMessagesHandler } from './chat-messages-handler';
 
 export class SocketsCreatorClass {
   async getChatToken(
@@ -10,11 +10,11 @@ export class SocketsCreatorClass {
     const request = await ChatsAPI.getChatToken(chatID);
     const { status, response } = request;
 
-    console.log(
-      `GET CHAT(${chatID}) TOKEN REQUEST: status ${status}; response ${JSON.stringify(
-        response
-      )}`
-    );
+    // console.log(
+    //   `GET CHAT(${chatID}) TOKEN REQUEST: status ${status}; response ${JSON.stringify(
+    //     response
+    //   )}`
+    // );
 
     if (afterRequestCallback) {
       await afterRequestCallback(response);

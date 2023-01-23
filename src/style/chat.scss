@@ -136,6 +136,9 @@
     font-size: 12;
     color: $color-text-background;
     padding: 10px 20px;
+    &__message-placeholder {
+      height: auto;
+    }
     &__title {
       width: 100%;
       height: 54px;

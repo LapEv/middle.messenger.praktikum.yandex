@@ -13,11 +13,11 @@ export class DeleteChatButton extends WithStoreButton {
           click: [
             function () {
               const currentChatID = this.store.getCurrentChatID();
-              console.log(
-                `CURRENT CHAT: ${JSON.stringify(
-                  transformChatIDToDeleteAPI(currentChatID)
-                )}`
-              );
+              // console.log(
+              //   `CURRENT CHAT: ${JSON.stringify(
+              //     transformChatIDToDeleteAPI(currentChatID)
+              //   )}`
+              // );
               ChatsService.deleteChat(currentChatID);
             },
           ],

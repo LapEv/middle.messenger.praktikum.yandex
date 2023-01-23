@@ -14,11 +14,11 @@ class ProfileServiceClass {
       status = request.status;
       response = request.response;
 
-      console.log(
-        `PROFILE WITH ID(${userID}) GET REQUEST: status ${status}; response: ${JSON.stringify(
-          response
-        )}`
-      );
+      // console.log(
+      //   `PROFILE WITH ID(${userID}) GET REQUEST: status ${status}; response: ${JSON.stringify(
+      //     response
+      //   )}`
+      // );
 
       if (!APIResponseHasError(response)) {
         const user = transformProfileAPIResponseToUserData(response);
@@ -44,11 +44,11 @@ class ProfileServiceClass {
       status = request.status;
       response = request.response;
 
-      console.log(
-        `PROFILE CHANGE REQUEST: status ${status}; response: ${JSON.stringify(
-          response
-        )}`
-      );
+      // console.log(
+      //   `PROFILE CHANGE REQUEST: status ${status}; response: ${JSON.stringify(
+      //     response
+      //   )}`
+      // );
 
       if (afterRequestCallback) {
         await afterRequestCallback(response);
@@ -73,11 +73,11 @@ class ProfileServiceClass {
       status = request.status;
       response = request.response;
 
-      console.log(
-        `PROFILE CHANGE AVATAR REQUEST: status ${status}; response: ${JSON.stringify(
-          response
-        )}`
-      );
+      // console.log(
+      //   `PROFILE CHANGE AVATAR REQUEST: status ${status}; response: ${JSON.stringify(
+      //     response
+      //   )}`
+      // );
 
       if (afterRequestCallback) {
         await afterRequestCallback(response);

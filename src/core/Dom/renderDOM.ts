@@ -7,7 +7,7 @@ export function renderDOM({
   rootSelector?: string;
   component: Block;
 }) {
-  console.log(`render ${component.componentName}`);
+  // console.log(`render ${component.componentName}`);
   const root = document.querySelector(rootSelector);
 
   if (!root) {

@@ -19,7 +19,7 @@ export class ChatsList extends WithStoreBlock {
     if (this.store.userHasAnyChats()) {
       chats = this.store.getChatsDataByPath();
     }
-    console.log(`CHATS: ${JSON.stringify(chats)}`);
+    // console.log(`CHATS: ${JSON.stringify(chats)}`);
 
     const chatsList = [] as Block[];
     Object.keys(chats!).forEach((id) => {

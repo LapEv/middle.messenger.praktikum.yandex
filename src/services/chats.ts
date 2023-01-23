@@ -1,13 +1,13 @@
-import { ChatsAPI } from "api";
+import { ChatsAPI } from 'api';
 import {
   APIResponseHasError,
   transformAvatarURL,
   transformChatsGetResponseToChatsData,
-} from "utils/api";
-import { transformChatUsersGetResponseToChatsUsersData } from "utils/api/from-api-data-transformers";
-import { transformChatIDToDeleteAPI } from "utils/api/to-api-data-transformers";
-import { objectWithoutKey } from "utils/objects-handle";
-import { SocketsCreator } from "services";
+} from 'utils/api';
+import { transformChatUsersGetResponseToChatsUsersData } from 'utils/api/from-api-data-transformers';
+import { transformChatIDToDeleteAPI } from 'utils/api/to-api-data-transformers';
+import { objectWithoutKey } from 'utils/objects-handle';
+import { SocketsCreator } from 'services';
 
 export class ChatsServiceClass {
   async getChats(afterRequestCallback?: TAfterRequestCallback) {
@@ -19,11 +19,11 @@ export class ChatsServiceClass {
       status = request.status;
       response = request.response;
 
-      console.log(
-        `GET CHATS REQUEST: status ${status}; response ${JSON.stringify(
-          response
-        )}`
-      );
+      // console.log(
+      //   `GET CHATS REQUEST: status ${status}; response ${JSON.stringify(
+      //     response
+      //   )}`
+      // );
 
       if (afterRequestCallback) {
         await afterRequestCallback(response);
@@ -54,11 +54,11 @@ export class ChatsServiceClass {
       status = request.status;
       response = request.response;
 
-      console.log(
-        `CREATE CHAT REQUEST: status ${status}; response ${JSON.stringify(
-          response
-        )}`
-      );
+      // console.log(
+      //   `CREATE CHAT REQUEST: status ${status}; response ${JSON.stringify(
+      //     response
+      //   )}`
+      // );
 
       if (afterRequestCallback) {
         await afterRequestCallback(response);
@@ -93,11 +93,11 @@ export class ChatsServiceClass {
       status = request.status;
       response = request.response;
 
-      console.log(
-        `DELETE CHAT(${chatID}) REQUEST: status ${status}; response ${JSON.stringify(
-          response
-        )}`
-      );
+      // console.log(
+      //   `DELETE CHAT(${chatID}) REQUEST: status ${status}; response ${JSON.stringify(
+      //     response
+      //   )}`
+      // );
 
       if (afterRequestCallback) {
         await afterRequestCallback(response);
@@ -132,11 +132,11 @@ export class ChatsServiceClass {
       status = request.status;
       response = request.response;
 
-      console.log(
-        `GET CHAT(${chatID}) USERS REQUEST: status ${status}; response ${JSON.stringify(
-          response
-        )}`
-      );
+      // console.log(
+      //   `GET CHAT(${chatID}) USERS REQUEST: status ${status}; response ${JSON.stringify(
+      //     response
+      //   )}`
+      // );
 
       if (afterRequestCallback) {
         await afterRequestCallback(response);
@@ -164,11 +164,11 @@ export class ChatsServiceClass {
 
       const usersList = data.users;
 
-      console.log(
-        `ADD USERS TO CHAT(${chatID}) REQUEST: status ${status}; response ${JSON.stringify(
-          response
-        )}`
-      );
+      // console.log(
+      //   `ADD USERS TO CHAT(${chatID}) REQUEST: status ${status}; response ${JSON.stringify(
+      //     response
+      //   )}`
+      // );
 
       if (afterRequestCallback) {
         await afterRequestCallback(response);
@@ -209,13 +209,13 @@ export class ChatsServiceClass {
       const request = await ChatsAPI.changeAvatar(avatarPutForm);
       status = request.status;
       response = request.response;
-      chatID = avatarPutForm.get("chatId");
+      chatID = avatarPutForm.get('chatId');
 
-      console.log(
-        `CHANGE CHAT(${chatID}) AVATAR REQUEST: status ${status}; response ${JSON.stringify(
-          response
-        )}`
-      );
+      // console.log(
+      //   `CHANGE CHAT(${chatID}) AVATAR REQUEST: status ${status}; response ${JSON.stringify(
+      //     response
+      //   )}`
+      // );
 
       if (afterRequestCallback) {
         await afterRequestCallback(response);

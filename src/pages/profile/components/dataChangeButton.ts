@@ -16,7 +16,7 @@ export class DataChangeButton extends Button {
 
       if (this.state.mode === FormMode.DataSaved) {
         this.state.mode = FormMode.DataChanging;
-        this.props.label = 'save data';
+        this.props.label = 'Save Data';
 
         // console.log('state = ', this.state.mode);
         Object.values(form.refs).forEach((dataField: Input) => {
@@ -27,10 +27,10 @@ export class DataChangeButton extends Button {
 
         if (form.getAPIResponseError() === '') {
           this.state.mode = FormMode.DataSaved;
-          this.props.label = 'change data';
+          this.props.label = 'Change Data';
 
           Object.values(form.refs).forEach((dataField: Input) => {
-            dataField.toggleDisabledState();
+            dataField.toggleDisabledState(false);
           });
         }
       }

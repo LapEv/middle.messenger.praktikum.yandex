@@ -32,9 +32,9 @@ export class SendMessageButton extends WithStoreButton {
 
     const messageInput = this.refs.messageInput as Input;
     const webSocket = store.getSocketByChatID(currentChatID, true);
-    console.log(
-      `CHAT(${currentChatID}) Websocket: ${JSON.stringify(webSocket)}`
-    );
+    // console.log(
+    //   `CHAT(${currentChatID}) Websocket: ${JSON.stringify(webSocket)}`
+    // );
 
     if (isChatSelected) {
       this.setPropByPath('events.click', [
