@@ -8,6 +8,10 @@ export function userSetter(
   const pageType = this.state.page;
   const { page } = this;
 
+  console.log('pageType = ', pageType);
+  console.log('oldValue = ', oldValue);
+  console.log('newValue = ', newValue);
+
   switch (pageType as AppPages) {
     case AppPages.Profile:
       if (isNullish(newValue)) {
@@ -24,9 +28,6 @@ export function userSetter(
 
       break;
     case AppPages.Login:
-      if (isNullish(oldValue) !== isNullish(newValue)) {
-        page.createLinks();
-      }
       break;
     default:
   }

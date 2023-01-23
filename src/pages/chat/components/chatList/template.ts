@@ -5,5 +5,6 @@ export default `
     {{{ addChatUsersButton }}}
     {{{ avatarChooseButton }}}
     {{{ deleteChatButton }}}
-  </section>
+    {{{ exitLink }}}
+    </section>
 `;

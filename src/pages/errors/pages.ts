@@ -1,4 +1,7 @@
+import { Link } from 'components/link';
 import { Block } from 'core/dom';
+import { AppRoutes } from 'core/router';
+import { WithRouter } from 'hocs';
 import template from './template';
 
 type ErrorPageProps = WithComponentCommonProps<{
@@ -8,10 +11,26 @@ type ErrorPageProps = WithComponentCommonProps<{
 export type TErrorPage = Block<ErrorPageProps>;
 export type TErrorPageClass = typeof Block<ErrorPageProps>;
 
+const LinkWithRouter = WithRouter(Link);
+
 function getErrorPageClass(initProps: ErrorPageProps): TErrorPageClass {
   class ErrorPage extends Block<ErrorPageProps> {
     constructor() {
       const children: TComponentChildren = {};
+      children.homeButton = new LinkWithRouter({
+        props: {
+          label: 'На страницу логина',
+          htmlName: 'error',
+          htmlClasses: ['auth__noaccount'],
+          events: {
+            click: [
+              function () {
+                this.router.go(AppRoutes.Login);
+              },
+            ],
+          },
+        },
+      });
       super({ props: initProps, children });
     }
 

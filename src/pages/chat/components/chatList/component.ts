@@ -1,3 +1,4 @@
+import { LogoutButton } from 'components/buttons';
 import { Block } from 'core/dom';
 import * as Buttons from './buttons';
 import template from './template';
@@ -11,6 +12,7 @@ export class ChatListPage extends Block {
     children.deleteChatButton = new Buttons.DeleteChatButton();
     children.addChatUsersButton = new Buttons.AddChatUsersButton();
     children.avatarChooseButton = new Buttons.AvatarChooseButton();
+    children.exitLink = new LogoutButton();
 
     super({ props: { htmlStyle: { display: 'none' } }, children });
   }

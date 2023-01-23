@@ -1,5 +1,5 @@
 export default `
-  <main class="error-page">
+  <main class="error__container">
     <div class="error-code-section">
       <h1 class="error-code">{{ errorCode }}</h1>
     </div>

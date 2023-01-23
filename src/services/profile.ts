@@ -1,8 +1,8 @@
-import { ProfileAPI } from "api";
+import { ProfileAPI } from 'api';
 import {
   APIResponseHasError,
   transformProfileAPIResponseToUserData,
-} from "utils/api";
+} from 'utils/api';
 
 class ProfileServiceClass {
   async getUserProfile(userID: number) {

@@ -2,18 +2,50 @@ import { Block } from 'core/dom';
 import avatarImagePlaceholder from 'static/img/profile_avatar.png';
 import { ImageComponent, Input } from 'components';
 import { WithStore } from 'hocs';
-import profileTemplate from './profileTemplate';
+import { WithRouter } from 'hocs';
+
+import template from './profileTemplate';
 import { DataChangeButton, ProfilePageInputForm } from './components';
 import { EnumInputFields } from './components/data-form';
 import { MapInputFieldToUserDataRecord } from './components/data-form/fields';
-import { AvatarUploadForm } from './components/avatar-upload-form';
+import arrowBackImage from 'static/img/arrowBack.png';
+import { profileData } from './profileData';
+import { AppRoutes } from 'core/router';
+import { AvatarInput } from './components/avatar-upload-form/avatar-input';
+import { SubmitSection } from './components/avatar-upload-form/submit-section';
+import { LogoutButton } from 'components/buttons';
 
 type TProfilePageProps = WithComponentCommonProps<{ userID: number }>;
 const ProfilePageBlock = WithStore(Block<TProfilePageProps>);
-
+const ImageWithRouter = WithRouter(ImageComponent);
 export class ProfilePage extends ProfilePageBlock {
-  constructor() {
+  constructor(profilePageImageRef: ImageComponent) {
     const children: TComponentChildren = {};
+
+    children.arrowBackImage = new ImageWithRouter({
+      props: {
+        htmlAttributes: {
+          src: arrowBackImage,
+          alt: profileData.backLink.alt,
+        },
+        htmlClasses: [profileData.backLink.class],
+        htmlWrapper: {
+          componentAlias: 'wrappedProfileLink',
+          htmlWrapperTemplate: `
+              <div class='profile__buttonBack'>
+                {{{wrappedProfileLink}}}
+              </div>
+            `,
+        },
+        events: {
+          click: [
+            function () {
+              this.router.go(AppRoutes.Chat);
+            },
+          ],
+        },
+      },
+    });
 
     const storeAvatar = window.store.getUserDataByPath('avatar');
     const imageSource = storeAvatar || avatarImagePlaceholder;
@@ -23,20 +55,25 @@ export class ProfilePage extends ProfilePageBlock {
           src: imageSource,
           alt: 'Profile Avatar',
         },
+        htmlClasses: ['profile__avatar__img'],
       },
     });
     children.avatarImage = avatarImage;
-    children.avatarUploadForm = new AvatarUploadForm(avatarImage);
-
     children.profileDataForm = new ProfilePageInputForm();
+
+    // children.exitLink = new LogoutButton();
 
     const refs = {} as TComponentRefs;
 
-    super({ children, refs });
+    super({
+      children,
+      refs: { ...refs, profileImage: profilePageImageRef },
+      state: { uploadingStatus: '' },
+    });
   }
 
   protected render(): string {
-    return profileTemplate;
+    return template;
   }
 
   protected _afterPropsAssignHook(): void {
@@ -45,7 +82,29 @@ export class ProfilePage extends ProfilePageBlock {
     this.children.changeDataButton = new DataChangeButton({
       form: this.children.profileDataForm as Block,
     });
+
     this.props.userID = this.store.getUserDataByPath('id') as number;
+    const avatarInput = this._createAvatarInput();
+    this.children.avatarInput = avatarInput;
+
+    const submitSection = this._createAvatarSubmitSection();
+    this.children.submitSection = submitSection;
+
+    const avatarFileInput = avatarInput.getChildByPath('fileInput');
+    avatarFileInput.refs.avatarSubmit = submitSection;
+
+    const submitButton = submitSection.getChildByPath('submitButton');
+    Object.assign(submitButton.refs, {
+      avatarInput,
+    });
+  }
+
+  private _createAvatarInput() {
+    return new AvatarInput();
+  }
+
+  private _createAvatarSubmitSection() {
+    return new SubmitSection();
   }
 
   public updateUserInfo() {

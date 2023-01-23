@@ -1,30 +1,25 @@
 export default `
-      <main class="profile-page">
-        <header class="profile-form-header">
-          <div class="image-section">
+      <main class="profile">
+        {{{arrowBackImage}}}
+        <div class='profile__container'>
+          <div class="profile__avatar">
             {{{ avatarImage }}}
+            <div class="profile__avatar__change">
+              {{{ avatarInput }}}
+            </div>
+            {{{ submitSection }}}
           </div>
-          <div class="name-section">
-            <span class="user-id">ID: {{ userID }}</span>
+          {{{ profileDataForm }}}
+          <div class='profile__button__container'>
+            {{{changeDataButton}}}
+            <div class='profile__line2'></div>
+            {{{exitLink}}}
           </div>
-        </header>
-        {{{ profileDataForm }}}
-        <nav class="profile-nav-section">
-          <section class="data-change-section">
-            <div>
-              {{{ changeDataButton }}}
-            </div>
-            <div>
-              <a class="change-password" href="#app">Изменить пароль</a>
-            </div>
-          </section>
-          <section class="home-button-section">
-            <div>
-              {{{ homeButton }}}
-            </div>
-          </section>
-          
-          {{{ avatarUploadForm }}}
-        </nav>
+       </div>
       </main>
 `;
+
+// <div class='profile__line2'></div>
+// {{{changePasswordLink}}}
+// <div class='profile__line2'></div>
+// {{{exitLink}}}

@@ -1,1 +1,1 @@
-export { AvatarUploadForm } from "./component";
+export { AvatarUploadForm } from './component';

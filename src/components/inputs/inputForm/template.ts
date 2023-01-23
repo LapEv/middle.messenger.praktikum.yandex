@@ -18,12 +18,12 @@ export default function getInputFormTemplate(
   });
   content = `
       ${content}
-      <div class="api-success">
+      <div class="profile__data__apiSuccess">
         {{#if apiResponseSuccess }} 
           <span class="api-success"> {{ apiResponseSuccess }} </span>
         {{/if}}
       </div>
-      <div class="api-error">
+      <div class="profile__data__apiError">
         {{#if apiResponseError }} 
           <span> {{ apiResponseError }} </span>
         {{/if}}

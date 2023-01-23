@@ -109,6 +109,9 @@ export class InputForm<
       );
     }
 
+    console.log('this.props.type = ', this.props.type);
+    if (!this.props.type) return;
+
     this.children.link =
       this.props.type === 'login'
         ? new LinkWithRouter({

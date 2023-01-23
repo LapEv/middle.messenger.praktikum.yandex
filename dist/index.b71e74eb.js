@@ -823,7 +823,7 @@ var _chat = require("pages/chat/chat");
 var _profile = require("pages/profile/profile");
 var _pages = require("./errors/pages");
 
-},{"pages/login/login":"dCEbf","pages/registration/registration":"ipn4T","pages/chat/chat":"9muaU","pages/profile/profile":"atqZr","./errors/pages":"a1Xr3","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./appPages":"c7aIo"}],"dCEbf":[function(require,module,exports) {
+},{"./appPages":"c7aIo","pages/login/login":"dCEbf","pages/registration/registration":"ipn4T","pages/chat/chat":"9muaU","pages/profile/profile":"atqZr","./errors/pages":"a1Xr3","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dCEbf":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "LoginPage", ()=>LoginPage);
@@ -12937,9 +12937,13 @@ class Input extends (0, _dom.Block) {
         const element = this._unwrappedElement;
         if (state !== undefined) {
             element.disabled = state;
+            element.classList.add("profile__data__data__active");
+            element.classList.remove("profile__data__data");
             return;
         }
         element.disabled = !element.disabled;
+        element.classList.add("profile__data__data");
+        element.classList.remove("profile__data__data__active");
     }
     setValue(value) {
         const element = this._unwrappedElement;
@@ -13197,6 +13201,8 @@ class InputForm extends (0, _dom.Block) {
         if (this.props.isSubmitButtonNeeded && !this.children.submitButton) this.children.submitButton = new (0, _submitButton.FormSubmitButton)({
             form: this
         }, this.props.label);
+        console.log("this.props.type = ", this.props.type);
+        if (!this.props.type) return;
         this.children.link = this.props.type === "login" ? new LinkWithRouter({
             props: {
                 label: (0, _loginDataDefault.default).link.name,
@@ -13310,12 +13316,12 @@ function getInputFormTemplate(enumFormFieldsNames) {
     });
     content = `
       ${content}
-      <div class="api-success">
+      <div class="profile__data__apiSuccess">
         {{#if apiResponseSuccess }} 
           <span class="api-success"> {{ apiResponseSuccess }} </span>
         {{/if}}
       </div>
-      <div class="api-error">
+      <div class="profile__data__apiError">
         {{#if apiResponseError }} 
           <span> {{ apiResponseError }} </span>
         {{/if}}
@@ -14053,9 +14059,9 @@ class LogoutButton extends (0, _components.WithRouterButton) {
     constructor(props){
         super({
             props: {
-                label: "Logout",
+                label: "Выйти из системы",
                 htmlClasses: [
-                    "logout-button"
+                    "chat__settings__item"
                 ],
                 events: {
                     click: [
@@ -14082,6 +14088,7 @@ parcelHelpers.export(exports, "WithStoreValidatedInput", ()=>WithStoreValidatedI
 parcelHelpers.export(exports, "WithStoreImageComponent", ()=>WithStoreImageComponent);
 parcelHelpers.export(exports, "WithRouterLink", ()=>WithRouterLink);
 parcelHelpers.export(exports, "WithRouterButton", ()=>WithRouterButton);
+parcelHelpers.export(exports, "WithRouterImage", ()=>WithRouterImage);
 var _dom = require("core/dom");
 var _components = require("components");
 var _buttons = require("components/buttons");
@@ -14097,6 +14104,7 @@ const WithStoreValidatedInput = (0, _withStore.WithStore)((0, _inputs.InputWithV
 const WithStoreImageComponent = (0, _withStore.WithStore)((0, _components.ImageComponent));
 const WithRouterLink = (0, _withRouter.WithRouter)((0, _components.Link));
 const WithRouterButton = (0, _withRouter.WithRouter)((0, _buttons.Button));
+const WithRouterImage = (0, _withRouter.WithRouter)((0, _components.ImageComponent));
 
 },{"core/dom":"3BLMu","components":"dHnah","components/buttons":"fWrjK","components/inputs":"fRfcK","../withStore":"45TSc","../withRouter":"kYXgc","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"f5PO7":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -15681,7 +15689,7 @@ class AddChatModal extends (0, _dom.Block) {
     }
 }
 
-},{"core/dom":"3BLMu","components":"dHnah","utils/api":"i2lTI","services":"f5PO7","utils/api/to-api-data-transformers":"gwV72","./template":"apQGS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","pages/chat/components/modals":"6qehp"}],"apQGS":[function(require,module,exports) {
+},{"core/dom":"3BLMu","components":"dHnah","utils/api":"i2lTI","services":"f5PO7","utils/api/to-api-data-transformers":"gwV72","./template":"apQGS","pages/chat/components/modals":"6qehp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"apQGS":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 exports.default = `
@@ -15810,7 +15818,7 @@ class CreateChatModal extends (0, _dom.Block) {
     }
 }
 
-},{"core/dom":"3BLMu","components":"dHnah","services/chats":"NtgIu","utils/api":"i2lTI","./template":"h7zha","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","pages/chat/components/modals":"6qehp"}],"h7zha":[function(require,module,exports) {
+},{"core/dom":"3BLMu","components":"dHnah","services/chats":"NtgIu","utils/api":"i2lTI","./template":"h7zha","pages/chat/components/modals":"6qehp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"h7zha":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 exports.default = `
@@ -16742,18 +16750,20 @@ var _component = require("./component");
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ChatListPage", ()=>ChatListPage);
+var _buttons = require("components/buttons");
 var _dom = require("core/dom");
-var _buttons = require("./buttons");
+var _buttons1 = require("./buttons");
 var _template = require("./template");
 var _templateDefault = parcelHelpers.interopDefault(_template);
 class ChatListPage extends (0, _dom.Block) {
     constructor(){
         const children = {};
-        children.collapseButton = new _buttons.CollapseButton();
-        children.createChatButton = new _buttons.CreateChatButton();
-        children.deleteChatButton = new _buttons.DeleteChatButton();
-        children.addChatUsersButton = new _buttons.AddChatUsersButton();
-        children.avatarChooseButton = new _buttons.AvatarChooseButton();
+        children.collapseButton = new _buttons1.CollapseButton();
+        children.createChatButton = new _buttons1.CreateChatButton();
+        children.deleteChatButton = new _buttons1.DeleteChatButton();
+        children.addChatUsersButton = new _buttons1.AddChatUsersButton();
+        children.avatarChooseButton = new _buttons1.AvatarChooseButton();
+        children.exitLink = new (0, _buttons.LogoutButton)();
         super({
             props: {
                 htmlStyle: {
@@ -16772,7 +16782,7 @@ class ChatListPage extends (0, _dom.Block) {
     }
 }
 
-},{"core/dom":"3BLMu","./buttons":"8APea","./template":"7SmnO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8APea":[function(require,module,exports) {
+},{"core/dom":"3BLMu","./buttons":"8APea","./template":"7SmnO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","components/buttons":"fWrjK"}],"8APea":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "CollapseButton", ()=>(0, _collapse.CollapseButton));
@@ -16975,7 +16985,8 @@ exports.default = `
     {{{ addChatUsersButton }}}
     {{{ avatarChooseButton }}}
     {{{ deleteChatButton }}}
-  </section>
+    {{{ exitLink }}}
+    </section>
 `;
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"atqZr":[function(require,module,exports) {
@@ -16991,11 +17002,43 @@ var _profileTemplate = require("./profileTemplate");
 var _profileTemplateDefault = parcelHelpers.interopDefault(_profileTemplate);
 var _components1 = require("./components");
 var _fields = require("./components/data-form/fields");
-var _avatarUploadForm = require("./components/avatar-upload-form");
+var _arrowBackPng = require("static/img/arrowBack.png");
+var _arrowBackPngDefault = parcelHelpers.interopDefault(_arrowBackPng);
+var _profileData = require("./profileData");
+var _router = require("core/router");
+var _avatarInput = require("./components/avatar-upload-form/avatar-input");
+var _submitSection = require("./components/avatar-upload-form/submit-section");
 const ProfilePageBlock = (0, _hocs.WithStore)((0, _dom.Block));
+const ImageWithRouter = (0, _hocs.WithRouter)((0, _components.ImageComponent));
 class ProfilePage extends ProfilePageBlock {
-    constructor(){
+    constructor(profilePageImageRef){
         const children = {};
+        children.arrowBackImage = new ImageWithRouter({
+            props: {
+                htmlAttributes: {
+                    src: (0, _arrowBackPngDefault.default),
+                    alt: (0, _profileData.profileData).backLink.alt
+                },
+                htmlClasses: [
+                    (0, _profileData.profileData).backLink.class
+                ],
+                htmlWrapper: {
+                    componentAlias: "wrappedProfileLink",
+                    htmlWrapperTemplate: `
+              <div class='profile__buttonBack'>
+                {{{wrappedProfileLink}}}
+              </div>
+            `
+                },
+                events: {
+                    click: [
+                        function() {
+                            this.router.go((0, _router.AppRoutes).Chat);
+                        }
+                    ]
+                }
+            }
+        });
         const storeAvatar = window.store.getUserDataByPath("avatar");
         const imageSource = storeAvatar || (0, _profileAvatarPngDefault.default);
         const avatarImage = new (0, _components.ImageComponent)({
@@ -17003,16 +17046,25 @@ class ProfilePage extends ProfilePageBlock {
                 htmlAttributes: {
                     src: imageSource,
                     alt: "Profile Avatar"
-                }
+                },
+                htmlClasses: [
+                    "profile__avatar__img"
+                ]
             }
         });
         children.avatarImage = avatarImage;
-        children.avatarUploadForm = new (0, _avatarUploadForm.AvatarUploadForm)(avatarImage);
         children.profileDataForm = new (0, _components1.ProfilePageInputForm)();
+        // children.exitLink = new LogoutButton();
         const refs = {};
         super({
             children,
-            refs
+            refs: {
+                ...refs,
+                profileImage: profilePageImageRef
+            },
+            state: {
+                uploadingStatus: ""
+            }
         });
     }
     render() {
@@ -17024,6 +17076,22 @@ class ProfilePage extends ProfilePageBlock {
             form: this.children.profileDataForm
         });
         this.props.userID = this.store.getUserDataByPath("id");
+        const avatarInput = this._createAvatarInput();
+        this.children.avatarInput = avatarInput;
+        const submitSection = this._createAvatarSubmitSection();
+        this.children.submitSection = submitSection;
+        const avatarFileInput = avatarInput.getChildByPath("fileInput");
+        avatarFileInput.refs.avatarSubmit = submitSection;
+        const submitButton = submitSection.getChildByPath("submitButton");
+        Object.assign(submitButton.refs, {
+            avatarInput
+        });
+    }
+    _createAvatarInput() {
+        return new (0, _avatarInput.AvatarInput)();
+    }
+    _createAvatarSubmitSection() {
+        return new (0, _submitSection.SubmitSection)();
     }
     updateUserInfo() {
         const userData = this.store.getUserDataByPath();
@@ -17038,52 +17106,45 @@ class ProfilePage extends ProfilePageBlock {
     }
 }
 
-},{"core/dom":"3BLMu","static/img/profile_avatar.png":"j6gct","components":"dHnah","hocs":"8D4Xk","./profileTemplate":"5ySyV","./components":"ghiMZ","./components/data-form/fields":"3ZzdV","./components/avatar-upload-form":"iLR7h","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"j6gct":[function(require,module,exports) {
+},{"core/dom":"3BLMu","static/img/profile_avatar.png":"j6gct","components":"dHnah","hocs":"8D4Xk","./profileTemplate":"5ySyV","./components":"ghiMZ","./components/data-form/fields":"3ZzdV","static/img/arrowBack.png":"P7Wev","./profileData":"hNHYd","core/router":"6PhbH","./components/avatar-upload-form/avatar-input":"iAhn5","./components/avatar-upload-form/submit-section":"jdnHD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"j6gct":[function(require,module,exports) {
 module.exports = require("49cc8f1abcba409b").getBundleURL("7UhFu") + "profile_avatar.558a0e16.png" + "?" + Date.now();
 
 },{"49cc8f1abcba409b":"lgJ39"}],"5ySyV":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 exports.default = `
-      <main class="profile-page">
-        <header class="profile-form-header">
-          <div class="image-section">
+      <main class="profile">
+        {{{arrowBackImage}}}
+        <div class='profile__container'>
+          <div class="profile__avatar">
             {{{ avatarImage }}}
+            <div class="profile__avatar__change">
+              {{{ avatarInput }}}
+            </div>
+            {{{ submitSection }}}
           </div>
-          <div class="name-section">
-            <span class="user-id">ID: {{ userID }}</span>
+          {{{ profileDataForm }}}
+          <div class='profile__button__container'>
+            {{{changeDataButton}}}
+            <div class='profile__line2'></div>
+            {{{exitLink}}}
           </div>
-        </header>
-        {{{ profileDataForm }}}
-        <nav class="profile-nav-section">
-          <section class="data-change-section">
-            <div>
-              {{{ changeDataButton }}}
-            </div>
-            <div>
-              <a class="change-password" href="#app">Изменить пароль</a>
-            </div>
-          </section>
-          <section class="home-button-section">
-            <div>
-              {{{ homeButton }}}
-            </div>
-          </section>
-          
-          {{{ avatarUploadForm }}}
-        </nav>
+       </div>
       </main>
-`;
+`; // <div class='profile__line2'></div>
+ // {{{changePasswordLink}}}
+ // <div class='profile__line2'></div>
+ // {{{exitLink}}}
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ghiMZ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ProfilePageInputForm", ()=>(0, _dataForm.ProfilePageInputForm));
-parcelHelpers.export(exports, "DataChangeButton", ()=>(0, _dataCangeButton.DataChangeButton));
+parcelHelpers.export(exports, "DataChangeButton", ()=>(0, _dataChangeButton.DataChangeButton));
 var _dataForm = require("./data-form");
-var _dataCangeButton = require("./data-cange-button");
+var _dataChangeButton = require("./dataChangeButton");
 
-},{"./data-form":"kHTlw","./data-cange-button":"bdQP0","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kHTlw":[function(require,module,exports) {
+},{"./data-form":"kHTlw","./dataChangeButton":"ldwkG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kHTlw":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ProfilePageInputForm", ()=>(0, _component.ProfilePageInputForm));
@@ -17097,14 +17158,14 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ProfilePageInputForm", ()=>ProfilePageInputForm);
 var _components = require("components");
 var _components1 = require("hocs/components");
-var _afterValidationCallback = require("./after-validation-callback");
+var _afterValidationCallback = require("./afterValidationCallback");
 var _fields = require("./fields");
 class ProfilePageInputForm extends (0, _components.InputForm) {
     constructor(){
         super({
             props: {
                 htmlClasses: [
-                    "profile-data-form"
+                    "profile__data__container"
                 ],
                 isSubmitButtonNeeded: false,
                 afterValidationCallback: (0, _afterValidationCallback.afterValidationCallback)
@@ -17117,7 +17178,7 @@ class ProfilePageInputForm extends (0, _components.InputForm) {
     }
 }
 
-},{"components":"dHnah","hocs/components":"THcGa","./after-validation-callback":"65o4o","./fields":"3ZzdV","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"65o4o":[function(require,module,exports) {
+},{"components":"dHnah","hocs/components":"THcGa","./afterValidationCallback":"7nw7u","./fields":"3ZzdV","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7nw7u":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "afterValidationCallback", ()=>afterValidationCallback);
@@ -17147,18 +17208,30 @@ parcelHelpers.export(exports, "MapInputFieldToProps", ()=>(0, _inputFields.MapIn
 parcelHelpers.export(exports, "MapInputFieldToHelpers", ()=>(0, _inputFields.MapInputFieldToHelpers));
 parcelHelpers.export(exports, "MapInputFieldToUserDataRecord", ()=>(0, _inputFields.MapInputFieldToUserDataRecord));
 parcelHelpers.export(exports, "EnumInputFields", ()=>(0, _enumInputFields.EnumInputFields));
-var _inputFields = require("./input-fields");
-var _enumInputFields = require("./enum-input-fields");
+var _inputFields = require("./inputFields");
+var _enumInputFields = require("./enumInputFields");
 
-},{"./input-fields":"lng4w","./enum-input-fields":"eCEQ8","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lng4w":[function(require,module,exports) {
+},{"./inputFields":"cWaYA","./enumInputFields":"5whJT","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cWaYA":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "MapInputFieldToProps", ()=>MapInputFieldToProps);
 parcelHelpers.export(exports, "MapInputFieldToUserDataRecord", ()=>MapInputFieldToUserDataRecord);
 parcelHelpers.export(exports, "MapInputFieldToHelpers", ()=>MapInputFieldToHelpers);
-var _enumInputFields = require("./enum-input-fields");
-var _inputValidators = require("./input-validators");
+var _enumInputFields = require("./enumInputFields");
+var _inputValidators = require("./inputValidators");
 const MapInputFieldToProps = {
+    [(0, _enumInputFields.EnumInputFields).Email]: {
+        htmlAttributes: {
+            name: "email"
+        },
+        validators: (0, _inputValidators.FormValidators)[(0, _enumInputFields.EnumInputFields).Email]
+    },
+    [(0, _enumInputFields.EnumInputFields).Login]: {
+        htmlAttributes: {
+            name: "login"
+        },
+        validators: (0, _inputValidators.FormValidators)[(0, _enumInputFields.EnumInputFields).Login]
+    },
     [(0, _enumInputFields.EnumInputFields).FirstName]: {
         htmlAttributes: {
             name: "first_name"
@@ -17177,18 +17250,6 @@ const MapInputFieldToProps = {
         },
         validators: (0, _inputValidators.FormValidators)[(0, _enumInputFields.EnumInputFields).DisplayName]
     },
-    [(0, _enumInputFields.EnumInputFields).Login]: {
-        htmlAttributes: {
-            name: "login"
-        },
-        validators: (0, _inputValidators.FormValidators)[(0, _enumInputFields.EnumInputFields).Login]
-    },
-    [(0, _enumInputFields.EnumInputFields).Email]: {
-        htmlAttributes: {
-            name: "email"
-        },
-        validators: (0, _inputValidators.FormValidators)[(0, _enumInputFields.EnumInputFields).Email]
-    },
     [(0, _enumInputFields.EnumInputFields).Phone]: {
         htmlAttributes: {
             name: "phone"
@@ -17197,40 +17258,38 @@ const MapInputFieldToProps = {
     }
 };
 const MapInputFieldToDataType = {
+    [(0, _enumInputFields.EnumInputFields).Email]: "email",
+    [(0, _enumInputFields.EnumInputFields).Login]: "login",
     [(0, _enumInputFields.EnumInputFields).FirstName]: "first name",
     [(0, _enumInputFields.EnumInputFields).SecondName]: "second name",
     [(0, _enumInputFields.EnumInputFields).DisplayName]: "display name",
-    [(0, _enumInputFields.EnumInputFields).Login]: "login",
-    [(0, _enumInputFields.EnumInputFields).Email]: "email",
     [(0, _enumInputFields.EnumInputFields).Phone]: "phone"
 };
 Object.entries(MapInputFieldToProps).forEach(([fieldName, props])=>{
     props.htmlClasses = [
-        "data-input"
+        "profile__data__data"
     ];
     props.htmlWrapper = {
         componentAlias: "wrappedDataInput",
         htmlWrapperTemplate: `
-      <field class="data-field">
-        <div class="data-type-section">
-          <span class="data-type"> ${MapInputFieldToDataType[fieldName]} </span>
-        </div>
-        <div class="data-input-section">
+      <div class="profile__data">
+        <span class="profile__data__title"> ${MapInputFieldToDataType[fieldName]} </span>
+        <div class="profile__data__data">
           {{{ wrappedDataInput }}}
           \\{{#if inputError}}
-            <span class="input-error"> \\{{ inputError }} </span>
+            <span class="profile__error"> \\{{ inputError }} </span>
           \\{{/if}}
         </div>
-      </field>
+      </div>
     `
     };
 });
 const MapInputFieldToUserDataRecord = {
+    [(0, _enumInputFields.EnumInputFields).Email]: "email",
+    [(0, _enumInputFields.EnumInputFields).Login]: "login",
     [(0, _enumInputFields.EnumInputFields).FirstName]: "firstName",
     [(0, _enumInputFields.EnumInputFields).SecondName]: "secondName",
     [(0, _enumInputFields.EnumInputFields).DisplayName]: "displayName",
-    [(0, _enumInputFields.EnumInputFields).Login]: "login",
-    [(0, _enumInputFields.EnumInputFields).Email]: "email",
     [(0, _enumInputFields.EnumInputFields).Phone]: "phone"
 };
 const MapInputFieldToHelpers = Object.entries(MapInputFieldToUserDataRecord).reduce((acc, [fieldName, recordName])=>{
@@ -17245,27 +17304,39 @@ const MapInputFieldToHelpers = Object.entries(MapInputFieldToUserDataRecord).red
     return acc;
 }, {});
 
-},{"./enum-input-fields":"eCEQ8","./input-validators":"fWv6x","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eCEQ8":[function(require,module,exports) {
+},{"./enumInputFields":"5whJT","./inputValidators":"aIUJC","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5whJT":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "EnumInputFields", ()=>EnumInputFields);
 let EnumInputFields;
 (function(EnumInputFields) {
+    EnumInputFields["Email"] = "email";
+    EnumInputFields["Login"] = "login";
     EnumInputFields["FirstName"] = "first_name";
     EnumInputFields["SecondName"] = "second_name";
     EnumInputFields["DisplayName"] = "display_name";
-    EnumInputFields["Login"] = "login";
-    EnumInputFields["Email"] = "email";
     EnumInputFields["Phone"] = "phone";
 })(EnumInputFields || (EnumInputFields = {}));
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fWv6x":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aIUJC":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "FormValidators", ()=>FormValidators);
 var _formInputValidator = require("utils/form-input-validator");
-var _enumInputFields = require("./enum-input-fields");
+var _enumInputFields = require("./enumInputFields");
 const FormValidators = [
+    {
+        field: (0, _enumInputFields.EnumInputFields).Email,
+        validatorsList: [
+            _formInputValidator.validateEmailRegex
+        ]
+    },
+    {
+        field: (0, _enumInputFields.EnumInputFields).Login,
+        validatorsList: [
+            _formInputValidator.validateLoginRegex
+        ]
+    },
     {
         field: (0, _enumInputFields.EnumInputFields).FirstName,
         validatorsList: [
@@ -17282,18 +17353,6 @@ const FormValidators = [
         field: (0, _enumInputFields.EnumInputFields).DisplayName,
         validatorsList: [
             _formInputValidator.validateNameRegex
-        ]
-    },
-    {
-        field: (0, _enumInputFields.EnumInputFields).Login,
-        validatorsList: [
-            _formInputValidator.validateLoginRegex
-        ]
-    },
-    {
-        field: (0, _enumInputFields.EnumInputFields).Email,
-        validatorsList: [
-            _formInputValidator.validateEmailRegex
         ]
     },
     {
@@ -17315,7 +17374,7 @@ const FormValidators = [
     return acc;
 }, {});
 
-},{"utils/form-input-validator":"4RFK4","./enum-input-fields":"eCEQ8","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bdQP0":[function(require,module,exports) {
+},{"utils/form-input-validator":"4RFK4","./enumInputFields":"5whJT","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ldwkG":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "DataChangeButton", ()=>DataChangeButton);
@@ -17334,8 +17393,9 @@ class DataChangeButton extends (0, _components.Button) {
             if (this.state.mode === "data_saved") {
                 this.state.mode = "data_changing";
                 this.props.label = "save data";
+                // console.log('state = ', this.state.mode);
                 Object.values(form.refs).forEach((dataField)=>{
-                    dataField.toggleDisabledState();
+                    dataField.toggleDisabledState(true);
                 });
             } else {
                 await (0, _inputForm.formSubmitButtonCallback).call(this);
@@ -17356,7 +17416,7 @@ class DataChangeButton extends (0, _components.Button) {
             props: {
                 label: "change data",
                 htmlClasses: [
-                    "change-data-button"
+                    "profile__saveButton"
                 ],
                 events: {
                     click: [
@@ -17368,57 +17428,145 @@ class DataChangeButton extends (0, _components.Button) {
     }
 }
 
-},{"components":"dHnah","components/inputs/inputForm":"65vk3","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iLR7h":[function(require,module,exports) {
+},{"components":"dHnah","components/inputs/inputForm":"65vk3","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"P7Wev":[function(require,module,exports) {
+module.exports = require("266cec9c28fdb89").getBundleURL("7UhFu") + "arrowBack.b3aade7f.png" + "?" + Date.now();
+
+},{"266cec9c28fdb89":"lgJ39"}],"hNHYd":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "AvatarUploadForm", ()=>(0, _component.AvatarUploadForm));
+parcelHelpers.export(exports, "profileFieldsData", ()=>profileFieldsData);
+parcelHelpers.export(exports, "profileData", ()=>profileData);
+const profileFieldsData = [
+    {
+        name: "email",
+        title: "Почта",
+        data: "pochta@yandex.ru",
+        placeholder: "Введите email"
+    },
+    {
+        name: "login",
+        title: "Логин",
+        data: "ivanivanov",
+        placeholder: "Введите логин"
+    },
+    {
+        name: "first_name",
+        title: "Имя",
+        data: "Иван",
+        placeholder: "Введите Имя"
+    },
+    {
+        name: "second_name",
+        title: "Фамилия",
+        data: "Иванов",
+        placeholder: "Введите фамилию"
+    },
+    {
+        name: "display_name",
+        title: "Имя в чате",
+        data: "Иван",
+        placeholder: "Введите имя в чате"
+    },
+    {
+        name: "phone",
+        title: "Телефон",
+        data: "79099673030",
+        placeholder: "Введите пароль"
+    }
+];
+const profileData = {
+    username: "Ivan",
+    changeAvatar: "Поменять аватар",
+    backLink: {
+        class: "profile__buttonBack__img",
+        name: "",
+        alt: "arrowBack",
+        htmlName: "backLink"
+    },
+    avatar: {
+        alt: "profileAvatar",
+        class: "profile__buttonBack__img"
+    },
+    changeData: {
+        change: "Изменить данные",
+        save: "Сохранить данные",
+        class: "profile__saveButton",
+        classActive: "profile__saveButton__active",
+        htmlName: "changeData"
+    },
+    changePassword: {
+        link: "Изменить пароль",
+        class: "profile__changePasswordButton",
+        htmlName: "changePassword"
+    },
+    exitProfile: {
+        link: "Выйти",
+        class: "profile__exitButton",
+        htmlName: "exitProfile"
+    },
+    inputFileds: {
+        class: "profile__data__data",
+        classActive: "profile__data__data__active"
+    },
+    errorLabel: [
+        "errorEmail",
+        "errorLogin",
+        "errorFirstName",
+        "errorSecondName",
+        "errorPhone",
+        "errorPassword",
+        "errorPasswordCheck"
+    ]
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iAhn5":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "AvatarInput", ()=>(0, _component.AvatarInput));
 var _component = require("./component");
 
-},{"./component":"1TWmJ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1TWmJ":[function(require,module,exports) {
+},{"./component":"fF7Sw","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fF7Sw":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "AvatarUploadForm", ()=>AvatarUploadForm);
-var _dom = require("core/dom");
-var _submitSection = require("./submit-section");
-var _avatarInput = require("./avatar-input");
-var _template = require("./template");
-var _templateDefault = parcelHelpers.interopDefault(_template);
-class AvatarUploadForm extends (0, _dom.Block) {
-    constructor(profilePageImageRef){
+parcelHelpers.export(exports, "AvatarInput", ()=>AvatarInput);
+var _components = require("components");
+var _fileInput = require("components/inputs/fileInput");
+class AvatarInput extends (0, _components.FileInput) {
+    constructor(){
+        const onFileChangeCallback = function() {
+            const fileInput = this._unwrappedElement;
+            const submitState = this.refs.avatarSubmit.state;
+            console.log(`FILE CHANGE`, fileInput.value);
+            if (!fileInput.value) submitState.uploadingStatus = (0, _fileInput.EnumFileUploadingStatus).FileNotSelected;
+            else submitState.uploadingStatus = (0, _fileInput.EnumFileUploadingStatus).FileSelected;
+        };
         super({
-            refs: {
-                profileImage: profilePageImageRef
+            props: {
+                htmlClasses: [
+                    "upload-avatar"
+                ]
             },
-            state: {
-                uploadingStatus: ""
+            chooseButtonProps: {
+                label: "upload avatar",
+                htmlClasses: [
+                    "profile__avatar__change__button"
+                ]
+            },
+            fileInputProps: {
+                htmlAttributes: {
+                    name: "avatar"
+                },
+                events: {
+                    change: [
+                        onFileChangeCallback
+                    ]
+                }
             }
         });
     }
-    _afterPropsAssignHook() {
-        super._afterPropsAssignHook();
-        const avatarInput = this._createAvatarInput();
-        this.children.avatarInput = avatarInput;
-        const submitSection = this._createAvatarSubmitSection();
-        this.children.submitSection = submitSection;
-        const avatarFileInput = avatarInput.getChildByPath("fileInput");
-        avatarFileInput.refs.avatarSubmit = submitSection;
-        const submitButton = submitSection.getChildByPath("submitButton");
-        Object.assign(submitButton.refs, {
-            avatarInput
-        });
-    }
-    render() {
-        return 0, _templateDefault.default;
-    }
-    _createAvatarInput() {
-        return new (0, _avatarInput.AvatarInput)();
-    }
-    _createAvatarSubmitSection() {
-        return new (0, _submitSection.SubmitSection)();
-    }
 }
 
-},{"core/dom":"3BLMu","./submit-section":"jdnHD","./avatar-input":"iAhn5","./template":"7bWXk","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jdnHD":[function(require,module,exports) {
+},{"components":"dHnah","components/inputs/fileInput":"gmiOZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jdnHD":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "SubmitSection", ()=>(0, _component.SubmitSection));
@@ -17472,7 +17620,10 @@ class SubmitSection extends (0, _dom.Block) {
         };
         return new (0, _components.Button)({
             props: {
-                label: "submit",
+                label: "Save avatar",
+                htmlClasses: [
+                    "buttonAuth"
+                ],
                 events: {
                     click: [
                         onClickCallback
@@ -17490,71 +17641,14 @@ class SubmitSection extends (0, _dom.Block) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 exports.default = `
-  <div class="submit-button-section">
+  <div class="profile__avatar__saveAvatar">
     {{{ submitButton }}}
     {{#if uploadingStatus }}
-      <span>{{ uploadingStatus }}</span>
+      <div  class="profile__avatar__info">
+        <span>{{ uploadingStatus }}</span>
+      </div>
     {{/if}}
   </div>
-`;
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iAhn5":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "AvatarInput", ()=>(0, _component.AvatarInput));
-var _component = require("./component");
-
-},{"./component":"fF7Sw","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fF7Sw":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "AvatarInput", ()=>AvatarInput);
-var _components = require("components");
-var _fileInput = require("components/inputs/fileInput");
-class AvatarInput extends (0, _components.FileInput) {
-    constructor(){
-        const onFileChangeCallback = function() {
-            const fileInput = this._unwrappedElement;
-            const submitState = this.refs.avatarSubmit.state;
-            console.log(`FILE CHANGE`, fileInput.value);
-            if (!fileInput.value) submitState.uploadingStatus = (0, _fileInput.EnumFileUploadingStatus).FileNotSelected;
-            else submitState.uploadingStatus = (0, _fileInput.EnumFileUploadingStatus).FileSelected;
-        };
-        super({
-            props: {
-                htmlClasses: [
-                    "upload-avatar"
-                ]
-            },
-            chooseButtonProps: {
-                label: "upload avatar",
-                htmlClasses: [
-                    "choose-profile-avatar"
-                ]
-            },
-            fileInputProps: {
-                htmlAttributes: {
-                    name: "avatar"
-                },
-                events: {
-                    change: [
-                        onFileChangeCallback
-                    ]
-                }
-            }
-        });
-    }
-}
-
-},{"components":"dHnah","components/inputs/fileInput":"gmiOZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7bWXk":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-exports.default = `
-  <section class="avatar-change-section">
-    <div class="avatar-input-section">
-      {{{ avatarInput }}}
-    </div>
-    {{{ submitSection }}}
-  </section>
 `;
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"a1Xr3":[function(require,module,exports) {
@@ -17562,13 +17656,33 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "NotFoundErrorPage", ()=>NotFoundErrorPage);
 parcelHelpers.export(exports, "AuthorizationRequiredErrorPage", ()=>AuthorizationRequiredErrorPage);
+var _link = require("components/link");
 var _dom = require("core/dom");
+var _router = require("core/router");
+var _hocs = require("hocs");
 var _template = require("./template");
 var _templateDefault = parcelHelpers.interopDefault(_template);
+const LinkWithRouter = (0, _hocs.WithRouter)((0, _link.Link));
 function getErrorPageClass(initProps) {
     class ErrorPage extends (0, _dom.Block) {
         constructor(){
             const children = {};
+            children.homeButton = new LinkWithRouter({
+                props: {
+                    label: "На страницу логина",
+                    htmlName: "error",
+                    htmlClasses: [
+                        "auth__noaccount"
+                    ],
+                    events: {
+                        click: [
+                            function() {
+                                this.router.go((0, _router.AppRoutes).Login);
+                            }
+                        ]
+                    }
+                }
+            });
             super({
                 props: initProps,
                 children
@@ -17589,11 +17703,11 @@ const AuthorizationRequiredErrorPage = getErrorPageClass({
     errorDescription: "Authorization Required"
 });
 
-},{"core/dom":"3BLMu","./template":"2NFc8","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2NFc8":[function(require,module,exports) {
+},{"core/dom":"3BLMu","./template":"2NFc8","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","core/router":"6PhbH","hocs":"8D4Xk","components/link":"hjADv"}],"2NFc8":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 exports.default = `
-  <main class="error-page">
+  <main class="error__container">
     <div class="error-code-section">
       <h1 class="error-code">{{ errorCode }}</h1>
     </div>
@@ -17650,6 +17764,9 @@ var _objectsHandle = require("utils/objects-handle");
 function userSetter(oldValue, newValue) {
     const pageType = this.state.page;
     const { page  } = this;
+    console.log("pageType = ", pageType);
+    console.log("oldValue = ", oldValue);
+    console.log("newValue = ", newValue);
     switch(pageType){
         case (0, _appPages.AppPages).Profile:
             if ((0, _objectsHandle.isNullish)(newValue)) throw new Error("User Can't Be Nullified On Profile Page");
@@ -17658,7 +17775,6 @@ function userSetter(oldValue, newValue) {
             page.updateUserInfo();
             break;
         case (0, _appPages.AppPages).Login:
-            if ((0, _objectsHandle.isNullish)(oldValue) !== (0, _objectsHandle.isNullish)(newValue)) page.createLinks();
             break;
         default:
     }

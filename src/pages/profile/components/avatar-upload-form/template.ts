@@ -1,8 +1,9 @@
 export default `
-  <section class="avatar-change-section">
-    <div class="avatar-input-section">
+  <div>
+    <div class="profile__avatar__change">
       {{{ avatarInput }}}
     </div>
     {{{ submitSection }}}
-  </section>
+  </div>
+      
 `;

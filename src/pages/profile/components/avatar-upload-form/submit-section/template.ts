@@ -1,8 +1,10 @@
 export default `
-  <div class="submit-button-section">
+  <div class="profile__avatar__saveAvatar">
     {{{ submitButton }}}
     {{#if uploadingStatus }}
-      <span>{{ uploadingStatus }}</span>
+      <div  class="profile__avatar__info">
+        <span>{{ uploadingStatus }}</span>
+      </div>
     {{/if}}
   </div>
 `;

@@ -1,7 +1,7 @@
-import { EnumAppPages } from "pages";
-import { type Store } from "core/store";
-import { type ChatMessagesHandler } from "services/sockets";
-import { PathRouter } from "core/router/path-router";
+import { EnumAppPages } from 'pages';
+import { type Store } from 'core/store';
+import { type ChatMessagesHandler } from 'services/sockets';
+import { PathRouter } from 'core/router/path-router';
 
 declare global {
   interface Window {
@@ -11,11 +11,11 @@ declare global {
 
   export type TAppUserData = {
     id: number;
+    email: string;
+    login: string;
     firstName: string;
     secondName: string;
     displayName: string;
-    login: string;
-    email: string;
     phone: string;
     avatar: Nullable<string>; // path to avatar
   };

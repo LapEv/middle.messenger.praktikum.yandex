@@ -23,3 +23,6 @@ export const WithStoreImageComponent = WithStore(
 
 export const WithRouterLink = WithRouter(Link) as any as typeof Link;
 export const WithRouterButton = WithRouter(Button) as any as typeof Button;
+export const WithRouterImage = WithRouter(
+  ImageComponent
+) as any as typeof ImageComponent;
