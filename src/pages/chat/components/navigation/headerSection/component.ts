@@ -1,5 +1,5 @@
 import { Link } from 'components';
-import { Block } from 'core/dom';
+import { Block } from 'core/Dom';
 import { AppRoutes } from 'core/Router';
 import { WithRouter } from 'hocs';
 import template from './template';

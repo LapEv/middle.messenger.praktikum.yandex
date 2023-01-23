@@ -1,5 +1,5 @@
-import * as Components from "components";
-import { Block } from "core/dom";
+import * as Components from 'components';
+import { Block } from 'core/Dom';
 
 declare global {
   export type BlockClass<

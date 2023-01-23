@@ -1,4 +1,4 @@
-import { Block } from 'core/dom';
+import { Block } from 'core/Dom';
 import { TextComponent, Link, ImageComponent } from 'components';
 import { Button } from 'components/buttons';
 import { Input, FileInput, InputWithValidation } from 'components/inputs';

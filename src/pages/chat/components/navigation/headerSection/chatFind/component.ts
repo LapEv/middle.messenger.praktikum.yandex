@@ -1,5 +1,5 @@
 import { Input } from 'components';
-import { Block } from 'core/dom';
+import { Block } from 'core/Dom';
 import template from './template';
 
 export class ChatFind extends Block {

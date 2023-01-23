@@ -1,4 +1,4 @@
-import { Block } from 'core/dom';
+import { Block } from 'core/Dom';
 import { Button, Input, TextComponent } from 'components';
 import { ChatsService } from 'services/chats';
 import { APIResponseHasError } from 'utils/api';

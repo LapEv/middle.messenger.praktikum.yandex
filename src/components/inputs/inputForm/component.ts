@@ -1,4 +1,4 @@
-import { Block } from 'core/dom';
+import { Block } from 'core/Dom';
 import { InputWithValidation } from '../inputValidation';
 import { type Input, TInputProps } from '../basicInput';
 import { FormSubmitButton } from './submitButton';

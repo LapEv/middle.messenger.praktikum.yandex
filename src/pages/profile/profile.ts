@@ -1,4 +1,4 @@
-import { Block } from 'core/dom';
+import { Block } from 'core/Dom';
 import avatarImagePlaceholder from 'static/img/profile_avatar.png';
 import { ImageComponent, Input } from 'components';
 import { WithStore } from 'hocs';

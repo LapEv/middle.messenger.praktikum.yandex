@@ -1,4 +1,4 @@
-import { Block } from 'core/dom';
+import { Block } from 'core/Dom';
 import { deepMerge } from 'utils/objects-handle';
 import { Input, TInputProps } from 'components/inputs/basicInput';
 import { Button, TButtonProps } from 'components/buttons/basicButton';

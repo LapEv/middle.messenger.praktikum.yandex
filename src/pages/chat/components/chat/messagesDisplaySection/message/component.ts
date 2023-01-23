@@ -1,5 +1,5 @@
 import { TextComponent } from 'components';
-import { Block } from 'core/dom';
+import { Block } from 'core/Dom';
 import template from './template';
 
 type TMessageComponentProps = WithComponentCommonProps<{

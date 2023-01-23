@@ -1,5 +1,5 @@
 import { Button } from 'components';
-import { type Block } from 'core/dom';
+import { type Block } from 'core/Dom';
 import { TButtonProps } from 'components/buttons';
 import loginData from 'pages/login/loginData';
 
