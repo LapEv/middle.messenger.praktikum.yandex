@@ -1,10 +1,10 @@
-@import './css/login.min.css';
-@import './css/chat.min.css';
-@import './css/error.min.css';
-@import './css/profile.min.css';
-@import './css/button.min.css';
-@import './css/modal.min.css';
-@import './css/apiError.min.css';
+@import './style/login.scss';
+@import './style/chat.scss';
+@import './style/error.scss';
+@import './style/profile.scss';
+@import './components/buttons/button.scss';
+@import './style/modal.scss';
+@import './style/api.scss';
 
 * {
   width: 100%;
