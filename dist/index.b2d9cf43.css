@@ -713,7 +713,15 @@
   font-size: 13px;
 }
 
-.profile__data__data__active:focus, .profile__data__data:focus {
+.profile__data__data__error {
+  color: red;
+  text-align: end;
+  border: 0;
+  margin-bottom: 10px;
+  font-size: 13px;
+}
+
+.profile__data__data__active:focus, .profile__data__data__error:focus, .profile__data__data:focus {
   outline: none;
 }
 

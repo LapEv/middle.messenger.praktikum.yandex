@@ -26,20 +26,28 @@ export class Input extends Block<TInputProps> {
     this.props.htmlAttributes!.type ??= 'text';
   }
 
-  public toggleDisabledState(state: boolean | undefined = undefined) {
+  public toggleDisabledState(state: string | undefined = undefined) {
     const element = this._unwrappedElement as HTMLInputElement;
 
-    if (state !== false) {
-      console.log('state = ', state);
-      element.disabled = true;
+    if (state === 'error') {
+      element.disabled = false;
+      element.classList.add('profile__data__data__error');
+      element.classList.remove('profile__data__data');
+      return;
+    }
+
+    if (state === 'save') {
+      element.disabled = false;
       element.classList.add('profile__data__data__active');
       element.classList.remove('profile__data__data');
       return;
     }
 
-    element.disabled = !element.disabled;
-    element.classList.add('profile__data__data');
-    element.classList.remove('profile__data__data__active');
+    if (state === 'change') {
+      element.disabled = true;
+      element.classList.add('profile__data__data');
+      element.classList.remove('profile__data__data__active');
+    }
   }
 
   public setValue(value: string) {

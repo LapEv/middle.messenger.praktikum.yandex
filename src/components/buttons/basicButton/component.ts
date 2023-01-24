@@ -20,6 +20,8 @@ export class Button extends Block<TButtonProps> {
   }
 
   public toggleDisabledState(state: boolean | undefined = undefined) {
+    console.log('here');
+
     const element = this._unwrappedElement as HTMLButtonElement;
 
     if (state !== undefined) {

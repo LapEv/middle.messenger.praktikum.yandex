@@ -140,7 +140,18 @@
         margin-bottom: 10px;
         border: 0;
       }
+      &__error {
+        color: $color-danger;
+        font-size: 13;
+        text-align: end;
+        margin-bottom: 10px;
+        border: 0;
+      }
+
       &__active:focus {
+        outline: none;
+      }
+      &__error:focus {
         outline: none;
       }
     }

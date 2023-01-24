@@ -13,7 +13,6 @@ import { profileData } from './profileData';
 import { AppRoutes } from 'core/Router';
 import { AvatarInput } from './components/avatar-upload-form/avatar-input';
 import { SubmitSection } from './components/avatar-upload-form/submit-section';
-import { LogoutButton } from 'components/buttons';
 
 type TProfilePageProps = WithComponentCommonProps<{ userID: number }>;
 const ProfilePageBlock = WithStore(Block<TProfilePageProps>);

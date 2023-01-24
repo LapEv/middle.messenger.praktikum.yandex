@@ -1,3 +1,4 @@
+import { WithStoreBlock } from 'hocs/components';
 import { type Block } from 'core/Dom';
 import { Button, type Input } from 'components';
 import { formSubmitButtonCallback } from 'components/inputs/inputForm';
@@ -16,21 +17,31 @@ export class DataChangeButton extends Button {
 
       if (this.state.mode === FormMode.DataSaved) {
         this.state.mode = FormMode.DataChanging;
-        this.props.label = 'Save Data';
+        this.props.label = 'Сохранить';
 
-        // console.log('state = ', this.state.mode);
         Object.values(form.refs).forEach((dataField: Input) => {
-          dataField.toggleDisabledState(true);
+          dataField.toggleDisabledState('save');
         });
       } else {
         await formSubmitButtonCallback.call(this);
 
         if (form.getAPIResponseError() === '') {
           this.state.mode = FormMode.DataSaved;
-          this.props.label = 'Change Data';
-
+          this.props.label = 'Редактировать';
           Object.values(form.refs).forEach((dataField: Input) => {
-            dataField.toggleDisabledState(false);
+            dataField.toggleDisabledState('change');
+          });
+        } else {
+          let arrInputsError: Array<string> = [];
+          Object.values(form.refs).forEach((value: any) => {
+            if (value.state.inputError) {
+              arrInputsError.push(value.componentName);
+            }
+          });
+          Object.values(form.refs).forEach((dataField: Input) => {
+            if (arrInputsError.includes(dataField.componentName)) {
+              dataField.toggleDisabledState('error');
+            }
           });
         }
       }
@@ -42,7 +53,7 @@ export class DataChangeButton extends Button {
       },
       refs,
       props: {
-        label: 'change data',
+        label: 'Редактировать',
         htmlClasses: ['profile__saveButton'],
         events: {
           click: [onClickCallback],

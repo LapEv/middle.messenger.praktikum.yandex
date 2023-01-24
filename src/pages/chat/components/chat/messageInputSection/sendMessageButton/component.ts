@@ -51,7 +51,6 @@ export class SendMessageButton extends WithStoreButton {
     } else {
       this.setPropByPath('events.click', []);
     }
-
     this.toggleDisabledState(!isChatSelected);
   }
 }

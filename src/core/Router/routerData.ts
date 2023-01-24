@@ -12,7 +12,7 @@ export const enum AppRoutes {
 
 export const AppRoutesData = {
   [AppRoutes.Login]: {
-    path: '/login',
+    path: '/',
     block: AppPages.Login,
     needAuthorization: false,
   },
@@ -22,12 +22,12 @@ export const AppRoutesData = {
     needAuthorization: false,
   },
   [AppRoutes.Chat]: {
-    path: '/chat',
+    path: '/messenger',
     block: AppPages.Chat,
     needAuthorization: true,
   },
   [AppRoutes.Profile]: {
-    path: '/profile',
+    path: '/settings',
     block: AppPages.Profile,
     needAuthorization: true,
   },
@@ -49,7 +49,7 @@ export const AppRoutesData = {
 export const MapPathToRoute: Record<string, AppRoutes> = {
   '/sign-up': AppRoutes.Registration,
   '/login': AppRoutes.Login,
-  '/chat': AppRoutes.Chat,
-  '/profile': AppRoutes.Profile,
+  '/messenger': AppRoutes.Chat,
+  '/settings': AppRoutes.Profile,
   '/changePassword': AppRoutes.ChangePassword,
 };
