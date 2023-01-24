@@ -17,7 +17,7 @@ export class ChatPage extends WithStoreBlock {
     children.modal = Modal;
 
     super({
-      componentName: 'Chats Page',
+      componentName: 'Chat Page',
       children,
     });
   }

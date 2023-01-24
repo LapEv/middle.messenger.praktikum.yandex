@@ -69,6 +69,7 @@ export class ProfilePage extends ProfilePageBlock {
       children,
       refs: { ...refs, profileImage: profilePageImageRef },
       state: { uploadingStatus: '' },
+      componentName: 'Profile Page',
     });
   }
 
