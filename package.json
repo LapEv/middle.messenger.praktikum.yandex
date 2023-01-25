@@ -8,9 +8,10 @@
     "browsers": ">= 50%"
   },
   "scripts": {
+    "compile-check": "tsc --noEmit",
     "start": "parcel build src/index.html && node ./server.js",
-    "dev": "parcel src/index.html ",
-    "build": "parcel build src/index.html --no-source-maps"
+    "dev": "parcel ./src/index.html --no-cache --open",
+    "build": "parcel build src/index.html"
   },
   "alias": {
     "core": "./src/core",
