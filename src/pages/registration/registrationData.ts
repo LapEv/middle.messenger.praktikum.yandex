@@ -1,5 +1,6 @@
 const regData = {
   page: 'Registration Page',
+  formClass: 'auth__registration_form',
   inputFields: [
     {
       type: 'text',
@@ -48,6 +49,7 @@ const regData = {
   link: {
     name: 'Войти',
     htmlName: 'Login',
+    class: 'auth__noaccount',
   },
   submitButtonLabel: 'Зарегистрироваться',
   errorLabel: [

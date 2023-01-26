@@ -1,0 +1,1 @@
+export { ChatFind } from './component';

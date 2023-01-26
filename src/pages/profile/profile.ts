@@ -1,35 +1,33 @@
-import { ChatPage } from 'pages/chat/chat';
-import Block from 'core/Block';
-import { MainPage } from 'core/renderDOM';
-import {
-  Button,
-  ImageElement,
-  Input,
-  InputValidator,
-  TextElement,
-} from 'components/index';
-import { profileTemplate } from './profileTemplate';
-import { profileFieldsData, profileData } from './profileData';
-import profileAvatar from 'static/img/profile_avatar.png';
+import { Block } from 'core/Dom';
+import avatarImagePlaceholder from 'static/img/profile_avatar.png';
+import { ImageComponent, Input } from 'components';
+import { WithStore } from 'hocs';
+import { WithRouter } from 'hocs';
+
+import template from './profileTemplate';
+import { DataChangeButton, ProfilePageInputForm } from './components';
+import { EnumInputFields } from './components/data-form';
+import { MapInputFieldToUserDataRecord } from './components/data-form/fields';
 import arrowBackImage from 'static/img/arrowBack.png';
-import { InputValidators } from 'utils/inputValidators';
-import { LoginPage } from '../login/login';
-import { ChangePasswordPage } from './changePassword/changePassword';
-import { Modal } from 'components/modal/modal';
-import { modalMessage } from 'components/modal/modalMessage';
+import { profileData } from './profileData';
+import { AppRoutes } from 'core/Router';
+import { AvatarInput } from './components/avatar-upload-form/avatar-input';
+import { SubmitSection } from './components/avatar-upload-form/submit-section';
 
-export class ProfilePage extends Block {
-  constructor() {
-    const children: ComponentChildren = {};
-    const refModal: ComponentRefs = {};
-    const refs: ComponentRefs = {};
+type TProfilePageProps = WithComponentCommonProps<{ userID: number }>;
+const ProfilePageBlock = WithStore(Block<TProfilePageProps>);
+const ImageWithRouter = WithRouter(ImageComponent);
+export class ProfilePage extends ProfilePageBlock {
+  constructor(profilePageImageRef: ImageComponent) {
+    const children: TComponentChildren = {};
 
-    children.arrowBackImage = new ImageElement({
+    children.arrowBackImage = new ImageWithRouter({
       props: {
-        src: arrowBackImage,
-        alt: profileData.backLink.alt,
-        htmlClass: profileData.backLink.class,
-        componentName: 'Arrow Back Image',
+        htmlAttributes: {
+          src: arrowBackImage,
+          alt: profileData.backLink.alt,
+        },
+        htmlClasses: [profileData.backLink.class],
         htmlWrapper: {
           componentAlias: 'wrappedProfileLink',
           htmlWrapperTemplate: `
@@ -40,201 +38,94 @@ export class ProfilePage extends Block {
         },
         events: {
           click: [
-            () => {
-              MainPage.component = new ChatPage();
+            function () {
+              this.router.go(AppRoutes.Chat);
             },
           ],
         },
       },
     });
 
-    children.avatarImage = new ImageElement({
+    const storeAvatar = window.store.getUserDataByPath('avatar');
+    const imageSource = storeAvatar || avatarImagePlaceholder;
+    const avatarImage = new ImageComponent({
       props: {
-        src: profileAvatar,
-        alt: profileData.avatar.alt,
-        htmlClass: profileData.avatar.class,
-        componentName: 'Profile avatar image',
-      },
-    });
-
-    children.inputAvatarImage = new Input({
-      props: {
-        htmlName: 'avatar',
-        type: 'file',
-        htmlClass: 'profile__data__data__avatar',
-        componentName: `${name} profile`,
-      },
-    });
-
-    children.modal = new Modal({
-      props: {
-        title: '',
-        inputProps: modalMessage.inputProps,
-        text: '',
-        error: '',
-      },
-    });
-
-    refModal['modalField'] = children.modal;
-
-    children.changeAvatar = new TextElement({
-      props: {
-        text: profileData.changeAvatar,
-        htmlClass: 'profile__avatar__change',
-        componentName: 'Profile Component Message',
-        events: {
-          click: [
-            () => {
-              refModal.modalField.showModal({
-                title: modalMessage.LoadFile.title,
-                link: modalMessage.LoadFile.link,
-                value: modalMessage.LoadFile.value,
-                button: modalMessage.LoadFile.button,
-                error: modalMessage.LoadFile.error,
-              });
-            },
-          ],
+        htmlAttributes: {
+          src: imageSource,
+          alt: 'Profile Avatar',
         },
+        htmlClasses: ['profile__avatar__img'],
       },
     });
+    children.avatarImage = avatarImage;
+    children.profileDataForm = new ProfilePageInputForm();
 
-    children.username = new TextElement({
-      props: {
-        text: profileData.username,
-        htmlClass: 'profile__title',
-        componentName: 'Profile Component Message',
-      },
+    // children.exitLink = new LogoutButton();
+
+    const refs = {} as TComponentRefs;
+
+    super({
+      children,
+      refs: { ...refs, profileImage: profilePageImageRef },
+      state: { uploadingStatus: '' },
+      componentName: 'Profile Page',
     });
-
-    profileFieldsData.forEach(({ name, title, data, placeholder }) => {
-      const inputField = new Input({
-        props: {
-          placeholder,
-          type: 'text',
-          htmlName: name,
-          value: data,
-          htmlClass: profileData.inputFileds.class,
-          htmlId: name,
-          componentName: `${name} profile`,
-          disabledAttr: true,
-          htmlWrapper: {
-            componentAlias: 'wrappedProfileInput',
-            htmlWrapperTemplate: `
-              <div class='profile__data'>
-                <p class='profile__data__title'>
-                  ${title}
-                </p>
-                <label for=${name} style="width: 0px"></label>
-                {{{wrappedProfileInput}}}
-              </div>
-              <div class='profile__line'></div>
-              `,
-          },
-          validators: {
-            blur: InputValidators[name],
-          },
-        },
-      });
-
-      children[`${name}Field`] = inputField;
-      refs[`${name}Field`] = inputField;
-    });
-
-    children.changePasswordLink = new Button({
-      props: {
-        label: profileData.changePassword.link,
-        htmlName: profileData.changePassword.htmlName,
-        htmlClass: profileData.changePassword.class,
-        events: {
-          click: [
-            () => {
-              MainPage.component = new ChangePasswordPage();
-            },
-          ],
-        },
-      },
-    });
-
-    children.exitLink = new Button({
-      props: {
-        label: profileData.exitProfile.link,
-        htmlName: profileData.exitProfile.htmlName,
-        htmlClass: profileData.exitProfile.class,
-        events: {
-          click: [
-            () => {
-              MainPage.component = new LoginPage();
-            },
-          ],
-        },
-      },
-    });
-
-    super({ children, props: { componentName: 'Profile Page' }, refs });
   }
 
   protected render(): string {
-    return profileTemplate;
+    return template;
   }
 
-  protected _preInitHook(): void {
-    Object.values(this.refs).forEach((inputField: Input) => {
-      inputField.refs.Form = this;
+  protected _afterPropsAssignHook(): void {
+    super._afterPropsAssignHook();
+
+    this.children.changeDataButton = new DataChangeButton({
+      form: this.children.profileDataForm as Block,
     });
 
-    profileData.errorLabel.forEach((stateErrorName) => {
-      this.state[stateErrorName] = '';
-    });
+    this.props.userID = this.store.getUserDataByPath('id') as number;
+    const avatarInput = this._createAvatarInput();
+    this.children.avatarInput = avatarInput;
 
-    const button = new Button({
-      state: {
-        mode: 'save',
-      },
-      props: {
-        label: profileData.changeData.change,
-        htmlName: profileData.changeData.htmlName,
-        htmlClass: profileData.changeData.class,
-        componentName: 'Profile button',
-        events: {
-          click: [
-            function checkList() {
-              let isError = false;
-              const formRefs = this.refs as ComponentRefs;
-              Object.values(formRefs).forEach((inputField: any) => {
-                const inputProps = inputField.props;
-                if (inputProps.componentName === 'Profile button') {
-                  if (this.state.mode === 'save' || !this.state.mode) {
-                    inputProps.label = profileData.changeData.save;
-                    this.state.mode = 'change';
-                    inputProps.htmlClass = profileData.changeData.classActive;
-                  } else {
-                    inputProps.label = profileData.changeData.change;
-                    this.state.mode = 'save';
-                    inputProps.htmlClass = profileData.changeData.class;
-                  }
-                } else {
-                  inputProps.disabledAttr = !inputProps.disabledAttr;
-                  this.state.mode !== 'save'
-                    ? (inputProps.htmlClass = profileData.inputFileds.class)
-                    : (inputProps.htmlClass =
-                        profileData.inputFileds.classActive);
-                  Object.values(inputField.validators).forEach(
-                    (validator: InputValidator) => {
-                      const error = validator();
-                      if (error) {
-                        isError = true;
-                      }
-                    }
-                  );
-                }
-              });
-            }.bind(this),
-          ],
-        },
-      },
-    });
+    const submitSection = this._createAvatarSubmitSection();
+    this.children.submitSection = submitSection;
 
-    this.children.changeDataLink = button;
-    this.refs['Button'] = button;
+    const avatarFileInput = avatarInput.getChildByPath('fileInput');
+    avatarFileInput.refs.avatarSubmit = submitSection;
+
+    const submitButton = submitSection.getChildByPath('submitButton');
+    Object.assign(submitButton.refs, {
+      avatarInput,
+    });
+  }
+
+  private _createAvatarInput() {
+    return new AvatarInput();
+  }
+
+  private _createAvatarSubmitSection() {
+    return new SubmitSection();
+  }
+
+  public updateUserInfo() {
+    const userData = this.store.getUserDataByPath() as TAppUserData;
+
+    Object.entries((this.children.profileDataForm as Block).refs).forEach(
+      ([inputName, inputBlock]: [EnumInputFields, Input]) => {
+        const recordName = MapInputFieldToUserDataRecord[inputName];
+        inputBlock.setPropByPath(
+          'htmlAttributes.value',
+          `${userData[recordName]}`
+        );
+      }
+    );
+  }
+
+  public updateUserAvatar() {
+    const newAvatar = this.store.getUserDataByPath('avatar') as string;
+    (this.children.avatarImage as ImageComponent).setPropByPath(
+      'htmlAttributes.src',
+      newAvatar
+    );
   }
 }

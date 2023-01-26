@@ -1,9 +1,8 @@
-import getTemplate from 'utils/templateGenerator';
+import getComponentTemplate from 'utils/components/templateGenerator';
 
 const tag = 'img';
-const attributes = `
-  src="{{ src }}"
-  alt="{{ alt }}"
-`;
 
-export default getTemplate({ tag, attributes, isSelfClosingTag: true });
+export default getComponentTemplate({
+  tag,
+  isSelfClosingTag: true,
+});

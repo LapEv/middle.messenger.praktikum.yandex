@@ -36,8 +36,9 @@
     align-items: center;
     cursor: pointer;
     &__img {
-      width: 40px;
-      height: 40px;
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
     }
     &__change {
       position: absolute;
@@ -50,9 +51,38 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      flex-direction: column;
+      z-index: 99;
+      &__input {
+        opacity: 0;
+        border-radius: 50%;
+        width: 130px;
+        height: 130px;
+        color: $color-white;
+      }
+      &__input:hover {
+        opacity: 0.5;
+      }
+      &__button {
+        border-radius: 50%;
+        border-width: 0;
+        cursor: pointer;
+      }
     }
     &__change:hover {
       opacity: 0.5;
+    }
+
+    &__saveAvatar {
+      width: 250px;
+      height: 30px;
+      position: absolute;
+      margin-top: 200px;
+    }
+    &__info {
+      width: 250px;
+      text-align: center;
+      margin-top: 10px;
     }
   }
   &__title {
@@ -67,6 +97,19 @@
     flex-direction: row;
     height: 23px;
     margin-top: 10px;
+    &__apiSuccess {
+      width: 250px;
+      height: 20px;
+      text-align: center;
+      margin-top: 10px;
+    }
+    &__apiError {
+      width: 250px;
+      height: 20px;
+      text-align: center;
+      margin-top: 10px;
+      color: $color-danger;
+    }
 
     &__container {
       width: 510px;
@@ -75,7 +118,7 @@
       flex-direction: column;
       justify-content: flex-start;
       align-items: center;
-      margin-top: 50px;
+      margin-top: 100px;
     }
     &__title {
       font-size: 13;
@@ -97,7 +140,18 @@
         margin-bottom: 10px;
         border: 0;
       }
+      &__error {
+        color: $color-danger;
+        font-size: 13;
+        text-align: end;
+        margin-bottom: 10px;
+        border: 0;
+      }
+
       &__active:focus {
+        outline: none;
+      }
+      &__error:focus {
         outline: none;
       }
     }
@@ -124,6 +178,9 @@
     border-radius: 8px;
     font-size: 13px;
     font-weight: bold;
+  }
+  &__saveButton {
+    margin-top: 15px;
   }
   &__saveButton__active {
     margin-top: 25px;
@@ -175,6 +232,7 @@
     margin-top: 162px;
     &__container {
       width: 510px;
+      height: auto;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;

@@ -16,4 +16,4 @@
 
 ## Netlify
 
-https://cozy-gecko-04fca7.netlify.app/#app
+https://chipper-twilight-a286d8.netlify.app

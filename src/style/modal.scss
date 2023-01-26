@@ -2,13 +2,30 @@
 
 .modal {
   position: fixed;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
+  &__show {
+    display: flex;
+    z-index: 99;
+  }
+  &__closeButton {
+    width: 5vmin;
+    height: 5vmin;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 999;
+    border: none;
+    width: 20px;
+    height: 20px;
+    margin: 10px;
+    cursor: pointer;
+  }
   &__background {
     background-color: $color-black;
     opacity: 0.5;
-    z-index: 9;
+    z-index: 99;
   }
   &__container {
     position: fixed;
@@ -80,6 +97,7 @@
       border-bottom-color: $color-button-background;
       height: 28px;
       font-size: 13;
+      margin-top: 10px;
     }
     &__input:focus {
       outline: none;
