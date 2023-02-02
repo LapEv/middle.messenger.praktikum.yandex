@@ -5,6 +5,11 @@ import { type Store } from 'core/store';
 import { type Router } from 'core/Router';
 import BlockBase, { BlockCommonEvents } from './block-base';
 
+export type ComponentConstructable<T extends Record<string, unknown>> = {
+  new (props: T): Block<T>;
+  componentName?: string;
+};
+
 export class Block<
   TProps extends TComponentCommonProps = TComponentCommonProps,
   TState extends TComponentState = TComponentState

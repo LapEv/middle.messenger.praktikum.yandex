@@ -31,6 +31,5 @@ export async function initApp() {
   }
 
   const { route, path } = router.matchRouteByPath(initPath);
-
   router.start(route, path);
 }

@@ -1,5 +1,5 @@
 import { AppPages } from 'pages/appPages';
-import * as Pages from 'pages';
+import * as Pages from '../../pages/index';
 
 const map = {
   [AppPages.Registration]: Pages.RegistrationPage,

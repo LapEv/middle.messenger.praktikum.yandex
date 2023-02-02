@@ -109,4 +109,8 @@ export class Router implements RouterCore<AppRoutes> {
   getCurrentPath() {
     return window.location.pathname;
   }
+
+  getRoute() {
+    return this.routes;
+  }
 }
