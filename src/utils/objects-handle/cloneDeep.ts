@@ -1,4 +1,4 @@
-import { isObject } from './is-object';
+import is_Object from './is-object';
 
 export default function cloneDeep<T extends object = object>(obj: T) {
   return (function _cloneDeep(
@@ -60,7 +60,7 @@ export default function cloneDeep<T extends object = object>(obj: T) {
 
     // Handle:
     // * Object
-    if (isObject<T>(item)) {
+    if (is_Object<T>(item)) {
       const copy: Record<string | symbol, unknown> = {};
 
       // Handle:

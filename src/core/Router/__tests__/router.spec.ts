@@ -1,5 +1,6 @@
 import Component, { ComponentConstructable } from 'core/Dom/сomponent';
-import Router from './Routers';
+import { Routers } from '../router';
+import 'jest';
 
 enum Screens {
   Home = 'Home',
@@ -54,7 +55,7 @@ const getScreenComponent = (screen: Screens): ComponentConstructable<any> => {
 };
 
 describe('Router', () => {
-  let router: Router;
+  let router: Routers;
   let currentScreen: Nullable<Screens>;
   let currentComponent: Nullable<Component>;
 
@@ -65,7 +66,7 @@ describe('Router', () => {
   beforeEach(() => {
     currentScreen = null;
     currentComponent = null;
-    router = new Router();
+    router = new Routers();
     ROUTES.forEach((route) => {
       router.use(route.path, () => {
         if (currentScreen !== route.component) {
@@ -78,7 +79,7 @@ describe('Router', () => {
     router.start();
   });
 
-  test('Router Back functionality', () => {
+  test('Router return functionality', () => {
     return new Promise((resolve) => {
       router.go('/page1');
       router.go('/');
@@ -92,7 +93,7 @@ describe('Router', () => {
     });
   });
 
-  test('Page components should be updated during navigation', () => {
+  test('Components should be updated during navigation', () => {
     router.go('/page1');
     expect(currentComponent).toBeInstanceOf(Page1);
 
@@ -105,7 +106,7 @@ describe('Router', () => {
     expect(currentComponent).toBeInstanceOf(ErrorPage404);
   });
 
-  test('Current screen property should be updated during navigation', () => {
+  test('The current screen property should be updated during navigation', () => {
     router.go('/page1');
     expect(currentScreen).toBe(Screens.Page1);
 

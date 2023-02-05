@@ -1,11 +1,11 @@
 module.exports = {
   // preset: 'ts-jest',
   testEnvironment: 'jsdom',
-  // roots: ['./src'],
+  roots: ['./src'],
   transformIgnorePatterns: ['/node_modules/(?!nanoid)'],
-  // transform: {
-  //   '^.+\\.(js|jsx|ts|tsx|mjs)$': 'babel-jest',
-  // },
+  transform: {
+    '^.+\\.(js|jsx|ts|tsx|mjs)$': 'babel-jest',
+  },
   moduleNameMapper: {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
     '^nanoid(/(.*)|$)': 'nanoid$1',

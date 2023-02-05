@@ -1,6 +1,6 @@
-import isEqual from './isEqual';
+import isEqual from '../isEqual';
 
-describe('Test isEqual util', () => {
+describe('Test isEqual', () => {
   const a = { a: { b: { c: 1 } } };
   const b = { a: { b: { c: 2 } } };
   const c = { a: { b: { d: 2 } } };

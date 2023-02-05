@@ -1,6 +1,6 @@
-import cloneDeep from './cloneDeep';
+import cloneDeep from '../cloneDeep';
 
-test('Test cloneDeep util', () => {
+test('Test cloneDeep', () => {
   const a = { a: { b: { c: 1 } } };
   const aClone = cloneDeep(a);
   (aClone as Record<string, unknown>).a = { c: 2 };

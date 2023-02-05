@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 
 import cloneDeep from 'utils/objects-handle/cloneDeep';
 import isEqual from 'utils/objects-handle/isEqual';
-import EventBus, { IEventBus } from '../EventBus';
+import EventBus, { IEventBus } from './EventBus';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ComponentEventHandler = (...args: any) => void;

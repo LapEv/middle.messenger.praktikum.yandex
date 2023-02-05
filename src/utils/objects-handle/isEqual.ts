@@ -1,4 +1,4 @@
-import { isObject } from './is-object';
+import is_Object from './is-object';
 
 export default function isEqual(
   object1: Record<string, unknown>,
@@ -12,7 +12,7 @@ export default function isEqual(
   for (const key of keys1) {
     const val1 = object1[key];
     const val2 = object2[key];
-    const areObjects = isObject(val1) && isObject(val2);
+    const areObjects = is_Object(val1) && is_Object(val2);
     if (
       (areObjects && !isEqual(val1, val2)) ||
       (!areObjects && val1 !== val2)

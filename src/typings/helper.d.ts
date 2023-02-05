@@ -5,6 +5,8 @@ declare global {
 
   export type Values<T extends Record<string, unknown>> = T[Keys<T>];
 
+  export type Indexed = Record<string, any>;
+
   type Split<T, K extends keyof T> = K extends unknown
     ? { [I in keyof T]: I extends K ? T[I] : never }
     : never;
