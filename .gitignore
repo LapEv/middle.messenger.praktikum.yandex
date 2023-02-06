@@ -1,5 +1,7 @@
 .git
 .parcel-cache
-/dist
+.idea/
+dist
 /node_modules
-/dist
+netlify.toml
+!webpack.config.js
