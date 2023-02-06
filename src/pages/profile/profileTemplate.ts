@@ -18,8 +18,3 @@ export default `
        </div>
       </main>
 `;
-
-// <div class='profile__line2'></div>
-// {{{changePasswordLink}}}
-// <div class='profile__line2'></div>
-// {{{exitLink}}}

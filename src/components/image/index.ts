@@ -1,1 +1,1 @@
-export { TImageProps, ImageComponent } from './сomponent';
+export { type TImageProps, ImageComponent } from './сomponent';

@@ -1,12 +1,10 @@
 import { Store } from 'core/store';
-import { Router } from 'core/Router';
-import { AuthorizationService } from 'services';
+import { Router } from 'core/router';
+import { AuthorizationService } from 'services/authorization';
 import { APIResponseHasError } from 'utils/api';
 import { initAppData } from './initAppData';
 
 export async function initApp() {
-  // console.log(`INIT APP STATRTING`);
-
   const store = new Store();
   const router = new Router();
   window.router = router;
@@ -15,7 +13,6 @@ export async function initApp() {
   store.init();
 
   const userResponse = await AuthorizationService.getUser();
-
   if (!APIResponseHasError(userResponse)) {
     await initAppData(userResponse.id);
   }
@@ -25,7 +22,6 @@ export async function initApp() {
 
   const pathQueryMatch = [...search.matchAll(/path=(\w+)/g)];
   const pathQuery = pathQueryMatch.length === 1 ? pathQueryMatch[0][1] : null;
-
   if (pathQuery) {
     initPath = `/${pathQuery}`;
   }

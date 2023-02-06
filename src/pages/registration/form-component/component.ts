@@ -1,4 +1,4 @@
-import { InputForm } from 'components';
+import { InputForm } from 'components/inputs/inputForm';
 import regData from '../registrationData';
 import { afterValidationCallback } from './validationCallback';
 import { EnumInputFields, MapInputFieldsProps } from './fields';

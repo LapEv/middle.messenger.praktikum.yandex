@@ -1,4 +1,4 @@
-import { type Block } from 'core/Dom';
+import { type Block } from 'core/dom';
 import { WithStoreBlock } from 'hocs/components';
 import { ChatComponent } from '../chatComponent';
 import template from './template';

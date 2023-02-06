@@ -1,7 +1,5 @@
-import { Button } from 'components';
-import { type Block } from 'core/Dom';
-import { TButtonProps } from 'components/buttons';
-import loginData from 'pages/login/loginData';
+import { Button } from 'components/buttons';
+import { type Block } from 'core/dom';
 
 export async function formSubmitButtonCallback() {
   const { form } = this.refs;

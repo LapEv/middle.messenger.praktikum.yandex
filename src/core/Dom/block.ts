@@ -2,7 +2,8 @@ import Handlebars from 'handlebars';
 import { nanoid } from 'nanoid';
 import { deepMerge } from 'utils/objects-handle';
 import { type Store } from 'core/store';
-import { type Router } from 'core/Router';
+import { type Router } from 'core/router';
+import { getDescendantByPath } from 'utils/pages/getDescendantByPath';
 import BlockBase, { BlockCommonEvents } from './block-base';
 
 export type ComponentConstructable<T extends Record<string, unknown>> = {
@@ -139,6 +140,12 @@ export class Block<
     this._replaceStubs(fragment);
 
     return fragment.content;
+  }
+
+  public getChildByPath<TChild = TComponentChild>(
+    pathString: string = ''
+  ): TChild {
+    return getDescendantByPath<TChild>(this.children, pathString);
   }
 
   private _init() {

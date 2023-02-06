@@ -1,5 +1,5 @@
-import { LogoutButton } from 'components/buttons';
-import { Block } from 'core/Dom';
+import { LogoutButton } from 'components/buttons/logout-button';
+import { Block } from 'core/dom';
 import * as Buttons from './buttons';
 import template from './template';
 

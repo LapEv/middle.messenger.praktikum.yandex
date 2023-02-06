@@ -1,4 +1,4 @@
-import { Button } from 'components';
+import { Button } from 'components/buttons';
 import close from 'static/img/close.png';
 
 export class CollapseButton extends Button {
@@ -12,6 +12,7 @@ export class CollapseButton extends Button {
         events: {
           click: [
             function () {
+              console.log('refs = ', this.refs);
               this.refs.settings.hide();
             },
           ],

@@ -1,13 +1,13 @@
 import { WithStoreBlock } from 'hocs/components';
-import { Button, TextComponent } from 'components';
-import functionalButtonBackgroundImage from 'static/img/settings.png';
+import { TextComponent } from 'components/text';
+import { FunctionalButton } from './functionalButton';
 import template from './template';
 
 export class ChatSectionHeader extends WithStoreBlock {
   constructor() {
     const children = {} as TComponentChildren;
 
-    children.functionalButton = ChatSectionHeader._createfunctionalButton();
+    children.functionalButton = new FunctionalButton();
 
     super({ children });
   }
@@ -31,23 +31,5 @@ export class ChatSectionHeader extends WithStoreBlock {
 
   protected render() {
     return template;
-  }
-
-  private static _createfunctionalButton() {
-    return new Button({
-      props: {
-        htmlClasses: ['chat__body__title__img'],
-        htmlStyle: {
-          'background-image': functionalButtonBackgroundImage,
-        },
-        events: {
-          click: [
-            function () {
-              this.refs.settings._element.style.display = 'block';
-            },
-          ],
-        },
-      },
-    });
   }
 }

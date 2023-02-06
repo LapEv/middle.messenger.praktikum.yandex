@@ -15,7 +15,7 @@ export class ChatWebSocket {
 
   protected socket: WebSocket;
 
-  protected messagesArrayHander: Nullable<
+  protected messagesArrayHandler: Nullable<
     (messagesBatch: TWebsocketMessageDTO[]) => void
   > = null;
 
@@ -42,11 +42,11 @@ export class ChatWebSocket {
 
     socket.addEventListener('close', (event) => {
       if (!event.wasClean) {
-        // console.log(`Chat(${chatID}) Socket Closed Clearly`);
+        console.log(`Chat(${chatID}) Socket Closed Clearly`);
       } else {
-        // console.log(
-        //   `Chat(${chatID}) Socket Closed With Error: code ${event.code}, reason ${event.reason}`
-        // );
+        console.log(
+          `Chat(${chatID}) Socket Closed With Error: code ${event.code}, reason ${event.reason}`
+        );
         clearInterval(ping);
       }
     });
@@ -59,27 +59,27 @@ export class ChatWebSocket {
         try {
           message = JSON.parse(event.data);
         } catch (err) {
-          // console.log(
-          //   `ERROR ON PARSING MESSAGE ${JSON.stringify(
-          //     message
-          //   )} ON CHAT(${chatID}) SOCKET`
-          // );
+          console.log(
+            `ERROR ON PARSING MESSAGE ${JSON.stringify(
+              message
+            )} ON CHAT(${chatID}) SOCKET`
+          );
           return;
         }
 
         if (message.type === 'pong' || message.type === 'user connected') {
           return;
         }
-        if (Array.isArray(message) && this.messagesArrayHander) {
-          this.messagesArrayHander(message);
+        if (Array.isArray(message) && this.messagesArrayHandler) {
+          this.messagesArrayHandler(message);
           return;
         }
 
-        // console.log(
-        //   `MESSAGE OF '${message.type}' TYPE RECEIVED: '${JSON.stringify(
-        //     message
-        //   )}'`
-        // );
+        console.log(
+          `MESSAGE OF '${message.type}' TYPE RECEIVED: '${JSON.stringify(
+            message
+          )}'`
+        );
 
         message = transformWebsocketMessageDTOtoAppMessage(message);
         const messagesStatePath = `chatsMessages.${chatID}`;
@@ -120,7 +120,7 @@ export class ChatWebSocket {
         if (this.socket.readyState === 1) {
           resolve();
           clearInterval(awaiter);
-          // console.log(`SOCKET OF CHAT(${this.chatID}) CONNECTED`);
+          console.log(`SOCKET OF CHAT(${this.chatID}) CONNECTED`);
         }
       }, 50);
     });

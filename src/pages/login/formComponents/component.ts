@@ -1,4 +1,4 @@
-import { InputForm } from 'components';
+import { InputForm } from 'components/inputs/inputForm';
 import { afterValidationCallback } from './validationCallback';
 import loginData from '../loginData';
 

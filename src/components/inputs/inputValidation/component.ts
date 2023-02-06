@@ -1,5 +1,4 @@
-import { Block } from 'core/Dom';
-import { TInputProps, Input } from '../basicInput';
+import { TInputProps, Input } from 'components/inputs';
 
 export type TInputValidator = () => boolean;
 export type TInputValidatorsByEvents = Record<string, TInputValidator[]>;
@@ -13,7 +12,7 @@ type TInputWithValidationState = {
   inputError: string;
 };
 
-const InputExtended = Input as any as typeof Block<
+const InputExtended = Input as any as BlockClass<
   TInputWithValidationProps,
   TInputWithValidationState
 >;
@@ -50,7 +49,7 @@ export class InputWithValidation extends InputExtended {
     Object.entries(this.props.validators!).forEach(([event, validators]) => {
       const events = this.props.events as Record<
         string,
-        ComponentEventHandler[]
+        TComponentEventHandler[]
       >;
 
       if (!events[event]) {

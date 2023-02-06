@@ -1,4 +1,4 @@
-import { Component } from 'core/Dom';
+import Component from './dom/сomponent';
 
 export const renderDOM = (
   component: Component<Record<string, unknown>>,

@@ -1,3 +1,3 @@
 export { Router } from './router';
-export { RouterCore } from './routerCore';
+export { type RouterCore } from './routerCore';
 export { AppRoutes, AppRoutesData } from './routerData';

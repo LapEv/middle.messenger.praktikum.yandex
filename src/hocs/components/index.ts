@@ -1,7 +1,11 @@
-import { Block } from 'core/Dom';
-import { TextComponent, Link, ImageComponent } from 'components';
+import { Block } from 'core/dom';
+import { Link } from 'components/link';
+import { TextComponent } from 'components/text';
+import { ImageComponent } from 'components/image';
 import { Button } from 'components/buttons';
-import { Input, FileInput, InputWithValidation } from 'components/inputs';
+import { Input } from 'components/inputs';
+import { InputWithValidation } from 'components/inputs/inputValidation';
+import { FileInput } from 'components/inputs/fileInput';
 import { WithStore } from '../withStore';
 import { WithRouter } from '../withRouter';
 

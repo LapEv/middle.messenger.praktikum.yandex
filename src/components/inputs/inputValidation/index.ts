@@ -1,5 +1,5 @@
 export {
   InputWithValidation,
-  TInputWithValidationProps,
-  TInputValidator,
-} from "./component";
+  type TInputWithValidationProps,
+  type TInputValidator,
+} from './component';

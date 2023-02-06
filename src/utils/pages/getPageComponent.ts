@@ -1,14 +1,21 @@
+import { RegistrationPage } from 'pages/registration';
+import { LoginPage } from 'pages/login';
+import { ChatPage } from 'pages/chat';
+import { ProfilePage } from 'pages/profile';
 import { AppPages } from 'pages/appPages';
-import * as Pages from '../../pages/index';
+import {
+  NotFoundErrorPage,
+  AuthorizationRequiredErrorPage,
+} from 'pages/errors';
 
 const map = {
-  [AppPages.Registration]: Pages.RegistrationPage,
-  [AppPages.Login]: Pages.LoginPage,
-  [AppPages.Chat]: Pages.ChatPage,
-  [AppPages.Profile]: Pages.ProfilePage,
-  [AppPages.ChangePassword]: Pages.ProfilePage,
-  [AppPages.NotFound]: Pages.NotFoundErrorPage,
-  [AppPages.Forbidden]: Pages.AuthorizationRequiredErrorPage,
+  [AppPages.Registration]: RegistrationPage,
+  [AppPages.Login]: LoginPage,
+  [AppPages.Chat]: ChatPage,
+  [AppPages.Profile]: ProfilePage,
+  [AppPages.ChangePassword]: ProfilePage,
+  [AppPages.NotFound]: NotFoundErrorPage,
+  [AppPages.Forbidden]: AuthorizationRequiredErrorPage,
 };
 
 export const getPageComponent = (page: AppPages): TAppPageClass => {

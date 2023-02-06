@@ -53,14 +53,14 @@ module.exports = {
         exclude: /(node_modules)/,
       },
       {
-        test: /\.less$/,
+        test: /\.scss$/,
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
             options: {},
           },
           'css-loader',
-          'less-loader',
+          'sass-loader',
         ],
       },
       {

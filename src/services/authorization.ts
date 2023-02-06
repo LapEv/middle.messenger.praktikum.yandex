@@ -1,8 +1,8 @@
 import { AuthorizationAPI } from 'api';
 
-import { AppRoutes } from 'core/Router';
+import { AppRoutes } from 'core/router';
 import { APIResponseHasError } from 'utils/api';
-import { initAppData } from 'services/initApp';
+import { initAppData } from 'services/initApp/initAppData';
 
 export const enum EnumLoginAPIErrors {
   AlreadyInSystem = 'User already in system',

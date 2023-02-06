@@ -2,6 +2,7 @@ import { WithStoreTextComponent } from 'hocs/components';
 import { dateToString } from 'utils/objects-handle';
 
 export class ChatTime extends WithStoreTextComponent {
+  // @ts-ignore 'chatID' is declared but its value is never read
   private chatID: string;
 
   constructor(chatID: string) {

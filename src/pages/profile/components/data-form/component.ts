@@ -1,4 +1,4 @@
-import { InputForm } from 'components';
+import { InputForm } from 'components/inputs/inputForm';
 import { WithStoreValidatedInput } from 'hocs/components';
 import { afterValidationCallback } from './afterValidationCallback';
 import {

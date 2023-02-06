@@ -1,6 +1,11 @@
 {
   "compileOnSave": false,
-  "include": ["./src/**/*.ts", "./src/**/*.spec.ts"],
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.spec.ts",
+    "src/pages/chat/components/side-menu/buttons",
+    "src/pages/chat/components/chat-section/header-section/functional-button"
+  ],
   "exclude": ["node_modules"],
   "compilerOptions": {
     "module": "commonjs",

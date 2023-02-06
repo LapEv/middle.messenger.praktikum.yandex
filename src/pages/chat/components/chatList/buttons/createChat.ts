@@ -1,9 +1,6 @@
-import { Button } from 'components';
-import {
-  Modal,
-  CreateChatModal,
-  EnumModal,
-} from 'pages/chat/components/modals';
+import { Button } from 'components/buttons';
+import { CreateChatModal } from 'pages/chat/components/modals/createChat';
+import { Modal, EnumModal } from 'pages/chat/components/modals';
 
 export class CreateChatButton extends Button {
   constructor() {

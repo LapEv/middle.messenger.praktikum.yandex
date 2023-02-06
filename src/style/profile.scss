@@ -89,7 +89,7 @@
     width: auto;
     height: auto;
     margin-top: 21px;
-    font-size: 16;
+    font-size: 16px;
     font-weight: bold;
   }
   &__data {
@@ -121,12 +121,12 @@
       margin-top: 100px;
     }
     &__title {
-      font-size: 13;
+      font-size: 13px;
       font-weight: bold;
     }
     &__data {
       color: $color-text-background;
-      font-size: 13;
+      font-size: 13px;
       text-align: end;
       margin-bottom: 10px;
       border: 0;
@@ -135,14 +135,14 @@
       }
       &__active {
         color: $color-black;
-        font-size: 13;
+        font-size: 13px;
         text-align: end;
         margin-bottom: 10px;
         border: 0;
       }
       &__error {
         color: $color-danger;
-        font-size: 13;
+        font-size: 13px;
         text-align: end;
         margin-bottom: 10px;
         border: 0;
@@ -207,14 +207,14 @@
     margin-top: 60px;
     height: auto;
     color: $color-button-background;
-    font-size: 13;
+    font-size: 13px;
   }
   &__password {
     width: 510px;
     margin-top: 10px;
     height: auto;
     color: $color-button-background;
-    font-size: 13;
+    font-size: 13px;
   }
   &__line2 {
     margin-top: 10px;
@@ -223,7 +223,7 @@
     margin-top: 10px;
     width: 510px;
     color: $color-danger;
-    font-size: 13;
+    font-size: 13px;
   }
   &__button {
     display: flex;
@@ -240,7 +240,7 @@
     }
   }
   &__error {
-    font-size: 11;
+    font-size: 11px;
     margin-top: 7px;
     margin-left: 3px;
     color: $color-danger-light;

@@ -1,7 +1,7 @@
 import { WithStoreButton } from 'hocs/components';
 import { isNullish } from 'utils/objects-handle';
-import { Modal, AddChatModal, EnumModal } from 'pages/chat/components/modals';
-
+import { AddChatModal } from 'pages/chat/components/modals/addChat';
+import { Modal, EnumModal } from 'pages/chat/components/modals';
 export class AddChatUsersButton extends WithStoreButton {
   constructor() {
     super({

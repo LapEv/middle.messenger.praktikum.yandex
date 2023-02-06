@@ -1,19 +1,23 @@
-import * as PagesClasses from "pages";
+import { RegistrationPage } from 'pages/registration';
+import { LoginPage } from 'pages/login';
+import { ChatPage } from 'pages/chat';
+import { ProfilePage } from 'pages/profile';
+import { TErrorPage, TErrorPageClass } from 'pages/errors';
 
 declare global {
   export type TAppPage =
     | PagesClasses.ChatsPage
     | PagesClasses.LoginPage
     | PagesClasses.ProfilePage
-    | PagesClasses.SignUpPage
+    | PagesClasses.RegistrationPage
     | PagesClasses.TErrorPage;
 
   export type TAppPageClass =
-    | typeof PagesClasses.ChatsPage
-    | typeof PagesClasses.LoginPage
-    | typeof PagesClasses.ProfilePage
-    | typeof PagesClasses.SignUpPage
-    | PagesClasses.TErrorPageClass;
+    | typeof RegistrationPage
+    | typeof LoginPage
+    | typeof ChatPage
+    | typeof ProfilePage
+    | TErrorPageClass;
 }
 
 export {};

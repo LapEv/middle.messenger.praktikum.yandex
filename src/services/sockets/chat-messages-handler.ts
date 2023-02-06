@@ -14,6 +14,7 @@ export class ChatMessagesHandler extends ChatWebSocket {
 
   private allMessages = [] as TAppChatMessage[];
 
+  // @ts-ignore '_setMessagesBatch' is declared but its value is never read.
   private _setMessagesBatch(messagesBatch: TWebsocketMessageDTO[]) {
     if (messagesBatch.length === 0) {
       this.allMessagesReceivedStatus = true;
@@ -46,9 +47,9 @@ export class ChatMessagesHandler extends ChatWebSocket {
           this.currentBatch === currentBatch
         ) {
           resolve();
-          // console.log(
-          //   `SUCCESSFULLY GOT CHAT(${this.chatID}) MESSAGES BATCH WITH OFFSET ${offset}`
-          // );
+          console.log(
+            `SUCCESSFULLY GOT CHAT(${this.chatID}) MESSAGES BATCH WITH OFFSET ${offset}`
+          );
         }
       }, 50);
     })
@@ -68,11 +69,11 @@ export class ChatMessagesHandler extends ChatWebSocket {
   }
 
   public async getAllMessages() {
-    this.messagesArrayHander = allMessagesReceiver.bind(this);
+    this.messagesArrayHandler = allMessagesReceiver.bind(this);
 
     await this._getAllMessagesFromBatch(0);
     if (this.allMessagesReceivedStatus) {
-      // console.log(`CHAT(${this.chatID}) ALL MESSAGES RECEIVED SUCCESSFULLY`);
+      console.log(`CHAT(${this.chatID}) ALL MESSAGES RECEIVED SUCCESSFULLY`);
     }
 
     const { allMessages } = this;
@@ -81,7 +82,7 @@ export class ChatMessagesHandler extends ChatWebSocket {
   }
 
   private _resetAllMessageReceivingStatus() {
-    this.messagesArrayHander = null;
+    this.messagesArrayHandler = null;
     this.allMessages = [];
     this.allMessagesReceivedStatus = false;
     this.currentBatch = -1;

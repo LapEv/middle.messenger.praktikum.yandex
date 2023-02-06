@@ -1,2 +1,1 @@
-export { TButtonProps, Button } from './basicButton';
-export { LogoutButton } from './logout-button';
+export { type TButtonProps, Button } from './basicButton';

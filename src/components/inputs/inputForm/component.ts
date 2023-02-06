@@ -1,4 +1,4 @@
-import { Block } from 'core/Dom';
+import { Block } from 'core/dom';
 import { InputWithValidation } from '../inputValidation';
 import { type Input, TInputProps } from '../basicInput';
 import { FormSubmitButton } from './submitButton';
@@ -6,7 +6,7 @@ import template from './template';
 import { WithRouter } from 'hocs';
 import { Link } from 'components/link';
 import loginData from 'pages/login/loginData';
-import { AppRoutes } from 'core/Router';
+import { AppRoutes } from 'core/router';
 import regData from 'pages/registration/registrationData';
 
 type TInputFormProps = WithComponentCommonProps<{

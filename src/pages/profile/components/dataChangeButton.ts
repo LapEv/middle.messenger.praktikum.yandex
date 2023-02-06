@@ -1,6 +1,6 @@
-import { WithStoreBlock } from 'hocs/components';
-import { type Block } from 'core/Dom';
-import { Button, type Input } from 'components';
+import { type Block } from 'core/dom';
+import { Button } from 'components/buttons';
+import { type Input } from 'components/inputs';
 import { formSubmitButtonCallback } from 'components/inputs/inputForm';
 
 export class DataChangeButton extends Button {
