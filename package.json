@@ -35,7 +35,7 @@
   "author": "Evgeniy Lapkin",
   "license": "ISC",
   "devDependencies": {
-    "@anikin/parcel-transformer-handlebars": "^1.0.9",
+    "@anikin/parcel-transformer-handlebars": "^1.0.2",
     "@babel/core": "^7.20.12",
     "@babel/plugin-transform-modules-commonjs": "^7.20.11",
     "@babel/preset-env": "^7.20.2",
@@ -74,7 +74,6 @@
     "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
-    "babel-core": "^6.26.3",
     "express": "^4.18.2",
     "handlebars": "4.7.7",
     "less": "^4.1.3",
