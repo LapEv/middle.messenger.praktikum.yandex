@@ -1,11 +1,15 @@
 const express = require('express');
-require('dotenv').config();
-const app = express();
 
+const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.static('dist'));
-app.get('/*', (request, response) => {
-  response.sendFile(`${__dirname}/dist/index.html`);
+const distDir = `${__dirname}/dist/`;
+app.use(express.static(distDir));
+
+app.get('/*', function (req, res) {
+  res.sendFile(`${distDir}/index.html`);
 });
-app.listen(PORT, () => console.log(`Listening on port ${PORT}...`));
+
+app.listen(PORT, function () {
+  console.log(`Listening on port ${PORT}!`);
+});
