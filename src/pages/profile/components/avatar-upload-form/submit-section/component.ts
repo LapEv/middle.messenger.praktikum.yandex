@@ -1,4 +1,4 @@
-import { Block } from 'core/dom';
+import { Block } from 'core/dom1';
 import { Button } from 'components/buttons';
 import { ProfileService } from 'services';
 import {

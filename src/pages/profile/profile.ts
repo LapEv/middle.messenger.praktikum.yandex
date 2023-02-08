@@ -1,4 +1,4 @@
-import { Block } from 'core/dom';
+import { Block } from 'core/dom1';
 import avatarImagePlaceholder from 'static/img/profile_avatar.png';
 import { ImageComponent } from 'components/image';
 import { Input } from 'components/inputs';
@@ -11,7 +11,7 @@ import { EnumInputFields } from './components/data-form';
 import { MapInputFieldToUserDataRecord } from './components/data-form/fields';
 import arrowBackImage from 'static/img/arrowBack.png';
 import { profileData } from './profileData';
-import { AppRoutes } from 'core/router';
+import { AppRoutes } from 'core/router1';
 import { AvatarInput } from './components/avatar-upload-form/avatar-input';
 import { SubmitSection } from './components/avatar-upload-form/submit-section';
 

@@ -1,4 +1,4 @@
-import Component, { ComponentConstructable } from 'core/dom/сomponent';
+import Component, { ComponentConstructable } from 'core/dom1/сomponent';
 import { Routers } from '../router';
 import 'jest';
 

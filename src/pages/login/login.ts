@@ -1,4 +1,4 @@
-import { Block } from 'core/dom';
+import { Block } from 'core/dom1';
 import loginData from './loginData';
 import template from './loginTemplate';
 import { LoginPageForm } from './formComponents';

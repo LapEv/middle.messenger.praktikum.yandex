@@ -2,7 +2,7 @@ import Handlebars from 'handlebars';
 import { nanoid } from 'nanoid';
 import { deepMerge } from 'utils/objects-handle';
 import { type Store } from 'core/store';
-import { type Router } from 'core/router';
+import { type Router } from 'core/router1';
 import { getDescendantByPath } from 'utils/pages/getDescendantByPath';
 import BlockBase, { BlockCommonEvents } from './block-base';
 

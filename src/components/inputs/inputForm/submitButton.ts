@@ -1,5 +1,5 @@
 import { Button } from 'components/buttons';
-import { type Block } from 'core/dom';
+import { type Block } from 'core/dom1';
 
 export async function formSubmitButtonCallback() {
   const { form } = this.refs;
