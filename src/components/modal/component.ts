@@ -1,5 +1,5 @@
 import { Button } from 'components/buttons';
-import { Block } from 'core/dom1';
+import { Block } from 'core/dom';
 import template from './template';
 import close from 'static/img/close.png';
 

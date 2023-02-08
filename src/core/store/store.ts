@@ -1,6 +1,6 @@
 import { getPageComponent } from 'utils/pages';
 import { AppPages } from 'pages/appPages';
-import { renderDOM } from 'core/dom1';
+import { renderDOM } from 'core/dom';
 import {
   comparePropByPath,
   deepEqual,

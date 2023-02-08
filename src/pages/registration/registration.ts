@@ -1,4 +1,4 @@
-import { Block } from 'core/dom1';
+import { Block } from 'core/dom';
 import { RegistrationPageForm } from './form-component';
 import template from './registrationTemplate';
 

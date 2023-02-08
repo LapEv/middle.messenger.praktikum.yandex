@@ -1,5 +1,5 @@
 import { Store } from 'core/store';
-import { Router } from 'core/router1';
+import { Router } from 'core/router';
 import { AuthorizationService } from 'services/authorization';
 import { APIResponseHasError } from 'utils/api';
 import { initAppData } from './initAppData';

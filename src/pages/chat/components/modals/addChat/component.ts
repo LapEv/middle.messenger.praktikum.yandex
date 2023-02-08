@@ -1,4 +1,4 @@
-import { Block } from 'core/dom1';
+import { Block } from 'core/dom';
 import { Button } from 'components/buttons';
 import { Input } from 'components/inputs';
 import { TextComponent } from 'components/text';
