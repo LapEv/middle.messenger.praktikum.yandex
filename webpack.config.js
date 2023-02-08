@@ -23,6 +23,10 @@ module.exports = {
     filename: isDevMode ? '[name].js' : '[name].[contenthash].js',
   },
   devServer: { port: 3000, hot: isDevMode, historyApiFallback: true },
+  performance: {
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000,
+  },
   resolve: {
     extensions: ['.ts', '.js', '.json'],
     alias: {

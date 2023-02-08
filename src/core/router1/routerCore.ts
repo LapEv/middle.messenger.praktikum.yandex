@@ -1,4 +1,4 @@
-import { Component, ComponentConstructable } from 'core/DOM';
+import { Component, ComponentConstructable } from 'core/dom';
 import { renderDOM } from '../renderDOM';
 export interface RouterCore<AppRoutes> {
   init(...args: unknown[]): void;
