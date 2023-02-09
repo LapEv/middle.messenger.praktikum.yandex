@@ -1,5 +1,6 @@
-import { WithStoreImageComponent } from 'hocs/components';
-import avatarPlacholder from './avatarPlacholder.svg';
+import { WithStoreImageComponent } from "hocs/components";
+
+import avatarPlacholder from "./avatarPlacholder.svg";
 
 export class ChatAvatar extends WithStoreImageComponent {
   private chatID: string;
@@ -22,7 +23,7 @@ export class ChatAvatar extends WithStoreImageComponent {
     Object.assign(this.props, {
       htmlAttributes: {
         src: avatarSrc,
-        alt: 'avatar placeholder',
+        alt: "avatar placeholder",
       },
     });
   }

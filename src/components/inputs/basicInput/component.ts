@@ -1,5 +1,6 @@
-import { Block } from 'core/dom';
-import template from './template';
+import { Block } from "core/dom";
+
+import template from "./template";
 
 export type TInputProps = WithComponentCommonProps<{
   htmlAttributes?: {
@@ -22,31 +23,31 @@ export class Input extends Block<TInputProps> {
   protected _afterPropsAssignHook(): void {
     super._afterPropsAssignHook();
 
-    this.props.htmlAttributes!.value ??= '';
-    this.props.htmlAttributes!.type ??= 'text';
+    this.props.htmlAttributes!.value ??= "";
+    this.props.htmlAttributes!.type ??= "text";
   }
 
   public toggleDisabledState(state: string | undefined = undefined) {
     const element = this._unwrappedElement as HTMLInputElement;
 
-    if (state === 'error') {
+    if (state === "error") {
       element.disabled = false;
-      element.classList.add('profile__data__data__error');
-      element.classList.remove('profile__data__data');
+      element.classList.add("profile__data__data__error");
+      element.classList.remove("profile__data__data");
       return;
     }
 
-    if (state === 'save') {
+    if (state === "save") {
       element.disabled = false;
-      element.classList.add('profile__data__data__active');
-      element.classList.remove('profile__data__data');
+      element.classList.add("profile__data__data__active");
+      element.classList.remove("profile__data__data");
       return;
     }
 
-    if (state === 'change') {
+    if (state === "change") {
       element.disabled = true;
-      element.classList.add('profile__data__data');
-      element.classList.remove('profile__data__data__active');
+      element.classList.add("profile__data__data");
+      element.classList.remove("profile__data__data__active");
     }
   }
 

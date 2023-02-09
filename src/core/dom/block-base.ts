@@ -1,17 +1,17 @@
-import { nanoid } from 'nanoid';
+import { EventBus } from "core/event-bus";
+import { nanoid } from "nanoid";
+import { toggleHtmlClassToList } from "utils/components";
 import {
+  comparePropByPath,
   deepEqual,
   getPropByPath,
   setPropByPath,
-  comparePropByPath,
-} from 'utils/objects-handle';
-import { EventBus } from 'core/event-bus';
-import { toggleHtmlClassToList } from 'utils/components';
+} from "utils/objects-handle";
 
 export const enum BlockCommonEvents {
-  INIT = 'init',
-  FLOW_CDU = 'flow:component-did-update',
-  FLOW_RENDER = 'flow:render',
+  INIT = "init",
+  FLOW_CDU = "flow:component-did-update",
+  FLOW_RENDER = "flow:render",
 }
 
 export type TBlockCommonEventsHandlersArgs<
@@ -30,9 +30,9 @@ export default class BlockBase<
   TState extends TComponentState
 > {
   static EVENTS = {
-    INIT: 'init',
-    FLOW_CDU: 'flow:component-did-update',
-    FLOW_RENDER: 'flow:render',
+    INIT: "init",
+    FLOW_CDU: "flow:component-did-update",
+    FLOW_RENDER: "flow:render",
   };
 
   protected _element: Nullable<HTMLElement> = null;
@@ -57,7 +57,7 @@ export default class BlockBase<
   protected _componentDidUpdate(
     oldPropsOrState: Partial<TProps> | Partial<TState>,
     newPropsOrState: Partial<TProps> | Partial<TState>,
-    forceUpdate: boolean = false
+    forceUpdate = false
   ): void {
     if (
       forceUpdate ||
@@ -108,7 +108,7 @@ export default class BlockBase<
     return this._element;
   }
 
-  public getStateByPath(pathString: string = '') {
+  public getStateByPath(pathString = "") {
     return getPropByPath(this.state, pathString);
   }
 
@@ -118,13 +118,13 @@ export default class BlockBase<
       return;
     }
 
-    element.style.display = 'none';
+    element.style.display = "none";
   }
 
   public show(): void {
     const element = this.getElement();
 
-    element!.style.display = 'block';
+    element!.style.display = "block";
   }
 
   protected _removeEventsFromElement() {
@@ -140,29 +140,29 @@ export default class BlockBase<
   }
 
   protected render(): string {
-    return '<div></div>';
+    return "<div></div>";
   }
 
   public setPropByPath(
     propPath: string,
     newValue: unknown,
-    forceUpdate: boolean = false,
-    doLog: boolean = false
+    forceUpdate = false,
+    doLog = false
   ): void {
     const didUpdate =
       forceUpdate || !comparePropByPath(this.props, propPath, newValue, doLog);
 
     if (didUpdate) {
       setPropByPath(this.props, propPath, newValue, doLog);
-      this._componentDidUpdate('' as any, '' as any, true);
+      this._componentDidUpdate("" as any, "" as any, true);
     }
   }
 
   public setChildByPath(
     childPath: string,
     newValue: TComponentChild | TComponentChildArray,
-    forceUpdate: boolean = false,
-    doLog: boolean = false
+    forceUpdate = false,
+    doLog = false
   ) {
     const didUpdate =
       forceUpdate ||
@@ -170,11 +170,11 @@ export default class BlockBase<
 
     if (didUpdate) {
       setPropByPath(this.children, childPath, newValue, doLog);
-      this._componentDidUpdate('' as any, '' as any, true);
+      this._componentDidUpdate("" as any, "" as any, true);
     }
   }
 
-  public toggleHtmlClass(className: string, state: Nullable<'on' | 'off'>) {
+  public toggleHtmlClass(className: string, state: Nullable<"on" | "off">) {
     const classList = toggleHtmlClassToList(
       this.props.htmlClasses!,
       className,

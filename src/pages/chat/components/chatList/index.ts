@@ -1,1 +1,1 @@
-export { ChatListPage } from './component';
+export { ChatListPage } from "./component";

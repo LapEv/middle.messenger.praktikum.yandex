@@ -1,9 +1,10 @@
-import { WithStoreBlock } from 'hocs/components';
-import { ChatAvatar } from './avatar';
-import { ChatTitle } from './title';
-import template from './template';
-import { ChatText } from './text';
-import { ChatTime } from './time';
+import { WithStoreBlock } from "hocs/components";
+
+import { ChatAvatar } from "./avatar";
+import template from "./template";
+import { ChatText } from "./text";
+import { ChatTime } from "./time";
+import { ChatTitle } from "./title";
 
 export class ChatComponent extends WithStoreBlock {
   // @ts-ignore
@@ -22,7 +23,7 @@ export class ChatComponent extends WithStoreBlock {
 
     const afterRenderHook = function () {
       if (this.chatID === this.store.getCurrentChatID()) {
-        this.toggleHtmlClass('current-chat', 'on');
+        this.toggleHtmlClass("current-chat", "on");
       }
     };
 
@@ -40,6 +41,6 @@ export class ChatComponent extends WithStoreBlock {
       this.store.dispatch({ currentChatID: this.chatID });
     };
 
-    this.dispatchEventListener('click', onclickCallback.bind(this));
+    this.dispatchEventListener("click", onclickCallback.bind(this));
   }
 }

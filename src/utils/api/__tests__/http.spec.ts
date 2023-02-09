@@ -1,75 +1,75 @@
-import { newServer } from 'mock-xmlhttprequest';
+import { newServer } from "mock-xmlhttprequest";
 
-import Http from '../http';
+import Http from "../http";
 
-describe('Http', () => {
+describe("Http", () => {
   const server = newServer({
     get: [
-      '/get',
+      "/get",
       {
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: 'Success' }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: "Success" }),
       },
     ],
     post: [
-      '/post',
+      "/post",
       {
         status: 404,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: 'Not found' }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: "Not found" }),
       },
     ],
     put: [
-      '/put',
+      "/put",
       {
         status: 200,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: 'Success' }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: "Success" }),
       },
     ],
-    delete: ['/delete', { status: 202 }],
+    delete: ["/delete", { status: 202 }],
   });
 
   beforeAll(() => {
     server.install();
-    Http.baseUrl = '/';
+    Http.baseUrl = "/";
   });
 
   afterAll(() => {
     server.remove();
   });
 
-  test('GET request', () => {
-    return Http.get('/get').then(({ response, status }) => {
+  test("GET request", () => {
+    return Http.get("/get").then(({ response, status }) => {
       expect(status).toEqual(200);
       expect((response as Record<string, unknown>).message).toContain(
-        'Success'
+        "Success"
       );
     });
   });
 
-  test('POST request', () => {
-    return Http.post('/post').then(({ response, status }) => {
+  test("POST request", () => {
+    return Http.post("/post").then(({ response, status }) => {
       expect(status).toEqual(404);
       expect((response as Record<string, unknown>).message).toContain(
-        'Not found'
+        "Not found"
       );
     });
   });
 
-  test('PUT request', () => {
-    return Http.put('/put').then(({ response, status }) => {
+  test("PUT request", () => {
+    return Http.put("/put").then(({ response, status }) => {
       expect(status).toEqual(200);
       expect((response as Record<string, unknown>).message).toContain(
-        'Success'
+        "Success"
       );
     });
   });
 
-  test('DELETE request', () => {
-    return Http.delete('/delete').then(({ response, status }) => {
+  test("DELETE request", () => {
+    return Http.delete("/delete").then(({ response, status }) => {
       expect(status).toEqual(202);
-      expect(response).toEqual('');
+      expect(response).toEqual("");
     });
   });
 });

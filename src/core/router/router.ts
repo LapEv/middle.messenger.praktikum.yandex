@@ -1,15 +1,18 @@
-import { RouterCore } from './routerCore';
-import Route from './routerCore';
-import { AppRoutesData, AppRoutes, MapPathToRoute } from './routerData';
+import Route, { RouterCore } from "./routerCore";
+import { AppRoutes, AppRoutesData, MapPathToRoute } from "./routerData";
+
 export class Routers {
   static __instance: Nullable<Router>;
+
   private routes: Record<
     string,
     (routeParams?: Record<string, unknown>) => void
   > = {};
+
   private isStarted = false;
 
   history = window.history;
+
   _currentRoute: Nullable<Route> = null;
 
   use(hash: string, callback: () => void) {
@@ -19,9 +22,9 @@ export class Routers {
 
   start() {
     if (!this.isStarted) {
-      window.onpopstate = ((event: PopStateEvent) => {
+      window.onpopstate = (event: PopStateEvent) => {
         this._onRoute((event.currentTarget as Window).location.pathname);
-      }).bind(this);
+      };
 
       this._onRoute(window.location.pathname);
       this.isStarted = true;
@@ -30,11 +33,11 @@ export class Routers {
 
   private _onRoute(pathname: string) {
     const found = Object.entries(this.routes).some(([routePath, callback]) => {
-      const hasIdParameter = routePath.includes(':id');
+      const hasIdParameter = routePath.includes(":id");
       if (hasIdParameter) {
-        const routeWithoutIdParameter = routePath.replace(':id', '');
+        const routeWithoutIdParameter = routePath.replace(":id", "");
         const possibleIdParameter = parseInt(
-          pathname.replace(routeWithoutIdParameter, '')
+          pathname.replace(routeWithoutIdParameter, "")
         );
         if (possibleIdParameter > 0) {
           callback({ idParam: Number(possibleIdParameter) });
@@ -49,13 +52,13 @@ export class Routers {
       return false;
     });
 
-    if (!found && this.routes['*']) {
-      this.routes['*']();
+    if (!found && this.routes["*"]) {
+      this.routes["*"]();
     }
   }
 
   go(pathname: string) {
-    this.history.pushState({}, '', pathname);
+    this.history.pushState({}, "", pathname);
     this._onRoute(pathname);
   }
 
@@ -102,7 +105,7 @@ export class Router implements RouterCore<AppRoutes> {
     // console.log(`Router starts on window path '${window.location.pathname}'`);
     // console.log(`Start route is '${startRoute}' on path '${startPathname}'`);
     if (startRoute !== AppRoutes.NotFound) {
-      window.history.replaceState({}, '', startPathname);
+      window.history.replaceState({}, "", startPathname);
       // console.log(`Router Start: replace state to '${startPathname}'`);
     }
     this.onRouteChange(startRoute);
@@ -131,7 +134,7 @@ export class Router implements RouterCore<AppRoutes> {
   go(route: AppRoutes) {
     // console.log(`Go to route '${route}'`);
     const { path } = this.routesData[route];
-    window.history.pushState({}, '', path);
+    window.history.pushState({}, "", path);
     // console.log(`Go: state pushed to ${path}'`);
     this.onRouteChange(route);
   }
@@ -148,7 +151,7 @@ export class Router implements RouterCore<AppRoutes> {
     route: AppRoutes;
     path: string;
   } {
-    if (pathname === '/') {
+    if (pathname === "/") {
       let route;
       if (window.store.isUserAuthorized()) {
         route = AppRoutes.Chat;

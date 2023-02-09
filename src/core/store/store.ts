@@ -1,21 +1,22 @@
-import { getPageComponent } from 'utils/pages';
-import { AppPages } from 'pages/appPages';
-import { renderDOM } from 'core/dom';
+import { renderDOM } from "core/dom";
+import { AppPages } from "pages/appPages";
+import { type ChatMessagesHandler } from "services/sockets";
 import {
   comparePropByPath,
   deepEqual,
   getPropByPath,
   isNullish,
   setPropByPath,
-} from 'utils/objects-handle';
-import { type ChatMessagesHandler } from 'services/sockets';
-import { EnumStoreEvents } from './enum-store-events';
-import { EventBus } from '../event-bus';
-import * as StateProxies from './state-proxies/main-states-proxies';
+} from "utils/objects-handle";
+import { getPageComponent } from "utils/pages";
+
+import { EventBus } from "../event-bus";
+import { EnumStoreEvents } from "./enum-store-events";
 import {
   stateByPathSetter,
   statePathRegex,
-} from './state-proxies/by-path-proxies';
+} from "./state-proxies/by-path-proxies";
+import * as StateProxies from "./state-proxies/main-states-proxies";
 
 export const defaultState: TAppState = {
   page: null,
@@ -51,33 +52,33 @@ export class Store {
   }
 
   dispatch(nextStateOrAction: Partial<TAppState> | Function) {
-    if (typeof nextStateOrAction === 'function') {
+    if (typeof nextStateOrAction === "function") {
       nextStateOrAction();
     } else {
       this._setState(nextStateOrAction);
     }
   }
 
-  public getStateValueByPath(pathString: string = '', doLog: boolean = false) {
+  public getStateValueByPath(pathString = "", doLog = false) {
     return getPropByPath(this.state, pathString, doLog);
   }
 
-  public getUserDataByPath(pathString: string = '', doLog = false) {
-    const path = `user${pathString ? '.' : ''}${pathString}`;
+  public getUserDataByPath(pathString = "", doLog = false) {
+    const path = `user${pathString ? "." : ""}${pathString}`;
     return this.getStateValueByPath(path, doLog);
   }
 
   public getUserID() {
-    return this.getStateValueByPath('user.id');
+    return this.getStateValueByPath("user.id");
   }
 
-  public getChatsDataByPath(pathString: string = '', doLog = false) {
-    const path = `chats${pathString ? '.' : ''}${pathString}`;
+  public getChatsDataByPath(pathString = "", doLog = false) {
+    const path = `chats${pathString ? "." : ""}${pathString}`;
     return this.getStateValueByPath(path, doLog);
   }
 
   public getCurrentChatID() {
-    return this.getStateValueByPath('currentChatID');
+    return this.getStateValueByPath("currentChatID");
   }
 
   public getPageType(): Nullable<string> {
@@ -113,11 +114,11 @@ export class Store {
     );
   }
 
-  public isPageSet(): Boolean {
+  public isPageSet(): boolean {
     return Boolean(this.state.page);
   }
 
-  public isUserAuthorized(): Boolean {
+  public isUserAuthorized(): boolean {
     return Boolean(this.state.user);
   }
 
@@ -141,16 +142,16 @@ export class Store {
         // );
 
         switch (prop) {
-          case 'page':
+          case "page":
             StateProxies.pageSetter.call(this, newValue);
             break;
-          case 'user':
+          case "user":
             StateProxies.userSetter.call(this, oldValue, newValue);
             break;
-          case 'chats':
+          case "chats":
             StateProxies.chatsSetter.call(this, oldValue, newValue);
             break;
-          case 'currentChatID':
+          case "currentChatID":
             StateProxies.currentChatSetter.call(this, oldValue, newValue);
             break;
           default:
@@ -169,11 +170,7 @@ export class Store {
     Object.assign(this.state, nextState);
   }
 
-  public setStateByPath(
-    pathString: string,
-    newValue: unknown,
-    doLog: boolean = false
-  ) {
+  public setStateByPath(pathString: string, newValue: unknown, doLog = false) {
     const isValueChanged = !comparePropByPath(
       this.state,
       pathString,
@@ -201,7 +198,7 @@ export class Store {
     }
   }
 
-  public userHasAnyChats(): Boolean {
+  public userHasAnyChats(): boolean {
     const { chats } = this.state;
     if (isNullish(chats)) {
       return false;

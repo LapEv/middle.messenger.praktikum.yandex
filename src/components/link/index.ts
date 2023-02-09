@@ -1,1 +1,1 @@
-export { type TLinkProps, Link } from './component';
+export { Link, type TLinkProps } from "./component";

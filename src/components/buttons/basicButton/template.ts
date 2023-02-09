@@ -1,6 +1,6 @@
-import getComponentTemplate from 'utils/components/templateGenerator';
+import getComponentTemplate from "utils/components/templateGenerator";
 
-const tag = 'button';
+const tag = "button";
 
 const content = `
 {{#if label}}

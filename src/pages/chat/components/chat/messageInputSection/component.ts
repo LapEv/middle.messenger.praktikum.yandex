@@ -1,8 +1,9 @@
-import { WithStoreBlock } from 'hocs/components';
-import { SendMessageButton } from './sendMessageButton';
-import { AttachmentButton } from './attachmentButton';
-import { MessageInput } from './messageInput';
-import template from './template';
+import { WithStoreBlock } from "hocs/components";
+
+import { AttachmentButton } from "./attachmentButton";
+import { MessageInput } from "./messageInput";
+import { SendMessageButton } from "./sendMessageButton";
+import template from "./template";
 
 export class MessageInputSection extends WithStoreBlock {
   constructor() {
@@ -19,8 +20,8 @@ export class MessageInputSection extends WithStoreBlock {
   protected _afterPropsAssignHook(): void {
     super._afterPropsAssignHook();
 
-    const sendMessageButton = this.getChildByPath('sendMessageButton');
-    const messageInput = this.getChildByPath('messageInput');
+    const sendMessageButton = this.getChildByPath("sendMessageButton");
+    const messageInput = this.getChildByPath("messageInput");
     messageInput.refs.sendMessageButton = sendMessageButton;
   }
 

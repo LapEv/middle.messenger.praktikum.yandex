@@ -1,14 +1,13 @@
-import { API_HOST } from '../../api/config';
-
-import buildPath from '../objects-handle/buildPath';
-import queryStringify from '../objects-handle/queryStringify';
+import { API_HOST } from "../../api/config";
+import buildPath from "../objects-handle/buildPath";
+import queryStringify from "../objects-handle/queryStringify";
 
 enum Method {
-  GET = 'GET',
-  POST = 'POST',
-  PUT = 'PUT',
-  PATCH = 'PATCH',
-  DELETE = 'DELETE',
+  GET = "GET",
+  POST = "POST",
+  PUT = "PUT",
+  PATCH = "PATCH",
+  DELETE = "DELETE",
 }
 
 type Options = {
@@ -18,7 +17,7 @@ type Options = {
   headers?: Record<string, string>;
 };
 
-type OptionsWithoutMethod = Omit<Options, 'method'>;
+type OptionsWithoutMethod = Omit<Options, "method">;
 
 type Response<T> = {
   response: T;
@@ -78,7 +77,7 @@ export default class Http {
     const {
       method,
       data,
-      headers = { 'Content-Type': 'application/json' },
+      headers = { "Content-Type": "application/json" },
       timeout,
     } = options;
 
@@ -100,7 +99,7 @@ export default class Http {
           clearTimeout(xhrTimeout);
         }
 
-        let response = xhr.response;
+        let { response } = xhr;
 
         // Parse response headers
         const responseHeaders: Record<string, string> = {};
@@ -109,15 +108,15 @@ export default class Http {
           .trim()
           .split(/[\r\n]+/)
           .forEach((line) => {
-            const parts = line.split(': ');
+            const parts = line.split(": ");
             const header = parts.shift() as string;
-            const value = parts.join(': ');
+            const value = parts.join(": ");
             responseHeaders[header] = value;
           });
 
         if (
           response.length > 0 &&
-          responseHeaders['content-type'].includes('application/json')
+          responseHeaders["content-type"].includes("application/json")
         ) {
           response = JSON.parse(response);
         }

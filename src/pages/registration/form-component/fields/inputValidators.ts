@@ -1,13 +1,14 @@
-import * as InputValidators from 'utils/form-input-validator';
-import { TInputValidator } from 'components/inputs/inputValidation';
-import { EnumInputFields } from './enumInputFields';
+import { TInputValidator } from "components/inputs/inputValidation";
+import * as InputValidators from "utils/form-input-validator";
+
+import { EnumInputFields } from "./enumInputFields";
 
 const validatePasswordsMatching = InputValidators.validateTwoFieldsMatching({
   fieldNames: {
     first: EnumInputFields.Password,
     second: EnumInputFields.PasswordCheck,
   },
-  notMatchErrorText: 'Пароли не совпадают!',
+  notMatchErrorText: "Пароли не совпадают!",
 });
 
 export const FormValidators: Record<

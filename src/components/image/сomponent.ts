@@ -1,5 +1,6 @@
-import { Block } from 'core/dom';
-import template from './template';
+import { Block } from "core/dom";
+
+import template from "./template";
 
 export type TImageProps = WithComponentCommonProps<{
   htmlAttributes: {

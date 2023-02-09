@@ -1,15 +1,15 @@
-import { type Input } from 'components/inputs';
-import { WithStoreButton } from 'hocs/components';
-import { isNullish } from 'utils/objects-handle';
-import backgorundImage from 'static/img/send.png';
+import { type Input } from "components/inputs";
+import { WithStoreButton } from "hocs/components";
+import backgorundImage from "static/img/send.png";
+import { isNullish } from "utils/objects-handle";
 
 export class SendMessageButton extends WithStoreButton {
   constructor(messageInputRef: Input) {
     super({
       props: {
-        htmlClasses: ['chat__body__footer__imgSend'],
+        htmlClasses: ["chat__body__footer__imgSend"],
         htmlStyle: {
-          'background-image': backgorundImage,
+          "background-image": backgorundImage,
         },
       },
       refs: {
@@ -37,19 +37,19 @@ export class SendMessageButton extends WithStoreButton {
     // );
 
     if (isChatSelected) {
-      this.setPropByPath('events.click', [
+      this.setPropByPath("events.click", [
         function () {
           const message = messageInput.getValue();
-          if (message === '') {
+          if (message === "") {
             return;
           }
 
           webSocket.send(message);
-          messageInput.setValue('');
+          messageInput.setValue("");
         },
       ]);
     } else {
-      this.setPropByPath('events.click', []);
+      this.setPropByPath("events.click", []);
     }
     this.toggleDisabledState(!isChatSelected);
   }

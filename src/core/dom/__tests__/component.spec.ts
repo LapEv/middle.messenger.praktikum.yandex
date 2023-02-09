@@ -1,12 +1,12 @@
-import Component from '../сomponent';
+import Component from "../сomponent";
 
-type TestComponentProps = { text: string };
+type TestComponentProps = {};
 
 class TestComponent extends Component<TestComponentProps> {
-  static componentName: 'TestComponent';
+  static componentName: "TestComponent";
 
   render() {
-    //template=hbs
+    // template=hbs
     return `
       <div class="text-component">
         <div class="text-component__inner">
@@ -17,24 +17,24 @@ class TestComponent extends Component<TestComponentProps> {
   }
 }
 
-const getComponent = () => new TestComponent({ text: 'Test' });
+const getComponent = () => new TestComponent({ text: "Test" });
 
-describe('Test component', () => {
-  test('Render elements', () => {
+describe("Test component", () => {
+  test("Render elements", () => {
     expect(getComponent().element).not.toBeNull();
   });
 
-  test('Render inner elements', () => {
+  test("Render inner elements", () => {
     const componentInnerElement = getComponent().element?.querySelector(
-      '.text-component__inner'
+      ".text-component__inner"
     );
     expect(componentInnerElement).not.toBeNull();
   });
 
-  test('Render correct text', () => {
+  test("Render correct text", () => {
     const componentInnerElement = getComponent().element?.querySelector(
-      '.text-component__inner'
+      ".text-component__inner"
     );
-    expect(componentInnerElement?.textContent).toContain('Test');
+    expect(componentInnerElement?.textContent).toContain("Test");
   });
 });

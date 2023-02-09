@@ -1,6 +1,6 @@
+export { EnumInputFields } from "./enumInputFields";
 export {
-  MapInputFieldToProps,
   MapInputFieldToHelpers,
+  MapInputFieldToProps,
   MapInputFieldToUserDataRecord,
-} from './inputFields';
-export { EnumInputFields } from './enumInputFields';
+} from "./inputFields";

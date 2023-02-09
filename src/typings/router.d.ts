@@ -4,7 +4,7 @@ declare global {
   export type TAppRouteData = {
     path?: string;
     block: EnumAppPages;
-    needAuthorization: Boolean;
+    needAuthorization: boolean;
   };
   export const enum TEnumAppRoutes {
     SignUp = "signup_route",

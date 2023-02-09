@@ -1,6 +1,6 @@
-import getComponentTemplate from 'utils/components/templateGenerator';
+import getComponentTemplate from "utils/components/templateGenerator";
 
-const tag = 'img';
+const tag = "img";
 
 export default getComponentTemplate({
   tag,

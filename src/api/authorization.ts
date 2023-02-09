@@ -1,16 +1,16 @@
-import request from './HTTPTransport';
+import request from "./HTTPTransport";
 
 class AuthorizationAPIClass {
   login(data: TLoginFormDTO) {
-    return request.post('auth/signin', { data });
+    return request.post("auth/signin", { data });
   }
 
   me() {
-    return request.get('auth/user');
+    return request.get("auth/user");
   }
 
   logout() {
-    return request.post('auth/logout');
+    return request.post("auth/logout");
   }
 }
 

@@ -1,6 +1,7 @@
-import { Input } from 'components/inputs';
-import { Block } from 'core/dom';
-import template from './template';
+import { Input } from "components/inputs";
+import { Block } from "core/dom";
+
+import template from "./template";
 
 export class ChatFind extends Block {
   constructor() {
@@ -8,8 +9,8 @@ export class ChatFind extends Block {
 
     children.findInput = new Input({
       props: {
-        htmlAttributes: { name: 'chatSearch', placeholder: 'Поиск' },
-        htmlClasses: ['chat__list__input'],
+        htmlAttributes: { name: "chatSearch", placeholder: "Поиск" },
+        htmlClasses: ["chat__list__input"],
       },
     });
 

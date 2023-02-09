@@ -1,9 +1,9 @@
-import { SignUpService, ProfileService } from 'services';
+import { ProfileService, SignUpService } from "services";
 import {
-  transformSignUpFormDatatoAPI,
-  transformProfileAPIResponseToUserData,
   APIResponseHasError,
-} from 'utils/api';
+  transformProfileAPIResponseToUserData,
+  transformSignUpFormDatatoAPI,
+} from "utils/api";
 
 async function afterRequestCallback(response: any) {
   // console.log(`Registration REQUEST RESPONSE: ${JSON.stringify(response)}`);
@@ -12,7 +12,7 @@ async function afterRequestCallback(response: any) {
     return;
   }
 
-  this.state.apiResponseSuccess = 'Registration Successfull';
+  this.state.apiResponseSuccess = "Registration Successfull";
   const user = transformProfileAPIResponseToUserData(
     await ProfileService.getUserProfile(response.id)
   );

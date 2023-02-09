@@ -1,8 +1,8 @@
-import request from './HTTPTransport';
+import request from "./HTTPTransport";
 
 class SignUpAPIClass {
   signup(data: TSignUpFormDTO) {
-    return request.post('auth/signup', { data });
+    return request.post("auth/signup", { data });
   }
 }
 

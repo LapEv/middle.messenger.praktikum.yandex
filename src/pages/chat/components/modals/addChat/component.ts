@@ -1,12 +1,14 @@
-import { Block } from 'core/dom';
-import { Button } from 'components/buttons';
-import { Input } from 'components/inputs';
-import { TextComponent } from 'components/text';
-import { APIResponseHasError } from 'utils/api';
-import { ChatsService } from 'services';
-import { transformAddUsersFormDataToAPI } from 'utils/api/to-api-data-transformers';
-import template from './template';
-import { Modal } from 'pages/chat/components/modals';
+import { Button } from "components/buttons";
+import { Input } from "components/inputs";
+import { TextComponent } from "components/text";
+import { Block } from "core/dom";
+import { Modal } from "pages/chat/components/modals";
+import { ChatsService } from "services";
+import { APIResponseHasError } from "utils/api";
+import { transformAddUsersFormDataToAPI } from "utils/api/to-api-data-transformers";
+
+import template from "./template";
+
 export class AddChatModal extends Block {
   readonly chatID: string;
 
@@ -18,8 +20,8 @@ export class AddChatModal extends Block {
     componentName: string;
   }) {
     const state = {
-      apiResponseSuccess: '',
-      apiResponseError: '',
+      apiResponseSuccess: "",
+      apiResponseError: "",
     };
 
     const children = {} as TComponentChildren;
@@ -54,17 +56,17 @@ export class AddChatModal extends Block {
       if (APIResponseHasError(response)) {
         this.state.apiResponseError = response.reason;
       } else {
-        this.state.apiResponseSuccess = 'Users added successfully';
-        this.children.usersIdenifiersInput.setValue('');
-        Modal.toggleVisibility('off');
+        this.state.apiResponseSuccess = "Users added successfully";
+        this.children.usersIdenifiersInput.setValue("");
+        Modal.toggleVisibility("off");
       }
     }.bind(this);
 
     const submitButton = new Button({
       refs,
       props: {
-        label: 'add users',
-        htmlClasses: ['modal__button'],
+        label: "add users",
+        htmlClasses: ["modal__button"],
         events: {
           click: [
             function () {
@@ -72,7 +74,7 @@ export class AddChatModal extends Block {
               modalWindow.clearAPIResponseStatus();
 
               const { chatID } = modalWindow;
-              const usersList = usersInput.getValue().split(',');
+              const usersList = usersInput.getValue().split(",");
               const apiData = transformAddUsersFormDataToAPI({
                 chatID,
                 usersList,
@@ -93,8 +95,8 @@ export class AddChatModal extends Block {
   }
 
   clearAPIResponseStatus() {
-    this.state.apiResponseSuccess = '';
-    this.state.apiResponseError = '';
+    this.state.apiResponseSuccess = "";
+    this.state.apiResponseError = "";
   }
 
   protected render() {
@@ -105,17 +107,18 @@ export class AddChatModal extends Block {
     return new Input({
       props: {
         htmlAttributes: {
-          placeholder: 'Enter Users ID Numbers',
+          placeholder: "Enter Users ID Numbers",
         },
-        htmlClasses: ['modal__login__input'],
+        htmlClasses: ["modal__login__input"],
       },
     });
   }
+
   private static _createChatTitle() {
     return new TextComponent({
       props: {
-        text: 'Добавить нового пользователя',
-        htmlClasses: ['modal__title'],
+        text: "Добавить нового пользователя",
+        htmlClasses: ["modal__title"],
       },
     });
   }

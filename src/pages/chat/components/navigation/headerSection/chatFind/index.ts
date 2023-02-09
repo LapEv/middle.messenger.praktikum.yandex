@@ -1,1 +1,1 @@
-export { ChatFind } from './component';
+export { ChatFind } from "./component";

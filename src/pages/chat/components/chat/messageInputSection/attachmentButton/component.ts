@@ -1,14 +1,14 @@
-import { WithStoreButton } from 'hocs/components';
-import { isNullish } from 'utils/objects-handle';
-import backgorundImage from 'static/img/attach.png';
+import { WithStoreButton } from "hocs/components";
+import backgorundImage from "static/img/attach.png";
+import { isNullish } from "utils/objects-handle";
 
 export class AttachmentButton extends WithStoreButton {
   constructor() {
     super({
       props: {
-        htmlClasses: ['chat__body__footer__img'],
+        htmlClasses: ["chat__body__footer__img"],
         htmlStyle: {
-          'background-image': backgorundImage,
+          "background-image": backgorundImage,
         },
       },
     });

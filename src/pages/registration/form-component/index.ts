@@ -1,2 +1,2 @@
-export { RegistrationPageForm } from './component';
-export { EnumInputFields } from './fields';
+export { RegistrationPageForm } from "./component";
+export { EnumInputFields } from "./fields";

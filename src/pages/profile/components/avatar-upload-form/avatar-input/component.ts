@@ -1,7 +1,7 @@
 import {
   EnumFileUploadingStatus,
   FileInput,
-} from 'components/inputs/fileInput';
+} from "components/inputs/fileInput";
 
 export class AvatarInput extends FileInput {
   constructor() {
@@ -18,14 +18,14 @@ export class AvatarInput extends FileInput {
     };
 
     super({
-      props: { htmlClasses: ['upload-avatar'] },
+      props: { htmlClasses: ["upload-avatar"] },
       chooseButtonProps: {
-        label: 'upload avatar',
-        htmlClasses: ['profile__avatar__change__button'],
+        label: "upload avatar",
+        htmlClasses: ["profile__avatar__change__button"],
       },
       fileInputProps: {
         htmlAttributes: {
-          name: 'avatar',
+          name: "avatar",
         },
         events: {
           change: [onFileChangeCallback],

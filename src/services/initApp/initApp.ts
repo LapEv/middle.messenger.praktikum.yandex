@@ -1,8 +1,9 @@
-import { Store } from 'core/store';
-import { Router } from 'core/router';
-import { AuthorizationService } from 'services/authorization';
-import { APIResponseHasError } from 'utils/api';
-import { initAppData } from './initAppData';
+import { Router } from "core/router";
+import { Store } from "core/store";
+import { AuthorizationService } from "services/authorization";
+import { APIResponseHasError } from "utils/api";
+
+import { initAppData } from "./initAppData";
 
 export async function initApp() {
   const store = new Store();

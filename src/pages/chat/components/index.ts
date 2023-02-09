@@ -1,3 +1,3 @@
-export { ChatsPageNavigationSection } from './navigation';
-export { ChatsPageMainSection } from './chat';
-export { ChatListPage } from './chatList';
+export { ChatsPageMainSection } from "./chat";
+export { ChatListPage } from "./chatList";
+export { ChatsPageNavigationSection } from "./navigation";

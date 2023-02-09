@@ -1,29 +1,21 @@
-import { ChatsAPI } from 'api';
+import { ChatsAPI } from "api";
+import { SocketsCreator } from "services/sockets";
 import {
   APIResponseHasError,
   transformAvatarURL,
   transformChatsGetResponseToChatsData,
-} from 'utils/api';
-import { transformChatUsersGetResponseToChatsUsersData } from 'utils/api/from-api-data-transformers';
-import { transformChatIDToDeleteAPI } from 'utils/api/to-api-data-transformers';
-import { objectWithoutKey } from 'utils/objects-handle';
-import { SocketsCreator } from 'services/sockets';
+} from "utils/api";
+import { transformChatUsersGetResponseToChatsUsersData } from "utils/api/from-api-data-transformers";
+import { transformChatIDToDeleteAPI } from "utils/api/to-api-data-transformers";
+import { objectWithoutKey } from "utils/objects-handle";
 
 export class ChatsServiceClass {
   async getChats(afterRequestCallback?: TAfterRequestCallback) {
-    let status;
     let response;
 
     try {
       const request = await ChatsAPI.getChats();
-      status = request.status;
       response = request.response;
-
-      console.log(
-        `GET CHATS REQUEST: status ${status}; response ${JSON.stringify(
-          response
-        )}`
-      );
 
       if (afterRequestCallback) {
         await afterRequestCallback(response);
@@ -35,7 +27,7 @@ export class ChatsServiceClass {
         });
       }
     } catch (error) {
-      console.error(`GET CHATS REQUEST ERROR: ${error}`);
+      console.error(`GET CHATS REQUEST ERROR: ${error}`); // eslint-disable-line no-console
       throw error;
     }
 
@@ -46,19 +38,11 @@ export class ChatsServiceClass {
     data: TCreateChatDTO,
     afterRequestCallback?: TAfterRequestCallback
   ) {
-    let status;
     let response;
 
     try {
       const request = await ChatsAPI.createChat(data);
-      status = request.status;
       response = request.response;
-
-      console.log(
-        `CREATE CHAT REQUEST: status ${status}; response ${JSON.stringify(
-          response
-        )}`
-      );
 
       if (afterRequestCallback) {
         await afterRequestCallback(response);
@@ -72,7 +56,7 @@ export class ChatsServiceClass {
         await this.getChats();
       }
     } catch (error) {
-      console.error(`CREATE CHAT REQUEST ERROR: ${error}`);
+      console.error(`CREATE CHAT REQUEST ERROR: ${error}`); // eslint-disable-line no-console
       throw error;
     }
 
@@ -83,21 +67,13 @@ export class ChatsServiceClass {
     chatID: string,
     afterRequestCallback?: TAfterRequestCallback
   ) {
-    let status;
     let response;
 
     try {
       const request = await ChatsAPI.deleteChat(
         transformChatIDToDeleteAPI(chatID)
       );
-      status = request.status;
       response = request.response;
-
-      console.log(
-        `DELETE CHAT(${chatID}) REQUEST: status ${status}; response ${JSON.stringify(
-          response
-        )}`
-      );
 
       if (afterRequestCallback) {
         await afterRequestCallback(response);
@@ -113,7 +89,7 @@ export class ChatsServiceClass {
         window.store.dispatch({ currentChatID: null });
       }
     } catch (error) {
-      console.error(`DELETE CHAT(${chatID}) REQUEST ERROR: ${error}`);
+      console.error(`DELETE CHAT(${chatID}) REQUEST ERROR: ${error}`); // eslint-disable-line no-console
       throw error;
     }
 
@@ -124,25 +100,17 @@ export class ChatsServiceClass {
     chatID: string,
     afterRequestCallback?: TAfterRequestCallback
   ) {
-    let status;
     let response;
 
     try {
       const request = await ChatsAPI.getChatUsers(chatID);
-      status = request.status;
       response = request.response;
-
-      console.log(
-        `GET CHAT(${chatID}) USERS REQUEST: status ${status}; response ${JSON.stringify(
-          response
-        )}`
-      );
 
       if (afterRequestCallback) {
         await afterRequestCallback(response);
       }
     } catch (error) {
-      console.error(`GET CHAT(${chatID}) REQUEST ERROR: ${error}`);
+      console.error(`GET CHAT(${chatID}) REQUEST ERROR: ${error}`); // eslint-disable-line no-console
       throw error;
     }
 
@@ -153,22 +121,14 @@ export class ChatsServiceClass {
     data: TAddChatUsersDTO,
     afterRequestCallback?: TAfterRequestCallback
   ) {
-    let status;
     let response;
     const chatID = data.chatId;
 
     try {
       const request = await ChatsAPI.addUsersToChat(data);
-      status = request.status;
       response = request.response;
 
       const usersList = data.users;
-
-      console.log(
-        `ADD USERS TO CHAT(${chatID}) REQUEST: status ${status}; response ${JSON.stringify(
-          response
-        )}`
-      );
 
       if (afterRequestCallback) {
         await afterRequestCallback(response);
@@ -190,7 +150,7 @@ export class ChatsServiceClass {
         });
       }
     } catch (error) {
-      console.error(`ADD USERS TO CHAT(${chatID}) REQUEST ERROR: ${error}`);
+      console.error(`ADD USERS TO CHAT(${chatID}) REQUEST ERROR: ${error}`); // eslint-disable-line no-console
       throw error;
     }
 
@@ -201,21 +161,13 @@ export class ChatsServiceClass {
     avatarPutForm: FormData,
     afterRequestCallback?: TAfterRequestCallback
   ) {
-    let status;
     let response;
     let chatID;
 
     try {
       const request = await ChatsAPI.changeAvatar(avatarPutForm);
-      status = request.status;
       response = request.response;
-      chatID = avatarPutForm.get('chatId');
-
-      console.log(
-        `CHANGE CHAT(${chatID}) AVATAR REQUEST: status ${status}; response ${JSON.stringify(
-          response
-        )}`
-      );
+      chatID = avatarPutForm.get("chatId");
 
       if (afterRequestCallback) {
         await afterRequestCallback(response);
@@ -226,7 +178,7 @@ export class ChatsServiceClass {
         window.store.setStateByPath(`chats.${chatID}.avatar`, avatar);
       }
     } catch (error) {
-      console.error(`CHANGE CHAT(${chatID}) AVATAR REQUEST ERROR: ${error}`);
+      console.error(`CHANGE CHAT(${chatID}) AVATAR REQUEST ERROR: ${error}`); // eslint-disable-line no-console
       throw error;
     }
 

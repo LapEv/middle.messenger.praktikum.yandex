@@ -1,7 +1,7 @@
-import is_Object from './is-object';
+import isObjects from "./is-object";
 
 export default function cloneDeep<T extends object = object>(obj: T) {
-  return (function _cloneDeep(
+  return (function clonesDeep(
     item: T
   ): T | Date | Set<unknown> | Map<unknown, unknown> | object | T[] {
     // Handle:
@@ -12,7 +12,7 @@ export default function cloneDeep<T extends object = object>(obj: T) {
     // * string
     // * symbol
     // * function
-    if (item === null || typeof item !== 'object') {
+    if (item === null || typeof item !== "object") {
       return item;
     }
 
@@ -27,7 +27,9 @@ export default function cloneDeep<T extends object = object>(obj: T) {
     if (item instanceof Array) {
       const copy: unknown[] = [];
 
-      item.forEach((_, i) => (copy[i] = _cloneDeep(item[i])));
+      item.forEach((_, i) => {
+        return (copy[i] = clonesDeep(item[i]));
+      });
 
       return copy;
     }
@@ -37,7 +39,7 @@ export default function cloneDeep<T extends object = object>(obj: T) {
     if (item instanceof Set) {
       const copy = new Set();
 
-      item.forEach((v) => copy.add(_cloneDeep(v)));
+      item.forEach((v) => copy.add(clonesDeep(v)));
 
       return copy;
     }
@@ -53,25 +55,25 @@ export default function cloneDeep<T extends object = object>(obj: T) {
     if (item instanceof Map) {
       const copy = new Map();
 
-      item.forEach((v, k) => copy.set(k, _cloneDeep(v)));
+      item.forEach((v, k) => copy.set(k, clonesDeep(v)));
 
       return copy;
     }
 
     // Handle:
     // * Object
-    if (is_Object<T>(item)) {
+    if (isObjects<T>(item)) {
       const copy: Record<string | symbol, unknown> = {};
 
       // Handle:
       // * Object.symbol
       Object.getOwnPropertySymbols(item).forEach(
-        (s) => (copy[s] = _cloneDeep(item[s]))
+        (s) => (copy[s] = clonesDeep(item[s]))
       );
 
       // Handle:
       // * Object.name (other)
-      Object.keys(item).forEach((k) => (copy[k] = _cloneDeep(item[k])));
+      Object.keys(item).forEach((k) => (copy[k] = clonesDeep(item[k])));
 
       return copy;
     }

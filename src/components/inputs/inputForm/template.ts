@@ -1,9 +1,9 @@
-import getComponentTemplate from 'utils/components/templateGenerator';
+import getComponentTemplate from "utils/components/templateGenerator";
 
 export default function getInputFormTemplate(
   enumFormFieldsNames: Record<string, string>
 ): string {
-  const tag = 'form';
+  const tag = "form";
 
   let content = `
     {{#if formTitle}} 

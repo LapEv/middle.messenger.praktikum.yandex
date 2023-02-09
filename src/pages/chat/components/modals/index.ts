@@ -1,2 +1,2 @@
-export { Modal } from './modal';
-export { EnumModal } from './enumModal';
+export { EnumModal } from "./enumModal";
+export { Modal } from "./modal";

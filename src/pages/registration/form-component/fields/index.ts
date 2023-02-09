@@ -1,2 +1,2 @@
-export { EnumInputFields } from './enumInputFields';
-export { MapInputFieldsProps } from './inputFields';
+export { EnumInputFields } from "./enumInputFields";
+export { MapInputFieldsProps } from "./inputFields";

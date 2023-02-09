@@ -1,26 +1,20 @@
-import { AuthorizationAPI } from 'api';
-
-import { AppRoutes } from 'core/router';
-import { APIResponseHasError } from 'utils/api';
-import { initAppData } from 'services/initApp/initAppData';
+import { AuthorizationAPI } from "api";
+import { AppRoutes } from "core/router";
+import { initAppData } from "services/initApp/initAppData";
+import { APIResponseHasError } from "utils/api";
 
 export const enum EnumLoginAPIErrors {
-  AlreadyInSystem = 'User already in system',
+  AlreadyInSystem = "User already in system",
 }
 
 class AuthorizationServiceClass {
   async getUser() {
     try {
       const request = await AuthorizationAPI.me();
-      const { status, response } = request;
-      // console.log(
-      //   `GET USER REQUEST: status ${status}; response ${JSON.stringify(
-      //     response
-      //   )}`
-      // );
+      const { response } = request;
       return response;
     } catch (error) {
-      console.error(`GET USER REQUEST ERROR: ${error}`);
+      console.error(`GET USER REQUEST ERROR: ${error}`); // eslint-disable-line no-console
       throw error;
     }
   }
@@ -31,11 +25,7 @@ class AuthorizationServiceClass {
   ) {
     try {
       const requestLogin = await AuthorizationAPI.login(data);
-      const { status, response } = requestLogin;
-
-      // console.log(
-      //   `LOGIN REQUEST: status ${status}; response ${JSON.stringify(response)}`
-      // );
+      const { response } = requestLogin;
 
       if (afterRequestCallback) {
         await afterRequestCallback(response);
@@ -57,7 +47,7 @@ class AuthorizationServiceClass {
       }
       return response;
     } catch (error) {
-      console.error(`LOGIN REQUEST ERROR: ${error}`);
+      console.error(`LOGIN REQUEST ERROR: ${error}`); // eslint-disable-line no-console
       throw error;
     }
   }
@@ -65,18 +55,14 @@ class AuthorizationServiceClass {
   async logout() {
     try {
       const request = await AuthorizationAPI.logout();
-      const { status, response } = request;
-
-      // console.log(
-      //   `LOGIN LOGOUT: status ${status}; response ${JSON.stringify(response)}`
-      // );
+      const { response } = request;
 
       window.store.dispatch({ user: null });
       window.store.dispatch({ currentChatID: null });
       window.router.go(AppRoutes.Login);
       return response;
     } catch (error) {
-      console.error(`LOGOUT REQUEST ERROR: ${error}`);
+      console.error(`LOGOUT REQUEST ERROR: ${error}`); // eslint-disable-line no-console
       throw error;
     }
   }

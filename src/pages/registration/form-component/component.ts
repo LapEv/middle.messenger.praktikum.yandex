@@ -1,7 +1,8 @@
-import { InputForm } from 'components/inputs/inputForm';
-import regData from '../registrationData';
-import { afterValidationCallback } from './validationCallback';
-import { EnumInputFields, MapInputFieldsProps } from './fields';
+import { InputForm } from "components/inputs/inputForm";
+
+import regData from "../registrationData";
+import { EnumInputFields, MapInputFieldsProps } from "./fields";
+import { afterValidationCallback } from "./validationCallback";
 
 export class RegistrationPageForm extends InputForm {
   constructor() {
@@ -12,8 +13,8 @@ export class RegistrationPageForm extends InputForm {
         afterValidationCallback,
         formTitle: regData.pageTitle,
         htmlClasses: [regData.formClass],
-        type: 'registration',
-        label: 'Зарегистрироваться',
+        type: "registration",
+        label: "Зарегистрироваться",
       },
     });
   }

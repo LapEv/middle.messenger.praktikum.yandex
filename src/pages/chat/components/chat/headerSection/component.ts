@@ -1,7 +1,8 @@
-import { WithStoreBlock } from 'hocs/components';
-import { TextComponent } from 'components/text';
-import { FunctionalButton } from './functionalButton';
-import template from './template';
+import { TextComponent } from "components/text";
+import { WithStoreBlock } from "hocs/components";
+
+import { FunctionalButton } from "./functionalButton";
+import template from "./template";
 
 export class ChatSectionHeader extends WithStoreBlock {
   constructor() {
@@ -25,7 +26,7 @@ export class ChatSectionHeader extends WithStoreBlock {
     const title = chats[currentChatID]?.title;
 
     this.children.user = new TextComponent({
-      props: { text: title, htmlClasses: ['chat__body__title__user'] },
+      props: { text: title, htmlClasses: ["chat__body__title__user"] },
     });
   }
 

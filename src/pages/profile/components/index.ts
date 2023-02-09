@@ -1,2 +1,2 @@
-export { ProfilePageInputForm } from './data-form';
-export { DataChangeButton } from './dataChangeButton';
+export { ProfilePageInputForm } from "./data-form";
+export { DataChangeButton } from "./dataChangeButton";

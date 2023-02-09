@@ -1,6 +1,7 @@
-import * as InputValidators from 'utils/form-input-validator';
-import { TInputValidator } from 'components/inputs/inputValidation';
-import { EnumInputFields } from './enumInputFields';
+import { TInputValidator } from "components/inputs/inputValidation";
+import * as InputValidators from "utils/form-input-validator";
+
+import { EnumInputFields } from "./enumInputFields";
 
 export const FormValidators: Record<
   EnumInputFields,

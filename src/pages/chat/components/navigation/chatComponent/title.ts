@@ -1,4 +1,4 @@
-import { WithStoreTextComponent } from 'hocs/components';
+import { WithStoreTextComponent } from "hocs/components";
 
 export class ChatTitle extends WithStoreTextComponent {
   // @ts-ignore 'chatID' is declared but its value is never read
@@ -9,7 +9,7 @@ export class ChatTitle extends WithStoreTextComponent {
       this.chatID = chatID;
       const title = this.store!.getChatsDataByPath(`${this.chatID}.title`);
       this.props = {
-        htmlClasses: ['chat__list__message__title'],
+        htmlClasses: ["chat__list__message__title"],
         text: title,
       };
     };

@@ -1,7 +1,7 @@
-import is_Object, { PlainObject } from './is-object';
+import isObjects, { PlainObject } from "./is-object";
 
 function isArrayOrObject(value: unknown): value is [] | PlainObject {
-  return is_Object(value) || Array.isArray(value);
+  return isObjects(value) || Array.isArray(value);
 }
 
 function getKey(key: string, parentKey?: string) {
@@ -23,11 +23,11 @@ function getParams(data: PlainObject | [], parentKey?: string) {
 }
 
 export default function queryStringify(data: PlainObject) {
-  if (!is_Object(data)) {
-    throw new Error('input must be an object');
+  if (!isObjects(data)) {
+    throw new Error("input must be an object");
   }
 
   return getParams(data)
-    .map((arr) => arr.join('='))
-    .join('&');
+    .map((arr) => arr.join("="))
+    .join("&");
 }

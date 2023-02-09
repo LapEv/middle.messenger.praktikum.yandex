@@ -1,6 +1,6 @@
-import { AuthorizationService } from 'services';
-import { EnumLoginAPIErrors } from 'services/authorization';
-import { transformLoginFormDatatoAPI, APIResponseHasError } from 'utils/api';
+import { AuthorizationService } from "services";
+import { EnumLoginAPIErrors } from "services/authorization";
+import { APIResponseHasError, transformLoginFormDatatoAPI } from "utils/api";
 
 async function afterRequestCallback(response: any) {
   if (

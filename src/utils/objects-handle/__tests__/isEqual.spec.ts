@@ -1,15 +1,15 @@
-import isEqual from '../isEqual';
+import isEqual from "../isEqual";
 
-describe('Test isEqual', () => {
+describe("Test isEqual", () => {
   const a = { a: { b: { c: 1 } } };
   const b = { a: { b: { c: 2 } } };
   const c = { a: { b: { d: 2 } } };
 
-  test('Should be equal', () => {
+  test("Should be equal", () => {
     expect(isEqual(a, b)).toBeTruthy;
   });
 
-  test('Should not be equal', () => {
+  test("Should not be equal", () => {
     expect(isEqual(a, c)).not.toBeTruthy;
   });
 });

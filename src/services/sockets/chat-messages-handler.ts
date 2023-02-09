@@ -1,5 +1,6 @@
-import { transformWebsocketMessageDTOtoAppMessage } from 'utils/api';
-import { ChatWebSocket } from './socket-class';
+import { transformWebsocketMessageDTOtoAppMessage } from "utils/api";
+
+import { ChatWebSocket } from "./socket-class";
 
 const allMessagesReceiver = function (messagesBatch: TWebsocketMessageDTO[]) {
   this._setMessagesBatch(messagesBatch);
@@ -8,9 +9,9 @@ const allMessagesReceiver = function (messagesBatch: TWebsocketMessageDTO[]) {
 export class ChatMessagesHandler extends ChatWebSocket {
   static readonly messagesGetLimit = 20;
 
-  private currentBatch: number = -1;
+  private currentBatch = -1;
 
-  private allMessagesReceivedStatus: boolean = false;
+  private allMessagesReceivedStatus = false;
 
   private allMessages = [] as TAppChatMessage[];
 
@@ -37,7 +38,7 @@ export class ChatMessagesHandler extends ChatWebSocket {
       messagesBatchAwaiter = setInterval(() => {
         if (this.socket.readyState > 1) {
           reject(
-            new Error('Socket Closed While Awaiting Old Messages Get Responses')
+            new Error("Socket Closed While Awaiting Old Messages Get Responses")
           );
           return;
         }
@@ -47,16 +48,10 @@ export class ChatMessagesHandler extends ChatWebSocket {
           this.currentBatch === currentBatch
         ) {
           resolve();
-          console.log(
-            `SUCCESSFULLY GOT CHAT(${this.chatID}) MESSAGES BATCH WITH OFFSET ${offset}`
-          );
         }
       }, 50);
     })
-      .catch((error: TypeError) => {
-        console.error(
-          `ERROR OCCURED ON BATCH ${currentBatch} WHILE RECEIVING ALL MESSAGES: ${error}`
-        );
+      .catch(() => {
         this._resetAllMessageReceivingStatus();
       })
       .finally(() => {
@@ -72,9 +67,6 @@ export class ChatMessagesHandler extends ChatWebSocket {
     this.messagesArrayHandler = allMessagesReceiver.bind(this);
 
     await this._getAllMessagesFromBatch(0);
-    if (this.allMessagesReceivedStatus) {
-      console.log(`CHAT(${this.chatID}) ALL MESSAGES RECEIVED SUCCESSFULLY`);
-    }
 
     const { allMessages } = this;
     this._resetAllMessageReceivingStatus();

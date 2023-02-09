@@ -1,19 +1,18 @@
-import { Block } from 'core/dom';
-import avatarImagePlaceholder from 'static/img/profile_avatar.png';
-import { ImageComponent } from 'components/image';
-import { Input } from 'components/inputs';
-import { WithStore } from 'hocs';
-import { WithRouter } from 'hocs';
+import { ImageComponent } from "components/image";
+import { Input } from "components/inputs";
+import { Block } from "core/dom";
+import { AppRoutes } from "core/router";
+import { WithStore, WithRouter } from "hocs";
+import arrowBackImage from "static/img/arrowBack.png";
+import avatarImagePlaceholder from "static/img/profile_avatar.png";
 
-import template from './profileTemplate';
-import { DataChangeButton, ProfilePageInputForm } from './components';
-import { EnumInputFields } from './components/data-form';
-import { MapInputFieldToUserDataRecord } from './components/data-form/fields';
-import arrowBackImage from 'static/img/arrowBack.png';
-import { profileData } from './profileData';
-import { AppRoutes } from 'core/router';
-import { AvatarInput } from './components/avatar-upload-form/avatar-input';
-import { SubmitSection } from './components/avatar-upload-form/submit-section';
+import { DataChangeButton, ProfilePageInputForm } from "./components";
+import { AvatarInput } from "./components/avatar-upload-form/avatar-input";
+import { SubmitSection } from "./components/avatar-upload-form/submit-section";
+import { EnumInputFields } from "./components/data-form";
+import { MapInputFieldToUserDataRecord } from "./components/data-form/fields";
+import { profileData } from "./profileData";
+import template from "./profileTemplate";
 
 type TProfilePageProps = WithComponentCommonProps<{ userID: number }>;
 const ProfilePageBlock = WithStore(Block<TProfilePageProps>);
@@ -30,7 +29,7 @@ export class ProfilePage extends ProfilePageBlock {
         },
         htmlClasses: [profileData.backLink.class],
         htmlWrapper: {
-          componentAlias: 'wrappedProfileLink',
+          componentAlias: "wrappedProfileLink",
           htmlWrapperTemplate: `
               <div class='profile__buttonBack'>
                 {{{wrappedProfileLink}}}
@@ -47,15 +46,15 @@ export class ProfilePage extends ProfilePageBlock {
       },
     });
 
-    const storeAvatar = window.store.getUserDataByPath('avatar');
+    const storeAvatar = window.store.getUserDataByPath("avatar");
     const imageSource = storeAvatar || avatarImagePlaceholder;
     const avatarImage = new ImageComponent({
       props: {
         htmlAttributes: {
           src: imageSource,
-          alt: 'Profile Avatar',
+          alt: "Profile Avatar",
         },
-        htmlClasses: ['profile__avatar__img'],
+        htmlClasses: ["profile__avatar__img"],
       },
     });
     children.avatarImage = avatarImage;
@@ -68,8 +67,8 @@ export class ProfilePage extends ProfilePageBlock {
     super({
       children,
       refs: { ...refs, profileImage: profilePageImageRef },
-      state: { uploadingStatus: '' },
-      componentName: 'Profile Page',
+      state: { uploadingStatus: "" },
+      componentName: "Profile Page",
     });
   }
 
@@ -84,17 +83,17 @@ export class ProfilePage extends ProfilePageBlock {
       form: this.children.profileDataForm as Block,
     });
 
-    this.props.userID = this.store.getUserDataByPath('id') as number;
+    this.props.userID = this.store.getUserDataByPath("id") as number;
     const avatarInput = this._createAvatarInput();
     this.children.avatarInput = avatarInput;
 
     const submitSection = this._createAvatarSubmitSection();
     this.children.submitSection = submitSection;
 
-    const avatarFileInput = avatarInput.getChildByPath('fileInput');
+    const avatarFileInput = avatarInput.getChildByPath("fileInput");
     avatarFileInput.refs.avatarSubmit = submitSection;
 
-    const submitButton = submitSection.getChildByPath('submitButton');
+    const submitButton = submitSection.getChildByPath("submitButton");
     Object.assign(submitButton.refs, {
       avatarInput,
     });
@@ -115,7 +114,7 @@ export class ProfilePage extends ProfilePageBlock {
       ([inputName, inputBlock]: [EnumInputFields, Input]) => {
         const recordName = MapInputFieldToUserDataRecord[inputName];
         inputBlock.setPropByPath(
-          'htmlAttributes.value',
+          "htmlAttributes.value",
           `${userData[recordName]}`
         );
       }
@@ -123,9 +122,9 @@ export class ProfilePage extends ProfilePageBlock {
   }
 
   public updateUserAvatar() {
-    const newAvatar = this.store.getUserDataByPath('avatar') as string;
+    const newAvatar = this.store.getUserDataByPath("avatar") as string;
     (this.children.avatarImage as ImageComponent).setPropByPath(
-      'htmlAttributes.src',
+      "htmlAttributes.src",
       newAvatar
     );
   }

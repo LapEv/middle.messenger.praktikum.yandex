@@ -1,4 +1,4 @@
-import { AppPages } from 'pages/appPages';
+import { AppPages } from "pages/appPages";
 
 export function chatsSetter() {
   const { page } = this.state;

@@ -1,4 +1,4 @@
-import { TInputProps, Input } from 'components/inputs';
+import { Input, TInputProps } from "components/inputs";
 
 export type TInputValidator = () => boolean;
 export type TInputValidatorsByEvents = Record<string, TInputValidator[]>;
@@ -20,9 +20,9 @@ const InputExtended = Input as any as BlockClass<
 export class InputWithValidation extends InputExtended {
   protected _afterPropsAssignHook() {
     super._afterPropsAssignHook();
-    this.state.inputError = '';
+    this.state.inputError = "";
     this.props.htmlWrapper ??= {
-      componentAlias: 'wrapped',
+      componentAlias: "wrapped",
       htmlWrapperTemplate: `
       <div class=${this.props.mainClass}${this.props.htmlAttributes?.name}>
         <label for="${this.props.htmlAttributes?.name}" class="${this.props.mainClass}${this.props.htmlAttributes?.name}__label">${this.props.label}</label>

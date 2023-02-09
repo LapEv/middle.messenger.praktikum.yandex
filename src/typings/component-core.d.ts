@@ -1,5 +1,5 @@
-import { type Block } from 'core/dom';
-import type { TEventHandler } from 'core/event-bus';
+import { type Block } from "core/dom";
+import type { TEventHandler } from "core/event-bus";
 
 declare global {
   export type BlockClass<
@@ -18,8 +18,8 @@ declare global {
     events?: Record<string, TComponentEventHandler[]>;
     htmlClasses?: string[];
     htmlStyle?: {
-      'background-image'?: any;
-      display?: 'none' | 'block';
+      "background-image"?: any;
+      display?: "none" | "block";
     };
     htmlWrapper?: TComponentWrapper;
   };

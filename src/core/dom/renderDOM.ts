@@ -1,17 +1,17 @@
-import { Block } from './block';
+import { Block } from "./block";
 
 export function renderDOM({
-  rootSelector = '#app',
+  rootSelector = "#app",
   component,
 }: {
   rootSelector?: string;
   component: Block;
 }) {
-  console.log(`render ${component.componentName}`);
+  console.log(`render ${component.componentName}`); // eslint-disable-line no-console
   const root = document.querySelector(rootSelector);
 
   if (!root) {
-    throw new Error('Root not found');
+    throw new Error("Root not found");
   }
 
   const element = component.getElement();
@@ -20,6 +20,6 @@ export function renderDOM({
     throw new Error(`Wrong type ${typeof element} of element ${element}`);
   }
 
-  if (component) root.innerHTML = '';
+  if (component) root.innerHTML = "";
   root.append(element);
 }

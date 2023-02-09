@@ -1,6 +1,6 @@
-export { SignUpService } from './signup';
-export { AuthorizationService } from './authorization';
-export { ProfileService } from './profile';
+export { AuthorizationService } from "./authorization";
+export { ProfileService } from "./profile";
+export { SignUpService } from "./signup";
 // export { ChangePasswordService } from "./profile";
-export { ChatsService } from './chats';
-export { SocketsCreator } from './sockets';
+export { ChatsService } from "./chats";
+export { SocketsCreator } from "./sockets";

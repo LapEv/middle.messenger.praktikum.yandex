@@ -2,7 +2,7 @@ export function getDescendantByPath<TDescendant = TComponentChild>(
   block: TComponentChildren,
   pathString: string
 ): TDescendant {
-  const path = pathString.split('.').join('.children.').split('.');
+  const path = pathString.split(".").join(".children.").split(".");
 
   let result = block as any;
 

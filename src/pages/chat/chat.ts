@@ -1,11 +1,12 @@
-import { WithStoreBlock } from 'hocs/components';
-import { Modal } from './components/modals';
-import chatTemplate from './chatTemplate';
+import { WithStoreBlock } from "hocs/components";
+
+import chatTemplate from "./chatTemplate";
 import {
+  ChatListPage,
   ChatsPageMainSection,
   ChatsPageNavigationSection,
-  ChatListPage,
-} from './components';
+} from "./components";
+import { Modal } from "./components/modals";
 
 export class ChatPage extends WithStoreBlock {
   constructor() {
@@ -16,7 +17,7 @@ export class ChatPage extends WithStoreBlock {
     children.modal = Modal;
 
     super({
-      componentName: 'Chat Page',
+      componentName: "Chat Page",
       children,
     });
   }
@@ -25,42 +26,42 @@ export class ChatPage extends WithStoreBlock {
     super._afterPropsAssignHook();
 
     const functionalButton = this.getChildByPath(
-      'chatSection.headerSection.functionalButton'
+      "chatSection.headerSection.functionalButton"
     );
-    functionalButton.refs.settings = this.getChildByPath('settings');
+    functionalButton.refs.settings = this.getChildByPath("settings");
 
     this.refs.messagesDisplaySection = this.getChildByPath(
-      'chatSection.messagesDisplaySection'
+      "chatSection.messagesDisplaySection"
     );
 
     this.refs.attachmentButton = this.getChildByPath(
-      'chatSection.messageInputSection.attachmentButton'
+      "chatSection.messageInputSection.attachmentButton"
     );
 
     this.refs.messageInput = this.getChildByPath(
-      'chatSection.messageInputSection.messageInput'
+      "chatSection.messageInputSection.messageInput"
     );
 
     this.refs.sendMessageButton = this.getChildByPath(
-      'chatSection.messageInputSection.sendMessageButton'
+      "chatSection.messageInputSection.sendMessageButton"
     );
 
     this.refs.chooseChatAvatarButton = this.getChildByPath(
-      'settings.avatarChooseButton.chooseButton'
+      "settings.avatarChooseButton.chooseButton"
     );
 
     this.refs.addChatUsersButton = this.getChildByPath(
-      'settings.addChatUsersButton'
+      "settings.addChatUsersButton"
     );
 
     this.refs.deleteChatButton = this.getChildByPath(
-      'settings.deleteChatButton'
+      "settings.deleteChatButton"
     );
 
-    const chatsList = this.getChildByPath('navigationSection.chatsList');
+    const chatsList = this.getChildByPath("navigationSection.chatsList");
     this.refs.chatsList = chatsList;
 
-    const chats = chatsList.getChildByPath<TComponentChildArray>('chats');
+    const chats = chatsList.getChildByPath<TComponentChildArray>("chats");
     chats.forEach((chat: any) => {
       this.refs[`chat-${chat.chatID}`] = chat;
     });

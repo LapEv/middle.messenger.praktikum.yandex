@@ -1,7 +1,8 @@
-import { Block } from 'core/dom';
-import loginData from './loginData';
-import template from './loginTemplate';
-import { LoginPageForm } from './formComponents';
+import { Block } from "core/dom";
+
+import { LoginPageForm } from "./formComponents";
+import loginData from "./loginData";
+import template from "./loginTemplate";
 
 export class LoginPage extends Block {
   constructor() {

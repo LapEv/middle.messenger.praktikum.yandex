@@ -1,10 +1,10 @@
-export { makeValidator, type TInputSingleValidator } from './make-validator';
 export {
-  validateNotEmptyValue,
-  validateLoginRegex,
-  validatePasswordRegex,
-  validateNameRegex,
-  validatePhoneRegex,
   validateEmailRegex,
+  validateLoginRegex,
+  validateNameRegex,
+  validateNotEmptyValue,
+  validatePasswordRegex,
+  validatePhoneRegex,
   validateTwoFieldsMatching,
-} from './common-validators';
+} from "./common-validators";
+export { makeValidator, type TInputSingleValidator } from "./make-validator";

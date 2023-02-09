@@ -33,7 +33,9 @@ class EventBus implements IEventBus {
       return;
     }
 
-    this._listeners[event] = this._listeners[event].filter((listener) => listener !== callback);
+    this._listeners[event] = this._listeners[event].filter(
+      (listener) => listener !== callback
+    );
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

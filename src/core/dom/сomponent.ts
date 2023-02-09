@@ -1,9 +1,9 @@
-import Handlebars from 'handlebars';
-import { nanoid } from 'nanoid';
+import Handlebars from "handlebars";
+import { nanoid } from "nanoid";
+import cloneDeep from "utils/objects-handle/cloneDeep";
+import isEqual from "utils/objects-handle/isEqual";
 
-import cloneDeep from 'utils/objects-handle/cloneDeep';
-import isEqual from 'utils/objects-handle/isEqual';
-import EventBus, { IEventBus } from './EventBus';
+import EventBus, { IEventBus } from "./EventBus";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ComponentEventHandler = (...args: any) => void;
@@ -29,18 +29,23 @@ abstract class Component<T extends ComponentProps = Record<string, unknown>> {
   static componentName: string;
 
   static EVENTS = {
-    INIT: 'init',
-    COMPONENT_DID_MOUNT: 'component-did-mount',
-    COMPONENT_DID_UPDATE: 'component-did-update',
-    COMPONENT_WILL_UNMOUNT: 'component-will-unmount',
-    RENDER: 'render',
+    INIT: "init",
+    COMPONENT_DID_MOUNT: "component-did-mount",
+    COMPONENT_DID_UPDATE: "component-did-update",
+    COMPONENT_WILL_UNMOUNT: "component-will-unmount",
+    RENDER: "render",
   };
 
   protected _element: Nullable<HTMLElement> = null;
+
   protected _eventBus: IEventBus;
+
   public readonly props: T;
+
   public id = nanoid(6);
+
   public refs: Record<string, Component<T>> = {};
+
   protected children: Record<string, Component<T>> = {};
 
   public constructor(props: T = {} as T) {
@@ -140,7 +145,7 @@ abstract class Component<T extends ComponentProps = Record<string, unknown>> {
   }
 
   private _compile(): DocumentFragment {
-    const fragment = document.createElement('template');
+    const fragment = document.createElement("template");
 
     const template = Handlebars.compile(this.render());
     fragment.innerHTML = template({
@@ -211,7 +216,7 @@ abstract class Component<T extends ComponentProps = Record<string, unknown>> {
     return new Proxy<T>(props, {
       get: (target, prop: string) => {
         const value = target[prop];
-        return typeof value === 'function' ? value.bind(target) : value;
+        return typeof value === "function" ? value.bind(target) : value;
       },
       set: (target: Record<string, unknown>, prop: string, value) => {
         let oldProps;
@@ -221,7 +226,7 @@ abstract class Component<T extends ComponentProps = Record<string, unknown>> {
           oldProps = { ...target };
         }
 
-        if (typeof target === 'object' && target[prop] !== value) {
+        if (typeof target === "object" && target[prop] !== value) {
           target[prop] = value;
           this._eventBus.emit(
             Component.EVENTS.COMPONENT_DID_UPDATE,
@@ -232,7 +237,7 @@ abstract class Component<T extends ComponentProps = Record<string, unknown>> {
         return true;
       },
       deleteProperty: () => {
-        throw new Error('Permission denied');
+        throw new Error("Permission denied");
       },
     });
   }

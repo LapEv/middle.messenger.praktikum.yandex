@@ -1,8 +1,9 @@
-import { Link } from 'components/link';
-import { Block } from 'core/dom';
-import { AppRoutes } from 'core/router';
-import { WithRouter } from 'hocs';
-import template from './template';
+import { Link } from "components/link";
+import { Block } from "core/dom";
+import { AppRoutes } from "core/router";
+import { WithRouter } from "hocs";
+
+import template from "./template";
 
 type ErrorPageProps = WithComponentCommonProps<{
   errorCode: number;
@@ -19,9 +20,9 @@ function getErrorPageClass(initProps: ErrorPageProps): TErrorPageClass {
       const children: TComponentChildren = {};
       children.homeButton = new LinkWithRouter({
         props: {
-          label: 'На страницу логина',
-          htmlName: 'error',
-          htmlClasses: ['auth__noaccount'],
+          label: "На страницу логина",
+          htmlName: "error",
+          htmlClasses: ["auth__noaccount"],
           events: {
             click: [
               function () {
@@ -44,11 +45,11 @@ function getErrorPageClass(initProps: ErrorPageProps): TErrorPageClass {
 
 export const NotFoundErrorPage: TErrorPageClass = getErrorPageClass({
   errorCode: 404,
-  errorDescription: 'Page Not Found',
+  errorDescription: "Page Not Found",
 });
 
 export const AuthorizationRequiredErrorPage: TErrorPageClass =
   getErrorPageClass({
     errorCode: 403,
-    errorDescription: 'Authorization Required',
+    errorDescription: "Authorization Required",
   });

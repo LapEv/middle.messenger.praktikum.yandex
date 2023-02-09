@@ -1,5 +1,6 @@
-import { Block } from 'core/dom';
-import templator from './template';
+import { Block } from "core/dom";
+
+import templator from "./template";
 
 type TTextComponentProps = WithComponentCommonProps<{
   text?: string;
@@ -12,7 +13,7 @@ export class TextComponent extends Block<TTextComponentProps> {
   protected _afterPropsAssignHook() {
     super._afterPropsAssignHook();
 
-    this.props.htmlTag ??= 'span';
+    this.props.htmlTag ??= "span";
   }
 
   protected render(): string {

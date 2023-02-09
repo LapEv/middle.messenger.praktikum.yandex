@@ -1,1 +1,1 @@
-export { initApp } from './initApp';
+export { initApp } from "./initApp";

@@ -1,4 +1,4 @@
-import getComponentTemplate from 'utils/components/templateGenerator';
+import getComponentTemplate from "utils/components/templateGenerator";
 
 const content = `
 {{#if text}}

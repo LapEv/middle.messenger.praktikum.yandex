@@ -1,4 +1,4 @@
-import { WithStoreTextComponent } from 'hocs/components';
+import { WithStoreTextComponent } from "hocs/components";
 
 export class ChatText extends WithStoreTextComponent {
   // @ts-ignore 'chatID' is declared but its value is never read
@@ -11,8 +11,8 @@ export class ChatText extends WithStoreTextComponent {
         `${this.chatID}.lastMessage.content`
       );
       this.props = {
-        htmlClasses: ['chat__list__message__last'],
-        text: text,
+        htmlClasses: ["chat__list__message__last"],
+        text,
       };
     };
 

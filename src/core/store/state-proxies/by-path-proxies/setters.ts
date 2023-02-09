@@ -1,4 +1,4 @@
-import { AppPages } from 'pages/appPages';
+import { AppPages } from "pages/appPages";
 
 export function ChatAvatar(chatID: string | number, newAvatar: string) {
   const pageType = this.state.page;
@@ -9,7 +9,7 @@ export function ChatAvatar(chatID: string | number, newAvatar: string) {
   const { page } = this;
   const chatComponent = page.refs[`chat-${chatID}`];
   const { avatarImage } = chatComponent.children;
-  avatarImage.setPropByPath('htmlAttributes.src', newAvatar);
+  avatarImage.setPropByPath("htmlAttributes.src", newAvatar);
 }
 
 export function ChatNewMessage(chatID: string) {

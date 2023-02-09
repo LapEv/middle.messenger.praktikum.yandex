@@ -1,4 +1,4 @@
-import { Store } from 'core/store';
+import { Store } from "core/store";
 
 export function WithStore<
   P extends TComponentCommonProps,

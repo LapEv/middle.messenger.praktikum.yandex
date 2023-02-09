@@ -1,17 +1,18 @@
-import { Block } from 'core/dom';
-import { deepMerge } from 'utils/objects-handle';
-import { Input, TInputProps } from 'components/inputs';
-import { Button, TButtonProps } from 'components/buttons';
-import template from './template';
+import { Button, TButtonProps } from "components/buttons";
+import { Input, TInputProps } from "components/inputs";
+import { Block } from "core/dom";
+import { deepMerge } from "utils/objects-handle";
+
+import template from "./template";
 
 export const enum EnumFileUploadingStatus {
-  FileNotSelected = 'File not selected',
-  FileSelected = 'File selected',
-  FileUploaded = 'File uploaded',
+  FileNotSelected = "File not selected",
+  FileSelected = "File selected",
+  FileUploaded = "File uploaded",
 }
 
 type TFileInputProps = TInputProps & {
-  htmlAttributes: { name: string; type?: 'file'; accept?: string };
+  htmlAttributes: { name: string; type?: "file"; accept?: string };
   events?: {
     change: TEventListener[];
   };
@@ -60,9 +61,9 @@ export class FileInput extends Block {
 
   private static _createFileInput(props: TFileInputProps) {
     const FileInputDefaultProps = {
-      htmlAttributes: { type: 'file', accept: 'image/*' },
+      htmlAttributes: { type: "file", accept: "image/*" },
       htmlStyle: {
-        display: 'none',
+        display: "none",
       },
       events: {
         change: [() => {}],

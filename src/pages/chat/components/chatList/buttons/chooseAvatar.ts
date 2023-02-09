@@ -1,5 +1,5 @@
-import { WithStoreFileInput } from 'hocs/components';
-import { ChatsService } from 'services';
+import { WithStoreFileInput } from "hocs/components";
+import { ChatsService } from "services";
 
 export class AvatarChooseButton extends WithStoreFileInput {
   constructor() {
@@ -18,7 +18,7 @@ export class AvatarChooseButton extends WithStoreFileInput {
       }
       const avatarForm = new FormData(form._unwrappedElement);
       const chatID = window.store.getCurrentChatID();
-      avatarForm.append('chatId', chatID);
+      avatarForm.append("chatId", chatID);
 
       await ChatsService.changeAvatar(avatarForm);
     };
@@ -26,18 +26,18 @@ export class AvatarChooseButton extends WithStoreFileInput {
     super({
       fileInputProps: {
         htmlAttributes: {
-          name: 'avatar',
+          name: "avatar",
         },
         events: {
           change: [onchangeCallback],
         },
       },
       chooseButtonProps: {
-        label: 'choose avatar',
-        htmlClasses: ['chat__settings__item2'],
+        label: "choose avatar",
+        htmlClasses: ["chat__settings__item2"],
       },
       props: {
-        htmlClasses: ['chat__settings__item__avatar'],
+        htmlClasses: ["chat__settings__item__avatar"],
       },
       helpers: {
         afterRenderHook,

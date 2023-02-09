@@ -1,9 +1,9 @@
-import { Button } from 'components/buttons';
-import { type Block } from 'core/dom';
+import { Button } from "components/buttons";
+import { type Block } from "core/dom";
 
 export async function formSubmitButtonCallback() {
   const { form } = this.refs;
-  this.state.apiResponseSuccess = '';
+  this.state.apiResponseSuccess = "";
   form._validateForm();
   if (form.state.apiResponseError !== form.constructor.validationFailedError) {
     await form.props.afterValidationCallback!.call(form);
@@ -15,8 +15,8 @@ export class FormSubmitButton extends Button {
     super({
       refs,
       props: {
-        label: label,
-        htmlClasses: ['buttonAuth'],
+        label,
+        htmlClasses: ["buttonAuth"],
         events: {
           click: [formSubmitButtonCallback],
         },

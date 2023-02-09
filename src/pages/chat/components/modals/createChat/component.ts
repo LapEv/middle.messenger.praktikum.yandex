@@ -1,17 +1,18 @@
-import { Block } from 'core/dom';
-import { Button } from 'components/buttons';
-import { Input } from 'components/inputs';
-import { TextComponent } from 'components/text';
-import { ChatsService } from 'services/chats';
-import { APIResponseHasError } from 'utils/api';
-import template from './template';
-import { Modal } from 'pages/chat/components/modals';
+import { Button } from "components/buttons";
+import { Input } from "components/inputs";
+import { TextComponent } from "components/text";
+import { Block } from "core/dom";
+import { Modal } from "pages/chat/components/modals";
+import { ChatsService } from "services/chats";
+import { APIResponseHasError } from "utils/api";
+
+import template from "./template";
 
 export class CreateChatModal extends Block {
   constructor(componentName: string) {
     const state = {
-      apiResponseSuccess: '',
-      apiResponseError: '',
+      apiResponseSuccess: "",
+      apiResponseError: "",
     };
     const children = {} as TComponentChildren;
 
@@ -41,17 +42,17 @@ export class CreateChatModal extends Block {
       if (APIResponseHasError(response)) {
         this.state.apiResponseError = response.reason;
       } else {
-        this.state.apiResponseSuccess = 'Chat created successfully';
-        this.children.chatTitleInput.setValue('');
-        Modal.toggleVisibility('off');
+        this.state.apiResponseSuccess = "Chat created successfully";
+        this.children.chatTitleInput.setValue("");
+        Modal.toggleVisibility("off");
       }
     }.bind(this);
 
     const submitButton = new Button({
       refs,
       props: {
-        label: 'Create',
-        htmlClasses: ['modal__button'],
+        label: "Create",
+        htmlClasses: ["modal__button"],
         events: {
           click: [
             function () {
@@ -72,8 +73,8 @@ export class CreateChatModal extends Block {
   }
 
   clearAPIResponseStatus() {
-    this.state.apiResponseSuccess = '';
-    this.state.apiResponseError = '';
+    this.state.apiResponseSuccess = "";
+    this.state.apiResponseError = "";
   }
 
   protected render() {
@@ -84,16 +85,16 @@ export class CreateChatModal extends Block {
     return new Input({
       props: {
         htmlAttributes: {
-          placeholder: 'Enter Chat Title',
+          placeholder: "Enter Chat Title",
         },
-        htmlClasses: ['modal__login__input'],
+        htmlClasses: ["modal__login__input"],
       },
     });
   }
 
   private static _createChatTitle() {
     return new TextComponent({
-      props: { text: 'Создать новый чат', htmlClasses: ['modal__title'] },
+      props: { text: "Создать новый чат", htmlClasses: ["modal__title"] },
     });
   }
 }

@@ -1,13 +1,14 @@
-import { WithStoreButton } from 'hocs/components';
-import { isNullish } from 'utils/objects-handle';
-import { AddChatModal } from 'pages/chat/components/modals/addChat';
-import { Modal, EnumModal } from 'pages/chat/components/modals';
+import { WithStoreButton } from "hocs/components";
+import { EnumModal, Modal } from "pages/chat/components/modals";
+import { AddChatModal } from "pages/chat/components/modals/addChat";
+import { isNullish } from "utils/objects-handle";
+
 export class AddChatUsersButton extends WithStoreButton {
   constructor() {
     super({
       props: {
-        label: 'add chat users',
-        htmlClasses: ['chat__settings__item'],
+        label: "add chat users",
+        htmlClasses: ["chat__settings__item"],
         events: {
           click: [
             function () {
@@ -19,7 +20,7 @@ export class AddChatUsersButton extends WithStoreButton {
                 Modal.setContent(new AddChatModal({ chatID, componentName }));
               }
 
-              Modal.toggleVisibility('on');
+              Modal.toggleVisibility("on");
             },
           ],
         },

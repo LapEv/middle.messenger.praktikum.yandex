@@ -1,44 +1,45 @@
-import { TInputWithValidationProps } from 'components/inputs/inputValidation';
-import { EnumInputFields } from './enumInputFields';
-import { FormValidators } from './inputValidators';
+import { TInputWithValidationProps } from "components/inputs/inputValidation";
+
+import { EnumInputFields } from "./enumInputFields";
+import { FormValidators } from "./inputValidators";
 
 export const MapInputFieldToProps: Record<
   EnumInputFields,
   Partial<TInputWithValidationProps>
 > = {
   [EnumInputFields.Email]: {
-    htmlAttributes: { name: 'email' },
+    htmlAttributes: { name: "email" },
     validators: FormValidators[EnumInputFields.Email],
   },
   [EnumInputFields.Login]: {
-    htmlAttributes: { name: 'login' },
+    htmlAttributes: { name: "login" },
     validators: FormValidators[EnumInputFields.Login],
   },
   [EnumInputFields.FirstName]: {
-    htmlAttributes: { name: 'first_name' },
+    htmlAttributes: { name: "first_name" },
     validators: FormValidators[EnumInputFields.FirstName],
   },
   [EnumInputFields.SecondName]: {
-    htmlAttributes: { name: 'second_name' },
+    htmlAttributes: { name: "second_name" },
     validators: FormValidators[EnumInputFields.SecondName],
   },
   [EnumInputFields.DisplayName]: {
-    htmlAttributes: { name: 'display_name' },
+    htmlAttributes: { name: "display_name" },
     validators: FormValidators[EnumInputFields.DisplayName],
   },
   [EnumInputFields.Phone]: {
-    htmlAttributes: { name: 'phone' },
+    htmlAttributes: { name: "phone" },
     validators: FormValidators[EnumInputFields.Phone],
   },
 };
 
 const MapInputFieldToDataType = {
-  [EnumInputFields.Email]: 'email',
-  [EnumInputFields.Login]: 'login',
-  [EnumInputFields.FirstName]: 'first name',
-  [EnumInputFields.SecondName]: 'second name',
-  [EnumInputFields.DisplayName]: 'display name',
-  [EnumInputFields.Phone]: 'phone',
+  [EnumInputFields.Email]: "email",
+  [EnumInputFields.Login]: "login",
+  [EnumInputFields.FirstName]: "first name",
+  [EnumInputFields.SecondName]: "second name",
+  [EnumInputFields.DisplayName]: "display name",
+  [EnumInputFields.Phone]: "phone",
 };
 
 Object.entries(MapInputFieldToProps).forEach(
@@ -46,9 +47,9 @@ Object.entries(MapInputFieldToProps).forEach(
     EnumInputFields,
     Partial<TInputWithValidationProps>
   ]) => {
-    props.htmlClasses = ['profile__data__data'];
+    props.htmlClasses = ["profile__data__data"];
     props.htmlWrapper = {
-      componentAlias: 'wrappedDataInput',
+      componentAlias: "wrappedDataInput",
       htmlWrapperTemplate: `
       <div class="profile__data">
         <span class="profile__data__title"> ${MapInputFieldToDataType[fieldName]} </span>
@@ -68,12 +69,12 @@ export const MapInputFieldToUserDataRecord: Record<
   EnumInputFields,
   Keys<TAppUserData>
 > = {
-  [EnumInputFields.Email]: 'email',
-  [EnumInputFields.Login]: 'login',
-  [EnumInputFields.FirstName]: 'firstName',
-  [EnumInputFields.SecondName]: 'secondName',
-  [EnumInputFields.DisplayName]: 'displayName',
-  [EnumInputFields.Phone]: 'phone',
+  [EnumInputFields.Email]: "email",
+  [EnumInputFields.Login]: "login",
+  [EnumInputFields.FirstName]: "firstName",
+  [EnumInputFields.SecondName]: "secondName",
+  [EnumInputFields.DisplayName]: "displayName",
+  [EnumInputFields.Phone]: "phone",
 };
 
 export const MapInputFieldToHelpers = Object.entries(
@@ -82,13 +83,13 @@ export const MapInputFieldToHelpers = Object.entries(
   acc[fieldName] = {
     beforePropsProxyHook() {
       this.setPropByPath(
-        'htmlAttributes.value',
+        "htmlAttributes.value",
         this.store.getUserDataByPath(recordName)
       );
     },
 
     afterRenderHook() {
-      this.toggleDisabledState('change');
+      this.toggleDisabledState("change");
     },
   };
 

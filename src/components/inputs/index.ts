@@ -1,1 +1,1 @@
-export { type TInputProps, Input } from './basicInput';
+export { Input, type TInputProps } from "./basicInput";

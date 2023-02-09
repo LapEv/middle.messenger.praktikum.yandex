@@ -1,8 +1,9 @@
-import { WithStoreBlock } from 'hocs/components';
-import { ChatSectionHeader } from './headerSection';
-import { MessagesDisplayArea } from './messagesDisplaySection';
-import { MessageInputSection } from './messageInputSection';
-import template from './template';
+import { WithStoreBlock } from "hocs/components";
+
+import { ChatSectionHeader } from "./headerSection";
+import { MessageInputSection } from "./messageInputSection";
+import { MessagesDisplayArea } from "./messagesDisplaySection";
+import template from "./template";
 
 export class ChatsPageMainSection extends WithStoreBlock {
   constructor() {

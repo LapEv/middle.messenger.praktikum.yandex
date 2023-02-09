@@ -1,7 +1,8 @@
-import { type Block } from 'core/dom';
-import { WithStoreBlock } from 'hocs/components';
-import { ChatComponent } from '../chatComponent';
-import template from './template';
+import { type Block } from "core/dom";
+import { WithStoreBlock } from "hocs/components";
+
+import { ChatComponent } from "../chatComponent";
+import template from "./template";
 
 export class ChatsList extends WithStoreBlock {
   protected render() {

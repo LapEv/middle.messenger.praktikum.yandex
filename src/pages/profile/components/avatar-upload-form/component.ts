@@ -1,14 +1,15 @@
-import { Block } from 'core/dom';
-import { type ImageComponent } from 'components/image';
-import { SubmitSection } from './submit-section';
-import { AvatarInput } from './avatar-input';
-import template from './template';
+import { type ImageComponent } from "components/image";
+import { Block } from "core/dom";
+
+import { AvatarInput } from "./avatar-input";
+import { SubmitSection } from "./submit-section";
+import template from "./template";
 
 export class AvatarUploadForm extends Block {
   constructor(profilePageImageRef: ImageComponent) {
     super({
       refs: { profileImage: profilePageImageRef },
-      state: { uploadingStatus: '' },
+      state: { uploadingStatus: "" },
     });
   }
 
@@ -21,10 +22,10 @@ export class AvatarUploadForm extends Block {
     const submitSection = this._createAvatarSubmitSection();
     this.children.submitSection = submitSection;
 
-    const avatarFileInput = avatarInput.getChildByPath('fileInput');
+    const avatarFileInput = avatarInput.getChildByPath("fileInput");
     avatarFileInput.refs.avatarSubmit = submitSection;
 
-    const submitButton = submitSection.getChildByPath('submitButton');
+    const submitButton = submitSection.getChildByPath("submitButton");
     Object.assign(submitButton.refs, {
       avatarInput,
     });

@@ -1,8 +1,9 @@
-import { WithStoreBlock } from 'hocs/components';
-import { ChatFind } from './headerSection/chatFind';
-import { ChatsList } from './chatsList';
-import { HeaderSection } from './headerSection';
-import template from './template';
+import { WithStoreBlock } from "hocs/components";
+
+import { ChatsList } from "./chatsList";
+import { HeaderSection } from "./headerSection";
+import { ChatFind } from "./headerSection/chatFind";
+import template from "./template";
 
 export class ChatsPageNavigationSection extends WithStoreBlock {
   constructor() {

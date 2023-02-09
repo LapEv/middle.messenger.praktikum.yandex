@@ -1,7 +1,7 @@
-import { initApp } from 'services/initApp';
+import "./style.scss";
 
-import './style.scss';
+import { initApp } from "services/initApp";
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   initApp();
 });

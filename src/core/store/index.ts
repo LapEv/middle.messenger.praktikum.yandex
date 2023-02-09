@@ -1,1 +1,1 @@
-export { defaultState, Store } from './store';
+export { defaultState, Store } from "./store";

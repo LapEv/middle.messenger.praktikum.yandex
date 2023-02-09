@@ -1,8 +1,8 @@
-import { RegistrationPage } from 'pages/registration';
-import { LoginPage } from 'pages/login';
-import { ChatPage } from 'pages/chat';
-import { ProfilePage } from 'pages/profile';
-import { TErrorPage, TErrorPageClass } from 'pages/errors';
+import { ChatPage } from "pages/chat";
+import { TErrorPage, TErrorPageClass } from "pages/errors";
+import { LoginPage } from "pages/login";
+import { ProfilePage } from "pages/profile";
+import { RegistrationPage } from "pages/registration";
 
 declare global {
   export type TAppPage =

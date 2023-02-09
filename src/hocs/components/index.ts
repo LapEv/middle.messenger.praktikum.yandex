@@ -1,13 +1,14 @@
-import { Block } from 'core/dom';
-import { Link } from 'components/link';
-import { TextComponent } from 'components/text';
-import { ImageComponent } from 'components/image';
-import { Button } from 'components/buttons';
-import { Input } from 'components/inputs';
-import { InputWithValidation } from 'components/inputs/inputValidation';
-import { FileInput } from 'components/inputs/fileInput';
-import { WithStore } from '../withStore';
-import { WithRouter } from '../withRouter';
+import { Button } from "components/buttons";
+import { ImageComponent } from "components/image";
+import { Input } from "components/inputs";
+import { FileInput } from "components/inputs/fileInput";
+import { InputWithValidation } from "components/inputs/inputValidation";
+import { Link } from "components/link";
+import { TextComponent } from "components/text";
+import { Block } from "core/dom";
+
+import { WithRouter } from "../withRouter";
+import { WithStore } from "../withStore";
 
 export const WithStoreBlock = WithStore(Block);
 export const WithStoreButton = WithStore(Button) as any as typeof Button;

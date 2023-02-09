@@ -1,7 +1,8 @@
-import { Button } from 'components/buttons';
-import { Block } from 'core/dom';
-import template from './template';
-import close from 'static/img/close.png';
+import { Button } from "components/buttons";
+import { Block } from "core/dom";
+import close from "static/img/close.png";
+
+import template from "./template";
 
 export class Modal extends Block {
   private contentType: string;
@@ -9,7 +10,7 @@ export class Modal extends Block {
   protected _afterPropsAssignHook(): void {
     super._afterPropsAssignHook();
 
-    this.contentType = '';
+    this.contentType = "";
     this.children.content = new Block();
     this.children.closeButton = this._createCloseButton();
   }
@@ -21,9 +22,9 @@ export class Modal extends Block {
       },
       props: {
         htmlStyle: {
-          'background-image': close,
+          "background-image": close,
         },
-        htmlClasses: ['modal__closeButton'],
+        htmlClasses: ["modal__closeButton"],
         events: {
           click: [
             function () {
@@ -46,12 +47,12 @@ export class Modal extends Block {
   public setContent(newContentBlock: Block) {
     const oldContentType = this.contentType;
     const newContentType = newContentBlock.componentName;
-    // console.log(`MODAL CONTENT: ${oldContentType} -> ${newContentType}`);
+    console.log(`MODAL CONTENT: ${oldContentType} -> ${newContentType}`); // eslint-disable-line no-console
 
-    this.setChildByPath('content', newContentBlock);
+    this.setChildByPath("content", newContentBlock);
   }
 
-  toggleVisibility(state?: Nullable<'on' | 'off'>) {
-    this.toggleHtmlClass('modal__show', state);
+  toggleVisibility(state?: Nullable<"on" | "off">) {
+    this.toggleHtmlClass("modal__show", state);
   }
 }

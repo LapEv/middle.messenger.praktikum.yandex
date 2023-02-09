@@ -1,2 +1,2 @@
-export { InputForm } from './component';
-export { formSubmitButtonCallback } from './submitButton';
+export { InputForm } from "./component";
+export { formSubmitButtonCallback } from "./submitButton";

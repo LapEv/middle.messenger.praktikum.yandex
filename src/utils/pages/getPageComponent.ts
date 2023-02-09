@@ -1,12 +1,12 @@
-import { RegistrationPage } from 'pages/registration';
-import { LoginPage } from 'pages/login';
-import { ChatPage } from 'pages/chat';
-import { ProfilePage } from 'pages/profile';
-import { AppPages } from 'pages/appPages';
+import { AppPages } from "pages/appPages";
+import { ChatPage } from "pages/chat";
 import {
-  NotFoundErrorPage,
   AuthorizationRequiredErrorPage,
-} from 'pages/errors';
+  NotFoundErrorPage,
+} from "pages/errors";
+import { LoginPage } from "pages/login";
+import { ProfilePage } from "pages/profile";
+import { RegistrationPage } from "pages/registration";
 
 const map = {
   [AppPages.Registration]: RegistrationPage,

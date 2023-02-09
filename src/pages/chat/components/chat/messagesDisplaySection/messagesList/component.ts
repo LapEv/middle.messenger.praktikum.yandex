@@ -1,5 +1,6 @@
 import { WithStoreBlock } from "hocs/components";
 import { isNullish } from "utils/objects-handle";
+
 import { MessageComponent } from "../message";
 import template from "./template";
 

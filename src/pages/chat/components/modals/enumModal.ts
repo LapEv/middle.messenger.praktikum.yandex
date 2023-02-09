@@ -1,4 +1,4 @@
 export const enum EnumModal {
-  CreateChat = 'CreateChatModal',
-  AddUsers = 'AddChatUsersModal',
+  CreateChat = "CreateChatModal",
+  AddUsers = "AddChatUsersModal",
 }

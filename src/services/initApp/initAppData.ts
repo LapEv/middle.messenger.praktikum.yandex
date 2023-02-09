@@ -1,6 +1,6 @@
-import { ChatsService } from 'services/chats';
-import { ProfileService } from 'services/profile';
-import { SocketsCreator } from 'services/sockets';
+import { ChatsService } from "services/chats";
+import { ProfileService } from "services/profile";
+import { SocketsCreator } from "services/sockets";
 
 async function getAllChatsAllMessages() {
   const chatsSockets = window.store.getSocketByChatID() as TAppChatsSockets;

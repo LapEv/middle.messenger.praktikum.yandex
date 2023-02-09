@@ -1,5 +1,6 @@
-import { Block } from 'core/dom';
-import template from './template';
+import { Block } from "core/dom";
+
+import template from "./template";
 
 export type TLinkProps = WithComponentCommonProps<{
   label: string;
@@ -13,7 +14,7 @@ export class Link extends Block<TLinkProps> {
     super._afterPropsAssignHook();
 
     //  eslint-disable-next-line no-script-url
-    this.props.htmlAttributes!.href ??= 'javascript:void(0);';
+    this.props.htmlAttributes!.href ??= "javascript:void(0);";
   }
 
   protected render(): string {

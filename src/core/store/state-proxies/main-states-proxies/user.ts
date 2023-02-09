@@ -1,5 +1,5 @@
-import { AppPages } from 'pages/appPages';
-import { isNullish, isObject } from 'utils/objects-handle';
+import { AppPages } from "pages/appPages";
+import { isNullish, isObject } from "utils/objects-handle";
 
 export function userSetter(
   oldValue: Nullable<TAppUserData>,

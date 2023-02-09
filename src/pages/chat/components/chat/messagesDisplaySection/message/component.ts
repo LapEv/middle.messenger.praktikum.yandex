@@ -1,6 +1,7 @@
-import { TextComponent } from 'components/text';
-import { Block } from 'core/dom';
-import template from './template';
+import { TextComponent } from "components/text";
+import { Block } from "core/dom";
+
+import template from "./template";
 
 type TMessageComponentProps = WithComponentCommonProps<{
   content: string;
@@ -11,7 +12,7 @@ export class MessageComponent extends Block<TMessageComponentProps> {
     const children = {} as TComponentChildren;
 
     children.content = new TextComponent({
-      props: { text: message, htmlClasses: ['chat__body__message__text'] },
+      props: { text: message, htmlClasses: ["chat__body__message__text"] },
     });
 
     super({ children });

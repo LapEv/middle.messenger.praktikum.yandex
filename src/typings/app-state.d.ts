@@ -1,7 +1,7 @@
-import { EnumAppPages } from 'pages';
-import { type Store } from 'core/store';
-import { type ChatMessagesHandler } from 'services/sockets';
-import { PathRouter } from 'core/router/path-router';
+import { PathRouter } from "core/router/path-router";
+import { type Store } from "core/store";
+import { EnumAppPages } from "pages";
+import { type ChatMessagesHandler } from "services/sockets";
 
 declare global {
   interface Window {

@@ -47,7 +47,7 @@ type THttpMethod = (
 ) => Promise<any>;
 
 class HTTPTransport {
-  baseURL: string = "";
+  baseURL = "";
 
   constructor({ baseURL }: { baseURL: string }) {
     this.baseURL = baseURL;

@@ -1,1 +1,1 @@
-export { FileInput, EnumFileUploadingStatus } from "./component";
+export { EnumFileUploadingStatus, FileInput } from "./component";

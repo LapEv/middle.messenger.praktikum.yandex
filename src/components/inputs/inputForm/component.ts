@@ -1,17 +1,18 @@
-import { Block } from 'core/dom';
-import { InputWithValidation } from '../inputValidation';
-import { type Input, TInputProps } from '../basicInput';
-import { FormSubmitButton } from './submitButton';
-import template from './template';
-import { WithRouter } from 'hocs';
-import { Link } from 'components/link';
-import loginData from 'pages/login/loginData';
-import { AppRoutes } from 'core/router';
-import regData from 'pages/registration/registrationData';
+import { Link } from "components/link";
+import { Block } from "core/dom";
+import { AppRoutes } from "core/router";
+import { WithRouter } from "hocs";
+import loginData from "pages/login/loginData";
+import regData from "pages/registration/registrationData";
+
+import { type Input, TInputProps } from "../basicInput";
+import { InputWithValidation } from "../inputValidation";
+import { FormSubmitButton } from "./submitButton";
+import template from "./template";
 
 type TInputFormProps = WithComponentCommonProps<{
   formTitle?: string;
-  isSubmitButtonNeeded?: Boolean;
+  isSubmitButtonNeeded?: boolean;
   afterValidationCallback?: () => void;
   type?: string;
   label?: string;
@@ -32,7 +33,7 @@ export class InputForm<
     enumInputFieldsNames: TEnumInputFiledsNames;
   };
 
-  static readonly validationFailedError = 'Form has input errors';
+  static readonly validationFailedError = "Form has input errors";
 
   constructor({
     enumInputFieldsNames,
@@ -64,14 +65,14 @@ export class InputForm<
     });
 
     const state = {
-      apiResponseError: '',
-      apiResponseSuccess: '',
+      apiResponseError: "",
+      apiResponseSuccess: "",
     };
 
     super({
       children,
       props: {
-        formTitle: '',
+        formTitle: "",
         isSubmitButtonNeeded: true,
         afterValidationCallback: () => {},
         ...props,
@@ -112,7 +113,7 @@ export class InputForm<
     if (!this.props.type) return;
 
     this.children.link =
-      this.props.type === 'login'
+      this.props.type === "login"
         ? new LinkWithRouter({
             props: {
               label: loginData.link.name,
@@ -166,7 +167,7 @@ export class InputForm<
       // console.log(`Form has input errors: ${JSON.stringify(this.state)}`);
       this.state.apiResponseError = InputForm.validationFailedError;
     } else {
-      this.state.apiResponseError = '';
+      this.state.apiResponseError = "";
     }
   }
 

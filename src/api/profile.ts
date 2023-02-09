@@ -1,13 +1,13 @@
-import request from './HTTPTransport';
+import request from "./HTTPTransport";
 
 class ProfileAPIClass {
   changeProfile(data: TProfileChangeDTO) {
-    return request.put('user/profile', { data });
+    return request.put("user/profile", { data });
   }
 
   changeAvatar(data: FormData) {
-    return request.put('user/profile/avatar', {
-      headers: { 'Content-Type': 'multipart/form-data' },
+    return request.put("user/profile/avatar", {
+      headers: { "Content-Type": "multipart/form-data" },
       data,
     });
   }

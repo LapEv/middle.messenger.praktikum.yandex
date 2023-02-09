@@ -1,4 +1,4 @@
-import Component from './dom/сomponent';
+import Component from "./dom/сomponent";
 
 export const renderDOM = (
   component: Component<Record<string, unknown>>,
@@ -6,7 +6,7 @@ export const renderDOM = (
 ) => {
   const rootElement = document.querySelector(elementId);
   if (rootElement) {
-    rootElement.innerHTML = '';
+    rootElement.innerHTML = "";
     const content = component.getContent();
     if (content) {
       rootElement.appendChild(content);

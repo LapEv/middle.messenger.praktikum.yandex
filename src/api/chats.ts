@@ -1,16 +1,16 @@
-import request from './HTTPTransport';
+import request from "./HTTPTransport";
 
 class ChatsAPIClass {
   getChats() {
-    return request.get('chats');
+    return request.get("chats");
   }
 
   createChat(data: TCreateChatDTO) {
-    return request.post('chats', { data });
+    return request.post("chats", { data });
   }
 
   deleteChat(data: TDeleteChatDTO) {
-    return request.delete('chats', { data });
+    return request.delete("chats", { data });
   }
 
   getChatUsers(chatID: string) {
@@ -22,12 +22,12 @@ class ChatsAPIClass {
   }
 
   addUsersToChat(data: TAddChatUsersDTO) {
-    return request.put('chats/users', { data });
+    return request.put("chats/users", { data });
   }
 
   changeAvatar(data: FormData) {
-    return request.put('chats/avatar', {
-      headers: { 'Content-Type': 'multipart/form-data' },
+    return request.put("chats/avatar", {
+      headers: { "Content-Type": "multipart/form-data" },
       data,
     });
   }

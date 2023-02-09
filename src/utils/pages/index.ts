@@ -1,1 +1,1 @@
-export { getPageComponent } from './getPageComponent';
+export { getPageComponent } from "./getPageComponent";

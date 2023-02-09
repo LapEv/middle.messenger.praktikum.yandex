@@ -1,5 +1,5 @@
-export { SignUpAPI } from './signup';
-export { AuthorizationAPI } from './authorization';
-export { ProfileAPI } from './profile';
-export { ChatsAPI } from './chats';
-export { baseURL } from './HTTPTransport';
+export { AuthorizationAPI } from "./authorization";
+export { ChatsAPI } from "./chats";
+export { baseURL } from "./HTTPTransport";
+export { ProfileAPI } from "./profile";
+export { SignUpAPI } from "./signup";

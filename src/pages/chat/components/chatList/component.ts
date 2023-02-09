@@ -1,7 +1,8 @@
-import { LogoutButton } from 'components/buttons/logout-button';
-import { Block } from 'core/dom';
-import * as Buttons from './buttons';
-import template from './template';
+import { LogoutButton } from "components/buttons/logout-button";
+import { Block } from "core/dom";
+
+import * as Buttons from "./buttons";
+import template from "./template";
 
 export class ChatListPage extends Block {
   constructor() {
@@ -14,7 +15,7 @@ export class ChatListPage extends Block {
     children.avatarChooseButton = new Buttons.AvatarChooseButton();
     children.exitLink = new LogoutButton();
 
-    super({ props: { htmlStyle: { display: 'none' } }, children });
+    super({ props: { htmlStyle: { display: "none" } }, children });
   }
 
   protected _afterPropsAssignHook() {

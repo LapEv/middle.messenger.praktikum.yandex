@@ -1,10 +1,11 @@
-import Handlebars from 'handlebars';
-import { nanoid } from 'nanoid';
-import { deepMerge } from 'utils/objects-handle';
-import { type Store } from 'core/store';
-import { type Router } from 'core/router';
-import { getDescendantByPath } from 'utils/pages/getDescendantByPath';
-import BlockBase, { BlockCommonEvents } from './block-base';
+import { type Router } from "core/router";
+import { type Store } from "core/store";
+import Handlebars from "handlebars";
+import { nanoid } from "nanoid";
+import { deepMerge } from "utils/objects-handle";
+import { getDescendantByPath } from "utils/pages/getDescendantByPath";
+
+import BlockBase, { BlockCommonEvents } from "./block-base";
 
 export type ComponentConstructable<T extends Record<string, unknown>> = {
   new (props: T): Block<T>;
@@ -27,7 +28,7 @@ export class Block<
 
   public store?: Store;
 
-  private wasRendered: Boolean = false;
+  private wasRendered = false;
 
   protected wrappedId?: string;
 
@@ -114,7 +115,7 @@ export class Block<
   protected _beforeRenderHook() {}
 
   private _compile(): DocumentFragment {
-    const fragment = document.createElement('template') as HTMLTemplateElement;
+    const fragment = document.createElement("template") as HTMLTemplateElement;
 
     const childrenStubs = this._makeStubs();
 
@@ -142,9 +143,7 @@ export class Block<
     return fragment.content;
   }
 
-  public getChildByPath<TChild = TComponentChild>(
-    pathString: string = ''
-  ): TChild {
+  public getChildByPath<TChild = TComponentChild>(pathString = ""): TChild {
     return getDescendantByPath<TChild>(this.children, pathString);
   }
 
@@ -174,7 +173,7 @@ export class Block<
       if (Array.isArray(child)) {
         stubs[name] = child
           .map((ch) => `<div data-id="${ch.id}"></div>`)
-          .join('');
+          .join("");
       } else {
         stubs[name] = `<div data-id="${child.id}"></div>`;
       }
@@ -263,7 +262,7 @@ export class Block<
   private _setElementStyle() {
     Object.entries(this.props.htmlStyle!).forEach(([styleProp, value]) => {
       let propValue = value;
-      if (styleProp === 'background-image') {
+      if (styleProp === "background-image") {
         propValue = `url(${value})`;
       }
 
@@ -275,7 +274,7 @@ export class Block<
     this._setHtmlClasses();
     this._setHtmlAttributes();
     this._setElementStyle();
-    this._unwrappedElement!.removeAttribute('wrapped-id');
+    this._unwrappedElement!.removeAttribute("wrapped-id");
   }
 
   private _setHtmlClasses() {
