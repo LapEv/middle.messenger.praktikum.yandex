@@ -4,7 +4,7 @@ describe("Subscribe to eventBus events", () => {
   test("Skip the event and listen for the event to be triggered", () => {
     const eventBus = new EventBus();
     return new Promise((resolve, reject) => {
-      const timeOut = setTimeout(() => reject("Rejected"), 1000);
+      const timeOut = setTimeout(() => reject(new TypeError("Rejected")), 1000);
       eventBus.on("eventName", () => {
         clearTimeout(timeOut);
         resolve("Event started");
@@ -17,7 +17,10 @@ describe("Subscribe to eventBus events", () => {
   test("Destroy all events, skip the event and listen that the event was not received", () => {
     const eventBus = new EventBus();
     return new Promise((resolve, reject) => {
-      const timeOut = setTimeout(() => reject("Event not started"), 500);
+      const timeOut = setTimeout(
+        () => reject(new TypeError("Event not started")),
+        500
+      );
       eventBus.on("eventName", () => {
         clearTimeout(timeOut);
         resolve("Event started");

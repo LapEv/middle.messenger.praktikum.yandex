@@ -2,7 +2,7 @@ import { ImageComponent } from "components/image";
 import { Input } from "components/inputs";
 import { Block } from "core/dom";
 import { AppRoutes } from "core/router";
-import { WithStore, WithRouter } from "hocs";
+import { WithRouter, WithStore } from "hocs";
 import arrowBackImage from "static/img/arrowBack.png";
 import avatarImagePlaceholder from "static/img/profile_avatar.png";
 

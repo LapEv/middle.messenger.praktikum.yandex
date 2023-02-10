@@ -15,7 +15,7 @@
   "scripts": {
     "lint": "npm-run-all lint:*",
     "lint:js": "npx eslint src --fix",
-    "lint:css": "npx stylelint '**/*.scss' --fix",
+    "lint:css": "npx stylelint src/**/*.scss --fix",
     "prepare": "npx husky install",
     "dev": "cross-env NODE_ENV=development webpack --mode development",
     "dev-start": "cross-env NODE_ENV=development webpack-dev-server --mode development --open",

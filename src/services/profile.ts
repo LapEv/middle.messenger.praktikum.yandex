@@ -49,16 +49,31 @@ class ProfileServiceClass {
     avatarFormData: FormData,
     afterRequestCallback?: TAfterRequestCallback
   ) {
+    let status;
     let response;
 
     try {
       const request = await ProfileAPI.changeAvatar(avatarFormData);
+      status = request.status;
       response = request.response;
+
+      /* eslint-disable no-console */
+      console.log(
+        `CHANGE AVATAR REQUEST: status ${status}; response: ${JSON.stringify(
+          response
+        )}`
+      );
+      /* eslint-enable no-console */
 
       if (afterRequestCallback) {
         await afterRequestCallback(response);
       }
     } catch (error) {
+      /* eslint-disable no-console */
+      console.error(
+        `PROFILE CHANGE AVATAR REQUEST GET REQUEST ERROR: ${error}`
+      );
+      /* eslint-enable no-console */
       throw error;
     }
 

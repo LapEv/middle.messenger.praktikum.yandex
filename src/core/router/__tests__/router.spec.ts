@@ -76,8 +76,8 @@ describe("Router", () => {
     ROUTES.forEach((route) => {
       router.use(route.path, () => {
         if (currentScreen !== route.component) {
-          const pageComponent = getScreenComponent(route.component);
-          currentComponent = new pageComponent({});
+          const PageComponent = getScreenComponent(route.component);
+          currentComponent = new PageComponent({});
           currentScreen = route.component;
         }
       });

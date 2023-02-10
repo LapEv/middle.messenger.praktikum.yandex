@@ -1,5 +1,5 @@
 import { ChatPage } from "pages/chat";
-import { TErrorPage, TErrorPageClass } from "pages/errors";
+import { TErrorPageClass } from "pages/errors";
 import { LoginPage } from "pages/login";
 import { ProfilePage } from "pages/profile";
 import { RegistrationPage } from "pages/registration";

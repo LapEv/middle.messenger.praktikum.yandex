@@ -12,6 +12,7 @@ export default function cloneDeep<T extends object = object>(obj: T) {
     // * string
     // * symbol
     // * function
+    /* eslint no-return-assign: "error" */
     if (item === null || typeof item !== "object") {
       return item;
     }
@@ -26,7 +27,6 @@ export default function cloneDeep<T extends object = object>(obj: T) {
     // * Array
     if (item instanceof Array) {
       const copy: unknown[] = [];
-
       item.forEach((_, i) => {
         return (copy[i] = clonesDeep(item[i]));
       });
@@ -67,13 +67,15 @@ export default function cloneDeep<T extends object = object>(obj: T) {
 
       // Handle:
       // * Object.symbol
-      Object.getOwnPropertySymbols(item).forEach(
-        (s) => (copy[s] = clonesDeep(item[s]))
-      );
+      Object.getOwnPropertySymbols(item).forEach((s) => {
+        return (copy[s] = clonesDeep(item[s]));
+      });
 
       // Handle:
       // * Object.name (other)
-      Object.keys(item).forEach((k) => (copy[k] = clonesDeep(item[k])));
+      Object.keys(item).forEach((k) => {
+        return (copy[k] = clonesDeep(item[k]));
+      });
 
       return copy;
     }

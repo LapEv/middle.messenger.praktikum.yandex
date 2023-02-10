@@ -37,7 +37,8 @@ export class Routers {
       if (hasIdParameter) {
         const routeWithoutIdParameter = routePath.replace(":id", "");
         const possibleIdParameter = parseInt(
-          pathname.replace(routeWithoutIdParameter, "")
+          pathname.replace(routeWithoutIdParameter, ""),
+          10
         );
         if (possibleIdParameter > 0) {
           callback({ idParam: Number(possibleIdParameter) });

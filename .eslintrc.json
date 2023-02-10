@@ -55,6 +55,12 @@
         "no-plusplus": "off",
         "max-classes-per-file": "off",
         "func-names": "off"
+      },
+      "settings": {
+        "react": {
+          "pragma": "React",
+          "version": "detect"
+        }
       }
     }
   ]
